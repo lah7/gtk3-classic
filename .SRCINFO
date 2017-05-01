@@ -1,7 +1,7 @@
 pkgbase = gtk3-mushrooms
-	pkgdesc = GTK3 library with my modifications (see README)
+	pkgdesc = GTK3 library with my modifications (see README).
 	pkgver = 3.22.12
-	pkgrel = 1
+	pkgrel = 2
 	url = http://www.gtk.org/
 	install = gtk3.install
 	arch = i686
