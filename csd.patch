@@ -1,0 +1,108 @@
+diff -U 5 -r -Z -B ./org/gtk/gtkheaderbar.c ./mod/gtk/gtkheaderbar.c
+--- ./org/gtk/gtkheaderbar.c	2017-05-10 20:57:00.000000000 +0200
++++ ./mod/gtk/gtkheaderbar.c	2017-05-11 18:54:47.870268717 +0200
+@@ -264,10 +264,11 @@
+ }
+ 
+ void
+ _gtk_header_bar_update_window_buttons (GtkHeaderBar *bar)
+ {
++  return;
+   GtkHeaderBarPrivate *priv = gtk_header_bar_get_instance_private (bar);
+   GtkWidget *widget = GTK_WIDGET (bar), *toplevel;
+   GtkWindow *window;
+   GtkTextDirection direction;
+   gchar *layout_desc;
+@@ -1282,12 +1283,11 @@
+   g_free (priv->title);
+   priv->title = new_title;
+ 
+   if (priv->title_label != NULL)
+     {
+-      gtk_label_set_label (GTK_LABEL (priv->title_label), priv->title);
+-      gtk_widget_queue_resize (GTK_WIDGET (bar));
++      gtk_widget_set_visible (GTK_WIDGET (priv->title_label), FALSE);
+     }
+ 
+   g_object_notify_by_pspec (G_OBJECT (bar), header_bar_props[PROP_TITLE]);
+ }
+ 
+diff -U 5 -r -Z -B ./org/gtk/gtkstylecontext.h ./mod/gtk/gtkstylecontext.h
+--- ./org/gtk/gtkstylecontext.h	2017-05-10 20:57:00.000000000 +0200
++++ ./mod/gtk/gtkstylecontext.h	2017-05-11 18:55:14.410270032 +0200
+@@ -816,11 +816,11 @@
+  *
+  * Refer to individual widget documentation for used style classes.
+  *
+  * Since: 3.14
+  */
+-#define GTK_STYLE_CLASS_SUBTITLE "subtitle"
++#define GTK_STYLE_CLASS_SUBTITLE "title"
+ 
+ /**
+  * GTK_STYLE_CLASS_NEEDS_ATTENTION:
+  *
+  * A CSS class used when an element needs the user attention,
+diff -U 5 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
+--- ./org/gtk/gtkwindow.c	2017-05-10 20:57:00.000000000 +0200
++++ ./mod/gtk/gtkwindow.c	2017-05-11 18:57:30.303610098 +0200
+@@ -4118,10 +4118,11 @@
+ }
+ 
+ static void
+ gtk_window_enable_csd (GtkWindow *window)
+ {
++  return;
+   GtkWindowPrivate *priv = window->priv;
+   GtkWidget *widget = GTK_WIDGET (window);
+   GdkVisual *visual;
+ 
+   /* We need a visual with alpha for client shadows */
+@@ -6065,10 +6066,11 @@
+ }
+ 
+ static gboolean
+ gtk_window_should_use_csd (GtkWindow *window)
+ {
++  return FALSE;
+   GtkWindowPrivate *priv = window->priv;
+   const gchar *csd_env;
+ 
+   if (priv->csd_requested)
+     return TRUE;
+@@ -8999,17 +9001,21 @@
+   state = gtk_window_get_state (window);
+ 
+   iconified = (state & GDK_WINDOW_STATE_ICONIFIED) == GDK_WINDOW_STATE_ICONIFIED;
+   maximized = priv->maximized && !iconified;
+ 
+-  priv->popup_menu = gtk_menu_new ();
++  if ( !priv->application || !gtk_application_get_app_menu(priv->application) )
++    return;
++  priv->popup_menu = gtk_menu_new_from_model (gtk_application_get_app_menu(priv->application));
+   gtk_style_context_add_class (gtk_widget_get_style_context (priv->popup_menu),
+                                GTK_STYLE_CLASS_CONTEXT_MENU);
+ 
+   gtk_menu_attach_to_widget (GTK_MENU (priv->popup_menu),
+                              GTK_WIDGET (window),
+                              popup_menu_detach);
++  gtk_menu_popup_at_pointer (GTK_MENU (priv->popup_menu), (GdkEvent *) event);
++  return;
+ 
+   menuitem = gtk_menu_item_new_with_label (_("Restore"));
+   gtk_widget_show (menuitem);
+   /* "Restore" means "Unmaximize" or "Unminimize"
+    * (yes, some WMs allow window menu to be shown for minimized windows).
+@@ -9091,11 +9097,11 @@
+ 
+ static void
+ gtk_window_do_popup (GtkWindow      *window,
+                      GdkEventButton *event)
+ {
+-  if (!gdk_window_show_window_menu (_gtk_widget_get_window (GTK_WIDGET (window)),
++  if (TRUE || !gdk_window_show_window_menu (_gtk_widget_get_window (GTK_WIDGET (window)),
+                                     (GdkEvent *) event))
+     gtk_window_do_popup_fallback (window, event);
+ }
+ 
+ /*********************************

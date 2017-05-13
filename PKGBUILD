@@ -1,10 +1,11 @@
 # Maintainer: Tomasz Gąsior <tomaszgasior.pl>
-# PKGBUILD based on https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
+# This file is based on original PKGBUILD of GTK3 package. 
+# https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
 pkgname=gtk3-mushrooms
-pkgver=3.22.12
-pkgrel=2
+pkgver=3.22.15
+pkgrel=1
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 install=gtk3.install
@@ -25,66 +26,45 @@ makedepends=(
 	gobject-introspection libcanberra gtk-doc git colord rest libcups glib2-docs
 )
 source=(
-	"csd__appmenu-as-context-menu.patch"
-	"csd__hide-appmenu.patch"
-	"csd__hide-close-button.patch"
-	"csd__permanently-disable.patch"
-	"file-chooser__disable-other-locations.patch"
-	"file-chooser__hide-xdg-dirs.patch"
-	"file-chooser__single-click.patch"
-	"general__always-show-scrollbars.patch"
-	"print-dialog__appearance.patch"
-	"print-dialog__default-previewer.patch"
+	"csd.patch"
+	"file-chooser.patch"
+	"print-dialog.patch"
+	"general.patch"
+	"smaller-adwaita.css"
 
-	"https://github.com/GNOME/gtk/archive/$pkgver.tar.gz"
-	settings.ini
-	gtk-query-immodules-3.0.hook
+	"https://github.com/GNOME/gtk/archive/$pkgver.zip"
+	"settings.ini"
+	"gtk-query-immodules-3.0.hook"
 )
 sha256sums=(
-	"d8214e11bfcee96552ce5911b1d172ce8076313685d5897f9bd0655df546341b"
-	"2251f75f3fd8af92f71e7d31d616303e18596e37a59e293748521972ef185578"
-	"a4015d73585d97dc80f7b01cfc6960fd94e570d7abe3105aff7aed139b6513be"
-	"676cff1d71c13600f4c0fba082cb6aba93e8c570063779a745851275d8a287c7"
-	"3e91bb31dc3a34d9cd8388ee97d450ddb22c2ef74a75d9b3f0226ed7850755c7"
-	"506a214562144912afc14d52b20a676c3ca0d34232c8db60e3b24f7ab22cb6cb"
-	"d3b0905b9f76afbe236f9c7091a2957d25e112abf9100707c48c948d6ddaf5e5"
-	"3bfe58be30338daa30a9eacba82420ca4df6f8f5b5b2d0df5b9a77b018ab0cec"
-	"f14cd9983ada3fab3f22ce6ef7fcdd6afb9253f0bf5b9de20255fe0e8c56d685"
-	"886f9ca521285974617eff66e5060b429c4be56b205444e457b6bfdd24f60ca4"
+	"0578c66a82b72dedf2fb5bc9c34c7218f73e40d32aa080ecdc5d4d545434df8a"
+	"cf284c35f6726a9d742bd701dde7541072021b0a02e0edf3dfac0ffce9304b41"
+	"77754d974a35797aae3c3513bf2a350ea207f8e8c5e02d4a2edbd162a3289e5a"
+	"d551b4d0710f680374298756171ecc2d6047e0660fd575de4e69cfbb2a19cd3d"
+	"1784e29ce5b811ed8673a29a89903751abb8bf68b3793f2e635c99851c165245"
 
-	"bec9108c4892041988635f7e276724828b17a0522b211c190530a1f76f88cbae"
+	"c3ab786779a6a74765a56e31aaa0fe9123feee222185f0c3ae94acfb2e61a0dd"
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
 	"de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845"
 )
 
 prepare() {
-	gtk_source="$srcdir/gtk-$pkgver/gtk"
+	cd "$srcdir/gtk-$pkgver/gtk"
+	
+	patch -p 3 -i "$srcdir/csd.patch"
+	patch -p 3 -i "$srcdir/file-chooser.patch"
+	patch -p 3 -i "$srcdir/print-dialog.patch"
+	patch -p 3 -i "$srcdir/general.patch"
+	
+	cat "$srcdir/smaller-adwaita.css" >> "theme/Adwaita/gtk.css"
+	cat "$srcdir/smaller-adwaita.css" >> "theme/Adwaita/gtk-dark.css"
 
-	# csd
-	patch "$gtk_source/gtkheaderbar.c" "csd__hide-appmenu.patch"
-	patch "$gtk_source/gtkheaderbar.c" "csd__hide-close-button.patch"
-	patch "$gtk_source/gtkwindow.c" "csd__permanently-disable.patch"
-	patch "$gtk_source/gtkwindow.c" "csd__appmenu-as-context-menu.patch"
-
-	# file chooser
-	patch "$gtk_source/gtkplacessidebar.c" "file-chooser__hide-xdg-dirs.patch"
-	patch "$gtk_source/gtkfilechooserwidget.c" "file-chooser__single-click.patch"
-	patch "$gtk_source/ui/gtkfilechooserwidget.ui" "file-chooser__disable-other-locations.patch"
-
-	# print dialog
-	patch "$gtk_source/gtksettings.c" "print-dialog__default-previewer.patch"
-	patch "$gtk_source/ui/gtkprintunixdialog.ui" "print-dialog__appearance.patch"
-
-	# general
-	patch "$gtk_source/gtkscrolledwindow.c" "general__always-show-scrollbars.patch"
-
-
-	cd "gtk-$pkgver"
+	cd "$srcdir/gtk-$pkgver"
 	NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
-	cd "gtk-$pkgver"
+	cd "$srcdir/gtk-$pkgver"
 
 	CXX=/bin/false ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
 		--disable-schemas-compile --enable-x11-backend --enable-wayland-backend
@@ -96,7 +76,7 @@ build() {
 }
 
 package() {
-	cd "gtk-$pkgver"
+	cd "$srcdir/gtk-$pkgver"
 
 	make DESTDIR="$pkgdir" install
 	install -Dm644 ../settings.ini "$pkgdir/usr/share/gtk-3.0/settings.ini"
