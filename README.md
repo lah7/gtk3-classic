@@ -1,4 +1,4 @@
-GTK3-mushrooms
+﻿GTK3-mushrooms
 ===
 
 This is a set of patches for GTK3 library that makes it better for me and maybe for you too. ;-)
@@ -6,31 +6,35 @@ It is based on official GTK3 package from Arch Linux (but compiles GTK3 without 
 I have not wide knowledge about programming in C, so quality of this patches can be not good.
 But it works! See list of patches below.
 
-CSD
+Client Side Decorations
 ---
 
-* Totally and permanently disables CSD. All windows are decorated only by window manager.
-* Removes minimize/maximize/close buttons from headerbar.
-* Removes application menu button from headerbar.
-* Makes application menu accessible as context menu of headerbar.
+* CSDs are permanently and totally disabled. All windows are decorated only by window manager.
+* Application menu button and minimize/maximize/close buttons are removed.
+* Application menu is accessible as context menu of headerbar.
+* Window title is not displayed on headerbar. Window subtitle is styled as window title.
 
 File chooser
 ---
 
-* Removes "Other locations" button from places bar and shows all mounted devices and drives directly.
-* Disables very annoying single-click "feature" in file list. See: https://bugzilla.gnome.org/show_bug.cgi?id=766089
-* Removes XDG user directories (like Pictures, Downloads, Documents) from places sidebar. They can be added as bookmarks.
+* "Other locations" button is removed from places sidebar. All mounted devices and drives are accessible directly.
+* Annoying single-click "feature" in file list is disabled. See: https://bugzilla.gnome.org/show_bug.cgi?id=766089
+* XDG user directories (like Pictures, Downloads, Documents) are removed from places sidebar. They can be added as bookmarks.
 
 Print dialog
 ---
 
-* Makes appearance of print dialog less "gnomish".
-* Sets Atril instead of Evince as default previewer.
+* Appearance of print dialog is less "gnomish" (natural margins are restored).
+* Atril instead of Evince is set as default previewer.
 
 General
 ---
 
+* Default Adwaita theme has smaller controls (buttons, fields, tabs, etc.).
+* Statusbars are smaller regardless of used theme.
 * Scrollbars are always visible. Environment variable is not needed.
+* Delay before showing mnemonics is removed. User do not have to wait.
+* Recently opened files are disabled by default.
 
 --------
 
@@ -38,7 +42,5 @@ In future
 ---
 
 * Message dialogs: restore appearance like in GTK2.
-* CSD headerbar: remove application title when it is displayed in WM decoration.
-* Adwaita theme: make default controls (buttons, checkboxes etc.) smaller.
+* File chooser and color chooser: use classic menu instead of modern popovers in context menus.
 * File chooser: restore typeahead feature in file list. See: https://aur.archlinux.org/packages/gtk3-typeahead
-* Menus: remove delay before show mnemonics.
