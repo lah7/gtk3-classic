@@ -1,0 +1,264 @@
+diff -U 25 -r -Z -B ./org/gtk/gtkmenubutton.c ./mod/gtk/gtkmenubutton.c
+--- ./org/gtk/gtkmenubutton.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkmenubutton.c	2017-06-02 03:09:05.707081988 +0200
+@@ -801,51 +801,51 @@
+  * actions will be connected as documented for these functions.
+  *
+  * If #GtkMenuButton:popup or #GtkMenuButton:popover are already set,
+  * their content will be lost and replaced by the newly created popup.
+  *
+  * Since: 3.6
+  */
+ void
+ gtk_menu_button_set_menu_model (GtkMenuButton *menu_button,
+                                 GMenuModel    *menu_model)
+ {
+   GtkMenuButtonPrivate *priv;
+ 
+   g_return_if_fail (GTK_IS_MENU_BUTTON (menu_button));
+   g_return_if_fail (G_IS_MENU_MODEL (menu_model) || menu_model == NULL);
+ 
+   priv = menu_button->priv;
+ 
+   g_object_freeze_notify (G_OBJECT (menu_button));
+ 
+   if (menu_model)
+     g_object_ref (menu_model);
+ 
+   if (menu_model)
+     {
+-      if (priv->use_popover)
++      if (FALSE && priv->use_popover)
+         {
+           GtkWidget *popover;
+ 
+           popover = gtk_popover_new_from_model (GTK_WIDGET (menu_button), menu_model);
+           gtk_menu_button_set_popover (menu_button, popover);
+         }
+       else
+         {
+           GtkWidget *menu;
+ 
+           menu = gtk_menu_new_from_model (menu_model);
+           gtk_widget_show_all (menu);
+           gtk_menu_button_set_popup (menu_button, menu);
+         }
+     }
+   else
+     {
+       gtk_menu_button_set_popup (menu_button, NULL);
+       gtk_menu_button_set_popover (menu_button, NULL);
+     }
+ 
+   priv->model = menu_model;
+   g_object_notify_by_pspec (G_OBJECT (menu_button), menu_button_props[PROP_MENU_MODEL]);
+ 
+   g_object_thaw_notify (G_OBJECT (menu_button));
+diff -U 25 -r -Z -B ./org/gtk/gtkscrolledwindow.c ./mod/gtk/gtkscrolledwindow.c
+--- ./org/gtk/gtkscrolledwindow.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkscrolledwindow.c	2017-06-02 03:09:05.713748655 +0200
+@@ -4378,51 +4378,51 @@
+ static void
+ gtk_scrolled_window_sync_use_indicators (GtkScrolledWindow *scrolled_window)
+ {
+   GtkScrolledWindowPrivate *priv = scrolled_window->priv;
+ 
+   if (priv->use_indicators)
+     {
+       setup_indicator (scrolled_window, &priv->hindicator, priv->hscrollbar);
+       setup_indicator (scrolled_window, &priv->vindicator, priv->vscrollbar);
+     }
+   else
+     {
+       remove_indicator (scrolled_window, &priv->hindicator);
+       remove_indicator (scrolled_window, &priv->vindicator);
+     }
+ }
+ 
+ static void
+ gtk_scrolled_window_update_use_indicators (GtkScrolledWindow *scrolled_window)
+ {
+   GtkScrolledWindowPrivate *priv = scrolled_window->priv;
+   gboolean use_indicators;
+ 
+   use_indicators = priv->overlay_scrolling;
+ 
+-  if (g_strcmp0 (g_getenv ("GTK_OVERLAY_SCROLLING"), "0") == 0)
++  if (TRUE || g_strcmp0 (g_getenv ("GTK_OVERLAY_SCROLLING"), "0") == 0)
+     use_indicators = FALSE;
+ 
+   if (priv->use_indicators != use_indicators)
+     {
+       priv->use_indicators = use_indicators;
+ 
+       if (gtk_widget_get_realized (GTK_WIDGET (scrolled_window)))
+         gtk_scrolled_window_sync_use_indicators (scrolled_window);
+ 
+       gtk_widget_queue_resize (GTK_WIDGET (scrolled_window));
+     }
+ }
+ 
+ static void
+ gtk_scrolled_window_realize (GtkWidget *widget)
+ {
+   GtkScrolledWindow *scrolled_window = GTK_SCROLLED_WINDOW (widget);
+   GtkScrolledWindowPrivate *priv = scrolled_window->priv;
+   GdkWindow *window;
+   GtkAllocation allocation;
+   GdkWindowAttr attributes;
+   gint attributes_mask;
+ 
+   gtk_widget_get_allocation (widget, &allocation);
+ 
+diff -U 25 -r -Z -B ./org/gtk/gtksettings.c ./mod/gtk/gtksettings.c
+--- ./org/gtk/gtksettings.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtksettings.c	2017-06-02 03:09:05.713748655 +0200
+@@ -1701,51 +1701,51 @@
+    * 'PRIMARY' clipboard content at the cursor location.
+    *
+    * Since: 3.4
+    */
+   result = settings_install_property_parser (class,
+                                              g_param_spec_boolean ("gtk-enable-primary-paste",
+                                                                    P_("Enable primary paste"),
+                                                                    P_("Whether a middle click on a mouse should paste the 'PRIMARY' clipboard content at the cursor location."),
+                                                                    TRUE,
+                                                                    GTK_PARAM_READWRITE),
+                                              NULL);
+   g_assert (result == PROP_ENABLE_PRIMARY_PASTE);
+ 
+   /**
+    * GtkSettings:gtk-recent-files-enabled:
+    *
+    * Whether GTK+ should keep track of items inside the recently used
+    * resources list. If set to %FALSE, the list will always be empty.
+    *
+    * Since: 3.8
+    */
+   result = settings_install_property_parser (class,
+                                              g_param_spec_boolean ("gtk-recent-files-enabled",
+                                                                    P_("Recent Files Enabled"),
+                                                                    P_("Whether GTK+ remembers recent files"),
+-                                                                   TRUE,
++                                                                   FALSE,
+                                                                    GTK_PARAM_READWRITE),
+                                              NULL);
+   g_assert (result == PROP_RECENT_FILES_ENABLED);
+ 
+   /**
+    * GtkSettings:gtk-long-press-time:
+    *
+    * The time for a button or touch press to be considered a "long press".
+    *
+    * Since: 3.14
+    */
+   result = settings_install_property_parser (class,
+                                              g_param_spec_uint ("gtk-long-press-time",
+ 								P_("Long press time"),
+ 								P_("Time for a button/touch press to be considered a long press (in milliseconds)"),
+ 								0, G_MAXINT, 500,
+ 								GTK_PARAM_READWRITE),
+                                              NULL);
+   g_assert (result == PROP_LONG_PRESS_TIME);
+ 
+   /**
+    * GtkSettings:gtk-keynav-use-caret:
+    *
+    * Whether GTK+ should make sure that text can be navigated with
+    * a caret, even if it is not editable. This is useful when using
+diff -U 25 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
+--- ./org/gtk/gtkwindow.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkwindow.c	2017-06-02 03:09:05.717081989 +0200
+@@ -129,51 +129,51 @@
+  *
+  * # CSS nodes
+  *
+  * |[<!-- language="plain" -->
+  * window.background
+  * ├── decoration
+  * ├── <titlebar child>.titlebar [.default-decoration]
+  * ╰── <child>
+  * ]|
+  *
+  * GtkWindow has a main CSS node with name window and style class .background,
+  * and a subnode with name decoration.
+  *
+  * Style classes that are typically used with the main CSS node are .csd (when
+  * client-side decorations are in use), .solid-csd (for client-side decorations
+  * without invisible borders), .ssd (used by mutter when rendering server-side
+  * decorations). GtkWindow also represents window states with the following
+  * style classes on the main node: .tiled, .maximized, .fullscreen. Specialized
+  * types of window often add their own discriminating style classes, such as
+  * .popup or .tooltip.
+  *
+  * GtkWindow adds the .titlebar and .default-decoration style classes to the
+  * widget that is added as a titlebar child.
+  */
+ 
+-#define MNEMONICS_DELAY 300 /* ms */
++#define MNEMONICS_DELAY 0 /* ms */
+ #define NO_CONTENT_CHILD_NAT 200
+ /* In case the content (excluding header bar and shadows) of the window
+  * would be empty, either because there is no visible child widget or only an
+  * empty container widget, we use NO_CONTENT_CHILD_NAT as natural width/height
+  * instead.
+  */
+ 
+ typedef struct _GtkWindowPopover GtkWindowPopover;
+ 
+ struct _GtkWindowPopover
+ {
+   GtkWidget *widget;
+   GtkWidget *parent;
+   GdkWindow *window;
+   GtkPositionType pos;
+   cairo_rectangle_int_t rect;
+   gulong unmap_id;
+   guint clamp_allocation : 1;
+ };
+ 
+ struct _GtkWindowPrivate
+ {
+   GtkMnemonicHash       *mnemonic_hash;
+ 
+   GtkWidget             *attach_widget;
+diff -U 25 -r -Z -B ./org/gtk/ui/gtkstatusbar.ui ./mod/gtk/ui/gtkstatusbar.ui
+--- ./org/gtk/ui/gtkstatusbar.ui	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/ui/gtkstatusbar.ui	2017-06-02 03:09:05.720415322 +0200
+@@ -1,34 +1,34 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <interface domain="gtk30">
+   <!-- interface-requires gtk+ 3.10 -->
+   <template class="GtkStatusbar" parent="GtkBox">
+     <property name="spacing">2</property>
+     <property name="margin-start">10</property>
+     <property name="margin-end">10</property>
+-    <property name="margin-top">6</property>
+-    <property name="margin-bottom">6</property>
++    <property name="margin-top">1</property>
++    <property name="margin-bottom">1</property>
+     <child>
+       <object class="GtkFrame" id="frame">
+         <property name="visible">1</property>
+         <property name="shadow-type">none</property>
+         <child>
+           <object class="GtkBox" id="message_area">
+             <property name="visible">1</property>
+             <property name="spacing">4</property>
+             <property name="margin">4</property>
+             <child>
+               <object class="GtkLabel" id="label">
+                 <property name="visible">1</property>
+                 <property name="halign">start</property>
+                 <property name="valign">center</property>
+                 <property name="ellipsize">end</property>
+                 <property name="single-line-mode">1</property>
+               </object>
+             </child>
+           </object>
+         </child>
+         <child type="label_item"/>
+       </object>
+       <packing>
+         <property name="expand">1</property>
+       </packing>

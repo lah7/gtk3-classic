@@ -1,0 +1,75 @@
+diff -U 25 -r -Z -B ./org/gtk/gtkbutton.c ./mod/gtk/gtkbutton.c
+--- ./org/gtk/gtkbutton.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkbutton.c	2017-06-03 00:58:36.244202195 +0200
+@@ -2149,50 +2149,71 @@
+                                      for_size,
+                                      minimum_size, natural_size,
+                                      minimum_baseline, natural_baseline);
+ }
+ 
+ /**
+  * gtk_button_set_label:
+  * @button: a #GtkButton
+  * @label: a string
+  *
+  * Sets the text of the label of the button to @str. This text is
+  * also used to select the stock item if gtk_button_set_use_stock()
+  * is used.
+  *
+  * This will also clear any previously set labels.
+  */
+ void
+ gtk_button_set_label (GtkButton   *button,
+ 		      const gchar *label)
+ {
+   GtkButtonPrivate *priv;
+   gchar *new_label;
+ 
+   g_return_if_fail (GTK_IS_BUTTON (button));
+ 
++  if (!gtk_button_get_image(GTK_BUTTON(button))) {
++    gchar *use_this_icon = NULL;
++    if (g_strcmp0( label, _("_Select") ) == 0 || g_strcmp0( label, _("_OK") ) == 0) use_this_icon = "gtk-ok";
++    else if (g_strcmp0( label, _("_Cancel") ) == 0)  use_this_icon = "gtk-cancel";
++    else if (g_strcmp0( label, _("_Close") ) == 0)   use_this_icon = "gtk-close";
++    else if (g_strcmp0( label, _("_Yes") ) == 0)     use_this_icon = "gtk-yes";
++    else if (g_strcmp0( label, _("_No") ) == 0)      use_this_icon = "gtk-no";
++    else if (g_strcmp0( label, _("_Print") ) == 0)   use_this_icon = "gtk-print";
++    else if (g_strcmp0( label, _("Pre_view") ) == 0) use_this_icon = "gtk-print-preview";
++    else if (g_strcmp0( label, _("_Open") ) == 0)    use_this_icon = "gtk-open";
++    else if (g_strcmp0( label, _("_Save") ) == 0)    use_this_icon = "gtk-save";
++    else if (g_strcmp0( label, _("_Apply") ) == 0)   use_this_icon = "gtk-apply";
++    else if (g_strcmp0( label, _("_Stop") ) == 0)    use_this_icon = "gtk-stop";
++    else if (g_strcmp0( label, _("_Delete") ) == 0)  use_this_icon = "gtk-delete";
++    else if (g_strcmp0( label, _("_Remove") ) == 0)  use_this_icon = "gtk-remove";
++    else if (g_strcmp0( label, _("_Add") ) == 0)     use_this_icon = "gtk-add";
++    else if (g_strcmp0( label, _("_Help") ) == 0)    use_this_icon = "gtk-help";
++    if (use_this_icon)
++      gtk_button_set_image(GTK_BUTTON(button), gtk_image_new_from_icon_name(use_this_icon,GTK_ICON_SIZE_BUTTON));
++  }
++
+   priv = button->priv;
+ 
+   new_label = g_strdup (label);
+   g_free (priv->label_text);
+   priv->label_text = new_label;
+ 
+   gtk_button_construct_child (button);
+   
+   g_object_notify_by_pspec (G_OBJECT (button), props[PROP_LABEL]);
+ }
+ 
+ /**
+  * gtk_button_get_label:
+  * @button: a #GtkButton
+  *
+  * Fetches the text from the label of the button, as set by
+  * gtk_button_set_label(). If the label text has not 
+  * been set the return value will be %NULL. This will be the 
+  * case if you create an empty button with gtk_button_new() to 
+  * use as a container.
+  *
+  * Returns: The text of the label widget. This string is owned
+  * by the widget and must not be modified or freed.
+  */
+ const gchar *

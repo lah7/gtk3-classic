@@ -1,7 +1,83 @@
-diff -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
---- ./org/gtk/gtkfilechooserwidget.c	2017-05-10 20:57:00.000000000 +0200
-+++ ./mod/gtk/gtkfilechooserwidget.c	2017-05-11 19:03:17.373627295 +0200
-@@ -2420,11 +2420,11 @@
+diff -U 25 -r -Z -B ./org/gtk/gtkfilechooserdialog.c ./mod/gtk/gtkfilechooserdialog.c
+--- ./org/gtk/gtkfilechooserdialog.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkfilechooserdialog.c	2017-06-02 01:38:38.023479724 +0200
+@@ -472,52 +472,50 @@
+ 
+ static void
+ setup_search (GtkFileChooserDialog *dialog)
+ {
+   gboolean use_header;
+ 
+   if (dialog->priv->search_setup)
+     return;
+ 
+   dialog->priv->search_setup = TRUE;
+ 
+   g_object_get (dialog, "use-header-bar", &use_header, NULL);
+   if (use_header)
+     {
+       GtkWidget *button;
+       GtkWidget *image;
+       GtkWidget *header;
+ 
+       button = gtk_toggle_button_new ();
+       gtk_widget_set_focus_on_click (button, FALSE);
+       gtk_widget_set_valign (button, GTK_ALIGN_CENTER);
+       image = gtk_image_new_from_icon_name ("edit-find-symbolic", GTK_ICON_SIZE_MENU);
+       gtk_container_add (GTK_CONTAINER (button), image);
+       gtk_style_context_add_class (gtk_widget_get_style_context (button), "image-button");
+       gtk_style_context_remove_class (gtk_widget_get_style_context (button), "text-button");
+-      gtk_widget_show (image);
+-      gtk_widget_show (button);
+ 
+       header = gtk_dialog_get_header_bar (GTK_DIALOG (dialog));
+       gtk_header_bar_pack_end (GTK_HEADER_BAR (header), button);
+ 
+       g_object_bind_property (button, "active",
+                               dialog->priv->widget, "search-mode",
+                               G_BINDING_BIDIRECTIONAL);
+       g_object_bind_property (dialog->priv->widget, "subtitle",
+                               header, "subtitle",
+                               G_BINDING_SYNC_CREATE);
+ 
+       gtk_container_forall (GTK_CONTAINER (header), add_button, dialog);
+     }
+ }
+ 
+ static void
+ setup_save_entry (GtkFileChooserDialog *dialog)
+ {
+   gboolean use_header;
+   GtkFileChooserAction action;
+   gboolean need_entry;
+   GtkWidget *header;
+ 
+   g_object_get (dialog,
+                 "use-header-bar", &use_header,
+diff -U 25 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
+--- ./org/gtk/gtkfilechooserwidget.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkfilechooserwidget.c	2017-06-02 01:38:51.116813706 +0200
+@@ -2400,51 +2400,51 @@
+ }
+ 
+ /* Callback used when a button is pressed on the file list.  We trap button 3 to
+  * bring up a popup menu.
+  */
+ static gboolean
+ list_button_press_event_cb (GtkWidget            *widget,
+                             GdkEventButton       *event,
+                             GtkFileChooserWidget *impl)
+ {
+   GtkFileChooserWidgetPrivate *priv = impl->priv;
+   static gboolean in_press = FALSE;
+   GtkTreePath *path;
+   GtkTreeViewColumn *column;
+   GdkDevice *device;
+   gboolean modify, extend, is_touchscreen;
+ 
+   if (in_press)
+     return FALSE;
+ 
    device = gdk_event_get_source_device ((GdkEvent *) event);
    is_touchscreen = gtk_simulate_touchscreen () ||
                     gdk_device_get_source (device) == GDK_SOURCE_TOUCHSCREEN;
@@ -14,10 +90,207 @@ diff -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidg
        event->button == GDK_BUTTON_PRIMARY &&
        gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (priv->browse_files_tree_view),
                                       event->x, event->y,
-diff -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
---- ./org/gtk/gtkplacessidebar.c	2017-05-10 20:57:00.000000000 +0200
-+++ ./mod/gtk/gtkplacessidebar.c	2017-05-11 19:03:58.446962664 +0200
-@@ -594,10 +594,11 @@
+                                      &path, &column, NULL, NULL))
+     {
+       GtkTreeSelection *selection;
+ 
+       selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->browse_files_tree_view));
+       if (gtk_tree_selection_path_is_selected (selection, path))
+         {
+           list_row_activated (GTK_TREE_VIEW (priv->browse_files_tree_view), path, column, impl);
+           gtk_tree_path_free (path);
+           return TRUE;
+         }
+ 
+       gtk_tree_path_free (path);
+     }
+ 
+   if (!gdk_event_triggers_context_menu ((GdkEvent *) event))
+     return FALSE;
+ 
+   in_press = TRUE;
+   gtk_widget_event (priv->browse_files_tree_view, (GdkEvent *) event);
+@@ -2456,51 +2456,50 @@
+ }
+ 
+ static void
+ long_press_cb (GtkGesture           *gesture,
+                gdouble               x,
+                gdouble               y,
+                GtkFileChooserWidget *impl)
+ {
+   file_list_show_popover (impl, x, y);
+ }
+ 
+ typedef struct {
+   OperationMode operation_mode;
+   gint general_column;
+   gint model_column;
+ } ColumnMap;
+ 
+ /* Sets the sort column IDs for the file list; needs to be done whenever we
+  * change the model on the treeview.
+  */
+ static void
+ file_list_set_sort_column_ids (GtkFileChooserWidget *impl)
+ {
+   GtkFileChooserWidgetPrivate *priv = impl->priv;
+ 
+-  gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->browse_files_tree_view), -1);
+ 
+   gtk_tree_view_column_set_sort_column_id (priv->list_name_column, MODEL_COL_NAME);
+   gtk_tree_view_column_set_sort_column_id (priv->list_time_column, MODEL_COL_TIME);
+   gtk_tree_view_column_set_sort_column_id (priv->list_size_column, MODEL_COL_SIZE);
+   gtk_tree_view_column_set_sort_column_id (priv->list_location_column, MODEL_COL_LOCATION_TEXT);
+ }
+ 
+ static gboolean
+ file_list_query_tooltip_cb (GtkWidget  *widget,
+                             gint        x,
+                             gint        y,
+                             gboolean    keyboard_tip,
+                             GtkTooltip *tooltip,
+                             gpointer    user_data)
+ {
+   GtkFileChooserWidget *impl = user_data;
+   GtkFileChooserWidgetPrivate *priv = impl->priv;
+   GtkTreeModel *model;
+   GtkTreePath *path;
+   GtkTreeIter iter;
+   GFile *file;
+   gchar *filename;
+ 
+   if (priv->operation_mode == OPERATION_MODE_BROWSE)
+     return FALSE;
+@@ -3226,50 +3225,52 @@
+ operation_mode_set (GtkFileChooserWidget *impl, OperationMode mode)
+ {
+   GtkFileChooserWidgetPrivate *priv = impl->priv;
+   OperationMode old_mode;
+ 
+   operation_mode_stop (impl, priv->operation_mode);
+ 
+   old_mode = priv->operation_mode;
+   priv->operation_mode = mode;
+ 
+   switch (priv->operation_mode)
+     {
+     case OPERATION_MODE_ENTER_LOCATION:
+       operation_mode_set_enter_location (impl);
+       break;
+ 
+     case OPERATION_MODE_OTHER_LOCATIONS:
+       operation_mode_set_other_locations (impl);
+       break;
+ 
+     case OPERATION_MODE_BROWSE:
+       operation_mode_set_browse (impl);
+       break;
+ 
+     case OPERATION_MODE_SEARCH:
++      priv->operation_mode = old_mode;
++      return;
+       operation_mode_set_search (impl);
+       break;
+ 
+     case OPERATION_MODE_RECENT:
+       operation_mode_set_recent (impl);
+       break;
+ 
+     default:
+       g_assert_not_reached ();
+       return;
+     }
+ 
+   if ((old_mode == OPERATION_MODE_SEARCH) != (mode == OPERATION_MODE_SEARCH))
+     g_object_notify (G_OBJECT (impl), "search-mode");
+ 
+   g_object_notify (G_OBJECT (impl), "subtitle");
+ }
+ 
+ /* This function is basically a do_all function.
+  *
+  * It sets the visibility on all the widgets based on the current state, and
+  * moves the custom_widget if needed.
+  */
+ static void
+ update_appearance (GtkFileChooserWidget *impl)
+@@ -7497,51 +7498,50 @@
+ 
+   _gtk_file_system_model_set_filter (priv->recent_model, priv->current_filter);
+   gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (priv->recent_model),
+                                            recent_sort_func,
+                                            impl, NULL);
+   gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (priv->recent_model),
+                                         GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
+                                         GTK_SORT_DESCENDING);
+ }
+ 
+ typedef struct
+ {
+   GtkFileChooserWidget *impl;
+   GList *items;
+ } RecentLoadData;
+ 
+ static void
+ recent_idle_cleanup (gpointer data)
+ {
+   RecentLoadData *load_data = data;
+   GtkFileChooserWidget *impl = load_data->impl;
+   GtkFileChooserWidgetPrivate *priv = impl->priv;
+ 
+   gtk_tree_view_set_model (GTK_TREE_VIEW (priv->browse_files_tree_view),
+                            GTK_TREE_MODEL (priv->recent_model));
+-  gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->browse_files_tree_view), -1);
+ 
+   gtk_tree_view_column_set_sort_column_id (priv->list_name_column, -1);
+   gtk_tree_view_column_set_sort_column_id (priv->list_time_column, -1);
+   gtk_tree_view_column_set_sort_column_id (priv->list_size_column, -1);
+   gtk_tree_view_column_set_sort_column_id (priv->list_location_column, -1);
+ 
+   update_columns (impl, TRUE, _("Accessed"));
+ 
+   set_busy_cursor (impl, FALSE);
+ 
+   priv->load_recent_id = 0;
+ 
+   g_free (load_data);
+ }
+ 
+ /* Populates the file system model with the GtkRecentInfo* items
+  * in the provided list; frees the items
+  */
+ static void
+ populate_model_with_recent_items (GtkFileChooserWidget *impl,
+                                   GList                *items)
+ {
+   GtkFileChooserWidgetPrivate *priv = impl->priv;
+   gint limit;
+   GList *l;
+diff -U 25 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
+--- ./org/gtk/gtkplacessidebar.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkplacessidebar.c	2017-06-01 23:09:34.146885403 +0200
+@@ -574,50 +574,51 @@
+   g_object_unref (home_dir);
+   g_object_unref (location);
+ 
+   return res;
+ }
+ 
+ static void
+ open_home (GtkPlacesSidebar *sidebar)
+ {
+   const gchar *home_path;
+   GFile       *home_dir;
+ 
+   home_path = g_get_home_dir ();
+   if (!home_path)
+     return;
+ 
+   home_dir = g_file_new_for_path (home_path);
+   emit_open_location (sidebar, home_dir, 0);
+ 
+   g_object_unref (home_dir);
  }
  
  static void
@@ -29,7 +302,47 @@ diff -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
  
    dirs = NULL;
    for (index = 0; index < G_USER_N_DIRECTORIES; index++)
-@@ -1247,11 +1248,11 @@
+     {
+       const gchar *path;
+       GFile *root;
+       GIcon *icon;
+       gchar *name;
+       gchar *mount_uri;
+       gchar *tooltip;
+ 
+       if (!_gtk_bookmarks_manager_get_is_xdg_dir_builtin (index))
+         continue;
+ 
+       path = g_get_user_special_dir (index);
+ 
+       /* XDG resets special dirs to the home directory in case
+        * it's not finiding what it expects. We don't want the home
+        * to be added multiple times in that weird configuration.
+        */
+       if (path == NULL ||
+           path_is_home_dir (path) ||
+           g_list_find_custom (dirs, path, (GCompareFunc) g_strcmp0) != NULL)
+@@ -1227,51 +1228,51 @@
+       tooltip = g_file_get_parse_name (root);
+       add_place (sidebar, PLACES_MOUNTED_VOLUME,
+                  SECTION_COMPUTER,
+                  name, icon, mount_uri,
+                  NULL, NULL, mount, 0, tooltip);
+       g_object_unref (root);
+       g_object_unref (mount);
+       g_object_unref (icon);
+       g_free (name);
+       g_free (mount_uri);
+       g_free (tooltip);
+     }
+   g_list_free (mounts);
+ 
+   /* add bookmarks */
+   bookmarks = _gtk_bookmarks_manager_list_bookmarks (sidebar->bookmarks_manager);
+ 
+   for (sl = bookmarks, index = 0; sl; sl = sl->next, index++)
+     {
+       gboolean is_native;
        BookmarkQueryClosure *clos;
  
        root = sl->data;
@@ -42,7 +355,47 @@ diff -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
        if (sidebar->local_only && !is_native)
          continue;
  
-@@ -3872,11 +3873,11 @@
+       clos = g_slice_new (BookmarkQueryClosure);
+       clos->sidebar = sidebar;
+       clos->index = index;
+       clos->is_native = is_native;
+       g_file_query_info_async (root,
+                                "standard::display-name,standard::symbolic-icon",
+                                G_FILE_QUERY_INFO_NONE,
+                                G_PRIORITY_DEFAULT,
+                                sidebar->cancellable,
+                                on_bookmark_query_info_complete,
+                                clos);
+     }
+ 
+   g_slist_free_full (bookmarks, g_object_unref);
+ 
+   /* Add new bookmark row */
+   new_bookmark_icon = g_themed_icon_new ("bookmark-new-symbolic");
+   sidebar->new_bookmark_row = add_place (sidebar, PLACES_DROP_FEEDBACK,
+                                          SECTION_BOOKMARKS,
+                                          _("New bookmark"), new_bookmark_icon, NULL,
+@@ -3852,51 +3853,51 @@
+   gtk_target_list_add_text_targets (sidebar->source_targets, 0);
+ 
+   g_signal_connect (sidebar->list_box, "motion-notify-event",
+                     G_CALLBACK (on_motion_notify_event), sidebar);
+   g_signal_connect (sidebar->list_box, "drag-begin",
+                     G_CALLBACK (drag_begin_callback), sidebar);
+   g_signal_connect (sidebar->list_box, "drag-motion",
+                     G_CALLBACK (drag_motion_callback), sidebar);
+   g_signal_connect (sidebar->list_box, "drag-data-get",
+                     G_CALLBACK (drag_data_get_callback), sidebar);
+   g_signal_connect (sidebar->list_box, "drag-data-received",
+                     G_CALLBACK (drag_data_received_callback), sidebar);
+   g_signal_connect (sidebar->list_box, "drag-drop",
+                     G_CALLBACK (drag_drop_callback), sidebar);
+   g_signal_connect (sidebar->list_box, "drag-end",
+                     G_CALLBACK (drag_end_callback), sidebar);
+   g_signal_connect (sidebar->list_box, "drag-leave",
+                     G_CALLBACK (drag_leave_callback), sidebar);
+   sidebar->drag_row = NULL;
+   sidebar->row_placeholder = NULL;
    sidebar->dragging_over = FALSE;
    sidebar->drag_data_info = DND_UNKNOWN;
  
@@ -55,10 +408,43 @@ diff -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
                              G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES,
                              NULL,
                              "org.freedesktop.hostname1",
-diff -U 5 -r -Z -B ./org/gtk/ui/gtkfilechooserwidget.ui ./mod/gtk/ui/gtkfilechooserwidget.ui
---- ./org/gtk/ui/gtkfilechooserwidget.ui	2017-05-10 20:57:00.000000000 +0200
-+++ ./mod/gtk/ui/gtkfilechooserwidget.ui	2017-05-11 19:05:40.620301060 +0200
-@@ -14,11 +14,11 @@
+                             "/org/freedesktop/hostname1",
+                             "org.freedesktop.hostname1",
+                             sidebar->hostnamed_cancellable,
+                             hostname_proxy_new_cb,
+                             sidebar);
+ 
+   sidebar->drop_state = DROP_STATE_NORMAL;
+ 
+   /* Don't bother trying to trace this across hierarchy changes... */
+   sidebar->gtk_settings = gtk_settings_get_default ();
+   g_signal_connect (sidebar->gtk_settings, "notify::gtk-shell-shows-desktop",
+                     G_CALLBACK (shell_shows_desktop_changed), sidebar);
+   g_object_get (sidebar->gtk_settings, "gtk-shell-shows-desktop", &show_desktop, NULL);
+   sidebar->show_desktop = show_desktop;
+ 
+   /* populate the sidebar */
+   update_places (sidebar);
+ 
+   add_actions (sidebar);
+ }
+diff -U 25 -r -Z -B ./org/gtk/ui/gtkfilechooserwidget.ui ./mod/gtk/ui/gtkfilechooserwidget.ui
+--- ./org/gtk/ui/gtkfilechooserwidget.ui	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/ui/gtkfilechooserwidget.ui	2017-06-02 03:00:47.383723964 +0200
+@@ -1,44 +1,45 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <interface domain="gtk30">
+   <!-- interface-requires gtk+ 3.10 -->
+   <!-- interface-requires gtkprivate 3.10 -->
+   <template class="GtkFileChooserWidget" parent="GtkBox">
+     <property name="orientation">vertical</property>
+     <child>
+       <object class="GtkBox" id="browse_widgets_box">
+         <property name="visible">1</property>
+         <property name="orientation">vertical</property>
+         <child>
+           <object class="GtkPaned" id="browse_widgets_hpaned">
+             <property name="visible">1</property>
              <child>
                <object class="GtkPlacesSidebar" id="places_sidebar">
                  <property name="visible">1</property>
@@ -66,8 +452,83 @@ diff -U 5 -r -Z -B ./org/gtk/ui/gtkfilechooserwidget.ui ./mod/gtk/ui/gtkfilechoo
                  <property name="local-only">1</property>
 -                <property name="show-other-locations">1</property>
 +                <property name="show-other-locations">0</property>
++                <property name="show-trash">0</property>
                  <style>
                    <class name="sidebar"/>
                  </style>
                  <signal name="open-location" handler="places_sidebar_open_location_cb" swapped="no"/>
                  <signal name="show-error-message" handler="places_sidebar_show_error_message_cb" swapped="no"/>
+                 <signal name="show-other-locations-with-flags" handler="places_sidebar_show_other_locations_with_flags_cb" swapped="no"/>
+               </object>
+               <packing>
+                 <property name="resize">0</property>
+                 <property name="shrink">0</property>
+               </packing>
+             </child>
+             <child>
+               <object class="GtkBox">
+                 <property name="visible">1</property>
+                 <property name="orientation">vertical</property>
+                 <child>
+                   <object class="GtkRevealer" id="browse_header_revealer">
+                     <property name="visible">1</property>
+                     <property name="hexpand">1</property>
+                     <child>
+                       <object class="GtkBox">
+                         <property name="visible">1</property>
+                         <property name="name">pathbarbox</property>
+                         <property name="orientation">vertical</property>
+@@ -140,51 +141,52 @@
+                   </packing>
+                 </child>
+                 <child>
+                   <object class="GtkBox" id="list_and_preview_box">
+                     <property name="visible">1</property>
+                     <property name="spacing">12</property>
+                     <child>
+                       <object class="GtkStack" id="browse_files_stack">
+                         <property name="visible">1</property>
+                         <property name="transition-type">crossfade</property>
+                         <style>
+                           <class name="view"/>
+                         </style>
+                         <child>
+                           <object class="GtkBox">
+                             <property name="visible">1</property>
+                             <property name="orientation">vertical</property>
+                             <child>
+                               <object class="GtkScrolledWindow" id="browse_files_swin">
+                                 <property name="visible">1</property>
+                                 <property name="hscrollbar-policy">never</property>
+                                 <child>
+                                   <object class="GtkTreeView" id="browse_files_tree_view">
+                                     <property name="visible">1</property>
+                                     <property name="has-tooltip">1</property>
+-                                    <property name="enable-search">0</property>
++                                    <property name="enable-search">1</property>
++                                    <property name="search-column">0</property>
+                                     <child internal-child="accessible">
+                                       <object class="AtkObject" id="browse_files_tree_view-atkobject">
+                                         <property name="AtkObject::accessible-name" translatable="yes">Files</property>
+                                       </object>
+                                     </child>
+                                     <signal name="button-press-event" handler="list_button_press_event_cb" swapped="no"/>
+                                     <signal name="drag-data-received" handler="file_list_drag_data_received_cb" swapped="no"/>
+                                     <signal name="drag-drop" handler="file_list_drag_drop_cb" swapped="no"/>
+                                     <signal name="drag-begin" handler="file_list_drag_begin_cb" swapped="no"/>
+                                     <signal name="drag-motion" handler="file_list_drag_motion_cb" swapped="no"/>
+                                     <signal name="drag-end" handler="file_list_drag_end_cb" swapped="no"/>
+                                     <signal name="key-press-event" handler="browse_files_key_press_event_cb" swapped="no"/>
+                                     <signal name="popup-menu" handler="list_popup_menu_cb" swapped="no"/>
+                                     <signal name="query-tooltip" handler="file_list_query_tooltip_cb" swapped="no"/>
+                                     <signal name="row-activated" handler="list_row_activated" swapped="no"/>
+                                     <signal name="cursor-changed" handler="list_cursor_changed" swapped="no"/>
+                                     <child internal-child="selection">
+                                       <object class="GtkTreeSelection" id="treeview-selection2">
+                                         <signal name="changed" handler="list_selection_changed" swapped="no"/>
+                                       </object>
+                                     </child>
+                                     <child>
+                                       <object class="GtkTreeViewColumn" id="list_name_column">
+                                         <property name="title" translatable="yes">Name</property>
+                                         <property name="resizable">1</property>
