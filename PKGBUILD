@@ -5,7 +5,7 @@
 
 pkgname=gtk3-mushrooms
 pkgver=3.22.15
-pkgrel=2
+pkgrel=3
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 install=gtk3.install
@@ -69,9 +69,8 @@ build() {
 	cd "$srcdir/gtk-$pkgver"
 
 	CXX=/bin/false ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
-		--enable-x11-backend --disable-schemas-compile --disable-gtk-doc-html \
-		--disable-installed-tests --disable-colord  --disable-maintainer-mode \
-		--disable-cups --disable-cloudprint --disable-papi --disable-man
+		--enable-x11-backend --disable-schemas-compile --disable-gtk-doc-html --disable-man \
+		--disable-installed-tests --disable-colord  --disable-maintainer-mode
 
 	#https://bugzilla.gnome.org/show_bug.cgi?id=655517
 	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
@@ -98,4 +97,5 @@ package() {
 	install -Dm644 ../gtk-query-immodules-3.0.hook "$pkgdir/usr/share/libalpm/hooks/gtk-query-immodules-3.0.hook"
 
 	rm "$pkgdir/usr/bin/gtk-update-icon-cache"
+	rm `find "$pkgdir/usr/lib/gtk-3.0/3.0.0/printbackends/"* | grep -v "\-lpr.so" | grep -v "\-file.so"`
 }
