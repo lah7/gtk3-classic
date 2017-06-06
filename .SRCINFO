@@ -1,7 +1,7 @@
 pkgbase = gtk3-mushrooms
 	pkgdesc = GTK3 library with my modifications (see README).
 	pkgver = 3.22.15
-	pkgrel = 3
+	pkgrel = 4
 	url = http://www.gtk.org/
 	install = gtk3.install
 	arch = i686
@@ -50,7 +50,7 @@ pkgbase = gtk3-mushrooms
 	sha256sums = cfb3121fb174ea8718a0dc184417338c5dfd819237e233d78bf43fb51bb06c91
 	sha256sums = ac119908c6a763ece6114ae3b5cd5d8c232207ce734d975e0ada22379610fc7d
 	sha256sums = be7800734fc59e49c34ee2f806738eba8b606d46ac61bc3f50fa3cc69ae594f0
-	sha256sums = 1784e29ce5b811ed8673a29a89903751abb8bf68b3793f2e635c99851c165245
+	sha256sums = 0afbd995148ce6e03010b572d69533e4d250a2e5f60323422b16a407ff162885
 	sha256sums = c3ab786779a6a74765a56e31aaa0fe9123feee222185f0c3ae94acfb2e61a0dd
 	sha256sums = 01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202
 	sha256sums = de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845
