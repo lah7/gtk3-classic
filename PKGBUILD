@@ -5,7 +5,7 @@
 
 pkgname=gtk3-mushrooms
 pkgver=3.22.15
-pkgrel=3
+pkgrel=4
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 install=gtk3.install
@@ -42,7 +42,7 @@ sha256sums=(
 	"cfb3121fb174ea8718a0dc184417338c5dfd819237e233d78bf43fb51bb06c91"
 	"ac119908c6a763ece6114ae3b5cd5d8c232207ce734d975e0ada22379610fc7d"
 	"be7800734fc59e49c34ee2f806738eba8b606d46ac61bc3f50fa3cc69ae594f0"
-	"1784e29ce5b811ed8673a29a89903751abb8bf68b3793f2e635c99851c165245"
+	"0afbd995148ce6e03010b572d69533e4d250a2e5f60323422b16a407ff162885"
 
 	"c3ab786779a6a74765a56e31aaa0fe9123feee222185f0c3ae94acfb2e61a0dd"
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
@@ -69,22 +69,28 @@ build() {
 	cd "$srcdir/gtk-$pkgver"
 
 	CXX=/bin/false ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
-		--enable-x11-backend --disable-schemas-compile --disable-gtk-doc-html --disable-man \
-		--disable-installed-tests --disable-colord  --disable-maintainer-mode
+		--enable-x11-backend --enable-wayland-backend --disable-schemas-compile --disable-gtk-doc-html \
+		--disable-man --disable-installed-tests --disable-colord  --disable-maintainer-mode
 
 	#https://bugzilla.gnome.org/show_bug.cgi?id=655517
 	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 
 	# Make GTK building faster by skipping tests and examples.
+	compatible="no"
 	IFS=; while read -r line; do
 		if [[ $line = "SUBDIRS = po po-properties \$(SRC_SUBDIRS) docs m4macros build" ]]; then
-			echo "SUBDIRS = po po-properties gdk gtk libgail-util modules m4macros build"
+			echo "SUBDIRS = po gdk gtk libgail-util modules m4macros build"
+			compatible="yes"
 		else
 			echo $line
 		fi;
 	done < Makefile > Makefile.modified
 	mv Makefile Makefile.original
 	mv Makefile.modified Makefile
+	if [[ $compatible = "no" ]]; then
+		echo "Makefile is not compatible."
+		exit 1
+	fi
 
 	make -j 15
 }
