@@ -15,8 +15,8 @@ arch=(i686 x86_64)
 license=(LGPL)
 depends=(
 	atk cairo libxcursor libxinerama libxrandr libxi libepoxy gdk-pixbuf2 dconf
-	libxcomposite libxdamage pango shared-mime-info at-spi2-atk libxkbcommon
-	adwaita-icon-theme json-glib librsvg desktop-file-utils mesa
+	libxcomposite libxdamage pango shared-mime-info at-spi2-atk wayland libxkbcommon
+	adwaita-icon-theme json-glib librsvg wayland-protocols desktop-file-utils mesa
 )
 optdepends=(
 	'gtk3-print-backends: Printing'
