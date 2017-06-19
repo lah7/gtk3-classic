@@ -32,6 +32,7 @@ Icons
 ---
 
 * Some of GTK stock icons on buttons are restored. You can see it in GTK internal dialogs and in some applications.
+* Colorized icons instead of symbolic icons are used in file chooser dialog.
 
 Others
 ---
@@ -48,11 +49,9 @@ Others
 In future
 ---
 
-* File chooser: less "gnomish" appearance, like in GTK2.
 * File chooser and color chooser: use classic menu instead of popovers as context menus.
 * Message dialogs: restore classic appearance like in GTK2.
 * Context menus: restore icons in some places.
-* Dialogs: use standard icons instead of symbolic icons in some places.
 
 Credits
 ---

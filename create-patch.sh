@@ -9,7 +9,7 @@
 
 if [[ -d ./org/gtk ]] && [[ -d ./mod/gtk ]] && [[ $1 ]]; then
 	# Save.
-	diff -U 25 -r -Z -B ./org/gtk ./mod/gtk > "$1.patch"
+	diff -U 10 -r -Z -B ./org/gtk ./mod/gtk > "$1.patch"
 	# Preview.
-	reset; diff --color=always -U 25 -r -Z -B ./org/gtk ./mod/gtk
+	reset; diff --color=always -U 10 -r -Z -B ./org/gtk ./mod/gtk
 fi
