@@ -1,0 +1,26 @@
+diff -U 10 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
+--- ./org/gtk/gtkwindow.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkwindow.c	2017-06-18 20:11:44.443628389 +0200
+@@ -144,21 +144,21 @@
+  * without invisible borders), .ssd (used by mutter when rendering server-side
+  * decorations). GtkWindow also represents window states with the following
+  * style classes on the main node: .tiled, .maximized, .fullscreen. Specialized
+  * types of window often add their own discriminating style classes, such as
+  * .popup or .tooltip.
+  *
+  * GtkWindow adds the .titlebar and .default-decoration style classes to the
+  * widget that is added as a titlebar child.
+  */
+ 
+-#define MNEMONICS_DELAY 300 /* ms */
++#define MNEMONICS_DELAY 0 /* ms */
+ #define NO_CONTENT_CHILD_NAT 200
+ /* In case the content (excluding header bar and shadows) of the window
+  * would be empty, either because there is no visible child widget or only an
+  * empty container widget, we use NO_CONTENT_CHILD_NAT as natural width/height
+  * instead.
+  */
+ 
+ typedef struct _GtkWindowPopover GtkWindowPopover;
+ 
+ struct _GtkWindowPopover

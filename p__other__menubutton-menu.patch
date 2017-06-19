@@ -1,0 +1,26 @@
+diff -U 10 -r -Z -B ./org/gtk/gtkmenubutton.c ./mod/gtk/gtkmenubutton.c
+--- ./org/gtk/gtkmenubutton.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkmenubutton.c	2017-06-18 20:15:20.686972436 +0200
+@@ -816,21 +816,21 @@
+ 
+   priv = menu_button->priv;
+ 
+   g_object_freeze_notify (G_OBJECT (menu_button));
+ 
+   if (menu_model)
+     g_object_ref (menu_model);
+ 
+   if (menu_model)
+     {
+-      if (priv->use_popover)
++      if (FALSE && priv->use_popover)
+         {
+           GtkWidget *popover;
+ 
+           popover = gtk_popover_new_from_model (GTK_WIDGET (menu_button), menu_model);
+           gtk_menu_button_set_popover (menu_button, popover);
+         }
+       else
+         {
+           GtkWidget *menu;
+ 

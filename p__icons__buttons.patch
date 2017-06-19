@@ -1,22 +1,7 @@
-diff -U 25 -r -Z -B ./org/gtk/gtkbutton.c ./mod/gtk/gtkbutton.c
+diff -U 10 -r -Z -B ./org/gtk/gtkbutton.c ./mod/gtk/gtkbutton.c
 --- ./org/gtk/gtkbutton.c	2017-05-11 21:09:33.000000000 +0200
-+++ ./mod/gtk/gtkbutton.c	2017-06-03 00:58:36.244202195 +0200
-@@ -2149,50 +2149,71 @@
-                                      for_size,
-                                      minimum_size, natural_size,
-                                      minimum_baseline, natural_baseline);
- }
- 
- /**
-  * gtk_button_set_label:
-  * @button: a #GtkButton
-  * @label: a string
-  *
-  * Sets the text of the label of the button to @str. This text is
-  * also used to select the stock item if gtk_button_set_use_stock()
-  * is used.
-  *
-  * This will also clear any previously set labels.
++++ ./mod/gtk/gtkbutton.c	2017-06-18 20:08:57.103620097 +0200
+@@ -2164,20 +2164,41 @@
   */
  void
  gtk_button_set_label (GtkButton   *button,
@@ -58,18 +43,3 @@ diff -U 25 -r -Z -B ./org/gtk/gtkbutton.c ./mod/gtk/gtkbutton.c
    
    g_object_notify_by_pspec (G_OBJECT (button), props[PROP_LABEL]);
  }
- 
- /**
-  * gtk_button_get_label:
-  * @button: a #GtkButton
-  *
-  * Fetches the text from the label of the button, as set by
-  * gtk_button_set_label(). If the label text has not 
-  * been set the return value will be %NULL. This will be the 
-  * case if you create an empty button with gtk_button_new() to 
-  * use as a container.
-  *
-  * Returns: The text of the label widget. This string is owned
-  * by the widget and must not be modified or freed.
-  */
- const gchar *

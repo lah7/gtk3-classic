@@ -1,0 +1,53 @@
+diff -U 10 -r -Z -B ./org/gtk/gtkheaderbar.c ./mod/gtk/gtkheaderbar.c
+--- ./org/gtk/gtkheaderbar.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkheaderbar.c	2017-06-18 19:58:02.796921011 +0200
+@@ -1277,22 +1277,21 @@
+   gchar *new_title;
+ 
+   g_return_if_fail (GTK_IS_HEADER_BAR (bar));
+ 
+   new_title = g_strdup (title);
+   g_free (priv->title);
+   priv->title = new_title;
+ 
+   if (priv->title_label != NULL)
+     {
+-      gtk_label_set_label (GTK_LABEL (priv->title_label), priv->title);
+-      gtk_widget_queue_resize (GTK_WIDGET (bar));
++      gtk_widget_set_visible (GTK_WIDGET (priv->title_label), FALSE);
+     }
+ 
+   g_object_notify_by_pspec (G_OBJECT (bar), header_bar_props[PROP_TITLE]);
+ }
+ 
+ /**
+  * gtk_header_bar_get_title:
+  * @bar: a #GtkHeaderBar
+  *
+  * Retrieves the title of the header. See gtk_header_bar_set_title().
+diff -U 10 -r -Z -B ./org/gtk/gtkstylecontext.h ./mod/gtk/gtkstylecontext.h
+--- ./org/gtk/gtkstylecontext.h	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkstylecontext.h	2017-06-18 19:58:44.023589720 +0200
+@@ -811,21 +811,21 @@
+ /**
+  * GTK_STYLE_CLASS_SUBTITLE:
+  *
+  * A CSS class used for the subtitle label in a titlebar in
+  * a toplevel window.
+  *
+  * Refer to individual widget documentation for used style classes.
+  *
+  * Since: 3.14
+  */
+-#define GTK_STYLE_CLASS_SUBTITLE "subtitle"
++#define GTK_STYLE_CLASS_SUBTITLE "title"
+ 
+ /**
+  * GTK_STYLE_CLASS_NEEDS_ATTENTION:
+  *
+  * A CSS class used when an element needs the user attention,
+  * for instance a button in a stack switcher corresponding to
+  * a hidden page that changed state.
+  *
+  * Refer to individual widget documentation for used style classes.
+  *

@@ -1,0 +1,124 @@
+diff -U 10 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
+--- ./org/gtk/gtkfilechooserwidget.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkfilechooserwidget.c	2017-06-18 23:16:33.350844489 +0200
+@@ -3954,21 +3954,21 @@
+ }
+ 
+ static gboolean
+ recent_files_setting_is_enabled (GtkFileChooserWidget *impl)
+ {
+   GtkSettings *settings;
+   gboolean enabled;
+ 
+   settings = gtk_widget_get_settings (GTK_WIDGET (impl));
+   g_object_get (settings, "gtk-recent-files-enabled", &enabled, NULL);
+-  return enabled;
++  return FALSE;
+ }
+ 
+ /* Sets the file chooser to showing Recent Files or $CWD, depending on the
+  * user’s settings.
+  */
+ static void
+ set_startup_mode (GtkFileChooserWidget *impl)
+ {
+   GtkFileChooserWidgetPrivate *priv = impl->priv;
+   GtkRevealerTransitionType revealer_transition;
+diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
+--- ./org/gtk/gtkplacessidebar.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkplacessidebar.c	2017-06-18 23:15:17.254174052 +0200
+@@ -589,20 +589,21 @@
+ 
+   home_dir = g_file_new_for_path (home_path);
+   emit_open_location (sidebar, home_dir, 0);
+ 
+   g_object_unref (home_dir);
+ }
+ 
+ static void
+ add_special_dirs (GtkPlacesSidebar *sidebar)
+ {
++  return;
+   GList *dirs;
+   gint index;
+ 
+   dirs = NULL;
+   for (index = 0; index < G_USER_N_DIRECTORIES; index++)
+     {
+       const gchar *path;
+       GFile *root;
+       GIcon *icon;
+       gchar *name;
+@@ -1242,22 +1243,20 @@
+   bookmarks = _gtk_bookmarks_manager_list_bookmarks (sidebar->bookmarks_manager);
+ 
+   for (sl = bookmarks, index = 0; sl; sl = sl->next, index++)
+     {
+       gboolean is_native;
+       BookmarkQueryClosure *clos;
+ 
+       root = sl->data;
+       is_native = g_file_is_native (root);
+ 
+-      if (_gtk_bookmarks_manager_get_is_builtin (sidebar->bookmarks_manager, root))
+-        continue;
+ 
+       if (sidebar->local_only && !is_native)
+         continue;
+ 
+       clos = g_slice_new (BookmarkQueryClosure);
+       clos->sidebar = sidebar;
+       clos->index = index;
+       clos->is_native = is_native;
+       g_file_query_info_async (root,
+                                "standard::display-name,standard::symbolic-icon",
+@@ -3867,21 +3866,21 @@
+                     G_CALLBACK (drag_end_callback), sidebar);
+   g_signal_connect (sidebar->list_box, "drag-leave",
+                     G_CALLBACK (drag_leave_callback), sidebar);
+   sidebar->drag_row = NULL;
+   sidebar->row_placeholder = NULL;
+   sidebar->dragging_over = FALSE;
+   sidebar->drag_data_info = DND_UNKNOWN;
+ 
+   gtk_container_add (GTK_CONTAINER (sidebar), sidebar->list_box);
+ 
+-  sidebar->hostname = g_strdup (_("Computer"));
++  sidebar->hostname = g_strdup (_("File System"));
+   sidebar->hostnamed_cancellable = g_cancellable_new ();
+   g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                             G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES,
+                             NULL,
+                             "org.freedesktop.hostname1",
+                             "/org/freedesktop/hostname1",
+                             "org.freedesktop.hostname1",
+                             sidebar->hostnamed_cancellable,
+                             hostname_proxy_new_cb,
+                             sidebar);
+diff -U 10 -r -Z -B ./org/gtk/ui/gtkfilechooserwidget.ui ./mod/gtk/ui/gtkfilechooserwidget.ui
+--- ./org/gtk/ui/gtkfilechooserwidget.ui	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/ui/gtkfilechooserwidget.ui	2017-06-18 23:15:17.257507386 +0200
+@@ -9,21 +9,22 @@
+         <property name="visible">1</property>
+         <property name="orientation">vertical</property>
+         <child>
+           <object class="GtkPaned" id="browse_widgets_hpaned">
+             <property name="visible">1</property>
+             <child>
+               <object class="GtkPlacesSidebar" id="places_sidebar">
+                 <property name="visible">1</property>
+                 <property name="hscrollbar-policy">never</property>
+                 <property name="local-only">1</property>
+-                <property name="show-other-locations">1</property>
++                <property name="show-other-locations">0</property>
++                <property name="show-trash">0</property>
+                 <style>
+                   <class name="sidebar"/>
+                 </style>
+                 <signal name="open-location" handler="places_sidebar_open_location_cb" swapped="no"/>
+                 <signal name="show-error-message" handler="places_sidebar_show_error_message_cb" swapped="no"/>
+                 <signal name="show-other-locations-with-flags" handler="places_sidebar_show_other_locations_with_flags_cb" swapped="no"/>
+               </object>
+               <packing>
+                 <property name="resize">0</property>
+                 <property name="shrink">0</property>

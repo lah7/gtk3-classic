@@ -1,0 +1,25 @@
+diff -U 10 -r -Z -B ./org/gtk/gtkscrolledwindow.c ./mod/gtk/gtkscrolledwindow.c
+--- ./org/gtk/gtkscrolledwindow.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkscrolledwindow.c	2017-06-18 20:13:43.643634295 +0200
+@@ -4393,21 +4393,20 @@
+ }
+ 
+ static void
+ gtk_scrolled_window_update_use_indicators (GtkScrolledWindow *scrolled_window)
+ {
+   GtkScrolledWindowPrivate *priv = scrolled_window->priv;
+   gboolean use_indicators;
+ 
+   use_indicators = priv->overlay_scrolling;
+ 
+-  if (g_strcmp0 (g_getenv ("GTK_OVERLAY_SCROLLING"), "0") == 0)
+     use_indicators = FALSE;
+ 
+   if (priv->use_indicators != use_indicators)
+     {
+       priv->use_indicators = use_indicators;
+ 
+       if (gtk_widget_get_realized (GTK_WIDGET (scrolled_window)))
+         gtk_scrolled_window_sync_use_indicators (scrolled_window);
+ 
+       gtk_widget_queue_resize (GTK_WIDGET (scrolled_window));

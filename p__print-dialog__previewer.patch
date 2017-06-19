@@ -1,0 +1,26 @@
+diff -U 10 -r -Z -B ./org/gtk/gtksettings.c ./mod/gtk/gtksettings.c
+--- ./org/gtk/gtksettings.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtksettings.c	2017-06-18 20:04:49.313607819 +0200
+@@ -54,21 +54,21 @@
+ 
+ #ifdef GDK_WINDOWING_WIN32
+ #include "win32/gdkwin32.h"
+ #endif
+ 
+ #include "deprecated/gtkrc.h"
+ 
+ #ifdef GDK_WINDOWING_QUARTZ
+ #define PRINT_PREVIEW_COMMAND "open -a /Applications/Preview.app %f"
+ #else
+-#define PRINT_PREVIEW_COMMAND "evince --unlink-tempfile --preview --print-settings %s %f"
++#define PRINT_PREVIEW_COMMAND "atril --unlink-tempfile --preview --print-settings %s %f"
+ #endif
+ 
+ /**
+  * SECTION:gtksettings
+  * @Short_description: Sharing settings between applications
+  * @Title: Settings
+  *
+  * GtkSettings provide a mechanism to share global settings between
+  * applications.
+  *

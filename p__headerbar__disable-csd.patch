@@ -1,0 +1,69 @@
+diff -U 10 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
+--- ./org/gtk/gtkwindow.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkwindow.c	2017-06-18 21:34:15.757207050 +0200
+@@ -4113,20 +4113,21 @@
+         return FALSE;
+     }
+ #endif
+ 
+   return TRUE;
+ }
+ 
+ static void
+ gtk_window_enable_csd (GtkWindow *window)
+ {
++  return;
+   GtkWindowPrivate *priv = window->priv;
+   GtkWidget *widget = GTK_WIDGET (window);
+   GdkVisual *visual;
+ 
+   /* We need a visual with alpha for client shadows */
+   if (priv->use_client_shadow)
+     {
+       visual = gdk_screen_get_rgba_visual (gtk_widget_get_screen (widget));
+       if (visual != NULL)
+         gtk_widget_set_visual (widget, visual);
+@@ -6060,20 +6061,21 @@
+ _gtk_window_request_csd (GtkWindow *window)
+ {
+   GtkWindowPrivate *priv = window->priv;
+ 
+   priv->csd_requested = TRUE;
+ }
+ 
+ static gboolean
+ gtk_window_should_use_csd (GtkWindow *window)
+ {
++  return FALSE;
+   GtkWindowPrivate *priv = window->priv;
+   const gchar *csd_env;
+ 
+   if (priv->csd_requested)
+     return TRUE;
+ 
+   if (!priv->decorated)
+     return FALSE;
+ 
+   if (priv->type == GTK_WINDOW_POPUP)
+@@ -9086,20 +9088,21 @@
+   g_signal_connect (G_OBJECT (menuitem), "activate",
+                     G_CALLBACK (close_window_clicked), window);
+   gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), menuitem);
+   gtk_menu_popup_at_pointer (GTK_MENU (priv->popup_menu), (GdkEvent *) event);
+ }
+ 
+ static void
+ gtk_window_do_popup (GtkWindow      *window,
+                      GdkEventButton *event)
+ {
++  return;
+   if (!gdk_window_show_window_menu (_gtk_widget_get_window (GTK_WIDGET (window)),
+                                     (GdkEvent *) event))
+     gtk_window_do_popup_fallback (window, event);
+ }
+ 
+ /*********************************
+  * Functions related to resizing *
+  *********************************/
+ 
+ static void

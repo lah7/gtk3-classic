@@ -1,0 +1,50 @@
+diff -U 10 -r -Z -B ./org/gtk/gtkheaderbar.c ./mod/gtk/gtkheaderbar.c
+--- ./org/gtk/gtkheaderbar.c	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/gtkheaderbar.c	2017-06-18 20:02:34.716934483 +0200
+@@ -316,21 +316,21 @@
+ 
+   if (!shown_by_shell && gtk_window_get_application (window))
+     menu = gtk_application_get_app_menu (gtk_window_get_application (window));
+   else
+     menu = NULL;
+ 
+   is_sovereign_window = (!gtk_window_get_modal (window) &&
+                           gtk_window_get_transient_for (window) == NULL &&
+                           gtk_window_get_type_hint (window) == GDK_WINDOW_TYPE_HINT_NORMAL);
+ 
+-  tokens = g_strsplit (layout_desc, ":", 2);
++  tokens = g_strsplit ("menu", ":", 2);
+   if (tokens)
+     {
+       for (i = 0; i < 2; i++)
+         {
+           GtkWidget *box;
+           GtkWidget *separator;
+           int n_children = 0;
+ 
+           if (tokens[i] == NULL)
+             break;
+@@ -377,22 +377,21 @@
+                   gtk_style_context_add_class (gtk_widget_get_style_context (button), "titlebutton");
+                   gtk_style_context_add_class (gtk_widget_get_style_context (button), "appmenu");
+                   image = gtk_image_new ();
+                   gtk_container_add (GTK_CONTAINER (button), image);
+                   gtk_widget_set_can_focus (button, FALSE);
+                   gtk_widget_show_all (button);
+                   accessible = gtk_widget_get_accessible (button);
+                   if (GTK_IS_ACCESSIBLE (accessible))
+                     atk_object_set_name (accessible, _("Application menu"));
+                   priv->titlebar_icon = image;
+-                  if (!_gtk_header_bar_update_window_icon (bar, window))
+-                    gtk_image_set_from_icon_name (GTK_IMAGE (priv->titlebar_icon), "process-stop-symbolic", GTK_ICON_SIZE_MENU);
++                    gtk_image_set_from_icon_name (GTK_IMAGE (priv->titlebar_icon), "pan-down-symbolic", GTK_ICON_SIZE_MENU);
+                 }
+               else if (strcmp (t[j], "minimize") == 0 &&
+                        is_sovereign_window)
+                 {
+                   button = gtk_button_new ();
+                   gtk_widget_set_valign (button, GTK_ALIGN_CENTER);
+                   gtk_style_context_add_class (gtk_widget_get_style_context (button), "titlebutton");
+                   gtk_style_context_add_class (gtk_widget_get_style_context (button), "minimize");
+                   image = gtk_image_new_from_icon_name ("window-minimize-symbolic", GTK_ICON_SIZE_MENU);
+                   g_object_set (image, "use-fallback", TRUE, NULL);

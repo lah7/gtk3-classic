@@ -1,0 +1,39 @@
+diff -U 10 -r -Z -B ./org/gtk/ui/gtkprintunixdialog.ui ./mod/gtk/ui/gtkprintunixdialog.ui
+--- ./org/gtk/ui/gtkprintunixdialog.ui	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/ui/gtkprintunixdialog.ui	2017-06-18 20:06:30.823612849 +0200
+@@ -51,31 +51,33 @@
+     <property name="can-focus">False</property>
+     <property name="type-hint">dialog</property>
+     <signal name="notify::page-setup" handler="redraw_page_layout_preview" swapped="no"/>
+     <signal name="response" handler="error_dialogs" swapped="no"/>
+     <child internal-child="vbox">
+       <object class="GtkBox" id="dialog-vbox1">
+         <property name="orientation">vertical</property>
+         <property name="spacing">2</property>
+         <property name="border-width">0</property>
+         <style>
+-          <class name="view"/>
+         </style>
+         <child>
+           <object class="GtkBox" id="box1">
+             <property name="visible">1</property>
+             <property name="orientation">vertical</property>
+             <child>
+               <object class="GtkNotebook" id="notebook">
+                 <property name="visible">1</property>
+                 <property name="can-focus">1</property>
+-                <property name="show-border">0</property>
++                <property name="show-border">1</property>
++                <property name="margin-left">12</property>
++                <property name="margin-right">12</property>
++                <property name="margin-top">12</property>
+                 <child>
+                   <object class="GtkBox" id="general_main_box">
+                     <property name="visible">1</property>
+                     <property name="border-width">12</property>
+                     <property name="orientation">vertical</property>
+                     <property name="spacing">18</property>
+                     <child>
+                       <object class="GtkBox" id="box2">
+                         <property name="visible">1</property>
+                         <property name="orientation">vertical</property>
