@@ -5,7 +5,7 @@
 
 pkgname=gtk3-mushrooms
 pkgver=3.22.15
-pkgrel=5
+pkgrel=6
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 install=gtk3.install
@@ -25,6 +25,7 @@ makedepends=(
 	gobject-introspection libcanberra gtk-doc rest libcups glib2-docs
 )
 source=(
+	"p__file-chooser__cwd-default.patch"
 	"p__file-chooser__places-sidebar.patch"
 	"p__file-chooser__single-click.patch"
 	"p__file-chooser__typeahead.patch"
@@ -47,7 +48,8 @@ source=(
 	"gtk-query-immodules-3.0.hook"
 )
 sha256sums=(
-	"e2d1425b2d377db426b56fcf127d245aef6570af0145d4c3ec7dff75a0af11d9"
+	"da49c43e1b8c53b0fb3a6309f18668952ca7128a4fdcfb97098a7ec9959b1fc6"
+	"0615c4aec2ee47d79eee3a27e73b8156e927479c6ee4f1f165e5aaed98a01284"
 	"79e69afe150a0393be17f1f8fc65c7c10540ef631a6ea657b01eaf0a99f5ffc5"
 	"1824f7136c05dfc2657a6cc7cc45fae5ededb9f06e899e28982a068824123ac2"
 	"49c9847239511c2db0be46cb8f660c2c4a43a45b3deed4443eb449daf9ceaf21"
@@ -78,6 +80,8 @@ prepare() {
 
 	cat "$srcdir/smaller-adwaita.css" >> "theme/Adwaita/gtk-contained.css"
 	cat "$srcdir/smaller-adwaita.css" >> "theme/Adwaita/gtk-contained-dark.css"
+	cat "$srcdir/smaller-adwaita.css" >> "theme/HighContrast/gtk-contained.css"
+	cat "$srcdir/smaller-adwaita.css" >> "theme/HighContrast/gtk-contained-inverse.css"
 
 	cd "$srcdir/gtk-$pkgver"
 	NOCONFIGURE=1 ./autogen.sh

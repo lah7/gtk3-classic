@@ -1,29 +1,3 @@
-diff -U 10 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
---- ./org/gtk/gtkfilechooserwidget.c	2017-05-11 21:09:33.000000000 +0200
-+++ ./mod/gtk/gtkfilechooserwidget.c	2017-06-18 23:16:33.350844489 +0200
-@@ -3954,21 +3954,21 @@
- }
- 
- static gboolean
- recent_files_setting_is_enabled (GtkFileChooserWidget *impl)
- {
-   GtkSettings *settings;
-   gboolean enabled;
- 
-   settings = gtk_widget_get_settings (GTK_WIDGET (impl));
-   g_object_get (settings, "gtk-recent-files-enabled", &enabled, NULL);
--  return enabled;
-+  return FALSE;
- }
- 
- /* Sets the file chooser to showing Recent Files or $CWD, depending on the
-  * user’s settings.
-  */
- static void
- set_startup_mode (GtkFileChooserWidget *impl)
- {
-   GtkFileChooserWidgetPrivate *priv = impl->priv;
-   GtkRevealerTransitionType revealer_transition;
 diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
 --- ./org/gtk/gtkplacessidebar.c	2017-05-11 21:09:33.000000000 +0200
 +++ ./mod/gtk/gtkplacessidebar.c	2017-06-18 23:15:17.254174052 +0200

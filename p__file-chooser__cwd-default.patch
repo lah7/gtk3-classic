@@ -1,0 +1,26 @@
+diff -U 10 -r -Z -B ./org/gtk/org.gtk.Settings.FileChooser.gschema.xml ./mod/gtk/org.gtk.Settings.FileChooser.gschema.xml
+--- ./org/gtk/org.gtk.Settings.FileChooser.gschema.xml	2017-05-11 21:09:33.000000000 +0200
++++ ./mod/gtk/org.gtk.Settings.FileChooser.gschema.xml	2017-06-20 22:14:05.590256118 +0200
+@@ -112,21 +112,21 @@
+       </description>
+     </key>
+     <key name='window-size' type='(ii)'>
+       <default>(-1, -1)</default>
+       <summary>Window size</summary>
+       <description>
+ 	The size (width, height) of the GtkFileChooserDialog's window, in pixels.
+       </description>
+     </key>
+     <key name='startup-mode' enum='org.gtk.Settings.FileChooser.StartupMode'>
+-      <default>'recent'</default>
++      <default>'cwd'</default>
+       <summary>Startup mode</summary>
+       <description>
+ 	Either "recent" or "cwd"; controls whether the file chooser
+ 	starts up showing the list of recently-used files, or the
+ 	contents of the current working directory.
+       </description>
+     </key>
+     <key name='sidebar-width' type='i'>
+       <default>148</default>
+       <summary>Sidebar width</summary>

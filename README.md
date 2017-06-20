@@ -18,6 +18,7 @@ File chooser
 
 * Annoying single-click "feature" in file list is disabled. You always have to double-click to choose file from list.
 * Typeahead feature is restored. Recursive file search will not be ran when you start typing.
+* Current working directory is opened by default instead of section with recently used files.
 * "Other locations" button is removed from places sidebar. All mounted devices and drives are accessible directly.
 * File system button in places sidebar is labeled as "File System" instead of "Computer".
 * Trash and XDG user directories (like Pictures, Downloads, Documents) are removed from places sidebar. They can be added as bookmarks.
@@ -37,12 +38,16 @@ Icons
 Others
 ---
 
-* Default Adwaita theme has smaller controls (buttons, fields, tabs, etc.).
 * Status bars are smaller regardless of used theme.
 * Scrollbars are always visible. Environment variable is not needed.
 * Delay before showing mnemonics is removed. You do not have to wait.
 * Menus of menu buttons are displayed as classic menu by default instead of popover.
-* Recently opened files feature is disabled by default.
+
+Themes
+---
+
+* Default Adwaita theme has smaller controls (buttons, fields, tabs, etc.).
+* Dark Adwaita and HighContrast themes also have reduced controls.
 
 --------
 
