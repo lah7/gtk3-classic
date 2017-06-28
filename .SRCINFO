@@ -1,7 +1,7 @@
 pkgbase = gtk3-mushrooms
 	pkgdesc = GTK3 library with my modifications (see README).
-	pkgver = 3.22.15
-	pkgrel = 6
+	pkgver = 3.22.16
+	pkgrel = 1
 	url = http://www.gtk.org/
 	install = gtk3.install
 	arch = i686
@@ -36,7 +36,7 @@ pkgbase = gtk3-mushrooms
 	depends = desktop-file-utils
 	depends = mesa
 	optdepends = gtk3-print-backends: Printing
-	provides = gtk3=3.22.15
+	provides = gtk3=3.22.16
 	conflicts = gtk3
 	source = p__file-chooser__cwd-default.patch
 	source = p__file-chooser__places-sidebar.patch
@@ -54,7 +54,7 @@ pkgbase = gtk3-mushrooms
 	source = p__print-dialog__appearance.patch
 	source = p__print-dialog__previewer.patch
 	source = smaller-adwaita.css
-	source = https://github.com/GNOME/gtk/archive/3.22.15.zip
+	source = https://github.com/GNOME/gtk/archive/3.22.16.zip
 	source = settings.ini
 	source = gtk-query-immodules-3.0.hook
 	sha256sums = da49c43e1b8c53b0fb3a6309f18668952ca7128a4fdcfb97098a7ec9959b1fc6
@@ -73,7 +73,7 @@ pkgbase = gtk3-mushrooms
 	sha256sums = 9dd136016d59b7b3fe8746c722a6adb9f30aa1dcbf5bf37f0055bb1af5e4d27c
 	sha256sums = 65d8e125c74798d2a1d1e872ee4332b3a3f6332d8860963e9f3e4c8c6f41cb92
 	sha256sums = 0afbd995148ce6e03010b572d69533e4d250a2e5f60323422b16a407ff162885
-	sha256sums = c3ab786779a6a74765a56e31aaa0fe9123feee222185f0c3ae94acfb2e61a0dd
+	sha256sums = 5c2a5b99baaf48b8edd548f6ab2fbbd1437c8dc99c0837d345fb41da27d27af8
 	sha256sums = 01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202
 	sha256sums = de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845
 
