@@ -5,7 +5,7 @@
 
 pkgname=gtk3-mushrooms
 pkgver=3.22.16
-pkgrel=1
+pkgrel=2
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 install=gtk3.install
@@ -33,6 +33,7 @@ source=(
 	"p__headerbar__disable-csd.patch"
 	"p__headerbar__title.patch"
 	"p__icons__buttons.patch"
+	"p__icons__context-menus.patch"
 	"p__icons__file-chooser.patch"
 	"p__other__menubutton-menu.patch"
 	"p__other__mnemonics-delay.patch"
@@ -51,11 +52,12 @@ sha256sums=(
 	"da49c43e1b8c53b0fb3a6309f18668952ca7128a4fdcfb97098a7ec9959b1fc6"
 	"0615c4aec2ee47d79eee3a27e73b8156e927479c6ee4f1f165e5aaed98a01284"
 	"79e69afe150a0393be17f1f8fc65c7c10540ef631a6ea657b01eaf0a99f5ffc5"
-	"1824f7136c05dfc2657a6cc7cc45fae5ededb9f06e899e28982a068824123ac2"
+	"a38bed449757a21a476f0d5f32ad46cefa1793387784e5908da3029a891617c4"
 	"49c9847239511c2db0be46cb8f660c2c4a43a45b3deed4443eb449daf9ceaf21"
 	"1eac1a085ec83e4c340cdbe97d146e902497115ca29b8278eb645e0b7fce352e"
-	"c064edcc5e183c7ccd9d764a3f6e5039ff9052039407a7978e5362d6499b46bd"
+	"0439a24d7dbc1eba24fa75026f92da00c2b173cb5ccde6318629ffb191692d8d"
 	"ee7fd84ea670406cdf92e8710872431123a92ce93b51e9a3ea9b7898a5ba42d9"
+	"10845323e45d0a49ab47c9bfb0dc2e77320d8b06049b65f8941a4d1109eb7f83"
 	"f7d4dc007352b6f04bef467420fb8b3ed43fbef3cc5928370f926ce22af93ab3"
 	"f33c1fc18a02eb04a91be6218642ffd7cfa7bfc2c4c1656c413eb78d904862cf"
 	"ccc9ecc561c56e470a4dced055bafd6ae108c6b86e2a56f965a14afe04d35f62"

@@ -27,7 +27,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkfilechooserdialog.c ./mod/gtk/gtkfilechooserdia
 diff -U 10 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
 --- ./org/gtk/gtkfilechooserwidget.c	2017-05-11 21:09:33.000000000 +0200
 +++ ./mod/gtk/gtkfilechooserwidget.c	2017-06-18 19:27:16.950162886 +0200
-@@ -2471,21 +2471,20 @@
+@@ -2471,21 +2471,21 @@
  } ColumnMap;
  
  /* Sets the sort column IDs for the file list; needs to be done whenever we
@@ -39,6 +39,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwid
    GtkFileChooserWidgetPrivate *priv = impl->priv;
  
 -  gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->browse_files_tree_view), -1);
++  gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->browse_files_tree_view), 0);
  
    gtk_tree_view_column_set_sort_column_id (priv->list_name_column, MODEL_COL_NAME);
    gtk_tree_view_column_set_sort_column_id (priv->list_time_column, MODEL_COL_TIME);
@@ -72,7 +73,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwid
      default:
        g_assert_not_reached ();
        return;
-@@ -7512,21 +7513,20 @@
+@@ -7512,21 +7513,21 @@
  
  static void
  recent_idle_cleanup (gpointer data)
@@ -84,6 +85,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwid
    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->browse_files_tree_view),
                             GTK_TREE_MODEL (priv->recent_model));
 -  gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->browse_files_tree_view), -1);
++  gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->browse_files_tree_view), 0);
  
    gtk_tree_view_column_set_sort_column_id (priv->list_name_column, -1);
    gtk_tree_view_column_set_sort_column_id (priv->list_time_column, -1);
@@ -97,7 +99,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwid
 diff -U 10 -r -Z -B ./org/gtk/ui/gtkfilechooserwidget.ui ./mod/gtk/ui/gtkfilechooserwidget.ui
 --- ./org/gtk/ui/gtkfilechooserwidget.ui	2017-05-11 21:09:33.000000000 +0200
 +++ ./mod/gtk/ui/gtkfilechooserwidget.ui	2017-06-18 19:28:50.943500877 +0200
-@@ -155,21 +155,22 @@
+@@ -155,21 +155,21 @@
                              <property name="visible">1</property>
                              <property name="orientation">vertical</property>
                              <child>
@@ -110,7 +112,6 @@ diff -U 10 -r -Z -B ./org/gtk/ui/gtkfilechooserwidget.ui ./mod/gtk/ui/gtkfilecho
                                      <property name="has-tooltip">1</property>
 -                                    <property name="enable-search">0</property>
 +                                    <property name="enable-search">1</property>
-+                                    <property name="search-column">0</property>
                                      <child internal-child="accessible">
                                        <object class="AtkObject" id="browse_files_tree_view-atkobject">
                                          <property name="AtkObject::accessible-name" translatable="yes">Files</property>

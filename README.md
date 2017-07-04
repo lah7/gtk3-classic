@@ -9,9 +9,9 @@ Client Side Decorations
 ---
 
 * CSDs are permanently and totally disabled. All windows (menus, tooltips) are decorated only by window manager.
-* Window title is not displayed on headerbar. Window subtitle is styled as window title.
+* Window title is removed from headerbar. Subtitle is added to native titlebar.
 * Minimize, maximize and close buttons are removed.
-* Application icon is not used on application menu button to avoid duplication of icon from native titlebar.
+* Application icon is not used on application menu button.
 
 File chooser
 ---
@@ -33,6 +33,7 @@ Icons
 ---
 
 * Some of GTK stock icons on buttons are restored. You can see it in GTK internal dialogs and in some applications.
+* Context menus of text fields, links and labels have restored icons too.
 * Colorized icons instead of symbolic icons are used in file chooser dialog.
 
 Others
