@@ -5,7 +5,7 @@
 
 pkgname=gtk3-mushrooms
 pkgver=3.22.16
-pkgrel=2
+pkgrel=3
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 install=gtk3.install
@@ -35,10 +35,13 @@ source=(
 	"p__icons__buttons.patch"
 	"p__icons__context-menus.patch"
 	"p__icons__file-chooser.patch"
-	"p__other__menubutton-menu.patch"
 	"p__other__mnemonics-delay.patch"
 	"p__other__scrollbar.patch"
 	"p__other__statusbar.patch"
+	"p__popovers__color-chooser.patch"
+	"p__popovers__file-chooser.patch"
+	"p__popovers__menu-button.patch"
+	"p__popovers__places-sidebar.patch"
 	"p__print-dialog__appearance.patch"
 	"p__print-dialog__previewer.patch"
 
@@ -56,13 +59,16 @@ sha256sums=(
 	"49c9847239511c2db0be46cb8f660c2c4a43a45b3deed4443eb449daf9ceaf21"
 	"1eac1a085ec83e4c340cdbe97d146e902497115ca29b8278eb645e0b7fce352e"
 	"0439a24d7dbc1eba24fa75026f92da00c2b173cb5ccde6318629ffb191692d8d"
-	"ee7fd84ea670406cdf92e8710872431123a92ce93b51e9a3ea9b7898a5ba42d9"
-	"10845323e45d0a49ab47c9bfb0dc2e77320d8b06049b65f8941a4d1109eb7f83"
+	"267995c5aa0541d6d75b0e9c3190c0f63cbf0c18e533997b5ae77318584cad46"
+	"e120514e4f6f3658e40dc425d4c57f4f62c8007d1210f546a96083ccab87b7d0"
 	"f7d4dc007352b6f04bef467420fb8b3ed43fbef3cc5928370f926ce22af93ab3"
-	"f33c1fc18a02eb04a91be6218642ffd7cfa7bfc2c4c1656c413eb78d904862cf"
 	"ccc9ecc561c56e470a4dced055bafd6ae108c6b86e2a56f965a14afe04d35f62"
 	"cd6967c6b46581752b2587a6e294950065187e10606987d71b8422b2370ca755"
 	"d7855f0122bb10f96463433bf60481e2a9d5f435e6618d72254454973872411d"
+	"66ad760507ff8da2578bce5cbba933e201995b29a0bc26435b4eb63e6454ef44"
+	"4e273cf475f73f52c885ea41d2c72ddd1c0c466b323265f35e084c0038cb9a06"
+	"f33c1fc18a02eb04a91be6218642ffd7cfa7bfc2c4c1656c413eb78d904862cf"
+	"9a5d45d9f0b4c41d2255b042ebc8efe57d3fd096048125c14bc4d95fc83fbf24"
 	"9dd136016d59b7b3fe8746c722a6adb9f30aa1dcbf5bf37f0055bb1af5e4d27c"
 	"65d8e125c74798d2a1d1e872ee4332b3a3f6332d8860963e9f3e4c8c6f41cb92"
 

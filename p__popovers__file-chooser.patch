@@ -1,0 +1,148 @@
+diff -U 10 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
+--- ./org/gtk/gtkfilechooserwidget.c	2017-06-20 21:16:19.000000000 +0200
++++ ./mod/gtk/gtkfilechooserwidget.c	2017-07-10 20:28:44.210187624 +0200
+@@ -72,20 +72,21 @@
+ #include "gtkshow.h"
+ #include "gtkmain.h"
+ #include "gtkscrollable.h"
+ #include "gtkpopover.h"
+ #include "gtkrevealer.h"
+ #include "gtkspinner.h"
+ #include "gtkseparator.h"
+ #include "gtkmodelbutton.h"
+ #include "gtkgesturelongpress.h"
+ #include "gtkdebug.h"
++#include "deprecated/gtkimagemenuitem.h"
+
+ #include <cairo-gobject.h>
+
+ #ifdef HAVE_UNISTD_H
+ #include <unistd.h>
+ #endif
+ #ifdef G_OS_WIN32
+ #include <io.h>
+ #endif
+
+@@ -2217,20 +2218,24 @@
+                                    impl);
+   gtk_widget_insert_action_group (GTK_WIDGET (impl->priv->browse_files_tree_view), "item", actions);
+   g_object_unref (actions);
+ }
+
+ static GtkWidget *
+ append_separator (GtkWidget *box)
+ {
+   GtkWidget *separator;
+
++  separator = gtk_separator_menu_item_new();
++  gtk_widget_set_visible(GTK_WIDGET(separator), TRUE);
++  gtk_menu_shell_append(GTK_MENU_SHELL(box), separator);
++  return separator;
+   separator = g_object_new (GTK_TYPE_SEPARATOR,
+                             "orientation", GTK_ORIENTATION_HORIZONTAL,
+                             "visible", TRUE,
+                             "margin-start", 12,
+                             "margin-end", 12,
+                             "margin-top", 6,
+                             "margin-bottom", 6,
+                             NULL);
+   gtk_container_add (GTK_CONTAINER (box), separator);
+
+@@ -2238,20 +2243,28 @@
+ }
+
+ /* Constructs the popup menu for the file list if needed */
+ static GtkWidget *
+ add_button (GtkWidget   *box,
+             const gchar *label,
+             const gchar *action)
+ {
+   GtkWidget *item;
+
++  if (g_str_match_string("toggle", action, TRUE))
++    item = gtk_check_menu_item_new_with_mnemonic(label);
++  else
++    item = gtk_image_menu_item_new_with_mnemonic(label);
++  g_object_set(G_OBJECT(item), "action-name", action, NULL);
++  gtk_widget_set_visible(GTK_WIDGET(item), TRUE);
++  gtk_menu_shell_append(GTK_MENU_SHELL(box), item);
++  return item;
+  item = g_object_new (GTK_TYPE_MODEL_BUTTON,
+                        "visible", TRUE,
+                        "action-name", action,
+                        "text", label,
+                        NULL);
+   gtk_container_add (GTK_CONTAINER (box), item);
+
+   return item;
+ }
+
+@@ -2262,35 +2275,45 @@
+   GtkWidget *box;
+
+   if (priv->browse_files_popover)
+     return;
+
+   priv->browse_files_popover = gtk_popover_new (priv->browse_files_tree_view);
+   box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+   g_object_set (box, "margin", 10, NULL);
+   gtk_widget_show (box);
+   gtk_container_add (GTK_CONTAINER (priv->browse_files_popover), box);
++  priv->browse_files_popover = gtk_menu_new();
++  gtk_menu_attach_to_widget(GTK_MENU(priv->browse_files_popover), GTK_WIDGET(priv->browse_files_tree_view), NULL);
++  box = priv->browse_files_popover;
+
+   priv->visit_file_item = add_button (box, _("_Visit File"), "item.visit");
+   priv->open_folder_item = add_button (box, _("_Open With File Manager"), "item.open");
+   priv->copy_file_location_item = add_button (box, _("_Copy Location"), "item.copy-location");
+   priv->add_shortcut_item = add_button (box, _("_Add to Bookmarks"), "item.add-shortcut");
+   priv->rename_file_item = add_button (box, _("_Rename"), "item.rename");
+   priv->delete_file_item = add_button (box, _("_Delete"), "item.delete");
+   priv->trash_file_item = add_button (box, _("_Move to Trash"), "item.trash");
+
+   append_separator (box);
+
+   priv->hidden_files_item = add_button (box, _("Show _Hidden Files"), "item.toggle-show-hidden");
+   priv->size_column_item = add_button (box, _("Show _Size Column"), "item.toggle-show-size");
+   priv->show_time_item = add_button (box, _("Show _Time"), "item.toggle-show-time");
+   priv->sort_directories_item = add_button (box, _("Sort _Folders before Files"), "item.toggle-sort-dirs-first");
++  g_object_set(priv->visit_file_item, "image", gtk_image_new_from_icon_name("gtk-jump-to",GTK_ICON_SIZE_MENU), NULL);
++  g_object_set(priv->open_folder_item, "image", gtk_image_new_from_icon_name("gtk-open",GTK_ICON_SIZE_MENU), NULL);
++  g_object_set(priv->copy_file_location_item, "image", gtk_image_new_from_icon_name("gtk-copy",GTK_ICON_SIZE_MENU), NULL);
++  g_object_set(priv->add_shortcut_item, "image", gtk_image_new_from_icon_name("bookmark-new",GTK_ICON_SIZE_MENU), NULL);
++  g_object_set(priv->rename_file_item, "image", gtk_image_new_from_icon_name("gtk-edit",GTK_ICON_SIZE_MENU), NULL);
++  g_object_set(priv->delete_file_item, "image", gtk_image_new_from_icon_name("gtk-delete",GTK_ICON_SIZE_MENU), NULL);
++  g_object_set(priv->trash_file_item, "image", gtk_image_new_from_icon_name("user-trash-full",GTK_ICON_SIZE_MENU), NULL);
+ }
+
+ /* Updates the popover for the file list, creating it if necessary */
+ static void
+ file_list_update_popover (GtkFileChooserWidget *impl)
+ {
+   GtkFileChooserWidgetPrivate *priv = impl->priv;
+   GActionGroup *actions;
+   GAction *action;
+
+@@ -2333,20 +2356,22 @@
+ {
+   GtkFileChooserWidgetPrivate *priv = impl->priv;
+   GdkRectangle rect;
+   GtkTreeSelection *selection;
+   GtkTreeModel *model;
+   GList *list;
+   GtkTreePath *path;
+
+
+   file_list_update_popover (impl);
++  gtk_menu_popup_at_pointer(GTK_MENU(priv->browse_files_popover), NULL);
++  return;
+
+   selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->browse_files_tree_view));
+   list = gtk_tree_selection_get_selected_rows (selection, &model);
+   if (list)
+     {
+       path = list->data;
+       gtk_tree_view_get_cell_area (GTK_TREE_VIEW (priv->browse_files_tree_view), path, NULL, &rect);
+       gtk_tree_view_convert_bin_window_to_widget_coords (GTK_TREE_VIEW (priv->browse_files_tree_view),
+                                                      rect.x, rect.y, &rect.x, &rect.y);
+

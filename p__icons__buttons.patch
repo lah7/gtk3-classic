@@ -30,7 +30,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkbutton.c ./mod/gtk/gtkbutton.c
 +    else if (g_strcmp0( label, _("_Add") ) == 0)     use_this_icon = "gtk-add";
 +    else if (g_strcmp0( label, _("_Help") ) == 0)    use_this_icon = "gtk-help";
 +    if (use_this_icon)
-+      gtk_button_set_image(GTK_BUTTON(button), gtk_image_new_from_icon_name(use_this_icon,GTK_ICON_SIZE_BUTTON));
++      g_object_set(button, "image", gtk_image_new_from_icon_name(use_this_icon,GTK_ICON_SIZE_BUTTON), NULL);
 +  }
 +
    priv = button->priv;

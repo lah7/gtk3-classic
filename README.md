@@ -36,13 +36,18 @@ Icons
 * Context menus of text fields, links and labels have restored icons too.
 * Colorized icons instead of symbolic icons are used in file chooser dialog.
 
+Popovers
+---
+
+* File chooser dialog, places sidebar and color chooser dialog use classic menu as context menu instead of popover.
+* Menus of menu buttons are displayed as classic menu instead of popover.
+
 Others
 ---
 
 * Status bars are smaller regardless of used theme.
 * Scrollbars are always visible. Environment variable is not needed.
 * Delay before showing mnemonics is removed. You do not have to wait.
-* Menus of menu buttons are displayed as classic menu by default instead of popover.
 
 Themes
 ---
@@ -51,13 +56,6 @@ Themes
 * Dark Adwaita and HighContrast themes also have reduced controls.
 
 --------
-
-In future
----
-
-* File chooser and color chooser: use classic menu instead of popovers as context menus.
-* Message dialogs: restore classic appearance like in GTK2.
-* Context menus: restore icons in some places.
 
 Credits
 ---

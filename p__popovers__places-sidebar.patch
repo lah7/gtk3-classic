@@ -1,0 +1,252 @@
+diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
+--- ./org/gtk/gtkplacessidebar.c	2017-06-20 21:16:19.000000000 +0200
++++ ./mod/gtk/gtkplacessidebar.c	2017-07-10 21:59:25.193790547 +0200
+@@ -52,20 +52,21 @@
+ #include "gtkbutton.h"
+ #include "gtklistbox.h"
+ #include "gtkselection.h"
+ #include "gtkdragdest.h"
+ #include "gtkdnd.h"
+ #include "gtkseparator.h"
+ #include "gtkentry.h"
+ #include "gtkgesturelongpress.h"
+ #include "gtkbox.h"
+ #include "gtkmodelbutton.h"
++#include "deprecated/gtkimagemenuitem.h"
+
+ /**
+  * SECTION:gtkplacessidebar
+  * @Short_description: Sidebar that displays frequently-used places in the file system
+  * @Title: GtkPlacesSidebar
+  * @See_also: #GtkFileChooser
+  *
+  * #GtkPlacesSidebar is a widget that displays a list of frequently-used places in the
+  * file system:  the user’s home directory, the user’s bookmarks, and volumes and drives.
+  * This widget is used as a sidebar in #GtkFileChooser and may be used by file managers
+@@ -2137,46 +2138,46 @@
+
+   gtk_widget_set_visible (data->separator_item, show_mount || show_unmount || show_eject);
+   gtk_widget_set_visible (data->mount_item, show_mount);
+   gtk_widget_set_visible (data->unmount_item, show_unmount);
+   gtk_widget_set_visible (data->eject_item, show_eject);
+   gtk_widget_set_visible (data->rescan_item, show_rescan);
+   gtk_widget_set_visible (data->start_item, show_start);
+   gtk_widget_set_visible (data->stop_item, show_stop);
+
+   /* Adjust start/stop items to reflect the type of the drive */
+-  g_object_set (data->start_item, "text", _("_Start"), NULL);
+-  g_object_set (data->stop_item, "text", _("_Stop"), NULL);
++  g_object_set (data->start_item, "label", _("_Start"), "use_underline", TRUE, NULL);
++  g_object_set (data->stop_item, "label", _("_Stop"), "use_underline", TRUE, NULL);
+   if ((show_start || show_stop) && drive != NULL)
+     {
+       switch (g_drive_get_start_stop_type (drive))
+         {
+         case G_DRIVE_START_STOP_TYPE_SHUTDOWN:
+           /* start() for type G_DRIVE_START_STOP_TYPE_SHUTDOWN is normally not used */
+-          g_object_set (data->start_item, "text", _("_Power On"), NULL);
+-          g_object_set (data->stop_item, "text", _("_Safely Remove Drive"), NULL);
++          g_object_set (data->start_item, "label", _("_Power On"), "use_underline", TRUE, NULL);
++          g_object_set (data->stop_item, "label", _("_Safely Remove Drive"), "use_underline", TRUE, NULL);
+           break;
+
+         case G_DRIVE_START_STOP_TYPE_NETWORK:
+-          g_object_set (data->start_item, "text", _("_Connect Drive"), NULL);
+-          g_object_set (data->stop_item, "text", _("_Disconnect Drive"), NULL);
++          g_object_set (data->start_item, "label", _("_Connect Drive"), "use_underline", TRUE, NULL);
++          g_object_set (data->stop_item, "label", _("_Disconnect Drive"), "use_underline", TRUE, NULL);
+           break;
+
+         case G_DRIVE_START_STOP_TYPE_MULTIDISK:
+-          g_object_set (data->start_item, "text", _("_Start Multi-disk Device"), NULL);
+-          g_object_set (data->stop_item, "text", _("_Stop Multi-disk Device"), NULL);
++          g_object_set (data->start_item, "label", _("_Start Multi-disk Device"), "use_underline", TRUE, NULL);
++          g_object_set (data->stop_item, "label", _("_Stop Multi-disk Device"), "use_underline", TRUE, NULL);
+           break;
+
+         case G_DRIVE_START_STOP_TYPE_PASSWORD:
+           /* stop() for type G_DRIVE_START_STOP_TYPE_PASSWORD is normally not used */
+-          g_object_set (data->start_item, "text", _("_Unlock Device"), NULL);
+-          g_object_set (data->stop_item, "text", _("_Lock Device"), NULL);
++          g_object_set (data->start_item, "label", _("_Unlock Device"), "use_underline", TRUE, NULL);
++          g_object_set (data->stop_item, "label", _("_Lock Device"), "use_underline", TRUE, NULL);
+           break;
+
+         default:
+         case G_DRIVE_START_STOP_TYPE_UNKNOWN:
+           /* uses defaults set above */
+           break;
+         }
+     }
+
+   if (drive)
+@@ -3330,55 +3331,81 @@
+                                    sidebar);
+   gtk_widget_insert_action_group (GTK_WIDGET (sidebar), "row", actions);
+   g_object_unref (actions);
+ }
+
+ static GtkWidget *
+ append_separator (GtkWidget *box)
+ {
+   GtkWidget *separator;
+
++  if (GTK_IS_MENU(box))
++  {
++    separator = gtk_separator_menu_item_new();
++    gtk_widget_set_visible(GTK_WIDGET(separator), TRUE);
++    gtk_menu_shell_append(GTK_MENU_SHELL(box), separator);
++    return separator;
++  }
+   separator = g_object_new (GTK_TYPE_SEPARATOR,
+                             "orientation", GTK_ORIENTATION_HORIZONTAL,
+                             "visible", TRUE,
+                             "margin-top", 6,
+                             "margin-bottom", 6,
+                             NULL);
+   gtk_container_add (GTK_CONTAINER (box), separator);
+
+   return separator;
+ }
+
+ static GtkWidget *
+ add_button (GtkWidget   *box,
+             const gchar *label,
+             const gchar *action)
+ {
+   GtkWidget *item;
+
++  if (GTK_IS_MENU(box))
++  {
++    item = gtk_image_menu_item_new_with_mnemonic(label);
++    g_object_set(G_OBJECT(item), "action-name", action, NULL);
++    gtk_widget_set_visible(GTK_WIDGET(item), TRUE);
++    gtk_menu_shell_append(GTK_MENU_SHELL(box), item);
++    return item;
++  }
+   item = g_object_new (GTK_TYPE_MODEL_BUTTON,
+                        "visible", TRUE,
+                        "action-name", action,
+                        "text", label,
+                        NULL);
+   gtk_container_add (GTK_CONTAINER (box), item);
+
+   return item;
+ }
+
+ static GtkWidget *
+ add_open_button (GtkWidget          *box,
+                  const gchar        *label,
+                  GtkPlacesOpenFlags  flags)
+ {
+   GtkWidget *item;
+
++  if (GTK_IS_MENU(box))
++  {
++    item = gtk_image_menu_item_new_with_mnemonic(label);
++    g_object_set(G_OBJECT(item),
++       "action-name", flags == GTK_PLACES_OPEN_NORMAL ? "row.open" : "row.open-other",
++       "action-target", g_variant_new_int32 (flags),
++    NULL);
++    gtk_widget_set_visible(GTK_WIDGET(item), TRUE);
++    gtk_menu_shell_append(GTK_MENU_SHELL(box), item);
++    return item;
++  }
+   item = g_object_new (GTK_TYPE_MODEL_BUTTON,
+                        "visible", TRUE,
+                        "action-name", flags == GTK_PLACES_OPEN_NORMAL ? "row.open" : "row.open-other",
+                        "action-target", g_variant_new_int32 (flags),
+                        "text", label,
+                        NULL);
+   gtk_container_add (GTK_CONTAINER (box), item);
+
+   return item;
+ }
+@@ -3401,20 +3428,27 @@
+
+   sidebar->popover = gtk_popover_new (GTK_WIDGET (sidebar));
+   /* Clean sidebar pointer when its destroyed, most of the times due to its
+    * relative_to associated row being destroyed */
+   g_signal_connect (sidebar->popover, "destroy", G_CALLBACK (on_row_popover_destroy), sidebar);
+   setup_popover_shadowing (sidebar->popover);
+   box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+   g_object_set (box, "margin", 10, NULL);
+   gtk_widget_show (box);
+   gtk_container_add (GTK_CONTAINER (sidebar->popover), box);
++  if (!sidebar->populate_all)
++  {
++    sidebar->popover = gtk_menu_new();
++    g_signal_connect (sidebar->popover, "destroy", G_CALLBACK (on_row_popover_destroy), sidebar);
++    gtk_menu_attach_to_widget(GTK_MENU(sidebar->popover), GTK_WIDGET(sidebar), NULL);
++    box = sidebar->popover;
++  }
+
+   add_open_button (box, _("_Open"), GTK_PLACES_OPEN_NORMAL);
+
+   if (sidebar->open_flags & GTK_PLACES_OPEN_NEW_TAB)
+     add_open_button (box, _("Open in New _Tab"), GTK_PLACES_OPEN_NEW_TAB);
+
+   if (sidebar->open_flags & GTK_PLACES_OPEN_NEW_WINDOW)
+     add_open_button (box, _("Open in New _Window"), GTK_PLACES_OPEN_NEW_WINDOW);
+
+   append_separator (box);
+@@ -3424,20 +3458,31 @@
+   data.rename_item = add_button (box, _("Rename…"), "row.rename");
+
+   data.separator_item = append_separator (box);
+
+   data.mount_item = add_button (box, _("_Mount"), "row.mount");
+   data.unmount_item = add_button (box, _("_Unmount"), "row.unmount");
+   data.eject_item = add_button (box, _("_Eject"), "row.eject");
+   data.rescan_item = add_button (box, _("_Detect Media"), "row.rescan");
+   data.start_item = add_button (box, _("_Start"), "row.start");
+   data.stop_item = add_button (box, _("_Stop"), "row.stop");
++  if (!sidebar->populate_all)
++  {
++    g_object_set(
++      g_list_first(gtk_container_get_children(GTK_CONTAINER(box)))->data,
++      "image", gtk_image_new_from_icon_name("gtk-open",GTK_ICON_SIZE_MENU), NULL
++    );
++    g_object_set(data.rename_item, "image", gtk_image_new_from_icon_name("gtk-edit",GTK_ICON_SIZE_MENU), NULL);
++    g_object_set(data.remove_item, "image", gtk_image_new_from_icon_name("gtk-remove",GTK_ICON_SIZE_MENU), NULL);
++    g_object_set(data.add_shortcut_item, "image", gtk_image_new_from_icon_name("bookmark-new",GTK_ICON_SIZE_MENU), NULL);
++    g_object_set(data.eject_item, "image", gtk_image_new_from_icon_name("media-eject",GTK_ICON_SIZE_MENU), NULL);
++  }
+
+   /* Update everything! */
+   check_popover_sensitivity (row, &data);
+
+   if (sidebar->populate_all)
+     {
+       gchar *uri;
+       GVolume *volume;
+       GFile *file;
+
+@@ -3467,20 +3512,27 @@
+ show_row_popover (GtkSidebarRow *row)
+ {
+   GtkPlacesSidebar *sidebar;
+
+   g_object_get (row, "sidebar", &sidebar, NULL);
+
+   if (sidebar->popover)
+     gtk_widget_destroy (sidebar->popover);
+
+   create_row_popover (sidebar, row);
++  if (GTK_IS_MENU(sidebar->popover))
++  {
++    sidebar->context_row = row;
++    gtk_menu_popup_at_pointer(GTK_MENU(sidebar->popover), NULL);
++    g_object_unref (sidebar);
++    return;
++  }
+
+   gtk_popover_set_relative_to (GTK_POPOVER (sidebar->popover), GTK_WIDGET (row));
+
+   sidebar->context_row = row;
+   gtk_popover_popup (GTK_POPOVER (sidebar->popover));
+
+   g_object_unref (sidebar);
+ }
+
+ static void

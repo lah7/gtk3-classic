@@ -22,7 +22,7 @@ diff -U 10 -r -Z -B ./org/gtk/deprecated/gtkimagemenuitem.c ./mod/gtk/deprecated
 +    else if (g_strcmp0( label, _("Select _All") ) == 0) use_this_icon = "gtk-select-all";
 +    else if (g_strcmp0( label, _("_Open Link") ) == 0)  use_this_icon = "gtk-jump-to";
 +    if (use_this_icon)
-+      gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menu_item), gtk_image_new_from_icon_name(use_this_icon,GTK_ICON_SIZE_MENU));
++      g_object_set(menu_item, "image", gtk_image_new_from_icon_name(use_this_icon,GTK_ICON_SIZE_MENU), NULL);
 +  }
 +
    if (priv->label != label)
