@@ -4,8 +4,8 @@
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
 pkgname=gtk3-mushrooms
-pkgver=3.22.16
-pkgrel=3
+pkgver=3.22.17
+pkgrel=1
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 install=gtk3.install
@@ -74,7 +74,7 @@ sha256sums=(
 
 	"0afbd995148ce6e03010b572d69533e4d250a2e5f60323422b16a407ff162885"
 
-	"5c2a5b99baaf48b8edd548f6ab2fbbd1437c8dc99c0837d345fb41da27d27af8"
+	"ff9e18073c7ce0cca481f115cc5427625571fb52bdae869ce0248f3091bd5d33"
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
 	"de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845"
 )
