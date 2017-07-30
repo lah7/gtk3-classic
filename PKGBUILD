@@ -3,12 +3,13 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
+__arch_pkg_commit="1842b0f5f36f64944ea8941928d77468456e432e"
+
 pkgname=gtk3-mushrooms
 pkgver=3.22.17
-pkgrel=1
+pkgrel=2
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
-install=gtk3.install
 conflicts=(gtk3)
 provides=("gtk3=$pkgver")
 arch=(i686 x86_64)
@@ -25,113 +26,147 @@ makedepends=(
 	gobject-introspection libcanberra gtk-doc rest libcups glib2-docs
 )
 source=(
-	"p__file-chooser__cwd-default.patch"
-	"p__file-chooser__places-sidebar.patch"
-	"p__file-chooser__single-click.patch"
-	"p__file-chooser__typeahead.patch"
-	"p__headerbar__buttons.patch"
-	"p__headerbar__disable-csd.patch"
-	"p__headerbar__title.patch"
-	"p__icons__buttons.patch"
-	"p__icons__context-menus.patch"
-	"p__icons__file-chooser.patch"
-	"p__other__mnemonics-delay.patch"
-	"p__other__scrollbar.patch"
-	"p__other__statusbar.patch"
-	"p__popovers__color-chooser.patch"
-	"p__popovers__file-chooser.patch"
-	"p__popovers__menu-button.patch"
-	"p__popovers__places-sidebar.patch"
-	"p__print-dialog__appearance.patch"
-	"p__print-dialog__previewer.patch"
+	# Patch files.
+	"csd__clean-headerbar.patch"
+	"csd__disabled-by-default.patch"
+	"csd__headerbar-title.patch"
+	"csd__server-side-shadow.patch"
+	"file-chooser__cwd-default.patch"
+	"file-chooser__places-sidebar.patch"
+	"file-chooser__single-click.patch"
+	"file-chooser__typeahead.patch"
+	"icons__buttons.patch"
+	"icons__context-menus.patch"
+	"icons__file-chooser.patch"
+	"other__mnemonics-delay.patch"
+	"other__no-at-bridge.patch"
+	"other__statusbar-size.patch"
+	"other__visible-scrollbar.patch"
+	"popovers__color-chooser.patch"
+	"popovers__file-chooser-list.patch"
+	"popovers__menu-button.patch"
+	"popovers__places-sidebar.patch"
+	"print-dialog__appearance.patch"
+	"print-dialog__default-previewer.patch"
 
+	# Themes CSS file.
 	"smaller-adwaita.css"
 
-	"https://github.com/GNOME/gtk/archive/$pkgver.zip"
-	"settings.ini"
-	"gtk-query-immodules-3.0.hook"
+	# GTK source code from GitHub.
+	"https://github.com/GNOME/gtk/archive/$pkgver.tar.gz"
+
+	# ArchLinux package files.
+	"settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=$__arch_pkg_commit"
+	"gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=$__arch_pkg_commit"
 )
 sha256sums=(
-	"da49c43e1b8c53b0fb3a6309f18668952ca7128a4fdcfb97098a7ec9959b1fc6"
-	"0615c4aec2ee47d79eee3a27e73b8156e927479c6ee4f1f165e5aaed98a01284"
-	"79e69afe150a0393be17f1f8fc65c7c10540ef631a6ea657b01eaf0a99f5ffc5"
-	"a38bed449757a21a476f0d5f32ad46cefa1793387784e5908da3029a891617c4"
-	"49c9847239511c2db0be46cb8f660c2c4a43a45b3deed4443eb449daf9ceaf21"
-	"1eac1a085ec83e4c340cdbe97d146e902497115ca29b8278eb645e0b7fce352e"
-	"0439a24d7dbc1eba24fa75026f92da00c2b173cb5ccde6318629ffb191692d8d"
-	"267995c5aa0541d6d75b0e9c3190c0f63cbf0c18e533997b5ae77318584cad46"
-	"e120514e4f6f3658e40dc425d4c57f4f62c8007d1210f546a96083ccab87b7d0"
-	"f7d4dc007352b6f04bef467420fb8b3ed43fbef3cc5928370f926ce22af93ab3"
-	"ccc9ecc561c56e470a4dced055bafd6ae108c6b86e2a56f965a14afe04d35f62"
-	"cd6967c6b46581752b2587a6e294950065187e10606987d71b8422b2370ca755"
-	"d7855f0122bb10f96463433bf60481e2a9d5f435e6618d72254454973872411d"
-	"66ad760507ff8da2578bce5cbba933e201995b29a0bc26435b4eb63e6454ef44"
-	"4e273cf475f73f52c885ea41d2c72ddd1c0c466b323265f35e084c0038cb9a06"
-	"f33c1fc18a02eb04a91be6218642ffd7cfa7bfc2c4c1656c413eb78d904862cf"
-	"9a5d45d9f0b4c41d2255b042ebc8efe57d3fd096048125c14bc4d95fc83fbf24"
-	"9dd136016d59b7b3fe8746c722a6adb9f30aa1dcbf5bf37f0055bb1af5e4d27c"
-	"65d8e125c74798d2a1d1e872ee4332b3a3f6332d8860963e9f3e4c8c6f41cb92"
+	# Patch files.
+	"c8255604bb4327279d45abea0b576e09ec0b39ea719587ba5d0eb0dc90ba4219"  
+	"58eb8466a76d6d48f32ec77365dc5436334e2aab9dd9df3ab59d5d55beb591cb"  
+	"a97f8b588ccfd55e78bccbbfa55b3ca62d5e1732cc815852b31ba9a6fa722494"  
+	"831e67a278152e93561658f364a10251ed07a9d05c60828b7ec1ab933ebe67b0"  
+	"5f6dded28c77cfbd1c58f8c334c8544fc84093124f385f87dcf05eeb045bbd8b"  
+	"4d2fdb331e105c8512d3b2ad16b8c512b372fa3c3658c6881b1f89c9d78da7fb"  
+	"9d07b362be00fa493642f680feeebc49cfae28f8f88c0e8c6de13b15323dacc9"  
+	"114edc66d1453fc3dbf2314b939d135b10ad3414fd972da77c5a44534bb6c6d6"  
+	"769ad0e70a6ac01c203417e50f06d64dbc9fd260707abf5289642ca5a4d4e7f4"  
+	"6f37fcf05281642a3a41e9f9994be21905264daf64f6e59455586bc82e502473"  
+	"e8e1a4faceff212cb9ab5d29bbf6e9f6f817cba2fcce61e7e5cd51d0f1dd33dd"  
+	"cf1e95e4a8c9d001d919fddeab9260b39e32739fe66440138dfc70182df5297a"  
+	"103f86c0f03a1c210a56a44434c19b9f64f8c376bcead689a04919b26b0f4d4c"  
+	"7908611ae7f85a37542b1f1558f46f1d5f35fa1996551d4e61c163569ea3b0ac"  
+	"cfacf351122f95cbef5e752f8e1850ee4ff5495d3bf43732405c2a51e02a9f24"  
+	"64776101101b0ddc256e32a318f35526eb5e41b48aba7b7d30c39ef76db77ace"  
+	"1ef8375ec4c9275e0e143a39347c931b85eaa4e393aea8ab375db759d9b8ae0f"  
+	"ae3da3618e294dace5a2459a9e3bfaa3bd50be034449eec2828eaa2e217ce851"  
+	"a55a56aeb72715cb6ae39e440e01ff7492e484400f6e063368b74abf59d44fdb"  
+	"692b49bce7143507b5c7f176ac67266d75251088da19b282129ad11a3fab5a41"  
+	"23cdd8b8034e73bb852d42feaabf4f995983a032be479d9ce84e5858c0bd5c41"  
 
-	"0afbd995148ce6e03010b572d69533e4d250a2e5f60323422b16a407ff162885"
+	# Themes CSS file.
+	"0b055f7437d965601fe306631fd29f56bb12018dde005d60729e3f40e85f0824"
 
-	"ff9e18073c7ce0cca481f115cc5427625571fb52bdae869ce0248f3091bd5d33"
+	# GTK source code from GitHub.
+	"cbd384e5d10587f0bbb12efd6677a08906f0c7ab819a1defa573d7f0dbe93b2d"
+
+	# ArchLinux package files.
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
 	"de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845"
 )
 
-prepare() {
-	cd "$srcdir/gtk-$pkgver/gtk"
+__patch_makefiles()
+{
+	__replace_string_in_file()
+	{
+		sed -i".bak" "s/$1/$2/" "$3"
+		[[ "$(cat "$3")" != "$(cat "$3.bak")" ]] || return 1
+		rm "$3.bak"
+	}
 
-	for patchfile in $srcdir/p__*.patch; do
-		patch -p 3 -i "$patchfile"
+	__replace_string_in_file \
+		"SRC_SUBDIRS = gdk gtk libgail-util modules demos tests testsuite examples" \
+		"SRC_SUBDIRS = gdk gtk libgail-util modules demos" \
+		"Makefile.am"
+
+	__replace_string_in_file \
+		"SUBDIRS = po po-properties \$(SRC_SUBDIRS) docs m4macros build" \
+		"SUBDIRS = po \$(SRC_SUBDIRS) m4macros build" \
+		"Makefile.am"
+
+	__replace_string_in_file \
+		"SUBDIRS = gtk-demo widget-factory icon-browser" \
+		"SUBDIRS = widget-factory" \
+		"demos/Makefile.am"
+
+	__replace_string_in_file "SUBDIRS += cloudprint" "" "modules/printbackends/Makefile.am"
+	__replace_string_in_file "SUBDIRS += cups" 	     "" "modules/printbackends/Makefile.am"
+	__replace_string_in_file "gtk-update-icon-cache" "" "gtk/Makefile.am"
+}
+
+__patch_gtk_code()
+{
+	for patchfile in $srcdir/*.patch; do
+		patch -d "gtk" -p 3 -i "$patchfile"
 	done
 
-	cat "$srcdir/smaller-adwaita.css" >> "theme/Adwaita/gtk-contained.css"
-	cat "$srcdir/smaller-adwaita.css" >> "theme/Adwaita/gtk-contained-dark.css"
-	cat "$srcdir/smaller-adwaita.css" >> "theme/HighContrast/gtk-contained.css"
-	cat "$srcdir/smaller-adwaita.css" >> "theme/HighContrast/gtk-contained-inverse.css"
+	cat "$srcdir/smaller-adwaita.css" >> "gtk/theme/Adwaita/gtk-contained.css"
+	cat "$srcdir/smaller-adwaita.css" >> "gtk/theme/Adwaita/gtk-contained-dark.css"
+	cat "$srcdir/smaller-adwaita.css" >> "gtk/theme/HighContrast/gtk-contained.css"
+	cat "$srcdir/smaller-adwaita.css" >> "gtk/theme/HighContrast/gtk-contained-inverse.css"
+}
 
+prepare()
+{
 	cd "$srcdir/gtk-$pkgver"
+
+	# Make building faster by skipping tests, code examples and unused elements.
+	__patch_makefiles
+
+	# Apply patches to GTK code.
+	__patch_gtk_code
+
 	NOCONFIGURE=1 ./autogen.sh
 }
 
-build() {
+build()
+{
 	cd "$srcdir/gtk-$pkgver"
 
 	CXX=/bin/false ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
-		--enable-x11-backend --enable-wayland-backend --disable-schemas-compile --disable-gtk-doc-html \
-		--disable-man --disable-installed-tests --disable-colord  --disable-maintainer-mode
+		--enable-x11-backend --enable-wayland-backend --disable-schemas-compile \
+		--disable-gtk-doc-html --disable-installed-tests  --disable-maintainer-mode
 
-	#https://bugzilla.gnome.org/show_bug.cgi?id=655517
+	# https://bugzilla.gnome.org/show_bug.cgi?id=655517
 	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
-	# Make GTK building faster by skipping tests and examples.
-	compatible="no"
-	IFS=; while read -r line; do
-		if [[ $line = "SUBDIRS = po po-properties \$(SRC_SUBDIRS) docs m4macros build" ]]; then
-			echo "SUBDIRS = po gdk gtk libgail-util modules m4macros build"
-			compatible="yes"
-		else
-			echo $line
-		fi;
-	done < Makefile > Makefile.modified
-	mv Makefile Makefile.original
-	mv Makefile.modified Makefile
-	if [[ $compatible = "no" ]]; then
-		echo "Makefile is not compatible."
-		exit 1
-	fi
 
 	make -j 15
 }
 
-package() {
+package()
+{
 	cd "$srcdir/gtk-$pkgver"
 
 	make -j 15 DESTDIR="$pkgdir" install
 	install -Dm644 ../settings.ini "$pkgdir/usr/share/gtk-3.0/settings.ini"
 	install -Dm644 ../gtk-query-immodules-3.0.hook "$pkgdir/usr/share/libalpm/hooks/gtk-query-immodules-3.0.hook"
-
-	rm "$pkgdir/usr/bin/gtk-update-icon-cache"
-	rm `find "$pkgdir/usr/lib/gtk-3.0/3.0.0/printbackends/"* | grep -v "\-lpr.so" | grep -v "\-file.so"`
 }

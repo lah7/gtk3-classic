@@ -1,0 +1,24 @@
+diff -U 5 -r -Z -B ./org/gtk/gtkcolorswatch.c ./mod/gtk/gtkcolorswatch.c
+--- ./org/gtk/gtkcolorswatch.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/gtkcolorswatch.c	2017-07-30 13:40:06.546839046 +0200
+@@ -345,10 +345,20 @@
+ }
+ 
+ static void
+ do_popup (GtkColorSwatch *swatch)
+ {
++  if (swatch->priv->popover == NULL) {
++      GtkWidget *item;
++      swatch->priv->popover = gtk_menu_new();
++      item = gtk_menu_item_new_with_mnemonic(_("C_ustomize"));
++      g_signal_connect_swapped (item, "activate", G_CALLBACK (emit_customize), swatch);
++      gtk_widget_set_visible(GTK_WIDGET(item), TRUE);
++      gtk_menu_shell_append(GTK_MENU_SHELL(swatch->priv->popover), item);
++  }
++  gtk_menu_popup_at_pointer(GTK_MENU(swatch->priv->popover), NULL);
++  return;
+   if (swatch->priv->popover == NULL)
+     {
+       GtkWidget *box;
+       GtkWidget *item;
+ 

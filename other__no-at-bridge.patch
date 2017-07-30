@@ -1,0 +1,15 @@
+diff -U 5 -r -Z -B ./org/gtk/a11y/gtkaccessibility.c ./mod/gtk/a11y/gtkaccessibility.c
+--- ./org/gtk/a11y/gtkaccessibility.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/a11y/gtkaccessibility.c	2017-07-30 15:59:40.130141936 +0200
+@@ -987,10 +987,11 @@
+ 
+   _gtk_accessibility_override_atk_util ();
+   do_window_event_initialization ();
+ 
+ #ifdef GDK_WINDOWING_X11
++  if (g_getenv("NO_AT_BRIDGE") == FALSE) return;
+   atk_bridge_adaptor_init (NULL, NULL);
+ #endif
+ 
+   atk_misc_instance = g_object_new (GTK_TYPE_MISC_IMPL, NULL);
+ }

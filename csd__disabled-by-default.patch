@@ -1,0 +1,16 @@
+diff -U 5 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
+--- ./org/gtk/gtkwindow.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/gtkwindow.c	2017-07-30 00:21:00.271272407 +0200
+@@ -4136,11 +4136,11 @@
+   else
+     {
+       gtk_style_context_add_class (gtk_widget_get_style_context (widget), "solid-csd");
+     }
+ 
+-  priv->client_decorated = TRUE;
++  priv->client_decorated = (g_getenv("GTK_CSD") != FALSE);
+ }
+ 
+ static void
+ on_titlebar_title_notify (GtkHeaderBar *titlebar,
+                           GParamSpec   *pspec,

@@ -1,12 +1,7 @@
-diff -U 10 -r -Z -B ./org/gtk/gtksettings.c ./mod/gtk/gtksettings.c
---- ./org/gtk/gtksettings.c	2017-05-11 21:09:33.000000000 +0200
-+++ ./mod/gtk/gtksettings.c	2017-06-18 20:04:49.313607819 +0200
-@@ -54,21 +54,21 @@
- 
- #ifdef GDK_WINDOWING_WIN32
- #include "win32/gdkwin32.h"
- #endif
- 
+diff -U 5 -r -Z -B ./org/gtk/gtksettings.c ./mod/gtk/gtksettings.c
+--- ./org/gtk/gtksettings.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/gtksettings.c	2017-07-30 13:33:42.580153355 +0200
+@@ -59,11 +59,11 @@
  #include "deprecated/gtkrc.h"
  
  #ifdef GDK_WINDOWING_QUARTZ
@@ -19,8 +14,3 @@ diff -U 10 -r -Z -B ./org/gtk/gtksettings.c ./mod/gtk/gtksettings.c
  /**
   * SECTION:gtksettings
   * @Short_description: Sharing settings between applications
-  * @Title: Settings
-  *
-  * GtkSettings provide a mechanism to share global settings between
-  * applications.
-  *

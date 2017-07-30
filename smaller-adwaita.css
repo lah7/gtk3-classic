@@ -51,7 +51,6 @@ tooltip * {
 .titlebar:not(headerbar),
 headerbar {
 	background-image: none;
-	border-radius: 0;
 }
 placessidebar row {
 	min-height: 29px;

@@ -1,12 +1,7 @@
-diff -U 10 -r -Z -B ./org/gtk/gtkbutton.c ./mod/gtk/gtkbutton.c
---- ./org/gtk/gtkbutton.c	2017-05-11 21:09:33.000000000 +0200
-+++ ./mod/gtk/gtkbutton.c	2017-06-18 20:08:57.103620097 +0200
-@@ -2164,20 +2164,41 @@
-  */
- void
- gtk_button_set_label (GtkButton   *button,
- 		      const gchar *label)
- {
+diff -U 5 -r -Z -B ./org/gtk/gtkbutton.c ./mod/gtk/gtkbutton.c
+--- ./org/gtk/gtkbutton.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/gtkbutton.c	2017-07-30 13:51:31.303539641 +0200
+@@ -2169,10 +2169,30 @@
    GtkButtonPrivate *priv;
    gchar *new_label;
  
@@ -32,14 +27,8 @@ diff -U 10 -r -Z -B ./org/gtk/gtkbutton.c ./mod/gtk/gtkbutton.c
 +    if (use_this_icon)
 +      g_object_set(button, "image", gtk_image_new_from_icon_name(use_this_icon,GTK_ICON_SIZE_BUTTON), NULL);
 +  }
-+
    priv = button->priv;
  
    new_label = g_strdup (label);
    g_free (priv->label_text);
    priv->label_text = new_label;
- 
-   gtk_button_construct_child (button);
-   
-   g_object_notify_by_pspec (G_OBJECT (button), props[PROP_LABEL]);
- }

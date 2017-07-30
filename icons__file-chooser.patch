@@ -1,12 +1,7 @@
-diff -U 10 -r -Z -B ./org/gtk/gtkfilesystem.c ./mod/gtk/gtkfilesystem.c
---- ./org/gtk/gtkfilesystem.c	2017-05-11 21:09:33.000000000 +0200
-+++ ./mod/gtk/gtkfilesystem.c	2017-06-19 20:18:05.980166455 +0200
-@@ -770,27 +770,27 @@
- 
-   g_object_unref (icon);
- 
-   return surface;
- }
+diff -U 5 -r -Z -B ./org/gtk/gtkfilesystem.c ./mod/gtk/gtkfilesystem.c
+--- ./org/gtk/gtkfilesystem.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/gtkfilesystem.c	2017-07-30 13:48:51.953531745 +0200
+@@ -775,17 +775,17 @@
  
  GIcon *
  _gtk_file_system_volume_get_symbolic_icon (GtkFileSystemVolume *volume)
@@ -28,20 +23,10 @@ diff -U 10 -r -Z -B ./org/gtk/gtkfilesystem.c ./mod/gtk/gtkfilesystem.c
  }
  
  GtkFileSystemVolume *
- _gtk_file_system_volume_ref (GtkFileSystemVolume *volume)
- {
-   if (IS_ROOT_VOLUME (volume))
-     return volume;
- 
-diff -U 10 -r -Z -B ./org/gtk/gtkpathbar.c ./mod/gtk/gtkpathbar.c
---- ./org/gtk/gtkpathbar.c	2017-05-11 21:09:33.000000000 +0200
-+++ ./mod/gtk/gtkpathbar.c	2017-06-19 20:13:53.890153964 +0200
-@@ -1266,21 +1266,21 @@
- 
-   if (!data->button_data->button)
-     {
-       g_free (data->button_data);
-       goto out;
+diff -U 5 -r -Z -B ./org/gtk/gtkpathbar.c ./mod/gtk/gtkpathbar.c
+--- ./org/gtk/gtkpathbar.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/gtkpathbar.c	2017-07-30 13:48:51.956865078 +0200
+@@ -1271,11 +1271,11 @@
      }
  
    if (cancelled || error)
@@ -54,17 +39,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkpathbar.c ./mod/gtk/gtkpathbar.c
    switch (data->button_data->type)
      {
        case HOME_BUTTON:
-         g_set_object (&data->path_bar->priv->home_icon, icon);
- 	break;
- 
-       case DESKTOP_BUTTON:
-         g_set_object (&data->path_bar->priv->desktop_icon, icon);
-@@ -1332,21 +1332,21 @@
-       data = g_new0 (struct SetButtonImageData, 1);
-       data->path_bar = path_bar;
-       data->button_data = button_data;
- 
-       if (button_data->cancellable)
+@@ -1337,11 +1337,11 @@
  	g_cancellable_cancel (button_data->cancellable);
  
        button_data->cancellable =
@@ -77,17 +52,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkpathbar.c ./mod/gtk/gtkpathbar.c
        break;
  
      case DESKTOP_BUTTON:
-       if (path_bar->priv->desktop_icon != NULL)
-         {
-           gtk_image_set_from_gicon (GTK_IMAGE (button_data->image), path_bar->priv->desktop_icon, GTK_ICON_SIZE_BUTTON);
- 	  break;
- 	}
-@@ -1354,21 +1354,21 @@
-       data = g_new0 (struct SetButtonImageData, 1);
-       data->path_bar = path_bar;
-       data->button_data = button_data;
- 
-       if (button_data->cancellable)
+@@ -1359,11 +1359,11 @@
  	g_cancellable_cancel (button_data->cancellable);
  
        button_data->cancellable =
@@ -100,20 +65,10 @@ diff -U 10 -r -Z -B ./org/gtk/gtkpathbar.c ./mod/gtk/gtkpathbar.c
        break;
      default:
        break;
-     }
- }
- 
- static void
- button_data_free (ButtonData *button_data)
-diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
---- ./org/gtk/gtkplacessidebar.c	2017-05-11 21:09:33.000000000 +0200
-+++ ./mod/gtk/gtkplacessidebar.c	2017-06-19 20:13:53.896820632 +0200
-@@ -240,39 +240,39 @@
-   PROP_SHOW_CONNECT_TO_SERVER,
-   PROP_SHOW_ENTER_LOCATION,
-   PROP_SHOW_TRASH,
-   PROP_LOCAL_ONLY,
-   PROP_SHOW_OTHER_LOCATIONS,
+diff -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
+--- ./org/gtk/gtkplacessidebar.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/gtkplacessidebar.c	2017-07-30 13:48:51.956865078 +0200
+@@ -245,29 +245,29 @@
    PROP_POPULATE_ALL,
    NUM_PROPERTIES
  };
@@ -162,17 +117,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
  static GParamSpec *properties[NUM_PROPERTIES] = { NULL, };
  
  static gboolean eject_or_unmount_bookmark  (GtkSidebarRow *row);
- static gboolean eject_or_unmount_selection (GtkPlacesSidebar *sidebar);
- static void  check_unmount_and_eject       (GMount   *mount,
-                                             GVolume  *volume,
-                                             GDrive   *drive,
-                                             gboolean *show_unmount,
-@@ -740,21 +740,21 @@
- 
-   if (info)
-     {
-       gchar *uri;
-       gchar *tooltip;
+@@ -745,11 +745,11 @@
        const gchar *name;
        GIcon *icon;
        int pos = 0;
@@ -185,17 +130,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
  
        /* XXX: we could avoid this by using an ancillary closure
         * with the index coming from add_application_shortcuts(),
-        * but in terms of algorithmic overhead, the application
-        * shortcuts is not going to be really big
-        */
-       pos = g_slist_index (sidebar->shortcuts, file);
- 
-@@ -781,21 +781,21 @@
-     {
-       GFile *file = l->data;
- 
-       if (!should_show_file (sidebar, file))
-         continue;
+@@ -786,11 +786,11 @@
  
        if (file_is_shown (sidebar, file))
          continue;
@@ -208,17 +143,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
                                 sidebar->cancellable,
                                 on_app_shortcuts_query_complete,
                                 sidebar);
-     }
- }
- 
- typedef struct {
-   GtkPlacesSidebar *sidebar;
-@@ -830,21 +830,21 @@
-       /* Don't add non-UTF-8 bookmarks */
-       bookmark_name = g_file_get_basename (root);
-       if (!g_utf8_validate (bookmark_name, -1, NULL))
-         {
-           g_free (bookmark_name);
+@@ -835,11 +835,11 @@
            goto out;
          }
      }
@@ -231,17 +156,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
  
    mount_uri = g_file_get_uri (root);
    tooltip = g_file_get_parse_name (root);
- 
-   add_place (sidebar, PLACES_BOOKMARK,
-              SECTION_BOOKMARKS,
-              bookmark_name, icon, mount_uri,
-              NULL, NULL, NULL, clos->index,
-@@ -937,21 +937,21 @@
-   gtk_container_foreach (GTK_CONTAINER (sidebar->list_box),
-                          (GtkCallback) gtk_widget_destroy,
-                          NULL);
- 
-   network_mounts = network_volumes = NULL;
+@@ -942,11 +942,11 @@
  
    /* add built-in places */
    if (should_show_recent (sidebar))
@@ -254,17 +169,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
                   _("Recent"), icon, mount_uri,
                   NULL, NULL, NULL, 0,
                   _("Recent files"));
-       g_object_unref (icon);
-     }
- 
-   /* home folder */
-   home_uri = get_home_directory_uri ();
-@@ -1039,21 +1039,21 @@
-               if (sidebar->show_other_locations && !is_external_volume (volume))
-                 {
-                   g_object_unref (volume);
-                   continue;
-                 }
+@@ -1044,11 +1044,11 @@
  
                mount = g_volume_get_mount (volume);
                if (mount != NULL)
@@ -277,17 +182,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
                    name = g_mount_get_name (mount);
                    tooltip = g_file_get_parse_name (root);
  
-                   add_place (sidebar, PLACES_MOUNTED_VOLUME,
-                              SECTION_MOUNTS,
-                              name, icon, mount_uri,
-                              drive, volume, mount, 0, tooltip);
-                   g_object_unref (root);
-@@ -1066,21 +1066,21 @@
-               else
-                 {
-                   /* Do show the unmounted volumes in the sidebar;
-                    * this is so the user can mount it (in case automounting
-                    * is off).
+@@ -1071,11 +1071,11 @@
                     *
                     * Also, even if automounting is enabled, this gives a visual
                     * cue that the user should remember to yank out the media if
@@ -300,17 +195,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
  
                    add_place (sidebar, PLACES_MOUNTED_VOLUME,
                               SECTION_MOUNTS,
-                              name, icon, NULL,
-                              drive, volume, NULL, 0, tooltip);
-                   g_object_unref (icon);
-                   g_free (name);
-                   g_free (tooltip);
-@@ -1094,21 +1094,21 @@
-           if (g_drive_is_media_removable (drive) && !g_drive_is_media_check_automatic (drive))
-             {
-               /* If the drive has no mountable volumes and we cannot detect media change.. we
-                * display the drive in the sidebar so the user can manually poll the drive by
-                * right clicking and selecting "Rescan..."
+@@ -1099,11 +1099,11 @@
                 *
                 * This is mainly for drives like floppies where media detection doesn't
                 * work.. but it's also for human beings who like to turn off media detection
@@ -323,17 +208,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
  
                add_place (sidebar, PLACES_BUILT_IN,
                           SECTION_MOUNTS,
-                          name, icon, NULL,
-                          drive, NULL, NULL, 0, tooltip);
-               g_object_unref (icon);
-               g_free (tooltip);
-               g_free (name);
-@@ -1142,40 +1142,40 @@
- 
-       if (sidebar->show_other_locations && !is_external_volume (volume))
-         {
-           g_object_unref (volume);
-           continue;
+@@ -1147,11 +1147,11 @@
          }
  
        mount = g_volume_get_mount (volume);
@@ -346,14 +221,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
            tooltip = g_file_get_parse_name (root);
            name = g_mount_get_name (mount);
            add_place (sidebar, PLACES_MOUNTED_VOLUME,
-                      SECTION_MOUNTS,
-                      name, icon, mount_uri,
-                      NULL, volume, mount, 0, tooltip);
-           g_object_unref (mount);
-           g_object_unref (root);
-           g_object_unref (icon);
-           g_free (name);
-           g_free (tooltip);
+@@ -1166,11 +1166,11 @@
            g_free (mount_uri);
          }
        else
@@ -366,17 +234,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
                       SECTION_MOUNTS,
                       name, icon, NULL,
                       NULL, volume, NULL, 0, name);
-           g_object_unref (icon);
-           g_free (name);
-         }
-       g_object_unref (volume);
-     }
-@@ -1214,21 +1214,21 @@
-         }
-       root = g_mount_get_default_location (mount);
- 
-       if (!g_file_is_native (root))
-         {
+@@ -1219,11 +1219,11 @@
            network_mounts = g_list_prepend (network_mounts, mount);
            g_object_unref (root);
            continue;
@@ -389,17 +247,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
        tooltip = g_file_get_parse_name (root);
        add_place (sidebar, PLACES_MOUNTED_VOLUME,
                   SECTION_COMPUTER,
-                  name, icon, mount_uri,
-                  NULL, NULL, mount, 0, tooltip);
-       g_object_unref (root);
-       g_object_unref (mount);
-       g_object_unref (icon);
-@@ -1253,32 +1253,32 @@
-         continue;
- 
-       if (sidebar->local_only && !is_native)
-         continue;
- 
+@@ -1258,22 +1258,22 @@
        clos = g_slice_new (BookmarkQueryClosure);
        clos->sidebar = sidebar;
        clos->index = index;
@@ -424,17 +272,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
                                           _("New bookmark"), new_bookmark_icon, NULL,
                                           NULL, NULL, NULL, 0,
                                           _("Add a new bookmark"));
-   context = gtk_widget_get_style_context (sidebar->new_bookmark_row);
-   gtk_style_context_add_class (context, "sidebar-new-bookmark-row");
-   g_object_unref (new_bookmark_icon);
- 
-   /* network */
-@@ -1301,40 +1301,40 @@
-           volume = l->data;
-           mount = g_volume_get_mount (volume);
- 
-           if (mount != NULL)
-             {
+@@ -1306,11 +1306,11 @@
                network_mounts = g_list_prepend (network_mounts, mount);
                continue;
              }
@@ -447,14 +285,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
  
                add_place (sidebar, PLACES_MOUNTED_VOLUME,
                           SECTION_MOUNTS,
-                          name, icon, NULL,
-                          NULL, volume, NULL, 0, tooltip);
-               g_object_unref (icon);
-               g_free (name);
-               g_free (tooltip);
-             }
-         }
- 
+@@ -1325,11 +1325,11 @@
        network_mounts = g_list_reverse (network_mounts);
        for (l = network_mounts; l != NULL; l = l->next)
          {
@@ -467,20 +298,10 @@ diff -U 10 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
            tooltip = g_file_get_parse_name (root);
            add_place (sidebar, PLACES_MOUNTED_VOLUME,
                       SECTION_MOUNTS,
-                      name, icon, mount_uri,
-                      NULL, NULL, mount, 0, tooltip);
-           g_object_unref (root);
-           g_object_unref (icon);
-           g_free (name);
-diff -U 10 -r -Z -B ./org/gtk/gtktrashmonitor.c ./mod/gtk/gtktrashmonitor.c
---- ./org/gtk/gtktrashmonitor.c	2017-05-11 21:09:33.000000000 +0200
-+++ ./mod/gtk/gtktrashmonitor.c	2017-06-19 20:13:53.896820632 +0200
-@@ -45,22 +45,22 @@
-   TRASH_STATE_CHANGED,
-   LAST_SIGNAL
- };
- 
- static guint signals[LAST_SIGNAL];
+diff -U 5 -r -Z -B ./org/gtk/gtktrashmonitor.c ./mod/gtk/gtktrashmonitor.c
+--- ./org/gtk/gtktrashmonitor.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/gtktrashmonitor.c	2017-07-30 13:48:51.960198412 +0200
+@@ -50,12 +50,12 @@
  
  G_DEFINE_TYPE (GtkTrashMonitor, _gtk_trash_monitor, G_TYPE_OBJECT)
  
@@ -495,20 +316,10 @@ diff -U 10 -r -Z -B ./org/gtk/gtktrashmonitor.c ./mod/gtk/gtktrashmonitor.c
  gtk_trash_monitor_dispose (GObject *object)
  {
    GtkTrashMonitor *monitor;
- 
-   monitor = GTK_TRASH_MONITOR (object);
- 
-   if (monitor->file_monitor)
-     {
-diff -U 10 -r -Z -B ./org/gtk/ui/gtkfilechooserwidget.ui ./mod/gtk/ui/gtkfilechooserwidget.ui
---- ./org/gtk/ui/gtkfilechooserwidget.ui	2017-05-11 21:09:33.000000000 +0200
-+++ ./mod/gtk/ui/gtkfilechooserwidget.ui	2017-06-19 20:13:53.896820632 +0200
-@@ -66,21 +66,21 @@
-                                 </child>
-                                 <child>
-                                   <object class="GtkMenuButton" id="browse_new_folder_button">
-                                     <property name="tooltip-text" translatable="yes">Create Folder</property>
-                                     <property name="use-underline">1</property>
+diff -U 5 -r -Z -B ./org/gtk/ui/gtkfilechooserwidget.ui ./mod/gtk/ui/gtkfilechooserwidget.ui
+--- ./org/gtk/ui/gtkfilechooserwidget.ui	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/ui/gtkfilechooserwidget.ui	2017-07-30 13:48:51.960198412 +0200
+@@ -71,11 +71,11 @@
                                      <property name="popover">new_folder_popover</property>
                                      <signal name="notify::active" handler="new_folder_popover_active"/>
                                      <child>
@@ -521,17 +332,7 @@ diff -U 10 -r -Z -B ./org/gtk/ui/gtkfilechooserwidget.ui ./mod/gtk/ui/gtkfilecho
                                      </child>
                                    </object>
                                    <packing>
-                                     <property name="fill">0</property>
-                                     <property name="pack-type">end</property>
-                                     <property name="position">1</property>
-                                   </packing>
-                                 </child>
-@@ -286,21 +286,21 @@
-                             <property name="hexpand">1</property>
-                             <property name="vexpand">1</property>
-                             <property name="halign">center</property>
-                             <property name="valign">center</property>
-                             <style>
+@@ -291,11 +291,11 @@
                                <class name="dim-label"/>
                              </style>
                              <child>
@@ -544,20 +345,10 @@ diff -U 10 -r -Z -B ./org/gtk/ui/gtkfilechooserwidget.ui ./mod/gtk/ui/gtkfilecho
                                    <class name="dim-label"/>
                                  </style>
                                </object>
-                               <packing>
-                                 <property name="left-attach">0</property>
-                                 <property name="top-attach">0</property>
-                               </packing>
-                             </child>
-diff -U 10 -r -Z -B ./org/gtk/ui/gtksidebarrow.ui ./mod/gtk/ui/gtksidebarrow.ui
---- ./org/gtk/ui/gtksidebarrow.ui	2017-05-11 21:09:33.000000000 +0200
-+++ ./mod/gtk/ui/gtksidebarrow.ui	2017-06-19 20:13:53.896820632 +0200
-@@ -17,22 +17,22 @@
-         </style>
-         <child>
-           <object class="GtkEventBox" id="event_box">
-             <property name="visible">1</property>
-             <child>
+diff -U 5 -r -Z -B ./org/gtk/ui/gtksidebarrow.ui ./mod/gtk/ui/gtksidebarrow.ui
+--- ./org/gtk/ui/gtksidebarrow.ui	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/ui/gtksidebarrow.ui	2017-07-30 13:48:51.960198412 +0200
+@@ -22,12 +22,12 @@
                <object class="GtkBox">
                  <property name="visible">1</property>
                  <child>
@@ -571,8 +362,3 @@ diff -U 10 -r -Z -B ./org/gtk/ui/gtksidebarrow.ui ./mod/gtk/ui/gtksidebarrow.ui
                  </child>
                  <child>
                    <object class="GtkLabel" id="label_widget">
-                     <property name="visible">1</property>
-                     <property name="hexpand">1</property>
-                     <property name="xalign">0</property>
-                     <style>
-                       <class name="sidebar-label"/>

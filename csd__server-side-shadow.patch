@@ -1,0 +1,15 @@
+diff -U 5 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
+--- ./org/gtk/gtkwindow.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/gtkwindow.c	2017-07-30 00:23:13.484612341 +0200
+@@ -4076,10 +4076,11 @@
+ }
+ 
+ static gboolean
+ gtk_window_supports_client_shadow (GtkWindow *window)
+ {
++  if (g_strcmp0(g_getenv("GTK_CSD"), "1") != 0) return FALSE;
+   GdkDisplay *display;
+   GdkScreen *screen;
+   GdkVisual *visual;
+ 
+   screen = _gtk_window_get_screen (window);

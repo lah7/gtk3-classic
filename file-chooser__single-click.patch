@@ -1,12 +1,7 @@
-diff -U 10 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
---- ./org/gtk/gtkfilechooserwidget.c	2017-05-11 21:09:33.000000000 +0200
-+++ ./mod/gtk/gtkfilechooserwidget.c	2017-06-18 19:21:13.476811543 +0200
-@@ -2415,21 +2415,21 @@
-   gboolean modify, extend, is_touchscreen;
- 
-   if (in_press)
-     return FALSE;
- 
+diff -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
+--- ./org/gtk/gtkfilechooserwidget.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/gtkfilechooserwidget.c	2017-07-30 13:18:16.970107493 +0200
+@@ -2420,11 +2420,11 @@
    device = gdk_event_get_source_device ((GdkEvent *) event);
    is_touchscreen = gtk_simulate_touchscreen () ||
                     gdk_device_get_source (device) == GDK_SOURCE_TOUCHSCREEN;
@@ -19,8 +14,3 @@ diff -U 10 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwid
        event->button == GDK_BUTTON_PRIMARY &&
        gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (priv->browse_files_tree_view),
                                       event->x, event->y,
-                                      &path, &column, NULL, NULL))
-     {
-       GtkTreeSelection *selection;
- 
-       selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->browse_files_tree_view));

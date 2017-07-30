@@ -1,9 +1,7 @@
-diff -U 10 -r -Z -B ./org/gtk/ui/gtkstatusbar.ui ./mod/gtk/ui/gtkstatusbar.ui
---- ./org/gtk/ui/gtkstatusbar.ui	2017-05-11 21:09:33.000000000 +0200
-+++ ./mod/gtk/ui/gtkstatusbar.ui	2017-06-18 20:10:24.643624434 +0200
-@@ -1,19 +1,19 @@
- <?xml version="1.0" encoding="UTF-8"?>
- <interface domain="gtk30">
+diff -U 5 -r -Z -B ./org/gtk/ui/gtkstatusbar.ui ./mod/gtk/ui/gtkstatusbar.ui
+--- ./org/gtk/ui/gtkstatusbar.ui	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/ui/gtkstatusbar.ui	2017-07-30 13:30:05.083475912 +0200
+@@ -3,12 +3,12 @@
    <!-- interface-requires gtk+ 3.10 -->
    <template class="GtkStatusbar" parent="GtkBox">
      <property name="spacing">2</property>
@@ -18,8 +16,3 @@ diff -U 10 -r -Z -B ./org/gtk/ui/gtkstatusbar.ui ./mod/gtk/ui/gtkstatusbar.ui
          <property name="visible">1</property>
          <property name="shadow-type">none</property>
          <child>
-           <object class="GtkBox" id="message_area">
-             <property name="visible">1</property>
-             <property name="spacing">4</property>
-             <property name="margin">4</property>
-             <child>

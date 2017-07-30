@@ -1,12 +1,7 @@
-diff -U 10 -r -Z -B ./org/gtk/deprecated/gtkimagemenuitem.c ./mod/gtk/deprecated/gtkimagemenuitem.c
---- ./org/gtk/deprecated/gtkimagemenuitem.c	2017-06-20 21:16:19.000000000 +0200
-+++ ./mod/gtk/deprecated/gtkimagemenuitem.c	2017-07-02 23:02:26.387051500 +0200
-@@ -484,20 +484,33 @@
-     (gtk_image_menu_item_parent_class)->set_label (GTK_MENU_ITEM (image_menu_item), resolved_label);
- 
- }
- 
- static void
+diff -U 5 -r -Z -B ./org/gtk/deprecated/gtkimagemenuitem.c ./mod/gtk/deprecated/gtkimagemenuitem.c
+--- ./org/gtk/deprecated/gtkimagemenuitem.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/deprecated/gtkimagemenuitem.c	2017-07-30 14:50:21.813714571 +0200
+@@ -489,10 +489,22 @@
  gtk_image_menu_item_set_label (GtkMenuItem      *menu_item,
                                 const gchar      *label)
  {
@@ -24,26 +19,15 @@ diff -U 10 -r -Z -B ./org/gtk/deprecated/gtkimagemenuitem.c ./mod/gtk/deprecated
 +    if (use_this_icon)
 +      g_object_set(menu_item, "image", gtk_image_new_from_icon_name(use_this_icon,GTK_ICON_SIZE_MENU), NULL);
 +  }
-+
    if (priv->label != label)
      {
        g_free (priv->label);
        priv->label = g_strdup (label);
  
-       gtk_image_menu_item_recalculate (GTK_IMAGE_MENU_ITEM (menu_item));
- 
-       g_object_notify (G_OBJECT (menu_item), "label");
- 
-     }
-diff -U 10 -r -Z -B ./org/gtk/gtkentry.c ./mod/gtk/gtkentry.c
---- ./org/gtk/gtkentry.c	2017-06-20 21:16:19.000000000 +0200
-+++ ./mod/gtk/gtkentry.c	2017-07-02 23:01:01.360380621 +0200
-@@ -9442,21 +9442,21 @@
-     }
- }
- 
- static void
- append_action_signal (GtkEntry     *entry,
+diff -U 5 -r -Z -B ./org/gtk/gtkentry.c ./mod/gtk/gtkentry.c
+--- ./org/gtk/gtkentry.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/gtkentry.c	2017-07-30 14:49:33.493712177 +0200
+@@ -9447,11 +9447,11 @@
  		      GtkWidget    *menu,
  		      const gchar  *label,
  		      const gchar  *signal,
@@ -56,17 +40,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtkentry.c ./mod/gtk/gtkentry.c
    g_signal_connect (menuitem, "activate",
  		    G_CALLBACK (activate_cb), entry);
  
-   gtk_widget_set_sensitive (menuitem, sensitive);
-   
-   gtk_widget_show (menuitem);
-   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
- }
-@@ -9509,32 +9509,32 @@
-                             info_entry_priv->editable && mode == DISPLAY_NORMAL &&
-                             info_entry_priv->current_pos != info_entry_priv->selection_bound);
- 
-       append_action_signal (entry, menu, _("_Copy"), "copy-clipboard",
-                             mode == DISPLAY_NORMAL &&
+@@ -9514,22 +9514,22 @@
                              info_entry_priv->current_pos != info_entry_priv->selection_bound);
  
        append_action_signal (entry, menu, _("_Paste"), "paste-clipboard",
@@ -91,20 +65,10 @@ diff -U 10 -r -Z -B ./org/gtk/gtkentry.c ./mod/gtk/gtkentry.c
                                  G_CALLBACK (gtk_entry_select_all), entry);
        gtk_widget_show (menuitem);
        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
- 
-       g_signal_emit (entry, signals[POPULATE_POPUP], 0, menu);
- 
-       if (info->trigger_event && gdk_event_triggers_context_menu (info->trigger_event))
-         gtk_menu_popup_at_pointer (GTK_MENU (menu), info->trigger_event);
-diff -U 10 -r -Z -B ./org/gtk/gtklabel.c ./mod/gtk/gtklabel.c
---- ./org/gtk/gtklabel.c	2017-06-20 21:16:19.000000000 +0200
-+++ ./mod/gtk/gtklabel.c	2017-07-02 23:01:43.213716028 +0200
-@@ -6542,21 +6542,21 @@
-   g_signal_emit_by_name (label, signal);
- }
- 
- static void
- append_action_signal (GtkLabel     *label,
+diff -U 5 -r -Z -B ./org/gtk/gtklabel.c ./mod/gtk/gtklabel.c
+--- ./org/gtk/gtklabel.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/gtklabel.c	2017-07-30 14:49:33.497045511 +0200
+@@ -6547,11 +6547,11 @@
  		      GtkWidget    *menu,
  		      const gchar  *text,
  		      const gchar  *signal,
@@ -117,17 +81,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtklabel.c ./mod/gtk/gtklabel.c
    g_signal_connect (menuitem, "activate",
  		    G_CALLBACK (activate_cb), label);
  
-   gtk_widget_set_sensitive (menuitem, sensitive);
-   
-   gtk_widget_show (menuitem);
-   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
- }
-@@ -6633,53 +6633,53 @@
-         link = priv->select_info->active_link;
-       else
-         link = NULL;
-     }
-   else
+@@ -6638,20 +6638,20 @@
      link = gtk_label_get_focus_link (label);
  
    if (!have_selection && link)
@@ -150,9 +104,7 @@ diff -U 10 -r -Z -B ./org/gtk/gtklabel.c ./mod/gtk/gtklabel.c
        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
  
        g_signal_connect (G_OBJECT (menuitem), "activate",
-                         G_CALLBACK (copy_link_activate_cb), label);
-     }
-   else
+@@ -6661,20 +6661,20 @@
      {
        append_action_signal (label, menu, _("Cu_t"), "cut-clipboard", FALSE);
        append_action_signal (label, menu, _("_Copy"), "copy-clipboard", have_selection);
@@ -175,20 +127,10 @@ diff -U 10 -r -Z -B ./org/gtk/gtklabel.c ./mod/gtk/gtklabel.c
        gtk_widget_show (menuitem);
        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
      }
- 
-   g_signal_emit (label, signals[POPULATE_POPUP], 0, menu);
- 
-   if (event && gdk_event_triggers_context_menu (event))
-     gtk_menu_popup_at_pointer (GTK_MENU (menu), event);
-diff -U 10 -r -Z -B ./org/gtk/gtklinkbutton.c ./mod/gtk/gtklinkbutton.c
---- ./org/gtk/gtklinkbutton.c	2017-06-20 21:16:19.000000000 +0200
-+++ ./mod/gtk/gtklinkbutton.c	2017-07-02 23:01:28.883715318 +0200
-@@ -360,21 +360,21 @@
- 	gtk_widget_destroy (priv->popup_menu);
- 
-       priv->popup_menu = gtk_menu_new ();
-       gtk_style_context_add_class (gtk_widget_get_style_context (priv->popup_menu),
-                                    GTK_STYLE_CLASS_CONTEXT_MENU);
+diff -U 5 -r -Z -B ./org/gtk/gtklinkbutton.c ./mod/gtk/gtklinkbutton.c
+--- ./org/gtk/gtklinkbutton.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/gtklinkbutton.c	2017-07-30 14:49:33.497045511 +0200
+@@ -365,11 +365,11 @@
  
        gtk_menu_attach_to_widget (GTK_MENU (priv->popup_menu),
  		      		 GTK_WIDGET (link_button),
@@ -201,8 +143,3 @@ diff -U 10 -r -Z -B ./org/gtk/gtklinkbutton.c ./mod/gtk/gtklinkbutton.c
        gtk_widget_show (menu_item);
        gtk_menu_shell_append (GTK_MENU_SHELL (priv->popup_menu), menu_item);
  
-       if (event && gdk_event_triggers_context_menu (event))
-         gtk_menu_popup_at_pointer (GTK_MENU (priv->popup_menu), event);
-       else
-         {
-           gtk_menu_popup_at_widget (GTK_MENU (priv->popup_menu),

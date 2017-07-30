@@ -1,0 +1,74 @@
+diff -U 5 -r -Z -B ./org/gtk/gtkfilechooserdialog.c ./mod/gtk/gtkfilechooserdialog.c
+--- ./org/gtk/gtkfilechooserdialog.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/gtkfilechooserdialog.c	2017-07-30 13:23:41.280123562 +0200
+@@ -479,11 +479,11 @@
+     return;
+ 
+   dialog->priv->search_setup = TRUE;
+ 
+   g_object_get (dialog, "use-header-bar", &use_header, NULL);
+-  if (use_header)
++  if (FALSE && use_header)
+     {
+       GtkWidget *button;
+       GtkWidget *image;
+       GtkWidget *header;
+ 
+diff -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
+--- ./org/gtk/gtkfilechooserwidget.c	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/gtkfilechooserwidget.c	2017-07-30 13:24:45.543460079 +0200
+@@ -2476,11 +2476,11 @@
+ static void
+ file_list_set_sort_column_ids (GtkFileChooserWidget *impl)
+ {
+   GtkFileChooserWidgetPrivate *priv = impl->priv;
+ 
+-  gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->browse_files_tree_view), -1);
++  gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->browse_files_tree_view), 0);
+ 
+   gtk_tree_view_column_set_sort_column_id (priv->list_name_column, MODEL_COL_NAME);
+   gtk_tree_view_column_set_sort_column_id (priv->list_time_column, MODEL_COL_TIME);
+   gtk_tree_view_column_set_sort_column_id (priv->list_size_column, MODEL_COL_SIZE);
+   gtk_tree_view_column_set_sort_column_id (priv->list_location_column, MODEL_COL_LOCATION_TEXT);
+@@ -3246,10 +3246,12 @@
+     case OPERATION_MODE_BROWSE:
+       operation_mode_set_browse (impl);
+       break;
+ 
+     case OPERATION_MODE_SEARCH:
++      priv->operation_mode = old_mode;
++      return;
+       operation_mode_set_search (impl);
+       break;
+ 
+     case OPERATION_MODE_RECENT:
+       operation_mode_set_recent (impl);
+@@ -7496,11 +7498,11 @@
+   GtkFileChooserWidget *impl = load_data->impl;
+   GtkFileChooserWidgetPrivate *priv = impl->priv;
+ 
+   gtk_tree_view_set_model (GTK_TREE_VIEW (priv->browse_files_tree_view),
+                            GTK_TREE_MODEL (priv->recent_model));
+-  gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->browse_files_tree_view), -1);
++  gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->browse_files_tree_view), 0);
+ 
+   gtk_tree_view_column_set_sort_column_id (priv->list_name_column, -1);
+   gtk_tree_view_column_set_sort_column_id (priv->list_time_column, -1);
+   gtk_tree_view_column_set_sort_column_id (priv->list_size_column, -1);
+   gtk_tree_view_column_set_sort_column_id (priv->list_location_column, -1);
+diff -U 5 -r -Z -B ./org/gtk/ui/gtkfilechooserwidget.ui ./mod/gtk/ui/gtkfilechooserwidget.ui
+--- ./org/gtk/ui/gtkfilechooserwidget.ui	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/ui/gtkfilechooserwidget.ui	2017-07-30 13:25:38.093462683 +0200
+@@ -160,11 +160,11 @@
+                                 <property name="hscrollbar-policy">never</property>
+                                 <child>
+                                   <object class="GtkTreeView" id="browse_files_tree_view">
+                                     <property name="visible">1</property>
+                                     <property name="has-tooltip">1</property>
+-                                    <property name="enable-search">0</property>
++                                    <property name="enable-search">1</property>
+                                     <child internal-child="accessible">
+                                       <object class="AtkObject" id="browse_files_tree_view-atkobject">
+                                         <property name="AtkObject::accessible-name" translatable="yes">Files</property>
+                                       </object>
+                                     </child>

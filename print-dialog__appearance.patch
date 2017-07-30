@@ -1,12 +1,7 @@
-diff -U 10 -r -Z -B ./org/gtk/ui/gtkprintunixdialog.ui ./mod/gtk/ui/gtkprintunixdialog.ui
---- ./org/gtk/ui/gtkprintunixdialog.ui	2017-05-11 21:09:33.000000000 +0200
-+++ ./mod/gtk/ui/gtkprintunixdialog.ui	2017-06-18 20:06:30.823612849 +0200
-@@ -51,31 +51,33 @@
-     <property name="can-focus">False</property>
-     <property name="type-hint">dialog</property>
-     <signal name="notify::page-setup" handler="redraw_page_layout_preview" swapped="no"/>
-     <signal name="response" handler="error_dialogs" swapped="no"/>
-     <child internal-child="vbox">
+diff -U 5 -r -Z -B ./org/gtk/ui/gtkprintunixdialog.ui ./mod/gtk/ui/gtkprintunixdialog.ui
+--- ./org/gtk/ui/gtkprintunixdialog.ui	2017-07-19 04:55:39.000000000 +0200
++++ ./mod/gtk/ui/gtkprintunixdialog.ui	2017-07-30 13:31:55.500148048 +0200
+@@ -56,21 +56,23 @@
        <object class="GtkBox" id="dialog-vbox1">
          <property name="orientation">vertical</property>
          <property name="spacing">2</property>
@@ -32,8 +27,3 @@ diff -U 10 -r -Z -B ./org/gtk/ui/gtkprintunixdialog.ui ./mod/gtk/ui/gtkprintunix
                      <property name="visible">1</property>
                      <property name="border-width">12</property>
                      <property name="orientation">vertical</property>
-                     <property name="spacing">18</property>
-                     <child>
-                       <object class="GtkBox" id="box2">
-                         <property name="visible">1</property>
-                         <property name="orientation">vertical</property>
