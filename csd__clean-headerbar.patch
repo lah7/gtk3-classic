@@ -1,6 +1,6 @@
 diff -U 5 -r -Z -B ./org/gtk/gtkheaderbar.c ./mod/gtk/gtkheaderbar.c
---- ./org/gtk/gtkheaderbar.c	2017-07-19 04:55:39.000000000 +0200
-+++ ./mod/gtk/gtkheaderbar.c	2017-07-30 01:55:07.781552231 +0200
+--- ./org/gtk/gtkheaderbar.c	2017-08-08 01:36:19.000000000 +0200
++++ ./mod/gtk/gtkheaderbar.c	2017-08-08 21:07:59.106864096 +0200
 @@ -321,10 +321,12 @@
  
    is_sovereign_window = (!gtk_window_get_modal (window) &&
@@ -14,24 +14,25 @@ diff -U 5 -r -Z -B ./org/gtk/gtkheaderbar.c ./mod/gtk/gtkheaderbar.c
      {
        for (i = 0; i < 2; i++)
          {
-@@ -382,12 +384,12 @@
-                   gtk_widget_show_all (button);
+@@ -385,13 +387,13 @@
                    accessible = gtk_widget_get_accessible (button);
                    if (GTK_IS_ACCESSIBLE (accessible))
                      atk_object_set_name (accessible, _("Application menu"));
+ 
                    priv->titlebar_icon = image;
 -                  if (!_gtk_header_bar_update_window_icon (bar, window))
--                    gtk_image_set_from_icon_name (GTK_IMAGE (priv->titlebar_icon), "process-stop-symbolic", GTK_ICON_SIZE_MENU);
 +                  if (g_getenv("GTK_CSD") == FALSE || !_gtk_header_bar_update_window_icon (bar, window))
-+                    gtk_image_set_from_icon_name (GTK_IMAGE (priv->titlebar_icon), "pan-down-symbolic", GTK_ICON_SIZE_MENU);
+                     gtk_image_set_from_icon_name (GTK_IMAGE (priv->titlebar_icon),
+-                                                  "application-x-executable-symbolic", GTK_ICON_SIZE_MENU);
++                                                  "pan-down-symbolic", GTK_ICON_SIZE_MENU);
                  }
                else if (strcmp (t[j], "minimize") == 0 &&
                         is_sovereign_window)
                  {
                    button = gtk_button_new ();
 diff -U 5 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
---- ./org/gtk/gtkwindow.c	2017-07-19 04:55:39.000000000 +0200
-+++ ./mod/gtk/gtkwindow.c	2017-07-30 01:52:45.221545167 +0200
+--- ./org/gtk/gtkwindow.c	2017-08-08 01:36:19.000000000 +0200
++++ ./mod/gtk/gtkwindow.c	2017-08-08 20:48:04.803471587 +0200
 @@ -9092,10 +9092,11 @@
  
  static void

@@ -6,8 +6,8 @@
 __arch_pkg_commit="1842b0f5f36f64944ea8941928d77468456e432e"
 
 pkgname=gtk3-mushrooms
-pkgver=3.22.17
-pkgrel=2
+pkgver=3.22.18
+pkgrel=1
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 conflicts=(gtk3)
@@ -61,7 +61,7 @@ source=(
 )
 sha256sums=(
 	# Patch files.
-	"c8255604bb4327279d45abea0b576e09ec0b39ea719587ba5d0eb0dc90ba4219"  
+	"7a1f4259502eea2f610df3ed8f82fc929fce1ebe92422327f54aa41ddf47e7f8"  
 	"58eb8466a76d6d48f32ec77365dc5436334e2aab9dd9df3ab59d5d55beb591cb"  
 	"a97f8b588ccfd55e78bccbbfa55b3ca62d5e1732cc815852b31ba9a6fa722494"  
 	"831e67a278152e93561658f364a10251ed07a9d05c60828b7ec1ab933ebe67b0"  
@@ -87,7 +87,7 @@ sha256sums=(
 	"0b055f7437d965601fe306631fd29f56bb12018dde005d60729e3f40e85f0824"
 
 	# GTK source code from GitHub.
-	"cbd384e5d10587f0bbb12efd6677a08906f0c7ab819a1defa573d7f0dbe93b2d"
+	"58fba6fd1aea572db7103a56ec777ea84876c9de92c8678d07c601a8d2518c2a"
 
 	# ArchLinux package files.
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
