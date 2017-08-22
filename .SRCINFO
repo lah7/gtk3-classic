@@ -1,6 +1,6 @@
 pkgbase = gtk3-mushrooms
 	pkgdesc = GTK3 library with my modifications (see README).
-	pkgver = 3.22.18
+	pkgver = 3.22.19
 	pkgrel = 1
 	url = http://www.gtk.org/
 	arch = i686
@@ -35,7 +35,7 @@ pkgbase = gtk3-mushrooms
 	depends = desktop-file-utils
 	depends = mesa
 	optdepends = gtk3-print-backends: Printing
-	provides = gtk3=3.22.18
+	provides = gtk3=3.22.19
 	conflicts = gtk3
 	source = csd__clean-headerbar.patch
 	source = csd__disabled-by-default.patch
@@ -59,7 +59,7 @@ pkgbase = gtk3-mushrooms
 	source = print-dialog__appearance.patch
 	source = print-dialog__default-previewer.patch
 	source = smaller-adwaita.css
-	source = https://github.com/GNOME/gtk/archive/3.22.18.tar.gz
+	source = https://github.com/GNOME/gtk/archive/3.22.19.tar.gz
 	source = settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=1842b0f5f36f64944ea8941928d77468456e432e
 	source = gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=1842b0f5f36f64944ea8941928d77468456e432e
 	sha256sums = 7a1f4259502eea2f610df3ed8f82fc929fce1ebe92422327f54aa41ddf47e7f8
@@ -84,7 +84,7 @@ pkgbase = gtk3-mushrooms
 	sha256sums = 692b49bce7143507b5c7f176ac67266d75251088da19b282129ad11a3fab5a41
 	sha256sums = 23cdd8b8034e73bb852d42feaabf4f995983a032be479d9ce84e5858c0bd5c41
 	sha256sums = 0b055f7437d965601fe306631fd29f56bb12018dde005d60729e3f40e85f0824
-	sha256sums = 58fba6fd1aea572db7103a56ec777ea84876c9de92c8678d07c601a8d2518c2a
+	sha256sums = 4b86fbb917fd6242684e815482b6c495015ae86260f8919c9cb5bcdbd25a3e3f
 	sha256sums = 01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202
 	sha256sums = de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845
 

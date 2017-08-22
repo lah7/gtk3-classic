@@ -6,7 +6,7 @@
 __arch_pkg_commit="1842b0f5f36f64944ea8941928d77468456e432e"
 
 pkgname=gtk3-mushrooms
-pkgver=3.22.18
+pkgver=3.22.19
 pkgrel=1
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
@@ -87,7 +87,7 @@ sha256sums=(
 	"0b055f7437d965601fe306631fd29f56bb12018dde005d60729e3f40e85f0824"
 
 	# GTK source code from GitHub.
-	"58fba6fd1aea572db7103a56ec777ea84876c9de92c8678d07c601a8d2518c2a"
+	"4b86fbb917fd6242684e815482b6c495015ae86260f8919c9cb5bcdbd25a3e3f"
 
 	# ArchLinux package files.
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
