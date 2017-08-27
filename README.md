@@ -11,13 +11,13 @@ Client Side Decorations
 * CSDs are totally disabled by default. All windows are decorated only by window manager. You can enable CSDs by setting `GTK_CSD=0` environment variable (or `GTK_CSD=1` to force CSDs on each GTK3 window).
 * Client side shadows of windows, menus and tooltips are disabled by default. You can enable shadows by setting `GTK_CSD=1` environment variable.
 * Window title and subtitle are removed from headerbar. Subtitle is added to native titlebar.
-* Minimize, maximize and close buttons are removed. Application menu button has changed icon.
+* Minimize, maximize and close buttons are removed from headerbar. Application menu button has changed icon.
 
 File chooser
 ---
 
 * Annoying single-click "feature" in file list is disabled. You always have to double-click to choose file from list. See https://bugzilla.gnome.org/show_bug.cgi?id=758065.
-* Typeahead feature is restored. Recursive file search will not be ran when you start typing. See https://bugzilla.gnome.org/show_bug.cgi?id=784029.
+* Typeahead feature is restored. Recursive file search will not be ran automatically when you start typing. You can still search recursively by Left Alt + S shortcut. See https://bugzilla.gnome.org/show_bug.cgi?id=784029.
 * Current working directory is opened by default instead of section with recently used files.
 * "Other locations" button is removed from places sidebar. All mounted devices and drives are accessible directly.
 * File system button in places sidebar is labeled as "File System" instead of "Computer".
@@ -32,9 +32,9 @@ Print dialog
 Icons
 ---
 
-* Some of GTK stock icons on buttons are restored. You can see it in GTK internal dialogs and in some applications.
+* Some GTK stock icons on buttons are restored. You can see it in GTK internal dialogs and in some applications.
 * Context menus of text fields, links and labels have restored icons too.
-* Colorized icons instead of symbolic icons are used in file chooser dialog.
+* Regular colorized icons instead of symbolic icons are used in file chooser dialog.
 
 Popovers
 ---
@@ -50,11 +50,12 @@ Others
 * Delay before showing mnemonics is removed. You don't have to wait when you press Left Alt button.
 * Integration with Accessibility Toolkit is disabled by default to avoid errors in console output. See https://unix.stackexchange.com/questions/230238. **Important: if you are using assistive technologies (such as Orca reader) you must restore default GTK behavior by setting `NO_AT_BRIDGE=0` environment variable.**
 
-Themes
+Adwaita theme
 ---
 
-* Default Adwaita theme and its dark variant have smaller controls (buttons, fields, tabs, etc.).
-* HighContrast themes also have reduced controls (testing).
+* Default Adwaita theme have smaller controls (buttons, fields, tabs, etc.).
+* Message dialogs have more natural appearance.
+* Dashed lines on edges of scrolled boxes are removed. See https://wiki.archlinux.org/index.php/GTK+#Disable_overlay_scrollbars.
 
 --------
 

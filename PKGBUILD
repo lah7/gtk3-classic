@@ -3,11 +3,11 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
-__arch_pkg_commit="1842b0f5f36f64944ea8941928d77468456e432e"
+__arch_pkg_commit="eb853c7714b8675246344169980ace3f4e18aac3"
 
 pkgname=gtk3-mushrooms
 pkgver=3.22.19
-pkgrel=1
+pkgrel=2
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 conflicts=(gtk3)
@@ -17,13 +17,15 @@ license=(LGPL)
 depends=(
 	atk cairo libxcursor libxinerama libxrandr libxi libepoxy gdk-pixbuf2 dconf
 	libxcomposite libxdamage pango shared-mime-info at-spi2-atk wayland libxkbcommon
-	adwaita-icon-theme json-glib librsvg wayland-protocols desktop-file-utils mesa
+	json-glib librsvg wayland-protocols desktop-file-utils mesa gtk-update-icon-cache
 )
 optdepends=(
-	'gtk3-print-backends: Printing'
+	'gtk3-print-backends: printing'
+	'adwaita-icon-theme: default icon theme'
+	'cantarell-fonts: default font'
 )
 makedepends=(
-	gobject-introspection libcanberra gtk-doc rest libcups glib2-docs
+	gobject-introspection libcanberra gtk-doc
 )
 source=(
 	# Patch files.
@@ -49,7 +51,7 @@ source=(
 	"print-dialog__appearance.patch"
 	"print-dialog__default-previewer.patch"
 
-	# Themes CSS file.
+	# Theme CSS stylesheet.
 	"smaller-adwaita.css"
 
 	# GTK source code from GitHub.
@@ -61,30 +63,30 @@ source=(
 )
 sha256sums=(
 	# Patch files.
-	"7a1f4259502eea2f610df3ed8f82fc929fce1ebe92422327f54aa41ddf47e7f8"  
-	"58eb8466a76d6d48f32ec77365dc5436334e2aab9dd9df3ab59d5d55beb591cb"  
-	"a97f8b588ccfd55e78bccbbfa55b3ca62d5e1732cc815852b31ba9a6fa722494"  
-	"831e67a278152e93561658f364a10251ed07a9d05c60828b7ec1ab933ebe67b0"  
-	"5f6dded28c77cfbd1c58f8c334c8544fc84093124f385f87dcf05eeb045bbd8b"  
-	"4d2fdb331e105c8512d3b2ad16b8c512b372fa3c3658c6881b1f89c9d78da7fb"  
-	"9d07b362be00fa493642f680feeebc49cfae28f8f88c0e8c6de13b15323dacc9"  
-	"114edc66d1453fc3dbf2314b939d135b10ad3414fd972da77c5a44534bb6c6d6"  
-	"769ad0e70a6ac01c203417e50f06d64dbc9fd260707abf5289642ca5a4d4e7f4"  
-	"6f37fcf05281642a3a41e9f9994be21905264daf64f6e59455586bc82e502473"  
-	"e8e1a4faceff212cb9ab5d29bbf6e9f6f817cba2fcce61e7e5cd51d0f1dd33dd"  
-	"cf1e95e4a8c9d001d919fddeab9260b39e32739fe66440138dfc70182df5297a"  
-	"103f86c0f03a1c210a56a44434c19b9f64f8c376bcead689a04919b26b0f4d4c"  
-	"7908611ae7f85a37542b1f1558f46f1d5f35fa1996551d4e61c163569ea3b0ac"  
-	"cfacf351122f95cbef5e752f8e1850ee4ff5495d3bf43732405c2a51e02a9f24"  
-	"64776101101b0ddc256e32a318f35526eb5e41b48aba7b7d30c39ef76db77ace"  
-	"1ef8375ec4c9275e0e143a39347c931b85eaa4e393aea8ab375db759d9b8ae0f"  
-	"ae3da3618e294dace5a2459a9e3bfaa3bd50be034449eec2828eaa2e217ce851"  
-	"a55a56aeb72715cb6ae39e440e01ff7492e484400f6e063368b74abf59d44fdb"  
-	"692b49bce7143507b5c7f176ac67266d75251088da19b282129ad11a3fab5a41"  
-	"23cdd8b8034e73bb852d42feaabf4f995983a032be479d9ce84e5858c0bd5c41"  
+	"7a1f4259502eea2f610df3ed8f82fc929fce1ebe92422327f54aa41ddf47e7f8"
+	"58eb8466a76d6d48f32ec77365dc5436334e2aab9dd9df3ab59d5d55beb591cb"
+	"a97f8b588ccfd55e78bccbbfa55b3ca62d5e1732cc815852b31ba9a6fa722494"
+	"831e67a278152e93561658f364a10251ed07a9d05c60828b7ec1ab933ebe67b0"
+	"5f6dded28c77cfbd1c58f8c334c8544fc84093124f385f87dcf05eeb045bbd8b"
+	"4d2fdb331e105c8512d3b2ad16b8c512b372fa3c3658c6881b1f89c9d78da7fb"
+	"9d07b362be00fa493642f680feeebc49cfae28f8f88c0e8c6de13b15323dacc9"
+	"fdc2c3d63c0fc94934c10a99189062955e8f40acd3bb883b739faefa86344c1f"
+	"769ad0e70a6ac01c203417e50f06d64dbc9fd260707abf5289642ca5a4d4e7f4"
+	"a2af0c7f29e9ae5e2a669f4ad131acab8d5cbd5d47cc3914750db25b8eeefe1e"
+	"b978504d311fb87505e1787a07c246310e3389840082f326e266193ad908c0f1"
+	"cf1e95e4a8c9d001d919fddeab9260b39e32739fe66440138dfc70182df5297a"
+	"103f86c0f03a1c210a56a44434c19b9f64f8c376bcead689a04919b26b0f4d4c"
+	"7908611ae7f85a37542b1f1558f46f1d5f35fa1996551d4e61c163569ea3b0ac"
+	"cfacf351122f95cbef5e752f8e1850ee4ff5495d3bf43732405c2a51e02a9f24"
+	"64776101101b0ddc256e32a318f35526eb5e41b48aba7b7d30c39ef76db77ace"
+	"e8d53849a3277fa0f0f729be2197970f28cd809070021d2f5ae1987df8250171"
+	"ae3da3618e294dace5a2459a9e3bfaa3bd50be034449eec2828eaa2e217ce851"
+	"a55a56aeb72715cb6ae39e440e01ff7492e484400f6e063368b74abf59d44fdb"
+	"b479fe0a82db21475fde30d9daad4360552b67957479773a1216058c7ff46629"
+	"23cdd8b8034e73bb852d42feaabf4f995983a032be479d9ce84e5858c0bd5c41"
 
-	# Themes CSS file.
-	"0b055f7437d965601fe306631fd29f56bb12018dde005d60729e3f40e85f0824"
+	# Theme CSS stylesheet.
+	"0554ba2085fb8cec8e3b926efc250ae5c15cf47f2612c10cdd0e849bfb8d05a5"
 
 	# GTK source code from GitHub.
 	"4b86fbb917fd6242684e815482b6c495015ae86260f8919c9cb5bcdbd25a3e3f"
@@ -131,8 +133,6 @@ __patch_gtk_code()
 
 	cat "$srcdir/smaller-adwaita.css" >> "gtk/theme/Adwaita/gtk-contained.css"
 	cat "$srcdir/smaller-adwaita.css" >> "gtk/theme/Adwaita/gtk-contained-dark.css"
-	cat "$srcdir/smaller-adwaita.css" >> "gtk/theme/HighContrast/gtk-contained.css"
-	cat "$srcdir/smaller-adwaita.css" >> "gtk/theme/HighContrast/gtk-contained-inverse.css"
 }
 
 prepare()

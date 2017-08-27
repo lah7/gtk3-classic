@@ -1,18 +1,18 @@
 diff -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
---- ./org/gtk/gtkfilechooserwidget.c	2017-07-19 04:55:39.000000000 +0200
-+++ ./mod/gtk/gtkfilechooserwidget.c	2017-07-30 15:26:07.513375549 +0200
-@@ -77,10 +77,11 @@
- #include "gtkspinner.h"
- #include "gtkseparator.h"
- #include "gtkmodelbutton.h"
- #include "gtkgesturelongpress.h"
- #include "gtkdebug.h"
+--- ./org/gtk/gtkfilechooserwidget.c	2017-08-22 14:33:11.000000000 +0200
++++ ./mod/gtk/gtkfilechooserwidget.c	2017-08-27 00:53:14.541848888 +0200
+@@ -26,10 +26,11 @@
+ #include "gtkbutton.h"
+ #include "gtkcelllayout.h"
+ #include "gtkcellrendererpixbuf.h"
+ #include "gtkcellrenderertext.h"
+ #include "gtkcheckmenuitem.h"
 +#include "deprecated/gtkimagemenuitem.h"
- 
- #include <cairo-gobject.h>
- 
- #ifdef HAVE_UNISTD_H
- #include <unistd.h>
+ #include "gtkclipboard.h"
+ #include "gtkcomboboxtext.h"
+ #include "gtkdragsource.h"
+ #include "gtkdragdest.h"
+ #include "gtkentry.h"
 @@ -2222,10 +2223,14 @@
  static GtkWidget *
  append_separator (GtkWidget *box)
