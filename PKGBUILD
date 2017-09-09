@@ -6,8 +6,8 @@
 __arch_pkg_commit="eb853c7714b8675246344169980ace3f4e18aac3"
 
 pkgname=gtk3-mushrooms
-pkgver=3.22.19
-pkgrel=2
+pkgver=3.22.20
+pkgrel=1
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 conflicts=(gtk3)
@@ -15,12 +15,13 @@ provides=("gtk3=$pkgver")
 arch=(i686 x86_64)
 license=(LGPL)
 depends=(
-	atk cairo libxcursor libxinerama libxrandr libxi libepoxy gdk-pixbuf2 dconf
+	atk cairo libxcursor libxinerama libxrandr libxi libepoxy gdk-pixbuf2
 	libxcomposite libxdamage pango shared-mime-info at-spi2-atk wayland libxkbcommon
 	json-glib librsvg wayland-protocols desktop-file-utils mesa gtk-update-icon-cache
 )
 optdepends=(
 	'gtk3-print-backends: printing'
+	'dconf: default GSettings backend'
 	'adwaita-icon-theme: default icon theme'
 	'cantarell-fonts: default font'
 )
@@ -54,8 +55,8 @@ source=(
 	# Theme CSS stylesheet.
 	"smaller-adwaita.css"
 
-	# GTK source code from GitHub.
-	"https://github.com/GNOME/gtk/archive/$pkgver.tar.gz"
+	# GTK source code.
+	"https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-$pkgver.tar.xz"
 
 	# ArchLinux package files.
 	"settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=$__arch_pkg_commit"
@@ -88,8 +89,8 @@ sha256sums=(
 	# Theme CSS stylesheet.
 	"0554ba2085fb8cec8e3b926efc250ae5c15cf47f2612c10cdd0e849bfb8d05a5"
 
-	# GTK source code from GitHub.
-	"4b86fbb917fd6242684e815482b6c495015ae86260f8919c9cb5bcdbd25a3e3f"
+	# GTK source code.
+	"70c90998a7809f60dc0a7439a68c34e59077dadb631657a6f9cab6a5539c02d9"
 
 	# ArchLinux package files.
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
@@ -137,7 +138,7 @@ __patch_gtk_code()
 
 prepare()
 {
-	cd "$srcdir/gtk-$pkgver"
+	cd "$srcdir/gtk+-$pkgver"
 
 	# Make building faster by skipping tests, code examples and unused elements.
 	__patch_makefiles
@@ -150,7 +151,7 @@ prepare()
 
 build()
 {
-	cd "$srcdir/gtk-$pkgver"
+	cd "$srcdir/gtk+-$pkgver"
 
 	CXX=/bin/false ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
 		--enable-x11-backend --enable-wayland-backend --disable-schemas-compile \
@@ -164,7 +165,7 @@ build()
 
 package()
 {
-	cd "$srcdir/gtk-$pkgver"
+	cd "$srcdir/gtk+-$pkgver"
 
 	make -j 15 DESTDIR="$pkgdir" install
 	install -Dm644 ../settings.ini "$pkgdir/usr/share/gtk-3.0/settings.ini"
