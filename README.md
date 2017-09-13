@@ -46,8 +46,13 @@ Others
 ---
 
 * Status bars are smaller regardless of used theme.
-* Scrollbars are always visible. Environment variable is not needed.
+* Scrollbars are always visible. You can enable invisible scrollbars by `GTK_OVERLAY_SCROLLING=1` environment variable.
 * Delay before showing mnemonics is removed. You don't have to wait when you press Left Alt button.
+
+Fixes
+---
+
+* Window background is set properly to theme background color instead of solid black. See https://bugzilla.gnome.org/show_bug.cgi?id=771708.
 * Integration with Accessibility Toolkit is disabled by default to avoid errors in console output. See https://unix.stackexchange.com/questions/230238. **Important: if you are using assistive technologies (such as Orca reader) you must restore default GTK behavior by setting `NO_AT_BRIDGE=0` environment variable.**
 
 Adwaita theme
@@ -64,3 +69,4 @@ Credits
 
 * https://launchpad.net/~gnome3-team — file chooser single-click patch.
 * https://aur.archlinux.org/packages/gtk3-typeahead — file chooser typeahead patch.
+* https://bugzilla.gnome.org/show_bug.cgi?id=757104#c0 — window background patch.
