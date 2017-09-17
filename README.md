@@ -53,7 +53,7 @@ Fixes
 ---
 
 * Window background is set properly to theme background color instead of solid black. See https://bugzilla.gnome.org/show_bug.cgi?id=771708.
-* Integration with Accessibility Toolkit is disabled by default to avoid errors in console output. See https://unix.stackexchange.com/questions/230238. **Important: if you are using assistive technologies (such as Orca reader) you must restore default GTK behavior by setting `NO_AT_BRIDGE=0` environment variable.**
+* Errors in console output about disabled integration with Accessibility Toolkit are hidden. See https://unix.stackexchange.com/questions/230238.
 
 Adwaita theme
 ---

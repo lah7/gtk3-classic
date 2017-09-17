@@ -8,7 +8,7 @@ diff -U 5 -r -Z -B ./org/gtk/gtkmenubutton.c ./mod/gtk/gtkmenubutton.c
    if (menu_model)
      {
 -      if (priv->use_popover)
-+      if (FALSE && priv->use_popover)
++      if (g_strcmp0(g_getenv("GTK_CSD"), "1") == 0 && priv->use_popover)
          {
            GtkWidget *popover;
  

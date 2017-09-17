@@ -7,7 +7,7 @@ __arch_pkg_commit="712b5a879d9389efba706c8817607fa65ac562e9"
 
 pkgname=gtk3-mushrooms
 pkgver=3.22.21
-pkgrel=2
+pkgrel=3
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 conflicts=(gtk3)
@@ -38,7 +38,7 @@ source=(
 	"file-chooser__places-sidebar.patch"
 	"file-chooser__single-click.patch"
 	"file-chooser__typeahead.patch"
-	"fixes__no-at-bridge.patch"
+	"fixes__atk-bridge-errors.patch"
 	"fixes__window-background.patch"
 	"icons__buttons.patch"
 	"icons__context-menus.patch"
@@ -73,7 +73,7 @@ sha256sums=(
 	'4d2fdb331e105c8512d3b2ad16b8c512b372fa3c3658c6881b1f89c9d78da7fb'
 	'9d07b362be00fa493642f680feeebc49cfae28f8f88c0e8c6de13b15323dacc9'
 	'fdc2c3d63c0fc94934c10a99189062955e8f40acd3bb883b739faefa86344c1f'
-	'103f86c0f03a1c210a56a44434c19b9f64f8c376bcead689a04919b26b0f4d4c'
+	'dcbdf52343748b7af621e98bf12d8c76097e0eb98ef02f594f95eefc5ae72575'
 	'4917fcb99dfe189f0f834a143bf85abb77f9ac0b8ec7a881aa4c8c1b897f6524'
 	'769ad0e70a6ac01c203417e50f06d64dbc9fd260707abf5289642ca5a4d4e7f4'
 	'a2af0c7f29e9ae5e2a669f4ad131acab8d5cbd5d47cc3914750db25b8eeefe1e'
@@ -83,7 +83,7 @@ sha256sums=(
 	'fa069d6ac463e5759e0073bb623ce3b495bd7a074bb13dbc25a12b7ce46f2024'
 	'64776101101b0ddc256e32a318f35526eb5e41b48aba7b7d30c39ef76db77ace'
 	'e8d53849a3277fa0f0f729be2197970f28cd809070021d2f5ae1987df8250171'
-	'ae3da3618e294dace5a2459a9e3bfaa3bd50be034449eec2828eaa2e217ce851'
+	'4a239fb3f4dc128a64198ce9bcb9c4643541e366fd3fe19dfb45d23711727e18'
 	'a55a56aeb72715cb6ae39e440e01ff7492e484400f6e063368b74abf59d44fdb'
 	'b479fe0a82db21475fde30d9daad4360552b67957479773a1216058c7ff46629'
 	'23cdd8b8034e73bb852d42feaabf4f995983a032be479d9ce84e5858c0bd5c41'
