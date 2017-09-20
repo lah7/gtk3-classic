@@ -1,9 +1,5 @@
 pkg
 src
-*.pkg.tar.xz
-
 *.tar.xz
 gtk-query-immodules-3.0.hook
 settings.ini
-
-*.sh
