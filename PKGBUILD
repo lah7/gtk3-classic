@@ -6,7 +6,7 @@
 _arch_pkg_commit="712b5a879d9389efba706c8817607fa65ac562e9"
 
 pkgname=gtk3-mushrooms
-pkgver=3.22.22
+pkgver=3.22.23
 pkgrel=1
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
@@ -85,7 +85,7 @@ sha256sums=(
 	'4a239fb3f4dc128a64198ce9bcb9c4643541e366fd3fe19dfb45d23711727e18'
 	'a55a56aeb72715cb6ae39e440e01ff7492e484400f6e063368b74abf59d44fdb'
 	'0554ba2085fb8cec8e3b926efc250ae5c15cf47f2612c10cdd0e849bfb8d05a5'
-	'862dc22c5e93cd800753e5e90dfdb3af0fc760a47f6ebd918ae19136d527c6cd'
+	'cdaf2b014fc59caa1882450860a36387d5cbe4c160fe6a0017b4ebb9cf2ce3bc'
 	'01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202'
 	'de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845'
 )

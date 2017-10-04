@@ -1,6 +1,6 @@
 pkgbase = gtk3-mushrooms
 	pkgdesc = GTK3 library with my modifications (see README).
-	pkgver = 3.22.22
+	pkgver = 3.22.23
 	pkgrel = 1
 	url = http://www.gtk.org/
 	arch = i686
@@ -34,7 +34,7 @@ pkgbase = gtk3-mushrooms
 	optdepends = dconf: default GSettings backend
 	optdepends = adwaita-icon-theme: default icon theme
 	optdepends = cantarell-fonts: default font
-	provides = gtk3=3.22.22
+	provides = gtk3=3.22.23
 	conflicts = gtk3
 	source = do-mushrooms.sh
 	source = appearance__buttons-menus-icons.patch
@@ -57,7 +57,7 @@ pkgbase = gtk3-mushrooms
 	source = popovers__menu-button.patch
 	source = popovers__places-sidebar.patch
 	source = smaller-adwaita.css
-	source = https://download.gnome.org/sources/gtk+/3.22/gtk+-3.22.22.tar.xz
+	source = https://download.gnome.org/sources/gtk+/3.22/gtk+-3.22.23.tar.xz
 	source = settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=712b5a879d9389efba706c8817607fa65ac562e9
 	source = gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=712b5a879d9389efba706c8817607fa65ac562e9
 	sha256sums = 69b8efb7b61089c4ca6328dcd910fd2a31075e1774d72463adb13e44e7ea8e86
@@ -81,7 +81,7 @@ pkgbase = gtk3-mushrooms
 	sha256sums = 4a239fb3f4dc128a64198ce9bcb9c4643541e366fd3fe19dfb45d23711727e18
 	sha256sums = a55a56aeb72715cb6ae39e440e01ff7492e484400f6e063368b74abf59d44fdb
 	sha256sums = 0554ba2085fb8cec8e3b926efc250ae5c15cf47f2612c10cdd0e849bfb8d05a5
-	sha256sums = 862dc22c5e93cd800753e5e90dfdb3af0fc760a47f6ebd918ae19136d527c6cd
+	sha256sums = cdaf2b014fc59caa1882450860a36387d5cbe4c160fe6a0017b4ebb9cf2ce3bc
 	sha256sums = 01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202
 	sha256sums = de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845
 
