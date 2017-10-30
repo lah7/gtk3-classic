@@ -1,19 +1,19 @@
-diff -U 5 -r -Z -B ./org/gtk/gtkheaderbar.c ./mod/gtk/gtkheaderbar.c
---- ./org/gtk/gtkheaderbar.c	2017-07-19 04:55:39.000000000 +0200
-+++ ./mod/gtk/gtkheaderbar.c	2017-07-30 02:19:16.171623995 +0200
-@@ -565,10 +565,11 @@
+diff --color -U 5 -r -Z -B ./org/gtk/gtkheaderbar.c ./mod/gtk/gtkheaderbar.c
+--- ./org/gtk/gtkheaderbar.c	2017-10-27 22:06:52.000000000 +0200
++++ ./mod/gtk/gtkheaderbar.c	2017-10-30 21:12:42.800296113 +0100
+@@ -572,10 +572,11 @@
  }
  
  static void
  construct_label_box (GtkHeaderBar *bar)
  {
-+  if (g_getenv("GTK_CSD") == FALSE) return;
++  if (g_getenv ("GTK_CSD") == FALSE) return;
    GtkHeaderBarPrivate *priv = gtk_header_bar_get_instance_private (bar);
  
    g_assert (priv->label_box == NULL);
  
    priv->label_box = create_title_box (priv->title,
-@@ -1348,10 +1349,11 @@
+@@ -1355,10 +1356,11 @@
      }
  
    gtk_widget_set_visible (priv->subtitle_sizing_label, priv->has_subtitle || (priv->subtitle && priv->subtitle[0]));
@@ -25,17 +25,17 @@ diff -U 5 -r -Z -B ./org/gtk/gtkheaderbar.c ./mod/gtk/gtkheaderbar.c
  /**
   * gtk_header_bar_get_subtitle:
   * @bar: a #GtkHeaderBar
-diff -U 5 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
---- ./org/gtk/gtkwindow.c	2017-07-19 04:55:39.000000000 +0200
-+++ ./mod/gtk/gtkwindow.c	2017-07-30 02:19:59.491626142 +0200
-@@ -4147,10 +4147,12 @@
+diff --color -U 5 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
+--- ./org/gtk/gtkwindow.c	2017-10-27 22:06:52.000000000 +0200
++++ ./mod/gtk/gtkwindow.c	2017-10-30 21:13:30.050298455 +0100
+@@ -4158,10 +4158,12 @@
                            GtkWindow    *self)
  {
    const gchar *title;
  
    title = gtk_header_bar_get_title (titlebar);
-+  if (gtk_header_bar_get_subtitle(titlebar))
-+    title = g_strconcat(title, " — ", gtk_header_bar_get_subtitle(titlebar), NULL);
++  if (gtk_header_bar_get_subtitle (titlebar))
++    title = g_strconcat (title, " — ", gtk_header_bar_get_subtitle (titlebar), NULL);
    gtk_window_set_title_internal (self, title, FALSE);
  }
  

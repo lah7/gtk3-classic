@@ -1,6 +1,6 @@
-diff -U 5 -r -Z -B ./org/gtk/gtkmenubutton.c ./mod/gtk/gtkmenubutton.c
---- ./org/gtk/gtkmenubutton.c	2017-07-19 04:55:39.000000000 +0200
-+++ ./mod/gtk/gtkmenubutton.c	2017-07-30 13:35:02.580157319 +0200
+diff --color -U 5 -r -Z -B ./org/gtk/gtkmenubutton.c ./mod/gtk/gtkmenubutton.c
+--- ./org/gtk/gtkmenubutton.c	2017-10-26 06:32:02.000000000 +0200
++++ ./mod/gtk/gtkmenubutton.c	2017-10-30 22:00:30.863771554 +0100
 @@ -821,11 +821,11 @@
    if (menu_model)
      g_object_ref (menu_model);
@@ -8,7 +8,7 @@ diff -U 5 -r -Z -B ./org/gtk/gtkmenubutton.c ./mod/gtk/gtkmenubutton.c
    if (menu_model)
      {
 -      if (priv->use_popover)
-+      if (g_strcmp0(g_getenv("GTK_CSD"), "1") == 0 && priv->use_popover)
++      if (g_getenv ("GTK_CSD") != FALSE && priv->use_popover)
          {
            GtkWidget *popover;
  

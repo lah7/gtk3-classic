@@ -1,7 +1,7 @@
-diff -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
---- ./org/gtk/gtkfilechooserwidget.c	2017-08-22 14:33:11.000000000 +0200
-+++ ./mod/gtk/gtkfilechooserwidget.c	2017-08-27 00:45:37.555159578 +0200
-@@ -77,10 +77,11 @@
+diff --color -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
+--- ./org/gtk/gtkfilechooserwidget.c	2017-10-02 18:00:49.000000000 +0200
++++ ./mod/gtk/gtkfilechooserwidget.c	2017-10-30 20:35:48.363519726 +0100
+@@ -76,10 +76,11 @@
  #include "gtkspinner.h"
  #include "gtkseparator.h"
  #include "gtkmodelbutton.h"
@@ -13,21 +13,22 @@ diff -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidg
  
  #ifdef HAVE_UNISTD_H
  #include <unistd.h>
-@@ -8596,10 +8597,19 @@
+@@ -8595,10 +8596,20 @@
    gtk_popover_set_default_widget (GTK_POPOVER (impl->priv->new_folder_popover), impl->priv->new_folder_create_button);
    gtk_popover_set_default_widget (GTK_POPOVER (impl->priv->rename_file_popover), impl->priv->rename_file_rename_button);
    gtk_popover_set_relative_to (GTK_POPOVER (impl->priv->rename_file_popover), impl->priv->browse_files_tree_view);
  
    add_actions (impl);
 +  static gboolean style_added = FALSE;
-+  if (!style_added) {
-+    style_added = TRUE;
-+    GtkCssProvider *provider = gtk_css_provider_new();
-+    gtk_css_provider_load_from_data(provider,
-+      "filechooser .sidebar-icon, filechooser .path-bar, filechooser .path-bar + button { opacity: 1; -gtk-icon-style: regular; }\0", -1, NULL);
-+    gtk_style_context_add_provider_for_screen (gtk_widget_get_screen(GTK_WIDGET(impl)),
-+      GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-+  }
++  if (!style_added)
++    {
++      style_added = TRUE;
++      GtkCssProvider *provider = gtk_css_provider_new ();
++      gtk_css_provider_load_from_data (provider,
++        "filechooser .sidebar-icon, filechooser .path-bar, filechooser .path-bar + button { opacity: 1; -gtk-icon-style: regular; }", -1, NULL);
++      gtk_style_context_add_provider_for_screen (gtk_widget_get_screen (GTK_WIDGET (impl)),
++        GTK_STYLE_PROVIDER (provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
++    }
  }
  
  void

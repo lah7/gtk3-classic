@@ -1,6 +1,6 @@
-diff -U 5 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
---- ./org/gtk/gtkwindow.c	2017-07-19 04:55:39.000000000 +0200
-+++ ./mod/gtk/gtkwindow.c	2017-07-30 13:27:20.190134408 +0200
+diff --color -U 5 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
+--- ./org/gtk/gtkwindow.c	2017-10-27 22:06:52.000000000 +0200
++++ ./mod/gtk/gtkwindow.c	2017-10-30 21:26:46.180337901 +0100
 @@ -149,11 +149,11 @@
   *
   * GtkWindow adds the .titlebar and .default-decoration style classes to the

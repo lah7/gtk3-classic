@@ -1,25 +1,25 @@
-diff -U 5 -r -Z -B ./org/gtk/gtkprintunixdialog.c ./mod/gtk/gtkprintunixdialog.c
---- ./org/gtk/gtkprintunixdialog.c	2017-08-22 14:33:11.000000000 +0200
-+++ ./mod/gtk/gtkprintunixdialog.c	2017-08-26 02:10:56.967546663 +0200
+diff --color -U 5 -r -Z -B ./org/gtk/gtkprintunixdialog.c ./mod/gtk/gtkprintunixdialog.c
+--- ./org/gtk/gtkprintunixdialog.c	2017-10-02 18:00:49.000000000 +0200
++++ ./mod/gtk/gtkprintunixdialog.c	2017-10-30 20:39:40.803531243 +0100
 @@ -747,10 +747,15 @@
                            _("_Print"), GTK_RESPONSE_OK,
                            NULL);
    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
    widget = gtk_dialog_get_widget_for_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
    gtk_widget_set_sensitive (widget, FALSE);
-+  GtkCssProvider *provider = gtk_css_provider_new();
-+  gtk_css_provider_load_from_data(provider, ".dialog-action-box { margin: 0; }\0", -1, NULL);
-+  GtkStyleContext *context = gtk_widget_get_style_context(gtk_widget_get_parent(gtk_dialog_get_action_area(GTK_DIALOG(dialog))));
-+  gtk_style_context_add_provider (context, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
++  GtkCssProvider *provider = gtk_css_provider_new ();
++  gtk_css_provider_load_from_data (provider, ".dialog-action-box { margin: 0; }", -1, NULL);
++  GtkStyleContext *context = gtk_widget_get_style_context (gtk_widget_get_parent (gtk_dialog_get_action_area (GTK_DIALOG (dialog))));
++  gtk_style_context_add_provider (context, GTK_STYLE_PROVIDER (provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 +  gtk_style_context_save (context);
-
+ 
    /* Treeview auxiliary functions need to be setup here */
    gtk_tree_model_filter_set_visible_func (priv->printer_list_filter,
                                            (GtkTreeModelFilterVisibleFunc) is_printer_active,
                                            dialog,
-diff -U 5 -r -Z -B ./org/gtk/ui/gtkprintunixdialog.ui ./mod/gtk/ui/gtkprintunixdialog.ui
---- ./org/gtk/ui/gtkprintunixdialog.ui	2017-08-22 14:33:11.000000000 +0200
-+++ ./mod/gtk/ui/gtkprintunixdialog.ui	2017-08-26 02:09:14.667541594 +0200
+diff --color -U 5 -r -Z -B ./org/gtk/ui/gtkprintunixdialog.ui ./mod/gtk/ui/gtkprintunixdialog.ui
+--- ./org/gtk/ui/gtkprintunixdialog.ui	2017-10-02 18:00:49.000000000 +0200
++++ ./mod/gtk/ui/gtkprintunixdialog.ui	2017-10-30 20:37:01.923523370 +0100
 @@ -46,31 +46,32 @@
      <property name="upper">1000</property>
      <property name="value">100</property>

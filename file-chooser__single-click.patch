@@ -1,7 +1,7 @@
-diff -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
---- ./org/gtk/gtkfilechooserwidget.c	2017-07-19 04:55:39.000000000 +0200
-+++ ./mod/gtk/gtkfilechooserwidget.c	2017-07-30 13:18:16.970107493 +0200
-@@ -2420,11 +2420,11 @@
+diff --color -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
+--- ./org/gtk/gtkfilechooserwidget.c	2017-10-02 18:00:49.000000000 +0200
++++ ./mod/gtk/gtkfilechooserwidget.c	2017-10-30 21:22:16.100324520 +0100
+@@ -2419,11 +2419,11 @@
    device = gdk_event_get_source_device ((GdkEvent *) event);
    is_touchscreen = gtk_simulate_touchscreen () ||
                     gdk_device_get_source (device) == GDK_SOURCE_TOUCHSCREEN;

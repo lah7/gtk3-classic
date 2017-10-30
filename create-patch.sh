@@ -8,6 +8,6 @@
 # Patch file is saved under name specified by first argument.
 
 if [[ -d ./org/gtk ]] && [[ -d ./mod/gtk ]] && [[ $1 ]]; then
-	command="diff --color=auto -U 5 -r -Z -B ./org/gtk ./mod/gtk"
+	command="diff --color -U 5 -r -Z -B ./org/gtk ./mod/gtk"
 	$command > "$1.patch"; reset; $command
 fi

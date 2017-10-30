@@ -1,7 +1,7 @@
-diff -U 5 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
---- ./org/gtk/gtkwindow.c	2017-09-02 00:17:12.000000000 +0200
-+++ ./mod/gtk/gtkwindow.c	2017-09-13 02:21:55.594091126 +0200
-@@ -7306,10 +7306,12 @@
+diff --color -U 5 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
+--- ./org/gtk/gtkwindow.c	2017-10-27 22:06:52.000000000 +0200
++++ ./mod/gtk/gtkwindow.c	2017-10-30 21:27:43.370340735 +0100
+@@ -7428,10 +7428,12 @@
      }
  
    gtk_widget_set_window (widget, gdk_window);

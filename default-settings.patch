@@ -1,6 +1,6 @@
-diff -U 5 -r -Z -B ./org/gtk/gtkscrolledwindow.c ./mod/gtk/gtkscrolledwindow.c
---- ./org/gtk/gtkscrolledwindow.c	2017-09-02 00:17:12.000000000 +0200
-+++ ./mod/gtk/gtkscrolledwindow.c	2017-09-19 18:52:20.393422563 +0200
+diff --color -U 5 -r -Z -B ./org/gtk/gtkscrolledwindow.c ./mod/gtk/gtkscrolledwindow.c
+--- ./org/gtk/gtkscrolledwindow.c	2017-10-02 18:00:49.000000000 +0200
++++ ./mod/gtk/gtkscrolledwindow.c	2017-10-30 21:18:17.203646016 +0100
 @@ -4408,11 +4408,11 @@
    GtkScrolledWindowPrivate *priv = scrolled_window->priv;
    gboolean use_indicators;
@@ -14,9 +14,9 @@ diff -U 5 -r -Z -B ./org/gtk/gtkscrolledwindow.c ./mod/gtk/gtkscrolledwindow.c
    if (priv->use_indicators != use_indicators)
      {
        priv->use_indicators = use_indicators;
-diff -U 5 -r -Z -B ./org/gtk/gtksettings.c ./mod/gtk/gtksettings.c
---- ./org/gtk/gtksettings.c	2017-08-11 21:47:18.000000000 +0200
-+++ ./mod/gtk/gtksettings.c	2017-09-19 18:52:39.926756865 +0200
+diff --color -U 5 -r -Z -B ./org/gtk/gtksettings.c ./mod/gtk/gtksettings.c
+--- ./org/gtk/gtksettings.c	2017-10-26 06:32:02.000000000 +0200
++++ ./mod/gtk/gtksettings.c	2017-10-30 21:18:17.206979350 +0100
 @@ -59,11 +59,11 @@
  #include "deprecated/gtkrc.h"
  
@@ -30,9 +30,9 @@ diff -U 5 -r -Z -B ./org/gtk/gtksettings.c ./mod/gtk/gtksettings.c
  /**
   * SECTION:gtksettings
   * @Short_description: Sharing settings between applications
-diff -U 5 -r -Z -B ./org/gtk/org.gtk.Settings.FileChooser.gschema.xml ./mod/gtk/org.gtk.Settings.FileChooser.gschema.xml
+diff --color -U 5 -r -Z -B ./org/gtk/org.gtk.Settings.FileChooser.gschema.xml ./mod/gtk/org.gtk.Settings.FileChooser.gschema.xml
 --- ./org/gtk/org.gtk.Settings.FileChooser.gschema.xml	2016-10-22 06:17:51.000000000 +0200
-+++ ./mod/gtk/org.gtk.Settings.FileChooser.gschema.xml	2017-09-19 18:51:32.836753540 +0200
++++ ./mod/gtk/org.gtk.Settings.FileChooser.gschema.xml	2017-10-30 21:18:17.206979350 +0100
 @@ -117,11 +117,11 @@
        <description>
  	The size (width, height) of the GtkFileChooserDialog's window, in pixels.

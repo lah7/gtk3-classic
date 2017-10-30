@@ -1,7 +1,7 @@
-diff -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
---- ./org/gtk/gtkplacessidebar.c	2017-07-19 04:55:39.000000000 +0200
-+++ ./mod/gtk/gtkplacessidebar.c	2017-07-30 13:16:32.666768991 +0200
-@@ -594,10 +594,11 @@
+diff --color -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
+--- ./org/gtk/gtkplacessidebar.c	2017-10-02 18:00:58.000000000 +0200
++++ ./mod/gtk/gtkplacessidebar.c	2017-10-30 21:21:17.593654954 +0100
+@@ -616,10 +616,11 @@
  }
  
  static void
@@ -13,7 +13,7 @@ diff -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
  
    dirs = NULL;
    for (index = 0; index < G_USER_N_DIRECTORIES; index++)
-@@ -1247,12 +1248,10 @@
+@@ -1383,12 +1384,10 @@
        BookmarkQueryClosure *clos;
  
        root = sl->data;
@@ -26,7 +26,7 @@ diff -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
          continue;
  
        clos = g_slice_new (BookmarkQueryClosure);
-@@ -3872,11 +3871,11 @@
+@@ -4066,11 +4065,11 @@
    sidebar->dragging_over = FALSE;
    sidebar->drag_data_info = DND_UNKNOWN;
  
@@ -39,9 +39,9 @@ diff -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
                              G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES,
                              NULL,
                              "org.freedesktop.hostname1",
-diff -U 5 -r -Z -B ./org/gtk/ui/gtkfilechooserwidget.ui ./mod/gtk/ui/gtkfilechooserwidget.ui
---- ./org/gtk/ui/gtkfilechooserwidget.ui	2017-07-19 04:55:39.000000000 +0200
-+++ ./mod/gtk/ui/gtkfilechooserwidget.ui	2017-07-30 13:17:04.406770563 +0200
+diff --color -U 5 -r -Z -B ./org/gtk/ui/gtkfilechooserwidget.ui ./mod/gtk/ui/gtkfilechooserwidget.ui
+--- ./org/gtk/ui/gtkfilechooserwidget.ui	2017-10-02 18:00:49.000000000 +0200
++++ ./mod/gtk/ui/gtkfilechooserwidget.ui	2017-10-30 21:21:17.593654954 +0100
 @@ -14,11 +14,12 @@
              <child>
                <object class="GtkPlacesSidebar" id="places_sidebar">

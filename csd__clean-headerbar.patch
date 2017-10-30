@@ -1,14 +1,14 @@
-diff -U 5 -r -Z -B ./org/gtk/gtkheaderbar.c ./mod/gtk/gtkheaderbar.c
---- ./org/gtk/gtkheaderbar.c	2017-08-08 01:36:19.000000000 +0200
-+++ ./mod/gtk/gtkheaderbar.c	2017-08-08 21:07:59.106864096 +0200
+diff --color -U 5 -r -Z -B ./org/gtk/gtkheaderbar.c ./mod/gtk/gtkheaderbar.c
+--- ./org/gtk/gtkheaderbar.c	2017-10-27 22:06:52.000000000 +0200
++++ ./mod/gtk/gtkheaderbar.c	2017-10-30 22:47:52.557245688 +0100
 @@ -321,10 +321,12 @@
  
    is_sovereign_window = (!gtk_window_get_modal (window) &&
                            gtk_window_get_transient_for (window) == NULL &&
                            gtk_window_get_type_hint (window) == GDK_WINDOW_TYPE_HINT_NORMAL);
  
-+  if (g_getenv("GTK_CSD") == FALSE)
-+    layout_desc = g_strdup("menu");
++  if (g_getenv ("GTK_CSD") == FALSE)
++    layout_desc = g_strdup ("menu");
    tokens = g_strsplit (layout_desc, ":", 2);
    if (tokens)
      {
@@ -21,7 +21,7 @@ diff -U 5 -r -Z -B ./org/gtk/gtkheaderbar.c ./mod/gtk/gtkheaderbar.c
  
                    priv->titlebar_icon = image;
 -                  if (!_gtk_header_bar_update_window_icon (bar, window))
-+                  if (g_getenv("GTK_CSD") == FALSE || !_gtk_header_bar_update_window_icon (bar, window))
++                  if (g_getenv ("GTK_CSD") == FALSE || !_gtk_header_bar_update_window_icon (bar, window))
                      gtk_image_set_from_icon_name (GTK_IMAGE (priv->titlebar_icon),
 -                                                  "application-x-executable-symbolic", GTK_ICON_SIZE_MENU);
 +                                                  "pan-down-symbolic", GTK_ICON_SIZE_MENU);
@@ -30,16 +30,16 @@ diff -U 5 -r -Z -B ./org/gtk/gtkheaderbar.c ./mod/gtk/gtkheaderbar.c
                         is_sovereign_window)
                  {
                    button = gtk_button_new ();
-diff -U 5 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
---- ./org/gtk/gtkwindow.c	2017-08-08 01:36:19.000000000 +0200
-+++ ./mod/gtk/gtkwindow.c	2017-08-08 20:48:04.803471587 +0200
-@@ -9092,10 +9092,11 @@
+diff --color -U 5 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
+--- ./org/gtk/gtkwindow.c	2017-10-27 22:06:52.000000000 +0200
++++ ./mod/gtk/gtkwindow.c	2017-10-30 22:46:41.683908843 +0100
+@@ -9267,10 +9267,11 @@
  
  static void
  gtk_window_do_popup (GtkWindow      *window,
                       GdkEventButton *event)
  {
-+  if (g_getenv("GTK_CSD") == FALSE) return;
++  if (g_getenv ("GTK_CSD") == FALSE) return;
    if (!gdk_window_show_window_menu (_gtk_widget_get_window (GTK_WIDGET (window)),
                                      (GdkEvent *) event))
      gtk_window_do_popup_fallback (window, event);

@@ -3,10 +3,10 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
-_arch_pkg_commit="712b5a879d9389efba706c8817607fa65ac562e9"
+__arch_pkg_commit="9c134e81edd28eb5db10cd6b2129a5b9e42689fa"
 
 pkgname=gtk3-mushrooms
-pkgver=3.22.24
+pkgver=3.22.25
 pkgrel=1
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
@@ -19,19 +19,16 @@ depends=(
 	libxcomposite libxdamage pango shared-mime-info at-spi2-atk wayland libxkbcommon
 	json-glib librsvg wayland-protocols desktop-file-utils mesa gtk-update-icon-cache
 )
+makedepends=(
+	gobject-introspection libcanberra gtk-doc
+)
 optdepends=(
 	'gtk3-print-backends: printing'
 	'dconf: default GSettings backend'
 	'adwaita-icon-theme: default icon theme'
 	'cantarell-fonts: default font'
 )
-makedepends=(
-	gobject-introspection libcanberra gtk-doc
-)
 source=(
-	# Script applying patch.
-	"do-mushrooms.sh"
-
 	# Patch files.
 	"appearance__buttons-menus-icons.patch"
 	"appearance__file-chooser.patch"
@@ -57,50 +54,98 @@ source=(
 	"smaller-adwaita.css"
 
 	# GTK source code.
-	"https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-$pkgver.tar.xz"
+	"https://github.com/GNOME/gtk/archive/$pkgver.tar.gz"
 
 	# ArchLinux package files.
-	"settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=$_arch_pkg_commit"
-	"gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=$_arch_pkg_commit"
+	"settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=$__arch_pkg_commit"
+	"gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=$__arch_pkg_commit"
+
+	# Fix Makefile mistake — https://bugzilla.gnome.org/show_bug.cgi?id=789630.
+	"__fix-3.22.25-mistake.__patch::https://bug789630.bugzilla-attachments.gnome.org/attachment.cgi?id=362496"
 )
 sha256sums=(
-	'69b8efb7b61089c4ca6328dcd910fd2a31075e1774d72463adb13e44e7ea8e86'
-	'da8b8cd33750d38c607b4a4c5ae5dab9bf61c58aca12a095dfe6f555d3c9cd79'
-	'b978504d311fb87505e1787a07c246310e3389840082f326e266193ad908c0f1'
-	'b479fe0a82db21475fde30d9daad4360552b67957479773a1216058c7ff46629'
-	'7908611ae7f85a37542b1f1558f46f1d5f35fa1996551d4e61c163569ea3b0ac'
-	'7a1f4259502eea2f610df3ed8f82fc929fce1ebe92422327f54aa41ddf47e7f8'
-	'58eb8466a76d6d48f32ec77365dc5436334e2aab9dd9df3ab59d5d55beb591cb'
-	'a97f8b588ccfd55e78bccbbfa55b3ca62d5e1732cc815852b31ba9a6fa722494'
-	'831e67a278152e93561658f364a10251ed07a9d05c60828b7ec1ab933ebe67b0'
-	'90fcf8ed5a40b01a2cbc5e255c05860d9960b51dda704bacfe3efe23a1b045bc'
-	'4d2fdb331e105c8512d3b2ad16b8c512b372fa3c3658c6881b1f89c9d78da7fb'
-	'9d07b362be00fa493642f680feeebc49cfae28f8f88c0e8c6de13b15323dacc9'
-	'fdc2c3d63c0fc94934c10a99189062955e8f40acd3bb883b739faefa86344c1f'
-	'dcbdf52343748b7af621e98bf12d8c76097e0eb98ef02f594f95eefc5ae72575'
-	'cf1e95e4a8c9d001d919fddeab9260b39e32739fe66440138dfc70182df5297a'
-	'4917fcb99dfe189f0f834a143bf85abb77f9ac0b8ec7a881aa4c8c1b897f6524'
-	'64776101101b0ddc256e32a318f35526eb5e41b48aba7b7d30c39ef76db77ace'
-	'e8d53849a3277fa0f0f729be2197970f28cd809070021d2f5ae1987df8250171'
-	'4a239fb3f4dc128a64198ce9bcb9c4643541e366fd3fe19dfb45d23711727e18'
-	'a55a56aeb72715cb6ae39e440e01ff7492e484400f6e063368b74abf59d44fdb'
-	'0554ba2085fb8cec8e3b926efc250ae5c15cf47f2612c10cdd0e849bfb8d05a5'
-	'cbb16e4cfc928ab8f5f22f7290616f95f6ebc8c97cc724a2007b07ced833592b'
-	'01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202'
-	'de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845'
+	"68b26360764a2ea7e057a2aaa29c6fdfe164b9987866e038d8d0188a025477fb"
+	"3d4d9cac36285e19972650a33bdba815096cb256e3f0991914ed3c8c19cfb650"
+	"be4ddf03a5cce8270e8118eb331b3056972c0bd490faa6e4a4ebe332ec4c2e91"
+	"81138fbaff82e37a83da1c4aa074a6c708e6c50340e0ddeff3fb70e2a0b52e1f"
+	"3367e93113c8ebc31244d57845c41b81e5e70a62b64faf61f216f3455d7020b5"
+	"513f8d3092d8392898dbdffa57fb2e92a20ad1413161b71a2fe05ee3f5c3da58"
+	"4eb430f3375b3cf50ec919b868ebff3f50a6a72f40cfaf46e6ccdfc3586833e7"
+	"d3816c145d4e0bc3fe04904434b2e2cae5a04d5691693d6b0c86391f76a5bf6a"
+	"37e3278dd33542b706eb9e1db56997b194a7e2f1fd729a8511369387a74b22bd"
+	"f0c8cbccab2bc9743075135bd5fa74f28dca722e8e723cf46e0dfa2b004a3791"
+	"0cd2cd0365cb532d25ef4587882062f230dfb09f36485c568bdf27c8534831b2"
+	"7b987cc9bd7ca9722bfb881b30b082c0d7409e3cd68592f5e7a1f401d73e7672"
+	"99b12d7af7efc6a014e6afcab1ee82ea0feb0b5a4e9bbd663d1c45354cd34f2b"
+	"c213812e1fafeb5565f7e329c4501195f04adcfe377b88439a6d51d478edc071"
+	"3067face12ad74d664ab7951f59026c01eb8070bef007b522eb84aef1576674a"
+	"7f3e5da1622e243243ea9b1e487460f608dc375e79d800d2f0d826fd30be68ed"
+	"ef4fed3a364db8eb9c15c9ce0e733035722f168dc88b385df2178fc1168ada54"
+	"fe421b6197b4e98254019896ec79ea6b29a2140e7950ce3018ae0e1e4047b0c0"
+	"2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac"
+	"0554ba2085fb8cec8e3b926efc250ae5c15cf47f2612c10cdd0e849bfb8d05a5"
+	"d72da94dcd208a8a76ad156247e3453bde308555e767c41a303ffc28015b68bd"
+	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
+	"de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845"
+	"37e6b2669c055f34a3264b71f748b08465de225f32ed4e1453deea12eafc0c05"
 )
+
+__patch_makefiles()
+{
+	__replace_string_in_file()
+	{
+		sed -i".bak" "s/$1/$2/" "$3"
+		rm "$3.bak"
+	}
+
+	__replace_string_in_file \
+		"SRC_SUBDIRS = gdk gtk libgail-util modules demos tests testsuite examples" \
+		"SRC_SUBDIRS = gdk gtk libgail-util modules demos" \
+		"Makefile.am"
+
+	__replace_string_in_file \
+		"SUBDIRS = po po-properties \$(SRC_SUBDIRS) docs m4macros build" \
+		"SUBDIRS = po \$(SRC_SUBDIRS) m4macros build" \
+		"Makefile.am"
+
+	__replace_string_in_file \
+		"SUBDIRS = gtk-demo widget-factory icon-browser" \
+		"SUBDIRS = widget-factory" \
+		"demos/Makefile.am"
+
+	__replace_string_in_file "SUBDIRS += cloudprint" "" "modules/printbackends/Makefile.am"
+	__replace_string_in_file "SUBDIRS += cups" 	     "" "modules/printbackends/Makefile.am"
+	__replace_string_in_file "gtk-update-icon-cache" "" "gtk/Makefile.am"
+}
+
+__patch_gtk_code()
+{
+	for patch_file in $srcdir/*.patch; do
+		patch -d "gtk" -p 3 -i "$patch_file"
+	done
+
+	cat "$srcdir/smaller-adwaita.css" | tee -a gtk/theme/Adwaita/gtk-contained{,-dark}.css > /dev/null
+}
 
 prepare()
 {
-	cd "$srcdir/gtk+-$pkgver"
+	cd "$srcdir/gtk-$pkgver"
 
-	../do-mushrooms.sh
+	# Fix Makefile mistake — https://bugzilla.gnome.org/show_bug.cgi?id=789630.
+	patch -p 1 -i "$srcdir/__fix-3.22.25-mistake.__patch"
+
+	# Make building faster by skipping tests, code examples and unused elements.
+	__patch_makefiles
+
+	# Apply patches to GTK code.
+	__patch_gtk_code
+
 	NOCONFIGURE=1 ./autogen.sh
 }
 
 build()
 {
-	cd "$srcdir/gtk+-$pkgver"
+	cd "$srcdir/gtk-$pkgver"
 
 	CXX=/bin/false ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
 		--enable-x11-backend --enable-wayland-backend --disable-schemas-compile --disable-gtk-doc-html
@@ -113,7 +158,7 @@ build()
 
 package()
 {
-	cd "$srcdir/gtk+-$pkgver"
+	cd "$srcdir/gtk-$pkgver"
 
 	make -j 15 DESTDIR="$pkgdir" install
 	install -Dm644 ../settings.ini "$pkgdir/usr/share/gtk-3.0/settings.ini"
