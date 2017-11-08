@@ -6,7 +6,7 @@
 __arch_pkg_commit="9c134e81edd28eb5db10cd6b2129a5b9e42689fa"
 
 pkgname=gtk3-mushrooms
-pkgver=3.22.25
+pkgver=3.22.26
 pkgrel=1
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
@@ -59,9 +59,6 @@ source=(
 	# ArchLinux package files.
 	"settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=$__arch_pkg_commit"
 	"gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=$__arch_pkg_commit"
-
-	# Fix Makefile mistake — https://bugzilla.gnome.org/show_bug.cgi?id=789630.
-	"__fix-3.22.25-mistake.__patch::https://bug789630.bugzilla-attachments.gnome.org/attachment.cgi?id=362496"
 )
 sha256sums=(
 	"68b26360764a2ea7e057a2aaa29c6fdfe164b9987866e038d8d0188a025477fb"
@@ -84,10 +81,9 @@ sha256sums=(
 	"fe421b6197b4e98254019896ec79ea6b29a2140e7950ce3018ae0e1e4047b0c0"
 	"2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac"
 	"0554ba2085fb8cec8e3b926efc250ae5c15cf47f2612c10cdd0e849bfb8d05a5"
-	"d72da94dcd208a8a76ad156247e3453bde308555e767c41a303ffc28015b68bd"
+	"6d952d9962aa5105fd5b3549d6bba115e6b4081e00a62079304989cc7787bbb5"
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
 	"de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845"
-	"37e6b2669c055f34a3264b71f748b08465de225f32ed4e1453deea12eafc0c05"
 )
 
 __patch_makefiles()
@@ -130,9 +126,6 @@ __patch_gtk_code()
 prepare()
 {
 	cd "$srcdir/gtk-$pkgver"
-
-	# Fix Makefile mistake — https://bugzilla.gnome.org/show_bug.cgi?id=789630.
-	patch -p 1 -i "$srcdir/__fix-3.22.25-mistake.__patch"
 
 	# Make building faster by skipping tests, code examples and unused elements.
 	__patch_makefiles
