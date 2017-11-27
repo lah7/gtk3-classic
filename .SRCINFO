@@ -1,9 +1,8 @@
 pkgbase = gtk3-mushrooms
 	pkgdesc = GTK3 library with my modifications (see README).
 	pkgver = 3.22.26
-	pkgrel = 1
+	pkgrel = 2
 	url = http://www.gtk.org/
-	arch = i686
 	arch = x86_64
 	license = LGPL
 	makedepends = gobject-introspection
@@ -30,12 +29,14 @@ pkgbase = gtk3-mushrooms
 	depends = desktop-file-utils
 	depends = mesa
 	depends = gtk-update-icon-cache
-	optdepends = gtk3-print-backends: printing
 	optdepends = dconf: default GSettings backend
 	optdepends = adwaita-icon-theme: default icon theme
 	optdepends = cantarell-fonts: default font
 	provides = gtk3=3.22.26
+	provides = gtk3-print-backends
 	conflicts = gtk3
+	conflicts = gtk3-print-backends
+	replaces = gtk3-print-backends<=3.22.26-1
 	source = appearance__buttons-menus-icons.patch
 	source = appearance__file-chooser.patch
 	source = appearance__print-dialog.patch
@@ -57,8 +58,8 @@ pkgbase = gtk3-mushrooms
 	source = popovers__places-sidebar.patch
 	source = smaller-adwaita.css
 	source = https://github.com/GNOME/gtk/archive/3.22.26.tar.gz
-	source = settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=9c134e81edd28eb5db10cd6b2129a5b9e42689fa
-	source = gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=9c134e81edd28eb5db10cd6b2129a5b9e42689fa
+	source = settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=ced279e9020925d34991926230a754bd1650da2f
+	source = gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=ced279e9020925d34991926230a754bd1650da2f
 	sha256sums = 68b26360764a2ea7e057a2aaa29c6fdfe164b9987866e038d8d0188a025477fb
 	sha256sums = 3d4d9cac36285e19972650a33bdba815096cb256e3f0991914ed3c8c19cfb650
 	sha256sums = be4ddf03a5cce8270e8118eb331b3056972c0bd490faa6e4a4ebe332ec4c2e91

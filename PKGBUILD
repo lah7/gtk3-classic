@@ -3,16 +3,17 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
-__arch_pkg_commit="9c134e81edd28eb5db10cd6b2129a5b9e42689fa"
+__arch_pkg_commit="ced279e9020925d34991926230a754bd1650da2f"
 
 pkgname=gtk3-mushrooms
 pkgver=3.22.26
-pkgrel=1
+pkgrel=2
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
-conflicts=(gtk3)
-provides=("gtk3=$pkgver")
-arch=(i686 x86_64)
+conflicts=(gtk3 gtk3-print-backends)
+provides=(gtk3=$pkgver gtk3-print-backends)
+replaces=("gtk3-print-backends<=3.22.26-1")
+arch=(x86_64)
 license=(LGPL)
 depends=(
 	atk cairo libxcursor libxinerama libxrandr libxi libepoxy gdk-pixbuf2
@@ -23,7 +24,6 @@ makedepends=(
 	gobject-introspection libcanberra gtk-doc
 )
 optdepends=(
-	'gtk3-print-backends: printing'
 	'dconf: default GSettings backend'
 	'adwaita-icon-theme: default icon theme'
 	'cantarell-fonts: default font'
@@ -109,9 +109,10 @@ __patch_makefiles()
 		"SUBDIRS = widget-factory" \
 		"demos/Makefile.am"
 
-	__replace_string_in_file "SUBDIRS += cloudprint" "" "modules/printbackends/Makefile.am"
-	__replace_string_in_file "SUBDIRS += cups" 	     "" "modules/printbackends/Makefile.am"
-	__replace_string_in_file "gtk-update-icon-cache" "" "gtk/Makefile.am"
+	__replace_string_in_file \
+		"gtk-update-icon-cache" \
+		"" \
+		"gtk/Makefile.am"
 }
 
 __patch_gtk_code()
