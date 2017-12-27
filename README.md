@@ -27,8 +27,10 @@ Appearance
 
 * Some GTK stock icons on buttons and context menus are restored. You can see it in GTK internal dialogs and in some applications.
 * Regular colorized icons instead of symbolic icons are used in file chooser dialog.
-* Appearance of print dialog is less "gnomish" (natural margins are restored).
-* Statusbars are smaller regardless of used theme.
+* Message dialogs have traditional appearance with left-aligned texts and right-aligned buttons.
+* Appearance of print dialog is less "gnomish", natural margins are restored.
+* Backdrop CSS state is disabled. Inactive windows don't look differently. You can restore backdrop state by setting `GTK_CSD` environment variable.
+* Status bars are smaller regardless of used theme.
 
 Popovers
 ---
@@ -47,15 +49,10 @@ Others
 ---
 
 * Delay before showing mnemonics is removed. You don't have to wait when you press Left Alt button.
+* "Insert emoji" context menu item of entry fields is hidden. You can restore it by setting `GTKM_INSERT_EMOJI` environment variable.
 * Window background is set properly to theme background color instead of solid black. See https://bugzilla.gnome.org/show_bug.cgi?id=771708.
 * Errors in console output because of integration with Accessibility Toolkit are hidden. See https://unix.stackexchange.com/questions/230238.
-
-Adwaita theme
----
-
-* Default Adwaita theme have smaller controls (buttons, fields, tabs, etc.).
-* Message dialogs have more natural appearance.
-* Dashed lines on edges of scrolled boxes are removed. See https://wiki.archlinux.org/index.php/GTK+#Disable_overlay_scrollbars.
+* Default Adwaita theme has smaller controls (buttons, fields, tabs, etc.).
 
 --------
 

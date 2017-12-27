@@ -1,0 +1,16 @@
+diff --color -U 5 -r -Z -B ./org/gtk/gtkwindow.c ./mod/gtk/gtkwindow.c
+--- ./org/gtk/gtkwindow.c	2017-11-07 20:52:24.000000000 +0100
++++ ./mod/gtk/gtkwindow.c	2017-12-26 16:05:58.023753428 +0100
+@@ -7946,11 +7946,11 @@
+                         GdkEventWindowState *event)
+ {
+   GtkWindow *window = GTK_WINDOW (widget);
+   GtkWindowPrivate *priv = window->priv;
+ 
+-  if (event->changed_mask & GDK_WINDOW_STATE_FOCUSED)
++  if (event->changed_mask & GDK_WINDOW_STATE_FOCUSED && g_getenv ("GTK_CSD") != FALSE)
+     ensure_state_flag_backdrop (widget);
+ 
+   if (event->changed_mask & GDK_WINDOW_STATE_FULLSCREEN)
+     {
+       priv->fullscreen =
