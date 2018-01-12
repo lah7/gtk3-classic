@@ -62,7 +62,7 @@ source=(
 	# GTK source code.
 	"https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-$pkgver.tar.xz"
 
-	# ArchLinux package files.
+	# Arch Linux package files.
 	"settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=$__arch_pkg_commit"
 	"gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=$__arch_pkg_commit"
 )
@@ -156,14 +156,14 @@ build()
 	# https://bugzilla.gnome.org/show_bug.cgi?id=655517
 	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 
-	make -j 15
+	make
 }
 
 package()
 {
 	cd "$srcdir/gtk+-$pkgver"
 
-	make -j 15 DESTDIR="$pkgdir" install
+	make DESTDIR="$pkgdir" install
 
 	install -Dm644 ../settings.ini "$pkgdir/usr/share/gtk-3.0/settings.ini"
 	install -Dm644 ../gtk-query-immodules-3.0.hook "$pkgdir/usr/share/libalpm/hooks/gtk-query-immodules-3.0.hook"
