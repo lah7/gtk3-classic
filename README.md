@@ -45,14 +45,19 @@ Default settings
 * Current working directory is opened by default in file chooser dialog instead of section with recently used files.
 * Atril instead of Evince is set as default previewer in printing dialog.
 
-Others
+Other
 ---
 
 * Delay before showing mnemonics is removed. You don't have to wait when you press Left Alt button.
 * "Insert emoji" context menu item of entry fields is hidden. You can restore it by setting `GTKM_INSERT_EMOJI` environment variable.
+* Default Adwaita theme has smaller controls (buttons, fields, tabs, etc.).
+
+Fixes
+---
+
 * Window background is set properly to theme background color instead of solid black. See https://bugzilla.gnome.org/show_bug.cgi?id=771708.
 * Errors in console output because of integration with Accessibility Toolkit are hidden. See https://unix.stackexchange.com/questions/230238.
-* Default Adwaita theme has smaller controls (buttons, fields, tabs, etc.).
+* Menu bars are not covered by too high popup menus.
 
 --------
 

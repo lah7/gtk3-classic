@@ -3,11 +3,11 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
-__arch_pkg_commit="ced279e9020925d34991926230a754bd1650da2f"
+__arch_pkg_commit="3ed0d6c684888661be2a74a200571d981a3275d0"
 
 pkgname=gtk3-mushrooms
 pkgver=3.22.26
-pkgrel=3
+pkgrel=4
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 conflicts=(gtk3 gtk3-print-backends)
@@ -47,10 +47,11 @@ source=(
 	"file-chooser__places-sidebar.patch"
 	"file-chooser__single-click.patch"
 	"file-chooser__typeahead.patch"
-	"other__atk-bridge-errors.patch"
+	"fixes__atk-bridge-errors.patch"
+	"fixes__too-large-menu-covers-bar.patch"
+	"fixes__window-background.patch"
 	"other__hide-insert-emoji.patch"
 	"other__mnemonics-delay.patch"
-	"other__window-background.patch"
 	"popovers__color-chooser.patch"
 	"popovers__file-chooser-list.patch"
 	"popovers__menu-button.patch"
@@ -82,9 +83,10 @@ sha256sums=(
 	"0cd2cd0365cb532d25ef4587882062f230dfb09f36485c568bdf27c8534831b2"
 	"7b987cc9bd7ca9722bfb881b30b082c0d7409e3cd68592f5e7a1f401d73e7672"
 	"99b12d7af7efc6a014e6afcab1ee82ea0feb0b5a4e9bbd663d1c45354cd34f2b"
+	"d4d27ccc5735ee1d2c8483da659ded3a05e9d33b3fe41d8ed77495e9ec38be96"
+	"3067face12ad74d664ab7951f59026c01eb8070bef007b522eb84aef1576674a"
 	"8009a7eb0e33606526fd73306cf5ade3284ba843694328b32b98b4334410996d"
 	"c213812e1fafeb5565f7e329c4501195f04adcfe377b88439a6d51d478edc071"
-	"3067face12ad74d664ab7951f59026c01eb8070bef007b522eb84aef1576674a"
 	"7f3e5da1622e243243ea9b1e487460f608dc375e79d800d2f0d826fd30be68ed"
 	"ef4fed3a364db8eb9c15c9ce0e733035722f168dc88b385df2178fc1168ada54"
 	"fe421b6197b4e98254019896ec79ea6b29a2140e7950ce3018ae0e1e4047b0c0"
