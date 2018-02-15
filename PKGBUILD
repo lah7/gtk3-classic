@@ -3,11 +3,11 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
-__arch_pkg_commit="3ed0d6c684888661be2a74a200571d981a3275d0"
+__arch_pkg_commit="77104ae740d96bb94a329151aef97176ef6cd000"
 
 pkgname=gtk3-mushrooms
-pkgver=3.22.26
-pkgrel=4
+pkgver=3.22.28
+pkgrel=1
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 conflicts=(gtk3 gtk3-print-backends)
@@ -85,14 +85,14 @@ sha256sums=(
 	"99b12d7af7efc6a014e6afcab1ee82ea0feb0b5a4e9bbd663d1c45354cd34f2b"
 	"d4d27ccc5735ee1d2c8483da659ded3a05e9d33b3fe41d8ed77495e9ec38be96"
 	"3067face12ad74d664ab7951f59026c01eb8070bef007b522eb84aef1576674a"
-	"8009a7eb0e33606526fd73306cf5ade3284ba843694328b32b98b4334410996d"
+	"2af09af914736eaff37eeec262e14ecfb835598c38cfec3ba8d0997ac2839c8e"
 	"c213812e1fafeb5565f7e329c4501195f04adcfe377b88439a6d51d478edc071"
 	"7f3e5da1622e243243ea9b1e487460f608dc375e79d800d2f0d826fd30be68ed"
 	"ef4fed3a364db8eb9c15c9ce0e733035722f168dc88b385df2178fc1168ada54"
 	"fe421b6197b4e98254019896ec79ea6b29a2140e7950ce3018ae0e1e4047b0c0"
 	"2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac"
 	"0554ba2085fb8cec8e3b926efc250ae5c15cf47f2612c10cdd0e849bfb8d05a5"
-	"61eef0d320e541976e2dfe445729f12b5ade53050ee9de6184235cb60cd4b967"
+	"d299612b018cfed7b2c689168ab52b668023708e17c335eb592260d186f15e1f"
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
 	"de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845"
 )
