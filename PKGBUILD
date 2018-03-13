@@ -3,10 +3,10 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
-__arch_pkg_commit="77104ae740d96bb94a329151aef97176ef6cd000"
+__arch_pkg_commit="4ac05111e37186cebac1c4fa22610abddb1c2d52"
 
 pkgname=gtk3-mushrooms
-pkgver=3.22.28
+pkgver=3.22.29
 pkgrel=1
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
@@ -45,7 +45,6 @@ source=(
 	"csd__server-side-shadow.patch"
 	"default-settings.patch"
 	"file-chooser__places-sidebar.patch"
-	"file-chooser__single-click.patch"
 	"file-chooser__typeahead.patch"
 	"fixes__atk-bridge-errors.patch"
 	"fixes__too-large-menu-covers-bar.patch"
@@ -70,7 +69,7 @@ source=(
 sha256sums=(
 	"68b26360764a2ea7e057a2aaa29c6fdfe164b9987866e038d8d0188a025477fb"
 	"b2f7d5d3a784b7f833d64c2a278f1d082bec5c53b4cc19602c808223625dedeb"
-	"3d4d9cac36285e19972650a33bdba815096cb256e3f0991914ed3c8c19cfb650"
+	"86f48054a2df6319d97db14fd17ea15d50b32ea6ba594d83e8faa1596ec657ab"
 	"54020144ac0472ae170297b4158da719b49860b17234bf54351ba30f793a7fe7"
 	"be4ddf03a5cce8270e8118eb331b3056972c0bd490faa6e4a4ebe332ec4c2e91"
 	"81138fbaff82e37a83da1c4aa074a6c708e6c50340e0ddeff3fb70e2a0b52e1f"
@@ -80,19 +79,18 @@ sha256sums=(
 	"d3816c145d4e0bc3fe04904434b2e2cae5a04d5691693d6b0c86391f76a5bf6a"
 	"37e3278dd33542b706eb9e1db56997b194a7e2f1fd729a8511369387a74b22bd"
 	"f0c8cbccab2bc9743075135bd5fa74f28dca722e8e723cf46e0dfa2b004a3791"
-	"0cd2cd0365cb532d25ef4587882062f230dfb09f36485c568bdf27c8534831b2"
 	"7b987cc9bd7ca9722bfb881b30b082c0d7409e3cd68592f5e7a1f401d73e7672"
 	"99b12d7af7efc6a014e6afcab1ee82ea0feb0b5a4e9bbd663d1c45354cd34f2b"
 	"d4d27ccc5735ee1d2c8483da659ded3a05e9d33b3fe41d8ed77495e9ec38be96"
 	"3067face12ad74d664ab7951f59026c01eb8070bef007b522eb84aef1576674a"
-	"2af09af914736eaff37eeec262e14ecfb835598c38cfec3ba8d0997ac2839c8e"
+	"acd3babd22add981690728e84a89fb8bb332b7ac746e9db7cdb27c47f1ac0042"
 	"c213812e1fafeb5565f7e329c4501195f04adcfe377b88439a6d51d478edc071"
 	"7f3e5da1622e243243ea9b1e487460f608dc375e79d800d2f0d826fd30be68ed"
 	"ef4fed3a364db8eb9c15c9ce0e733035722f168dc88b385df2178fc1168ada54"
 	"fe421b6197b4e98254019896ec79ea6b29a2140e7950ce3018ae0e1e4047b0c0"
 	"2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac"
 	"0554ba2085fb8cec8e3b926efc250ae5c15cf47f2612c10cdd0e849bfb8d05a5"
-	"d299612b018cfed7b2c689168ab52b668023708e17c335eb592260d186f15e1f"
+	"a07d64b939fcc034a066b7723fdf9b24e92c9cfb6a8497593f3471fe56fbbbf8"
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
 	"de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845"
 )

@@ -16,7 +16,6 @@ Client Side Decorations
 File chooser
 ---
 
-* Annoying single-click "feature" in file list is disabled. You always have to double-click to choose file from list. See https://bugzilla.gnome.org/show_bug.cgi?id=758065.
 * Typeahead feature is restored. Recursive file search will not be ran automatically when you start typing. You can still search recursively by Left Alt + S shortcut. See https://bugzilla.gnome.org/show_bug.cgi?id=784029.
 * "Other locations" button is removed from places sidebar. All mounted devices and drives are accessible directly.
 * Trash and XDG user directories (like Pictures, Downloads, Documents) are removed from places sidebar. You can add it as bookmarks.
@@ -57,13 +56,12 @@ Fixes
 
 * Window background is set properly to theme background color instead of solid black. See https://bugzilla.gnome.org/show_bug.cgi?id=771708.
 * Errors in console output because of integration with Accessibility Toolkit are hidden. See https://unix.stackexchange.com/questions/230238.
-* Menu bars are not covered by too high popup menus.
+* Menu bars are not covered by too high popup menus. See https://bugzilla.gnome.org/show_bug.cgi?id=792764.
 
 --------
 
 Credits
 ---
 
-* https://launchpad.net/~gnome3-team — file chooser single-click patch.
 * https://aur.archlinux.org/packages/gtk3-typeahead — file chooser typeahead patch.
 * https://bugzilla.gnome.org/show_bug.cgi?id=757104#c0 — window background patch.

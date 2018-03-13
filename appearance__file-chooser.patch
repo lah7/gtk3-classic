@@ -1,19 +1,19 @@
 diff --color -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
---- ./org/gtk/gtkfilechooserwidget.c	2017-10-02 18:00:49.000000000 +0200
-+++ ./mod/gtk/gtkfilechooserwidget.c	2017-10-30 20:35:48.363519726 +0100
-@@ -76,10 +76,11 @@
+--- ./org/gtk/gtkfilechooserwidget.c	2018-03-12 20:20:04.000000000 +0100
++++ ./mod/gtk/gtkfilechooserwidget.c	2018-03-13 20:34:44.629974675 +0100
+@@ -75,10 +75,11 @@
+ #include "gtkrevealer.h"
  #include "gtkspinner.h"
  #include "gtkseparator.h"
  #include "gtkmodelbutton.h"
  #include "gtkgesturelongpress.h"
- #include "gtkdebug.h"
 +#include "gtkcssprovider.h"
  
  #include <cairo-gobject.h>
  
  #ifdef HAVE_UNISTD_H
  #include <unistd.h>
-@@ -8595,10 +8596,20 @@
+@@ -8545,10 +8546,20 @@
    gtk_popover_set_default_widget (GTK_POPOVER (impl->priv->new_folder_popover), impl->priv->new_folder_create_button);
    gtk_popover_set_default_widget (GTK_POPOVER (impl->priv->rename_file_popover), impl->priv->rename_file_rename_button);
    gtk_popover_set_relative_to (GTK_POPOVER (impl->priv->rename_file_popover), impl->priv->browse_files_tree_view);
