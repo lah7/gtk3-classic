@@ -7,7 +7,7 @@ __arch_pkg_commit="4ac05111e37186cebac1c4fa22610abddb1c2d52"
 
 pkgname=gtk3-mushrooms
 pkgver=3.22.29
-pkgrel=1
+pkgrel=2
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 conflicts=(gtk3 gtk3-print-backends)
@@ -151,7 +151,8 @@ build()
 	cd "$srcdir/gtk+-$pkgver"
 
 	CXX=/bin/false ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
-		--enable-x11-backend --enable-wayland-backend --disable-schemas-compile --disable-gtk-doc-html
+		--enable-x11-backend --enable-wayland-backend --enable-broadway-backend \
+		--disable-schemas-compile --disable-gtk-doc-html
 
 	# https://bugzilla.gnome.org/show_bug.cgi?id=655517
 	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
