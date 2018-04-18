@@ -1,4 +1,4 @@
-﻿GTK3-mushrooms
+﻿gtk3-mushrooms
 ===
 
 This is a set of patches for GTK3 library that makes it better for me and maybe for you too. ;-) I haven't wide knowledge about programming in C, so quality of this patches can be not good. But it works! See list of patches below.

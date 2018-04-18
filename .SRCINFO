@@ -1,7 +1,7 @@
 pkgbase = gtk3-mushrooms
 	pkgdesc = GTK3 library with my modifications (see README).
-	pkgver = 3.22.29
-	pkgrel = 2
+	pkgver = 3.22.30
+	pkgrel = 1
 	url = http://www.gtk.org/
 	arch = x86_64
 	license = LGPL
@@ -37,7 +37,7 @@ pkgbase = gtk3-mushrooms
 	optdepends = colord: for printing backends
 	optdepends = rest: for printing backends
 	optdepends = libcups: for printing backends
-	provides = gtk3=3.22.29
+	provides = gtk3=3.22.30
 	provides = gtk3-print-backends
 	conflicts = gtk3
 	conflicts = gtk3-print-backends
@@ -64,9 +64,9 @@ pkgbase = gtk3-mushrooms
 	source = popovers__menu-button.patch
 	source = popovers__places-sidebar.patch
 	source = smaller-adwaita.css
-	source = https://download.gnome.org/sources/gtk+/3.22/gtk+-3.22.29.tar.xz
-	source = settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=4ac05111e37186cebac1c4fa22610abddb1c2d52
-	source = gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=4ac05111e37186cebac1c4fa22610abddb1c2d52
+	source = https://download.gnome.org/sources/gtk+/3.22/gtk+-3.22.30.tar.xz
+	source = settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=fbcc57e8a97827926b6624bb8bc570f675c7188d
+	source = gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=fbcc57e8a97827926b6624bb8bc570f675c7188d
 	sha256sums = 68b26360764a2ea7e057a2aaa29c6fdfe164b9987866e038d8d0188a025477fb
 	sha256sums = b2f7d5d3a784b7f833d64c2a278f1d082bec5c53b4cc19602c808223625dedeb
 	sha256sums = 86f48054a2df6319d97db14fd17ea15d50b32ea6ba594d83e8faa1596ec657ab
@@ -90,7 +90,7 @@ pkgbase = gtk3-mushrooms
 	sha256sums = fe421b6197b4e98254019896ec79ea6b29a2140e7950ce3018ae0e1e4047b0c0
 	sha256sums = 2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac
 	sha256sums = 0554ba2085fb8cec8e3b926efc250ae5c15cf47f2612c10cdd0e849bfb8d05a5
-	sha256sums = a07d64b939fcc034a066b7723fdf9b24e92c9cfb6a8497593f3471fe56fbbbf8
+	sha256sums = a1a4a5c12703d4e1ccda28333b87ff462741dc365131fbc94c218ae81d9a6567
 	sha256sums = 01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202
 	sha256sums = de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845
 
