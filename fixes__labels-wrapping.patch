@@ -1,0 +1,16 @@
+diff --color -U 5 -r -Z -B ./org/gtk/gtklabel.c ./mod/gtk/gtklabel.c
+--- ./org/gtk/gtklabel.c	2018-02-17 23:30:46.000000000 +0100
++++ ./mod/gtk/gtklabel.c	2018-05-25 21:23:33.053987024 +0200
+@@ -1366,11 +1366,11 @@
+   priv = label->priv;
+ 
+   gtk_widget_set_has_window (GTK_WIDGET (label), FALSE);
+ 
+   priv->width_chars = -1;
+-  priv->max_width_chars = -1;
++  priv->max_width_chars = 56;
+   priv->label = g_strdup ("");
+   priv->lines = -1;
+ 
+   priv->xalign = 0.5;
+   priv->yalign = 0.5;

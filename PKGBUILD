@@ -7,7 +7,7 @@ __arch_pkg_commit="fbcc57e8a97827926b6624bb8bc570f675c7188d"
 
 pkgname=gtk3-mushrooms
 pkgver=3.22.30
-pkgrel=1
+pkgrel=2
 pkgdesc="GTK3 library with my modifications (see README)."
 url="http://www.gtk.org/"
 conflicts=(gtk3 gtk3-print-backends)
@@ -47,13 +47,12 @@ source=(
 	"file-chooser__places-sidebar.patch"
 	"file-chooser__typeahead.patch"
 	"fixes__atk-bridge-errors.patch"
+	"fixes__labels-wrapping.patch"
 	"fixes__too-large-menu-covers-bar.patch"
-	"fixes__window-background.patch"
 	"other__hide-insert-emoji.patch"
 	"other__mnemonics-delay.patch"
 	"popovers__color-chooser.patch"
 	"popovers__file-chooser-list.patch"
-	"popovers__menu-button.patch"
 	"popovers__places-sidebar.patch"
 
 	# Theme CSS stylesheet.
@@ -61,6 +60,9 @@ source=(
 
 	# GTK source code.
 	"https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-$pkgver.tar.xz"
+
+	# Temporary. Will be removed with next GTK3 release.
+	"upstream_window_background._patch::https://github.com/GNOME/gtk/commit/2ce63a86ba689aa41eb47409c889c469497478b0.patch"
 
 	# Arch Linux package files.
 	"settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=$__arch_pkg_commit"
@@ -81,16 +83,16 @@ sha256sums=(
 	"f0c8cbccab2bc9743075135bd5fa74f28dca722e8e723cf46e0dfa2b004a3791"
 	"7b987cc9bd7ca9722bfb881b30b082c0d7409e3cd68592f5e7a1f401d73e7672"
 	"99b12d7af7efc6a014e6afcab1ee82ea0feb0b5a4e9bbd663d1c45354cd34f2b"
+	"c45ed844355b5a4036c2df9a1710a04c4788b78add730506040ebdfb9ec53117"
 	"d4d27ccc5735ee1d2c8483da659ded3a05e9d33b3fe41d8ed77495e9ec38be96"
-	"3067face12ad74d664ab7951f59026c01eb8070bef007b522eb84aef1576674a"
 	"acd3babd22add981690728e84a89fb8bb332b7ac746e9db7cdb27c47f1ac0042"
 	"c213812e1fafeb5565f7e329c4501195f04adcfe377b88439a6d51d478edc071"
 	"7f3e5da1622e243243ea9b1e487460f608dc375e79d800d2f0d826fd30be68ed"
 	"ef4fed3a364db8eb9c15c9ce0e733035722f168dc88b385df2178fc1168ada54"
-	"fe421b6197b4e98254019896ec79ea6b29a2140e7950ce3018ae0e1e4047b0c0"
 	"2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac"
 	"0554ba2085fb8cec8e3b926efc250ae5c15cf47f2612c10cdd0e849bfb8d05a5"
 	"a1a4a5c12703d4e1ccda28333b87ff462741dc365131fbc94c218ae81d9a6567"
+	"98b99ed14cc7545d1f30e244fe793ddd21a7db9d6f5e78b677113a89b621e459"
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
 	"de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845"
 )
@@ -142,6 +144,9 @@ prepare()
 
 	# Apply patches to GTK code.
 	__patch_gtk_code
+
+	# Temporary patch. Will be removed with next GTK3 release.
+	patch -p 1 -i "$srcdir/upstream_window_background._patch"
 
 	NOCONFIGURE=1 ./autogen.sh
 }

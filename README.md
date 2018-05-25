@@ -1,4 +1,4 @@
-﻿gtk3-mushrooms
+gtk3-mushrooms
 ===
 
 This is a set of patches for GTK3 library that makes it better for me and maybe for you too. ;-) I haven't wide knowledge about programming in C, so quality of this patches can be not good. But it works! See list of patches below.
@@ -24,18 +24,14 @@ File chooser
 Appearance
 ---
 
+* Message dialogs have traditional appearance with left-aligned texts and right-aligned buttons.
 * Some GTK stock icons on buttons and context menus are restored. You can see it in GTK internal dialogs and in some applications.
 * Regular colorized icons instead of symbolic icons are used in file chooser dialog.
-* Message dialogs have traditional appearance with left-aligned texts and right-aligned buttons.
 * Appearance of print dialog is less "gnomish", natural margins are restored.
 * Backdrop CSS state is disabled. Inactive windows don't look differently. You can restore backdrop state by setting `GTK_CSD` environment variable.
 * Status bars are smaller regardless of used theme.
-
-Popovers
----
-
 * File chooser dialog, places sidebar and color chooser dialog use classic menu as context menu instead of popover.
-* Menus of menu buttons are displayed as classic menu instead of popover.
+
 
 Default settings
 ---
@@ -54,9 +50,9 @@ Other
 Fixes
 ---
 
-* Window background is set properly to theme background color instead of solid black. See https://bugzilla.gnome.org/show_bug.cgi?id=771708.
-* Errors in console output because of integration with Accessibility Toolkit are hidden. See https://unix.stackexchange.com/questions/230238.
 * Menu bars are not covered by too high popup menus. See https://bugzilla.gnome.org/show_bug.cgi?id=792764.
+* Labels are wrapped similarly to GTK2. This patch fixes too wide windows in applications improperly ported from GTK2.
+* Errors in console output because of integration with Accessibility Toolkit are hidden. See https://unix.stackexchange.com/questions/230238.
 
 --------
 
@@ -64,4 +60,3 @@ Credits
 ---
 
 * https://aur.archlinux.org/packages/gtk3-typeahead — file chooser typeahead patch.
-* https://bugzilla.gnome.org/show_bug.cgi?id=757104#c0 — window background patch.
