@@ -79,11 +79,9 @@ messagedialog > box {
 messagedialog buttonbox {
 	margin-top: -17px;
 }
-.background:not(.tiled):not(.maximized):not(.solid-csd) .titlebar:backdrop,
-.background:not(.tiled):not(.maximized):not(.solid-csd) .titlebar,
-.titlebar:not(headerbar),
-headerbar {
-	background-image: none;
+.background:not(.csd):not(.solid-csd) .titlebar:not(.default-decoration),
+.background:not(.csd):not(.solid-csd) .titlebar:not(.default-decoration) headerbar {
+	background: inherit;
 }
 entry undershoot.left,
 entry undershoot.right,

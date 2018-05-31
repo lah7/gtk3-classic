@@ -7,11 +7,11 @@ __arch_pkg_commit="fbcc57e8a97827926b6624bb8bc570f675c7188d"
 
 pkgname=gtk3-mushrooms
 pkgver=3.22.30
-pkgrel=2
-pkgdesc="GTK3 library with my modifications (see README)."
-url="http://www.gtk.org/"
+pkgrel=3
+pkgdesc="GTK3 patched for classic desktops like MATE/XFCE (see README)."
+url="https://github.com/TomaszGasior/gtk3-mushrooms"
 conflicts=(gtk3 gtk3-print-backends)
-provides=(gtk3=$pkgver gtk3-print-backends)
+provides=(gtk3=$pkgver gtk3-print-backends gtk3-classic)
 arch=(x86_64)
 license=(LGPL)
 depends=(
@@ -41,14 +41,14 @@ source=(
 	"appearance__smaller-statusbar.patch"
 	"csd__clean-headerbar.patch"
 	"csd__disabled-by-default.patch"
-	"csd__headerbar-title.patch"
 	"csd__server-side-shadow.patch"
-	"default-settings.patch"
 	"file-chooser__places-sidebar.patch"
 	"file-chooser__typeahead.patch"
 	"fixes__atk-bridge-errors.patch"
 	"fixes__labels-wrapping.patch"
 	"fixes__too-large-menu-covers-bar.patch"
+	"fixes__window-background.patch"
+	"other__default-settings.patch"
 	"other__hide-insert-emoji.patch"
 	"other__mnemonics-delay.patch"
 	"popovers__color-chooser.patch"
@@ -70,27 +70,27 @@ source=(
 )
 sha256sums=(
 	"68b26360764a2ea7e057a2aaa29c6fdfe164b9987866e038d8d0188a025477fb"
-	"b2f7d5d3a784b7f833d64c2a278f1d082bec5c53b4cc19602c808223625dedeb"
+	"eade303471a5929ccf6cf14ff434deccb0da017d5c4fdce3f5a3ffa117c1c954"
 	"86f48054a2df6319d97db14fd17ea15d50b32ea6ba594d83e8faa1596ec657ab"
 	"54020144ac0472ae170297b4158da719b49860b17234bf54351ba30f793a7fe7"
 	"be4ddf03a5cce8270e8118eb331b3056972c0bd490faa6e4a4ebe332ec4c2e91"
 	"81138fbaff82e37a83da1c4aa074a6c708e6c50340e0ddeff3fb70e2a0b52e1f"
-	"3367e93113c8ebc31244d57845c41b81e5e70a62b64faf61f216f3455d7020b5"
-	"513f8d3092d8392898dbdffa57fb2e92a20ad1413161b71a2fe05ee3f5c3da58"
-	"4eb430f3375b3cf50ec919b868ebff3f50a6a72f40cfaf46e6ccdfc3586833e7"
-	"d3816c145d4e0bc3fe04904434b2e2cae5a04d5691693d6b0c86391f76a5bf6a"
-	"37e3278dd33542b706eb9e1db56997b194a7e2f1fd729a8511369387a74b22bd"
+	"515ff6df72934aa4294cdb1befd6c542a187fe3b4326cda68a8541dabbe657fd"
+	"63bf214d836f688e628b30d1743ff9e47deb64d0f4bde9f0eb9c352fc00ca8d4"
+	"1508ddc7e682cdaace327ffe2955abe90f903cf7ec923892b85673a37f76a32f"
 	"f0c8cbccab2bc9743075135bd5fa74f28dca722e8e723cf46e0dfa2b004a3791"
 	"7b987cc9bd7ca9722bfb881b30b082c0d7409e3cd68592f5e7a1f401d73e7672"
 	"99b12d7af7efc6a014e6afcab1ee82ea0feb0b5a4e9bbd663d1c45354cd34f2b"
 	"c45ed844355b5a4036c2df9a1710a04c4788b78add730506040ebdfb9ec53117"
 	"d4d27ccc5735ee1d2c8483da659ded3a05e9d33b3fe41d8ed77495e9ec38be96"
+	"ba3dc10e116edc96e53867953bfa00d408fcc6ec55913553669be90bea5ad90d"
+	"37e3278dd33542b706eb9e1db56997b194a7e2f1fd729a8511369387a74b22bd"
 	"acd3babd22add981690728e84a89fb8bb332b7ac746e9db7cdb27c47f1ac0042"
 	"c213812e1fafeb5565f7e329c4501195f04adcfe377b88439a6d51d478edc071"
 	"7f3e5da1622e243243ea9b1e487460f608dc375e79d800d2f0d826fd30be68ed"
 	"ef4fed3a364db8eb9c15c9ce0e733035722f168dc88b385df2178fc1168ada54"
 	"2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac"
-	"0554ba2085fb8cec8e3b926efc250ae5c15cf47f2612c10cdd0e849bfb8d05a5"
+	"cae4474d2ef9b4b56316efe2b53d717188f3ef578d5513d1067ceaff87f2270d"
 	"a1a4a5c12703d4e1ccda28333b87ff462741dc365131fbc94c218ae81d9a6567"
 	"98b99ed14cc7545d1f30e244fe793ddd21a7db9d6f5e78b677113a89b621e459"
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"

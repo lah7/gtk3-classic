@@ -5,18 +5,17 @@ This is a set of patches for GTK3 library that makes it better for me and maybe 
 
 This package is based on official GTK3 package from Arch Linux. In my version library is compiled without documentation and example applications. Using this package with GNOME desktop is not recommended. It's for classic GTK-based environments like MATE or XFCE.
 
-Client Side Decorations
+Client Side Decorations (only on Xorg)
 ---
 
 * CSDs are totally disabled by default. All windows are decorated only by window manager. You can enable CSDs by setting `GTK_CSD=0` environment variable (or `GTK_CSD=1` to force CSDs on each GTK3 window).
 * Client side shadows of windows, menus and tooltips are disabled by default. You can enable shadows by setting `GTK_CSD=1` environment variable.
-* Window title and subtitle are removed from headerbar. Subtitle is added to native titlebar.
-* Minimize, maximize and close buttons are removed from headerbar. Application menu button has changed icon.
+* Minimize, maximize and close buttons, window title and subtitle are removed from headerbar. Subtitle is added to native titlebar.
 
 File chooser
 ---
 
-* Typeahead feature is restored. Recursive file search will not be ran automatically when you start typing. You can still search recursively by Left Alt + S shortcut. See https://bugzilla.gnome.org/show_bug.cgi?id=784029.
+* Typeahead feature is restored. Recursive file search will not be ran automatically when you start typing. You can still search recursively by Left Alt + S shortcut. See https://gitlab.gnome.org/GNOME/gtk/issues/839.
 * "Other locations" button is removed from places sidebar. All mounted devices and drives are accessible directly.
 * Trash and XDG user directories (like Pictures, Downloads, Documents) are removed from places sidebar. You can add it as bookmarks.
 * File system button in places sidebar is labeled as "File System" instead of "Computer".
@@ -28,7 +27,7 @@ Appearance
 * Some GTK stock icons on buttons and context menus are restored. You can see it in GTK internal dialogs and in some applications.
 * Regular colorized icons instead of symbolic icons are used in file chooser dialog.
 * Appearance of print dialog is less "gnomish", natural margins are restored.
-* Backdrop CSS state is disabled. Inactive windows don't look differently. You can restore backdrop state by setting `GTK_CSD` environment variable.
+* Backdrop CSS state is disabled. Inactive windows don't look differently. You can restore backdrop state by setting `GTK_CSD=1` environment variable.
 * Status bars are smaller regardless of used theme.
 * File chooser dialog, places sidebar and color chooser dialog use classic menu as context menu instead of popover.
 
@@ -50,13 +49,7 @@ Other
 Fixes
 ---
 
-* Menu bars are not covered by too high popup menus. See https://bugzilla.gnome.org/show_bug.cgi?id=792764.
+* Menu bars are not covered by too high popup menus. See https://gitlab.gnome.org/GNOME/gtk/issues/1016.
 * Labels are wrapped similarly to GTK2. This patch fixes too wide windows in applications improperly ported from GTK2.
 * Errors in console output because of integration with Accessibility Toolkit are hidden. See https://unix.stackexchange.com/questions/230238.
-
---------
-
-Credits
----
-
-* https://aur.archlinux.org/packages/gtk3-typeahead — file chooser typeahead patch.
+* Window background is set properly to theme background, only on Xorg when compositor is disabled.
