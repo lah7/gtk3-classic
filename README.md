@@ -52,4 +52,4 @@ Fixes
 * Menu bars are not covered by too high popup menus. See https://gitlab.gnome.org/GNOME/gtk/issues/1016.
 * Labels are wrapped similarly to GTK2. This patch fixes too wide windows in applications improperly ported from GTK2.
 * Errors in console output because of integration with Accessibility Toolkit are hidden. See https://unix.stackexchange.com/questions/230238.
-* Window background is set properly to theme background, only on Xorg when compositor is disabled.
+* Window background is set to theme background, only on Xorg when window manager doesn't support client side shadows. This patch fixes bug in i3 and Awesome window managers. See https://github.com/i3/i3/issues/3297.
