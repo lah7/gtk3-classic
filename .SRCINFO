@@ -1,7 +1,7 @@
 pkgbase = gtk3-mushrooms
 	pkgdesc = GTK3 patched for classic desktops like MATE/XFCE (see README).
 	pkgver = 3.22.30
-	pkgrel = 6
+	pkgrel = 7
 	url = https://github.com/TomaszGasior/gtk3-mushrooms
 	arch = x86_64
 	license = LGPL
@@ -9,6 +9,7 @@ pkgbase = gtk3-mushrooms
 	makedepends = libcanberra
 	makedepends = gtk-doc
 	makedepends = sassc
+	makedepends = libcups
 	depends = atk
 	depends = cairo
 	depends = libxcursor
@@ -30,16 +31,14 @@ pkgbase = gtk3-mushrooms
 	depends = desktop-file-utils
 	depends = mesa
 	depends = gtk-update-icon-cache
+	optdepends = libcups: printers in printing dialog
 	optdepends = dconf: default GSettings backend
+	optdepends = libcanberra: sounds events
 	optdepends = adwaita-icon-theme: default icon theme
 	optdepends = cantarell-fonts: default font
-	optdepends = libcanberra: sounds library
-	optdepends = colord: for printing backends
-	optdepends = rest: for printing backends
-	optdepends = libcups: for printing backends
 	provides = gtk3=3.22.30
+	provides = gtk3-classic=3.22.30
 	provides = gtk3-print-backends
-	provides = gtk3-classic
 	conflicts = gtk3
 	conflicts = gtk3-print-backends
 	source = appearance__buttons-menus-icons.patch
@@ -91,7 +90,7 @@ pkgbase = gtk3-mushrooms
 	sha256sums = 2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac
 	sha256sums = cae4474d2ef9b4b56316efe2b53d717188f3ef578d5513d1067ceaff87f2270d
 	sha256sums = a1a4a5c12703d4e1ccda28333b87ff462741dc365131fbc94c218ae81d9a6567
-	sha256sums = 98b99ed14cc7545d1f30e244fe793ddd21a7db9d6f5e78b677113a89b621e459
+	sha256sums = ceb95c0952ccd3ded84cd55a2386a33edac91597052b077d12fa4a3cc62a1612
 	sha256sums = 01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202
 	sha256sums = de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845
 

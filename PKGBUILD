@@ -7,11 +7,11 @@ __arch_pkg_commit="fbcc57e8a97827926b6624bb8bc570f675c7188d"
 
 pkgname=gtk3-mushrooms
 pkgver=3.22.30
-pkgrel=6
+pkgrel=7
 pkgdesc="GTK3 patched for classic desktops like MATE/XFCE (see README)."
 url="https://github.com/TomaszGasior/gtk3-mushrooms"
 conflicts=(gtk3 gtk3-print-backends)
-provides=(gtk3=$pkgver gtk3-print-backends gtk3-classic)
+provides=(gtk3=$pkgver gtk3-classic=$pkgver gtk3-print-backends)
 arch=(x86_64)
 license=(LGPL)
 depends=(
@@ -20,16 +20,14 @@ depends=(
 	json-glib librsvg wayland-protocols desktop-file-utils mesa gtk-update-icon-cache
 )
 makedepends=(
-	gobject-introspection libcanberra gtk-doc sassc
+	gobject-introspection libcanberra gtk-doc sassc libcups
 )
 optdepends=(
+	'libcups: printers in printing dialog'
 	'dconf: default GSettings backend'
+	'libcanberra: sounds events'
 	'adwaita-icon-theme: default icon theme'
 	'cantarell-fonts: default font'
-	'libcanberra: sounds library'
-	'colord: for printing backends'
-	'rest: for printing backends'
-	'libcups: for printing backends'
 )
 source=(
 	# Patch files.
@@ -92,7 +90,7 @@ sha256sums=(
 	"2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac"
 	"cae4474d2ef9b4b56316efe2b53d717188f3ef578d5513d1067ceaff87f2270d"
 	"a1a4a5c12703d4e1ccda28333b87ff462741dc365131fbc94c218ae81d9a6567"
-	"98b99ed14cc7545d1f30e244fe793ddd21a7db9d6f5e78b677113a89b621e459"
+	"ceb95c0952ccd3ded84cd55a2386a33edac91597052b077d12fa4a3cc62a1612"
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
 	"de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845"
 )
@@ -157,6 +155,7 @@ build()
 
 	CXX=/bin/false ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
 		--enable-x11-backend --enable-wayland-backend --enable-broadway-backend \
+		--disable-cloudprint --enable-colord=no \
 		--disable-schemas-compile --disable-gtk-doc-html
 
 	# https://bugzilla.gnome.org/show_bug.cgi?id=655517
