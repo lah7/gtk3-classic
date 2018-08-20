@@ -7,7 +7,7 @@ __arch_pkg_commit="fbcc57e8a97827926b6624bb8bc570f675c7188d"
 
 pkgname=gtk3-mushrooms
 pkgver=3.22.30
-pkgrel=8
+pkgrel=9
 pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. Please see README."
 url="https://github.com/TomaszGasior/gtk3-mushrooms"
 conflicts=(gtk3 gtk3-print-backends)
@@ -61,6 +61,7 @@ source=(
 	# Temporary. Will be removed with next GTK3 release.
 	"upstream_transparent_window_bg_1._patch::https://github.com/GNOME/gtk/commit/2ce63a86ba689aa41eb47409c889c469497478b0.patch"
 	"upstream_transparent_window_bg_2._patch::https://github.com/GNOME/gtk/commit/01d1bc3c75fd0eff5665f5b9c690c5e1e6c65f13.patch"
+	"fixes__gtktrayicon-background._patch"
 
 	# Arch Linux package files.
 	"settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=$__arch_pkg_commit"
@@ -91,6 +92,7 @@ sha256sums=(
 	"a1a4a5c12703d4e1ccda28333b87ff462741dc365131fbc94c218ae81d9a6567"
 	"ceb95c0952ccd3ded84cd55a2386a33edac91597052b077d12fa4a3cc62a1612"
 	"68e3ea59140ee565a146fff2db2d2e2ed99536bbad8ba818bee124325d516e01"
+	"a829e9ec0d49781958a5f210d4ac5f7d065f3de7e67b62946d7637c937c91b22"
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
 	"de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845"
 )
@@ -146,6 +148,7 @@ prepare()
 	# Temporary. Will be removed with next GTK3 release.
 	patch -p 1 -i "$srcdir/upstream_transparent_window_bg_1._patch"
 	patch -p 1 -i "$srcdir/upstream_transparent_window_bg_2._patch"
+	patch -p 1 -i "$srcdir/fixes__gtktrayicon-background._patch"
 
 	NOCONFIGURE=1 ./autogen.sh
 }
