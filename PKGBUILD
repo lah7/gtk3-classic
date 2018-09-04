@@ -6,8 +6,8 @@
 __arch_pkg_commit="fbcc57e8a97827926b6624bb8bc570f675c7188d"
 
 pkgname=gtk3-mushrooms
-pkgver=3.22.30
-pkgrel=8
+pkgver=3.24.0
+pkgrel=1
 pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. Please see README."
 url="https://github.com/TomaszGasior/gtk3-mushrooms"
 conflicts=(gtk3 gtk3-print-backends)
@@ -58,10 +58,6 @@ source=(
 	# GTK source code.
 	"https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-$pkgver.tar.xz"
 
-	# Temporary. Will be removed with next GTK3 release.
-	"upstream_transparent_window_bg_1._patch::https://github.com/GNOME/gtk/commit/2ce63a86ba689aa41eb47409c889c469497478b0.patch"
-	"upstream_transparent_window_bg_2._patch::https://github.com/GNOME/gtk/commit/01d1bc3c75fd0eff5665f5b9c690c5e1e6c65f13.patch"
-
 	# Arch Linux package files.
 	"settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=$__arch_pkg_commit"
 	"gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=$__arch_pkg_commit"
@@ -88,9 +84,7 @@ sha256sums=(
 	"ef4fed3a364db8eb9c15c9ce0e733035722f168dc88b385df2178fc1168ada54"
 	"2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac"
 	"cae4474d2ef9b4b56316efe2b53d717188f3ef578d5513d1067ceaff87f2270d"
-	"a1a4a5c12703d4e1ccda28333b87ff462741dc365131fbc94c218ae81d9a6567"
-	"ceb95c0952ccd3ded84cd55a2386a33edac91597052b077d12fa4a3cc62a1612"
-	"68e3ea59140ee565a146fff2db2d2e2ed99536bbad8ba818bee124325d516e01"
+	"02e991389277206253d79884d10e5aa06fd78fdf7a5096799dbe3c97a05e32a8"
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
 	"de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845"
 )
@@ -142,10 +136,6 @@ prepare()
 
 	# Apply patches to GTK code.
 	__patch_gtk_code
-
-	# Temporary. Will be removed with next GTK3 release.
-	patch -p 1 -i "$srcdir/upstream_transparent_window_bg_1._patch"
-	patch -p 1 -i "$srcdir/upstream_transparent_window_bg_2._patch"
 
 	NOCONFIGURE=1 ./autogen.sh
 }
