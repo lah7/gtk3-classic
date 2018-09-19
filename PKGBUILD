@@ -3,10 +3,10 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
-__arch_pkg_commit="fbcc57e8a97827926b6624bb8bc570f675c7188d"
+__arch_pkg_commit="3313de611df4a2893692b70ca96e481c4d930df3"
 
 pkgname=gtk3-mushrooms
-pkgver=3.24.0
+pkgver=3.24.1
 pkgrel=1
 pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. Please see README."
 url="https://github.com/TomaszGasior/gtk3-mushrooms"
@@ -84,7 +84,7 @@ sha256sums=(
 	"ef4fed3a364db8eb9c15c9ce0e733035722f168dc88b385df2178fc1168ada54"
 	"2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac"
 	"cae4474d2ef9b4b56316efe2b53d717188f3ef578d5513d1067ceaff87f2270d"
-	"02e991389277206253d79884d10e5aa06fd78fdf7a5096799dbe3c97a05e32a8"
+	"68387be307b99aadcdc653561d7a2a7f0113b93561fb18ded7075ec9ced5b02f"
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
 	"de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845"
 )
@@ -157,10 +157,10 @@ build()
 
 package()
 {
-	cd "$srcdir/gtk+-$pkgver"
+	cd "$srcdir"
 
-	make DESTDIR="$pkgdir" install
+	DESTDIR="$pkgdir" make -C "gtk+-$pkgver" install
 
-	install -Dm644 ../settings.ini "$pkgdir/usr/share/gtk-3.0/settings.ini"
-	install -Dm644 ../gtk-query-immodules-3.0.hook "$pkgdir/usr/share/libalpm/hooks/gtk-query-immodules-3.0.hook"
+	install -Dt "$pkgdir/usr/share/gtk-3.0" -m644 settings.ini
+	install -Dt "$pkgdir/usr/share/libalpm/hooks" -m644 gtk-query-immodules-3.0.hook
 }
