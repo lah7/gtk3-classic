@@ -7,7 +7,7 @@ __arch_pkg_commit="3313de611df4a2893692b70ca96e481c4d930df3"
 
 pkgname=gtk3-mushrooms
 pkgver=3.24.1
-pkgrel=1
+pkgrel=2
 pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. Please see README."
 url="https://github.com/TomaszGasior/gtk3-mushrooms"
 conflicts=(gtk3 gtk3-print-backends)
@@ -45,6 +45,8 @@ source=(
 	"fixes__atk-bridge-errors.patch"
 	"fixes__labels-wrapping.patch"
 	"fixes__too-large-menu-covers-bar.patch"
+	"fixes__trayicon-parent-relative.patch"
+	"fixes__xfce-inhibit-errors.patch"
 	"other__default-settings.patch"
 	"other__hide-insert-emoji.patch"
 	"other__mnemonics-delay.patch"
@@ -72,11 +74,13 @@ sha256sums=(
 	"515ff6df72934aa4294cdb1befd6c542a187fe3b4326cda68a8541dabbe657fd"
 	"63bf214d836f688e628b30d1743ff9e47deb64d0f4bde9f0eb9c352fc00ca8d4"
 	"1508ddc7e682cdaace327ffe2955abe90f903cf7ec923892b85673a37f76a32f"
-	"f0c8cbccab2bc9743075135bd5fa74f28dca722e8e723cf46e0dfa2b004a3791"
+	"8271342e6a0394f70b6e5a21afb21e2e0b645edf39a0d149d5e8b4d6b062846d"
 	"7b987cc9bd7ca9722bfb881b30b082c0d7409e3cd68592f5e7a1f401d73e7672"
 	"99b12d7af7efc6a014e6afcab1ee82ea0feb0b5a4e9bbd663d1c45354cd34f2b"
 	"7a604d453beb9c425b8ed4a60b5e9435c3f4ee10438490641c0ade448401306a"
 	"21b8c90ceec02300affb5b30fecf390531cb76322faaf1dd01e2f1ca239ed729"
+	"22ec5d9ee91b50775d7c5662fa683791a1da55d44c03790636552bdc16be7bbd"
+	"40ea6615a9f9942e3a9ae52297c9f88a3fbbb70c8da9a559143d649414ab7076"
 	"37e3278dd33542b706eb9e1db56997b194a7e2f1fd729a8511369387a74b22bd"
 	"acd3babd22add981690728e84a89fb8bb332b7ac746e9db7cdb27c47f1ac0042"
 	"c213812e1fafeb5565f7e329c4501195f04adcfe377b88439a6d51d478edc071"
@@ -121,7 +125,7 @@ __patch_makefiles()
 __patch_gtk_code()
 {
 	for patch_file in $srcdir/*.patch; do
-		patch -d "gtk" -p 3 -i "$patch_file"
+		patch -p 2 -i "$patch_file"
 	done
 
 	cat "$srcdir/smaller-adwaita.css" | tee -a gtk/theme/Adwaita/gtk-contained{,-dark}.css > /dev/null

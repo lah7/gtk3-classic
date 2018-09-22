@@ -16,7 +16,7 @@ File chooser
 ---
 
 * Typeahead feature is restored. Recursive file search will not be ran automatically when you start typing. You can still search recursively by Left Alt + S shortcut. See https://gitlab.gnome.org/GNOME/gtk/issues/839.
-* "Other locations" button is removed from places sidebar. All mounted devices and drives are accessible directly.
+* "Other locations" button is removed from places sidebar. All mounted devices and drives are accessible directly. "Networks" button is added for browsing network shares.
 * Trash and XDG user directories (like Pictures, Downloads, Documents) are removed from places sidebar. You can add it as bookmarks.
 * File system button in places sidebar is labeled as "File System" instead of "Computer".
 
@@ -51,4 +51,6 @@ Fixes
 
 * Menu bars are not covered by too high popup menus. See https://gitlab.gnome.org/GNOME/gtk/issues/1016.
 * Labels are wrapped similarly to GTK2. This patch fixes too wide windows in applications improperly ported from GTK2.
-* Errors in console output because of integration with Accessibility Toolkit are hidden. See https://unix.stackexchange.com/questions/230238.
+* Errors in console output caused by integration with Accessibility Toolkit are hidden. See https://unix.stackexchange.com/questions/230238.
+* Errors in console output about non-existent "inhibit" method in XFCE are hidden. See example on https://bugzilla.redhat.com/show_bug.cgi?id=1515272#c1.
+* Tray icons in non-compositing window managers like Awesome or i3wm are shown properly. See https://gitlab.gnome.org/GNOME/gtk/issues/1280.

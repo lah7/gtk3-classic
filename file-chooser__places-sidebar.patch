@@ -1,7 +1,7 @@
 diff --color -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
---- ./org/gtk/gtkplacessidebar.c	2017-10-02 18:00:58.000000000 +0200
-+++ ./mod/gtk/gtkplacessidebar.c	2017-10-30 21:21:17.593654954 +0100
-@@ -616,10 +616,11 @@
+--- ./org/gtk/gtkplacessidebar.c	2018-09-22 01:04:58.832337000 +0200
++++ ./mod/gtk/gtkplacessidebar.c	2018-09-22 01:24:14.618504785 +0200
+@@ -631,10 +631,11 @@
  }
  
  static void
@@ -13,7 +13,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessideb
  
    dirs = NULL;
    for (index = 0; index < G_USER_N_DIRECTORIES; index++)
-@@ -1383,12 +1384,10 @@
+@@ -1418,12 +1419,10 @@
        BookmarkQueryClosure *clos;
  
        root = sl->data;
@@ -26,7 +26,29 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessideb
          continue;
  
        clos = g_slice_new (BookmarkQueryClosure);
-@@ -4066,11 +4065,11 @@
+@@ -1527,10 +1526,21 @@
+                  _("Other Locations"), start_icon, NULL, "other-locations:///",
+                  NULL, NULL, NULL, NULL, 0, _("Show other locations"));
+ 
+       g_object_unref (start_icon);
+     }
++  else if (!sidebar->local_only)
++    {
++      start_icon = g_themed_icon_new_with_default_fallbacks (ICON_NAME_NETWORK);
++
++      add_place (sidebar, PLACES_BUILT_IN,
++                 SECTION_OTHER_LOCATIONS,
++                 _("Networks"), start_icon, NULL, "network:///",
++                 NULL, NULL, NULL, NULL, 0, _("Show other locations"));
++
++      g_object_unref (start_icon);
++    }
+ 
+   gtk_widget_show_all (GTK_WIDGET (sidebar));
+   /* We want this hidden by default, but need to do it after the show_all call */
+   gtk_sidebar_row_hide (GTK_SIDEBAR_ROW (sidebar->new_bookmark_row), TRUE);
+ 
+@@ -4143,11 +4153,11 @@
    sidebar->dragging_over = FALSE;
    sidebar->drag_data_info = DND_UNKNOWN;
  
@@ -39,9 +61,10 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessideb
                              G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES,
                              NULL,
                              "org.freedesktop.hostname1",
+Tylko w ./mod/gtk: gtkplacessidebar.c.orig
 diff --color -U 5 -r -Z -B ./org/gtk/ui/gtkfilechooserwidget.ui ./mod/gtk/ui/gtkfilechooserwidget.ui
---- ./org/gtk/ui/gtkfilechooserwidget.ui	2017-10-02 18:00:49.000000000 +0200
-+++ ./mod/gtk/ui/gtkfilechooserwidget.ui	2017-10-30 21:21:17.593654954 +0100
+--- ./org/gtk/ui/gtkfilechooserwidget.ui	2017-11-16 14:21:24.000000000 +0100
++++ ./mod/gtk/ui/gtkfilechooserwidget.ui	2018-09-22 01:21:49.227346988 +0200
 @@ -14,11 +14,12 @@
              <child>
                <object class="GtkPlacesSidebar" id="places_sidebar">
