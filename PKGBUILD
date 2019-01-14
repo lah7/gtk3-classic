@@ -3,11 +3,11 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
-__arch_pkg_commit="3313de611df4a2893692b70ca96e481c4d930df3"
+__arch_pkg_commit="20cf0bb3f670ac17ded571b7943ac453567604da"
 
 pkgname=gtk3-mushrooms
-pkgver=3.24.1
-pkgrel=2
+pkgver=3.24.3
+pkgrel=1
 pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. Please see README."
 url="https://github.com/TomaszGasior/gtk3-mushrooms"
 conflicts=(gtk3 gtk3-print-backends)
@@ -45,7 +45,6 @@ source=(
 	"fixes__atk-bridge-errors.patch"
 	"fixes__labels-wrapping.patch"
 	"fixes__too-large-menu-covers-bar.patch"
-	"fixes__trayicon-parent-relative.patch"
 	"fixes__xfce-inhibit-errors.patch"
 	"other__default-settings.patch"
 	"other__hide-insert-emoji.patch"
@@ -79,7 +78,6 @@ sha256sums=(
 	"99b12d7af7efc6a014e6afcab1ee82ea0feb0b5a4e9bbd663d1c45354cd34f2b"
 	"7a604d453beb9c425b8ed4a60b5e9435c3f4ee10438490641c0ade448401306a"
 	"21b8c90ceec02300affb5b30fecf390531cb76322faaf1dd01e2f1ca239ed729"
-	"22ec5d9ee91b50775d7c5662fa683791a1da55d44c03790636552bdc16be7bbd"
 	"40ea6615a9f9942e3a9ae52297c9f88a3fbbb70c8da9a559143d649414ab7076"
 	"37e3278dd33542b706eb9e1db56997b194a7e2f1fd729a8511369387a74b22bd"
 	"acd3babd22add981690728e84a89fb8bb332b7ac746e9db7cdb27c47f1ac0042"
@@ -88,7 +86,7 @@ sha256sums=(
 	"ef4fed3a364db8eb9c15c9ce0e733035722f168dc88b385df2178fc1168ada54"
 	"2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac"
 	"cae4474d2ef9b4b56316efe2b53d717188f3ef578d5513d1067ceaff87f2270d"
-	"68387be307b99aadcdc653561d7a2a7f0113b93561fb18ded7075ec9ced5b02f"
+	"5708fa534d964b1fb9a69d15758729d51b9a438471d4612dc153f595904803bd"
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
 	"de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845"
 )
@@ -148,7 +146,7 @@ build()
 {
 	cd "$srcdir/gtk+-$pkgver"
 
-	CXX=/bin/false ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
+	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
 		--enable-x11-backend --enable-wayland-backend --enable-broadway-backend \
 		--disable-cloudprint --enable-colord=no \
 		--disable-schemas-compile --disable-gtk-doc-html

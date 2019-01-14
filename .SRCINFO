@@ -1,7 +1,7 @@
 pkgbase = gtk3-mushrooms
 	pkgdesc = GTK3 patched for classic desktops like XFCE or MATE. Please see README.
-	pkgver = 3.24.1
-	pkgrel = 2
+	pkgver = 3.24.3
+	pkgrel = 1
 	url = https://github.com/TomaszGasior/gtk3-mushrooms
 	arch = x86_64
 	license = LGPL
@@ -36,8 +36,8 @@ pkgbase = gtk3-mushrooms
 	optdepends = libcanberra: sounds events
 	optdepends = adwaita-icon-theme: default icon theme
 	optdepends = cantarell-fonts: default font
-	provides = gtk3=3.24.1
-	provides = gtk3-classic=3.24.1
+	provides = gtk3=3.24.3
+	provides = gtk3-classic=3.24.3
 	provides = gtk3-print-backends
 	conflicts = gtk3
 	conflicts = gtk3-print-backends
@@ -55,7 +55,6 @@ pkgbase = gtk3-mushrooms
 	source = fixes__atk-bridge-errors.patch
 	source = fixes__labels-wrapping.patch
 	source = fixes__too-large-menu-covers-bar.patch
-	source = fixes__trayicon-parent-relative.patch
 	source = fixes__xfce-inhibit-errors.patch
 	source = other__default-settings.patch
 	source = other__hide-insert-emoji.patch
@@ -64,9 +63,9 @@ pkgbase = gtk3-mushrooms
 	source = popovers__file-chooser-list.patch
 	source = popovers__places-sidebar.patch
 	source = smaller-adwaita.css
-	source = https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.1.tar.xz
-	source = settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=3313de611df4a2893692b70ca96e481c4d930df3
-	source = gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=3313de611df4a2893692b70ca96e481c4d930df3
+	source = https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.3.tar.xz
+	source = settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=20cf0bb3f670ac17ded571b7943ac453567604da
+	source = gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=20cf0bb3f670ac17ded571b7943ac453567604da
 	sha256sums = 68b26360764a2ea7e057a2aaa29c6fdfe164b9987866e038d8d0188a025477fb
 	sha256sums = eade303471a5929ccf6cf14ff434deccb0da017d5c4fdce3f5a3ffa117c1c954
 	sha256sums = 86f48054a2df6319d97db14fd17ea15d50b32ea6ba594d83e8faa1596ec657ab
@@ -81,7 +80,6 @@ pkgbase = gtk3-mushrooms
 	sha256sums = 99b12d7af7efc6a014e6afcab1ee82ea0feb0b5a4e9bbd663d1c45354cd34f2b
 	sha256sums = 7a604d453beb9c425b8ed4a60b5e9435c3f4ee10438490641c0ade448401306a
 	sha256sums = 21b8c90ceec02300affb5b30fecf390531cb76322faaf1dd01e2f1ca239ed729
-	sha256sums = 22ec5d9ee91b50775d7c5662fa683791a1da55d44c03790636552bdc16be7bbd
 	sha256sums = 40ea6615a9f9942e3a9ae52297c9f88a3fbbb70c8da9a559143d649414ab7076
 	sha256sums = 37e3278dd33542b706eb9e1db56997b194a7e2f1fd729a8511369387a74b22bd
 	sha256sums = acd3babd22add981690728e84a89fb8bb332b7ac746e9db7cdb27c47f1ac0042
@@ -90,7 +88,7 @@ pkgbase = gtk3-mushrooms
 	sha256sums = ef4fed3a364db8eb9c15c9ce0e733035722f168dc88b385df2178fc1168ada54
 	sha256sums = 2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac
 	sha256sums = cae4474d2ef9b4b56316efe2b53d717188f3ef578d5513d1067ceaff87f2270d
-	sha256sums = 68387be307b99aadcdc653561d7a2a7f0113b93561fb18ded7075ec9ced5b02f
+	sha256sums = 5708fa534d964b1fb9a69d15758729d51b9a438471d4612dc153f595904803bd
 	sha256sums = 01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202
 	sha256sums = de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845
 
