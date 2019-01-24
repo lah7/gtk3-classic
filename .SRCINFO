@@ -1,6 +1,6 @@
 pkgbase = gtk3-mushrooms
 	pkgdesc = GTK3 patched for classic desktops like XFCE or MATE. Please see README.
-	pkgver = 3.24.3
+	pkgver = 3.24.4
 	pkgrel = 1
 	url = https://github.com/TomaszGasior/gtk3-mushrooms
 	arch = x86_64
@@ -36,8 +36,8 @@ pkgbase = gtk3-mushrooms
 	optdepends = libcanberra: sounds events
 	optdepends = adwaita-icon-theme: default icon theme
 	optdepends = cantarell-fonts: default font
-	provides = gtk3=3.24.3
-	provides = gtk3-classic=3.24.3
+	provides = gtk3=3.24.4
+	provides = gtk3-classic=3.24.4
 	provides = gtk3-print-backends
 	conflicts = gtk3
 	conflicts = gtk3-print-backends
@@ -63,7 +63,7 @@ pkgbase = gtk3-mushrooms
 	source = popovers__file-chooser-list.patch
 	source = popovers__places-sidebar.patch
 	source = smaller-adwaita.css
-	source = https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.3.tar.xz
+	source = https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.4.tar.xz
 	source = settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=20cf0bb3f670ac17ded571b7943ac453567604da
 	source = gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=20cf0bb3f670ac17ded571b7943ac453567604da
 	sha256sums = 68b26360764a2ea7e057a2aaa29c6fdfe164b9987866e038d8d0188a025477fb
@@ -88,7 +88,7 @@ pkgbase = gtk3-mushrooms
 	sha256sums = ef4fed3a364db8eb9c15c9ce0e733035722f168dc88b385df2178fc1168ada54
 	sha256sums = 2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac
 	sha256sums = cae4474d2ef9b4b56316efe2b53d717188f3ef578d5513d1067ceaff87f2270d
-	sha256sums = 5708fa534d964b1fb9a69d15758729d51b9a438471d4612dc153f595904803bd
+	sha256sums = d84f59ff02a87cc90c9df4a572a13eca4e3506e2bf511e2b9cbdb4526fa0cb9c
 	sha256sums = 01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202
 	sha256sums = de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845
 
