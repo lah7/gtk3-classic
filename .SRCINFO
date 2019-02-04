@@ -1,6 +1,6 @@
 pkgbase = gtk3-mushrooms
 	pkgdesc = GTK3 patched for classic desktops like XFCE or MATE. Please see README.
-	pkgver = 3.24.4
+	pkgver = 3.24.5
 	pkgrel = 1
 	url = https://github.com/TomaszGasior/gtk3-mushrooms
 	arch = x86_64
@@ -36,8 +36,8 @@ pkgbase = gtk3-mushrooms
 	optdepends = libcanberra: sounds events
 	optdepends = adwaita-icon-theme: default icon theme
 	optdepends = cantarell-fonts: default font
-	provides = gtk3=3.24.4
-	provides = gtk3-classic=3.24.4
+	provides = gtk3=3.24.5
+	provides = gtk3-classic=3.24.5
 	provides = gtk3-print-backends
 	conflicts = gtk3
 	conflicts = gtk3-print-backends
@@ -63,9 +63,9 @@ pkgbase = gtk3-mushrooms
 	source = popovers__file-chooser-list.patch
 	source = popovers__places-sidebar.patch
 	source = smaller-adwaita.css
-	source = https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.4.tar.xz
-	source = settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=20cf0bb3f670ac17ded571b7943ac453567604da
-	source = gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=20cf0bb3f670ac17ded571b7943ac453567604da
+	source = https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.5.tar.xz
+	source = settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=c60087d9efa09603917116d34474adb79f400b96
+	source = gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=c60087d9efa09603917116d34474adb79f400b96
 	sha256sums = 68b26360764a2ea7e057a2aaa29c6fdfe164b9987866e038d8d0188a025477fb
 	sha256sums = eade303471a5929ccf6cf14ff434deccb0da017d5c4fdce3f5a3ffa117c1c954
 	sha256sums = 86f48054a2df6319d97db14fd17ea15d50b32ea6ba594d83e8faa1596ec657ab
@@ -87,8 +87,8 @@ pkgbase = gtk3-mushrooms
 	sha256sums = 7f3e5da1622e243243ea9b1e487460f608dc375e79d800d2f0d826fd30be68ed
 	sha256sums = ef4fed3a364db8eb9c15c9ce0e733035722f168dc88b385df2178fc1168ada54
 	sha256sums = 2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac
-	sha256sums = cae4474d2ef9b4b56316efe2b53d717188f3ef578d5513d1067ceaff87f2270d
-	sha256sums = d84f59ff02a87cc90c9df4a572a13eca4e3506e2bf511e2b9cbdb4526fa0cb9c
+	sha256sums = ba93f62e249f2713dbfe6c82de1be4ac655264d6407ed3dc5e05323027520f31
+	sha256sums = 0be5fb0d302bc3de26ab58c32990d895831e2b7c7418d0ffea1206d6a3ddb02f
 	sha256sums = 01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202
 	sha256sums = de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845
 

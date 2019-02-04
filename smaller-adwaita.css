@@ -79,6 +79,9 @@ messagedialog > box {
 messagedialog buttonbox {
 	margin-top: -17px;
 }
+menu, .menu, .context-menu, tooltip {
+	border-radius: 0;
+}
 .background:not(.csd):not(.solid-csd) .titlebar:not(.default-decoration),
 .background:not(.csd):not(.solid-csd) .titlebar:not(.default-decoration) headerbar {
 	background: inherit;
