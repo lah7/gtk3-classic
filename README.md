@@ -1,3 +1,7 @@
+**_I am looking for new maintainer for this package. gtk3-mushrooms will be maintained until new maintainer will appear or until 1 June 2019: GTK updates, fixes of problems reported by users but no new patches._**
+
+---
+
 gtk3-mushrooms
 ===
 
