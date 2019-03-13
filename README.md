@@ -53,7 +53,6 @@ Other
 Fixes
 ---
 
-* Menu bars are not covered by too high popup menus. See https://gitlab.gnome.org/GNOME/gtk/issues/1016.
+* ~~Menu bars are not covered by too high popup menus. See https://gitlab.gnome.org/GNOME/gtk/issues/1016.~~
 * Labels are wrapped similarly to GTK2. This patch fixes too wide windows in applications improperly ported from GTK2.
 * Errors in console output caused by integration with Accessibility Toolkit are hidden. See https://unix.stackexchange.com/questions/230238.
-* Errors in console output about non-existent "inhibit" method in XFCE are hidden. See example on https://bugzilla.redhat.com/show_bug.cgi?id=1515272#c1.

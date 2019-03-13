@@ -3,10 +3,10 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
-__arch_pkg_commit="c60087d9efa09603917116d34474adb79f400b96"
+__arch_pkg_commit="c6a411f17a7db022a770b0ecf053524b83c52612"
 
 pkgname=gtk3-mushrooms
-pkgver=3.24.5
+pkgver=3.24.7
 pkgrel=1
 pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. Please see README."
 url="https://github.com/TomaszGasior/gtk3-mushrooms"
@@ -15,7 +15,7 @@ provides=(gtk3=$pkgver gtk3-classic=$pkgver gtk3-print-backends)
 arch=(x86_64)
 license=(LGPL)
 depends=(
-	atk cairo libxcursor libxinerama libxrandr libxi libepoxy gdk-pixbuf2
+	atk cairo libxcursor libxinerama libxrandr libxi libepoxy gdk-pixbuf2 fribidi
 	libxcomposite libxdamage pango shared-mime-info at-spi2-atk wayland libxkbcommon
 	json-glib librsvg wayland-protocols desktop-file-utils mesa gtk-update-icon-cache
 )
@@ -44,8 +44,6 @@ source=(
 	"file-chooser__typeahead.patch"
 	"fixes__atk-bridge-errors.patch"
 	"fixes__labels-wrapping.patch"
-	"fixes__too-large-menu-covers-bar.patch"
-	"fixes__xfce-inhibit-errors.patch"
 	"other__default-settings.patch"
 	"other__hide-insert-emoji.patch"
 	"other__mnemonics-delay.patch"
@@ -77,8 +75,6 @@ sha256sums=(
 	"7b987cc9bd7ca9722bfb881b30b082c0d7409e3cd68592f5e7a1f401d73e7672"
 	"99b12d7af7efc6a014e6afcab1ee82ea0feb0b5a4e9bbd663d1c45354cd34f2b"
 	"7a604d453beb9c425b8ed4a60b5e9435c3f4ee10438490641c0ade448401306a"
-	"21b8c90ceec02300affb5b30fecf390531cb76322faaf1dd01e2f1ca239ed729"
-	"40ea6615a9f9942e3a9ae52297c9f88a3fbbb70c8da9a559143d649414ab7076"
 	"37e3278dd33542b706eb9e1db56997b194a7e2f1fd729a8511369387a74b22bd"
 	"acd3babd22add981690728e84a89fb8bb332b7ac746e9db7cdb27c47f1ac0042"
 	"c213812e1fafeb5565f7e329c4501195f04adcfe377b88439a6d51d478edc071"
@@ -86,7 +82,7 @@ sha256sums=(
 	"ef4fed3a364db8eb9c15c9ce0e733035722f168dc88b385df2178fc1168ada54"
 	"2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac"
 	"ba93f62e249f2713dbfe6c82de1be4ac655264d6407ed3dc5e05323027520f31"
-	"0be5fb0d302bc3de26ab58c32990d895831e2b7c7418d0ffea1206d6a3ddb02f"
+	"52121144a2df4babed75eb5f34de130a46420101fde3ae216d3142df8a481520"
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
 	"de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845"
 )
