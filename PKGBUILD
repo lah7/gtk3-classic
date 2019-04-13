@@ -3,10 +3,10 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
-__arch_pkg_commit="c6a411f17a7db022a770b0ecf053524b83c52612"
+__arch_pkg_commit="89cd85e778e9d797f97c66749e5f1d59889b7036"
 
 pkgname=gtk3-mushrooms
-pkgver=3.24.7
+pkgver=3.24.8
 pkgrel=1
 pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. Please see README."
 url="https://github.com/TomaszGasior/gtk3-mushrooms"
@@ -82,7 +82,7 @@ sha256sums=(
 	"ef4fed3a364db8eb9c15c9ce0e733035722f168dc88b385df2178fc1168ada54"
 	"2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac"
 	"ba93f62e249f2713dbfe6c82de1be4ac655264d6407ed3dc5e05323027520f31"
-	"52121144a2df4babed75eb5f34de130a46420101fde3ae216d3142df8a481520"
+	"666962de9b9768fe9ca785b0e2f42c8b9db3868a12fa9b356b167238d70ac799"
 	"01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202"
 	"de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845"
 )
