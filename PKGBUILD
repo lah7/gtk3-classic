@@ -1,4 +1,5 @@
 # Maintainer: krumelmonster <krumelmonster@zoho.com>
+# Contributor: Tomasz Gąsior <tomaszgasior.pl>
 
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
