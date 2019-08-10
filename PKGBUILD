@@ -1,4 +1,4 @@
-# Maintainer: Tomasz Gąsior <tomaszgasior.pl>
+# Maintainer: krumelmonster <krumelmonster@zoho.com>
 
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
@@ -9,7 +9,7 @@ pkgname=gtk3-mushrooms
 pkgver=3.24.8
 pkgrel=1
 pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. Please see README."
-url="https://github.com/TomaszGasior/gtk3-mushrooms"
+url="https://github.com/krumelmonster/gtk3-mushrooms"
 conflicts=(gtk3 gtk3-print-backends)
 provides=(gtk3=$pkgver gtk3-classic=$pkgver gtk3-print-backends)
 arch=(x86_64)
