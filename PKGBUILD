@@ -7,7 +7,7 @@ __arch_pkg_commit="89cd85e778e9d797f97c66749e5f1d59889b7036"
 
 pkgname=gtk3-mushrooms
 pkgver=3.24.8
-pkgrel=1
+pkgrel=2
 pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. Please see README."
 url="https://github.com/krumelmonster/gtk3-mushrooms"
 conflicts=(gtk3 gtk3-print-backends)
