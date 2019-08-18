@@ -4,11 +4,11 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
-__arch_pkg_commit="89cd85e778e9d797f97c66749e5f1d59889b7036"
+__arch_pkg_commit="795341ad9f293de7836d91729a7190551f14246e"
 
 pkgname=gtk3-mushrooms
 pkgver=3.24.10
-pkgrel=0
+pkgrel=1
 pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. Please see README."
 url="https://github.com/krumelmonster/gtk3-mushrooms"
 conflicts=(gtk3 gtk3-print-backends)
@@ -21,7 +21,7 @@ depends=(
 	json-glib librsvg wayland-protocols desktop-file-utils mesa gtk-update-icon-cache
 )
 makedepends=(
-	gobject-introspection libcanberra gtk-doc sassc libcups
+	gobject-introspection libcanberra gtk-doc sassc libcups meson
 )
 optdepends=(
 	'libcups: printers in printing dialog'
@@ -86,35 +86,6 @@ sha256sums=('68b26360764a2ea7e057a2aaa29c6fdfe164b9987866e038d8d0188a025477fb'
             '01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202'
             'de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845')
 
-__patch_makefiles()
-{
-	__replace_string_in_file()
-	{
-		sed -i".bak" "s/$1/$2/" "$3"
-		rm "$3.bak"
-	}
-
-	__replace_string_in_file \
-		"SRC_SUBDIRS = gdk gtk libgail-util modules demos tests testsuite examples" \
-		"SRC_SUBDIRS = gdk gtk libgail-util modules demos" \
-		"Makefile.am"
-
-	__replace_string_in_file \
-		"SUBDIRS = po po-properties \$(SRC_SUBDIRS) docs m4macros build" \
-		"SUBDIRS = po \$(SRC_SUBDIRS) m4macros build" \
-		"Makefile.am"
-
-	__replace_string_in_file \
-		"SUBDIRS = gtk-demo widget-factory icon-browser" \
-		"SUBDIRS = widget-factory" \
-		"demos/Makefile.am"
-
-	__replace_string_in_file \
-		"gtk-update-icon-cache" \
-		"" \
-		"gtk/Makefile.am"
-}
-
 __patch_gtk_code()
 {
 	for patch_file in $srcdir/*.patch; do
@@ -128,36 +99,30 @@ prepare()
 {
 	cd "$srcdir/gtk+-$pkgver"
 
-	# Make building faster by skipping tests, code examples and unused elements.
-	__patch_makefiles
-
 	# Apply patches to GTK code.
 	__patch_gtk_code
-
-	NOCONFIGURE=1 ./autogen.sh
 }
 
 build()
 {
-	cd "$srcdir/gtk+-$pkgver"
-
-	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
-		--enable-x11-backend --enable-wayland-backend --enable-broadway-backend \
-		--disable-cloudprint --enable-colord=no \
-		--disable-schemas-compile --disable-gtk-doc-html
-
-	# https://bugzilla.gnome.org/show_bug.cgi?id=655517
-	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
-	make
+	CFLAGS+=" -DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS"
+	arch-meson gtk+-$pkgver build \
+		-D broadway_backend=true \
+		-D colord=no \
+		-D demos=false \
+		-D examples=false \
+		-D build-examples=false \
+		-D tests=false \
+		-D install_tests=false
+	ninja -C build
 }
 
 package()
 {
-	cd "$srcdir"
-
-	DESTDIR="$pkgdir" make -C "gtk+-$pkgver" install
+	DESTDIR="$pkgdir" meson install -C build
 
 	install -Dt "$pkgdir/usr/share/gtk-3.0" -m644 settings.ini
 	install -Dt "$pkgdir/usr/share/libalpm/hooks" -m644 gtk-query-immodules-3.0.hook
+
+	rm "$pkgdir/usr/bin/gtk-update-icon-cache"
 }
