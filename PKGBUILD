@@ -30,6 +30,7 @@ optdepends=(
 	'adwaita-icon-theme: default icon theme'
 	'cantarell-fonts: default font'
 )
+install=gtk3.install
 source=(
 	# Patch files.
 	"appearance__buttons-menus-icons.patch"
