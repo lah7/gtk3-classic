@@ -1,9 +1,8 @@
-diff --color -U 5 -r -Z -B ./org/gtk/gtklabel.c ./mod/gtk/gtklabel.c
---- ./org/gtk/gtklabel.c	2018-02-17 23:30:46.000000000 +0100
-+++ ./mod/gtk/gtklabel.c	2018-06-01 01:03:02.506927146 +0200
-@@ -3683,10 +3683,18 @@
-                                      PangoRectangle *widest)
- {
+Index: src/gtk+-3.24.12/gtk/gtklabel.c
+===================================================================
+--- src.orig/gtk+-3.24.12/gtk/gtklabel.c
++++ src/gtk+-3.24.12/gtk/gtklabel.c
+@@ -3685,6 +3685,14 @@ gtk_label_get_preferred_layout_size (Gtk
    GtkLabelPrivate *priv = label->priv;
    PangoLayout *layout;
    gint char_pixels;
@@ -15,8 +14,6 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtklabel.c ./mod/gtk/gtklabel.c
 +      if (default_window_width == -1 && priv->max_width_chars == -1 && priv->ellipsize == PANGO_ELLIPSIZE_NONE)
 +        priv->max_width_chars = 56;
 +    }
-
+ 
    /* "width-chars" Hard-coded minimum width:
     *    - minimum size should be MAX (width-chars, strlen ("..."));
-    *    - natural size should be MAX (width-chars, strlen (priv->text));
-    *

@@ -1,9 +1,8 @@
-diff --color -U 5 -r -Z -B ./org/gtk/gtkdialog.c ./mod/gtk/gtkdialog.c
---- ./org/gtk/gtkdialog.c	2017-11-07 20:52:24.000000000 +0100
-+++ ./mod/gtk/gtkdialog.c	2017-12-26 23:32:27.445080792 +0100
-@@ -698,16 +698,16 @@
-       _gtk_box_set_spacing_set (GTK_BOX (priv->vbox), FALSE);
-     }
+Index: src/gtk+-3.24.12/gtk/gtkdialog.c
+===================================================================
+--- src.orig/gtk+-3.24.12/gtk/gtkdialog.c
++++ src/gtk+-3.24.12/gtk/gtkdialog.c
+@@ -700,12 +700,12 @@ update_spacings (GtkDialog *dialog)
  
    /* don't set spacing when buttons are linked */
    if (gtk_button_box_get_layout (GTK_BUTTON_BOX (priv->action_area)) != GTK_BUTTONBOX_EXPAND)
@@ -18,14 +17,11 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkdialog.c ./mod/gtk/gtkdialog.c
        _gtk_container_set_border_width_set (GTK_CONTAINER (priv->action_area), FALSE);
      }
  }
- 
- static void
-diff --color -U 5 -r -Z -B ./org/gtk/gtkmessagedialog.c ./mod/gtk/gtkmessagedialog.c
---- ./org/gtk/gtkmessagedialog.c	2017-11-07 20:52:24.000000000 +0100
-+++ ./mod/gtk/gtkmessagedialog.c	2017-12-27 01:50:31.895491270 +0100
-@@ -35,10 +35,11 @@
- #include "gtkbbox.h"
- #include "gtkimage.h"
+Index: src/gtk+-3.24.12/gtk/gtkmessagedialog.c
+===================================================================
+--- src.orig/gtk+-3.24.12/gtk/gtkmessagedialog.c
++++ src/gtk+-3.24.12/gtk/gtkmessagedialog.c
+@@ -37,6 +37,7 @@
  #include "gtkintl.h"
  #include "gtkprivate.h"
  #include "gtktypebuiltins.h"
@@ -33,11 +29,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkmessagedialog.c ./mod/gtk/gtkmessagedial
  
  /**
   * SECTION:gtkmessagedialog
-  * @Short_description: A convenient message window
-  * @Title: GtkMessageDialog
-@@ -325,11 +326,21 @@
-   gtk_widget_init_template (GTK_WIDGET (dialog));
-   gtk_message_dialog_style_updated (GTK_WIDGET (dialog));
+@@ -327,7 +328,17 @@ gtk_message_dialog_init (GtkMessageDialo
  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
    action_area = gtk_dialog_get_action_area (GTK_DIALOG (dialog));
  G_GNUC_END_IGNORE_DEPRECATIONS
@@ -56,11 +48,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkmessagedialog.c ./mod/gtk/gtkmessagedial
  
    settings = gtk_widget_get_settings (GTK_WIDGET (dialog));
    g_object_get (settings, "gtk-keynav-use-caret", &use_caret, NULL);
-   gtk_label_set_selectable (GTK_LABEL (priv->label), use_caret);
-   gtk_label_set_selectable (GTK_LABEL (priv->secondary_label), use_caret);
-@@ -370,10 +381,11 @@
- setup_type (GtkMessageDialog *dialog,
- 	    GtkMessageType    type)
+@@ -372,6 +383,7 @@ setup_type (GtkMessageDialog *dialog,
  {
    GtkMessageDialogPrivate *priv = dialog->priv;
    const gchar *name = NULL;
@@ -68,11 +56,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkmessagedialog.c ./mod/gtk/gtkmessagedial
    AtkObject *atk_obj;
  
    if (priv->message_type == type)
-     return;
- 
-@@ -381,32 +393,42 @@
- 
-   switch (type)
+@@ -383,18 +395,22 @@ setup_type (GtkMessageDialog *dialog,
      {
      case GTK_MESSAGE_INFO:
        name = _("Information");
@@ -95,10 +79,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkmessagedialog.c ./mod/gtk/gtkmessagedial
        break;
  
      case GTK_MESSAGE_OTHER:
-       break;
- 
-     default:
-       g_warning ("Unknown GtkMessageType %u", type);
+@@ -405,6 +421,12 @@ setup_type (GtkMessageDialog *dialog,
        break;
      }
  
@@ -111,14 +92,11 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkmessagedialog.c ./mod/gtk/gtkmessagedial
    atk_obj = gtk_widget_get_accessible (GTK_WIDGET (dialog));
    if (GTK_IS_ACCESSIBLE (atk_obj))
      {
-       atk_object_set_role (atk_obj, ATK_ROLE_ALERT);
-       if (name)
-diff --color -U 5 -r -Z -B ./org/gtk/ui/gtkmessagedialog.ui ./mod/gtk/ui/gtkmessagedialog.ui
---- ./org/gtk/ui/gtkmessagedialog.ui	2017-11-07 20:52:24.000000000 +0100
-+++ ./mod/gtk/ui/gtkmessagedialog.ui	2017-12-26 23:30:47.031742483 +0100
-@@ -4,35 +4,38 @@
-   <template class="GtkMessageDialog" parent="GtkDialog">
-     <property name="title"></property>
+Index: src/gtk+-3.24.12/gtk/ui/gtkmessagedialog.ui
+===================================================================
+--- src.orig/gtk+-3.24.12/gtk/ui/gtkmessagedialog.ui
++++ src/gtk+-3.24.12/gtk/ui/gtkmessagedialog.ui
+@@ -6,6 +6,7 @@
      <property name="resizable">0</property>
      <property name="type-hint">dialog</property>
      <property name="skip-taskbar-hint">1</property>
@@ -126,8 +104,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/ui/gtkmessagedialog.ui ./mod/gtk/ui/gtkmess
      <child internal-child="headerbar">
        <object class="GtkHeaderBar" id="headerbar1">
          <property name="visible">1</property>
-       </object>
-     </child>
+@@ -14,23 +15,25 @@
      <child internal-child="vbox">
        <object class="GtkBox" id="dialog-vbox1">
          <property name="orientation">vertical</property>
@@ -160,11 +137,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/ui/gtkmessagedialog.ui ./mod/gtk/ui/gtkmess
                      <property name="valign">start</property>
                      <property name="wrap">1</property>
                      <property name="max-width-chars">60</property>
-                   </object>
-                   <packing>
-@@ -41,11 +44,12 @@
-                 </child>
-                 <child>
+@@ -43,7 +46,8 @@
                    <object class="GtkLabel" id="secondary_label">
                      <property name="no-show-all">1</property>
                      <property name="margin-bottom">2</property>
@@ -174,5 +147,3 @@ diff --color -U 5 -r -Z -B ./org/gtk/ui/gtkmessagedialog.ui ./mod/gtk/ui/gtkmess
                      <property name="valign">start</property>
                      <property name="wrap">1</property>
                      <property name="max-width-chars">60</property>
-                   </object>
-                   <packing>
