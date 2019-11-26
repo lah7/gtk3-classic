@@ -1,9 +1,8 @@
-diff --color -U 5 -r -Z -B ./org/gtk/a11y/gtkaccessibility.c ./mod/gtk/a11y/gtkaccessibility.c
---- ./org/gtk/a11y/gtkaccessibility.c	2017-10-02 18:00:49.000000000 +0200
-+++ ./mod/gtk/a11y/gtkaccessibility.c	2017-10-30 21:26:10.880336153 +0100
-@@ -987,10 +987,13 @@
- 
-   _gtk_accessibility_override_atk_util ();
+Index: src/gtk+-3.24.12/gtk/a11y/gtkaccessibility.c
+===================================================================
+--- src.orig/gtk+-3.24.12/gtk/a11y/gtkaccessibility.c
++++ src/gtk+-3.24.12/gtk/a11y/gtkaccessibility.c
+@@ -989,7 +989,10 @@ _gtk_accessibility_init (void)
    do_window_event_initialization ();
  
  #ifdef GDK_WINDOWING_X11
@@ -14,4 +13,3 @@ diff --color -U 5 -r -Z -B ./org/gtk/a11y/gtkaccessibility.c ./mod/gtk/a11y/gtka
  #endif
  
    atk_misc_instance = g_object_new (GTK_TYPE_MISC_IMPL, NULL);
- }

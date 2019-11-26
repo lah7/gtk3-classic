@@ -1,9 +1,8 @@
-diff --color -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilechooserwidget.c
---- ./org/gtk/gtkfilechooserwidget.c	2017-10-02 18:00:49.000000000 +0200
-+++ ./mod/gtk/gtkfilechooserwidget.c	2017-10-30 21:23:33.040328332 +0100
-@@ -1398,11 +1398,11 @@
-         {
-           location_popup_handler (impl, event->string);
+Index: src/gtk+-3.24.12/gtk/gtkfilechooserwidget.c
+===================================================================
+--- src.orig/gtk+-3.24.12/gtk/gtkfilechooserwidget.c
++++ src/gtk+-3.24.12/gtk/gtkfilechooserwidget.c
+@@ -1419,7 +1419,7 @@ gtk_file_chooser_widget_key_press_event
            return TRUE;
          }
      }
@@ -12,11 +11,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilecho
      {
        if (priv->operation_mode != OPERATION_MODE_SEARCH)
          operation_mode_set (impl, OPERATION_MODE_SEARCH);
-       return TRUE;
-     }
-@@ -2475,11 +2475,11 @@
- static void
- file_list_set_sort_column_ids (GtkFileChooserWidget *impl)
+@@ -2477,7 +2477,7 @@ file_list_set_sort_column_ids (GtkFileCh
  {
    GtkFileChooserWidgetPrivate *priv = impl->priv;
  
@@ -25,11 +20,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilecho
  
    gtk_tree_view_column_set_sort_column_id (priv->list_name_column, MODEL_COL_NAME);
    gtk_tree_view_column_set_sort_column_id (priv->list_time_column, MODEL_COL_TIME);
-   gtk_tree_view_column_set_sort_column_id (priv->list_size_column, MODEL_COL_SIZE);
-   gtk_tree_view_column_set_sort_column_id (priv->list_location_column, MODEL_COL_LOCATION_TEXT);
-@@ -7151,12 +7151,10 @@
- {
-   GList *l, *files, *files_with_info, *infos;
+@@ -7319,8 +7319,6 @@ search_engine_hits_added_cb (GtkSearchEn
    GFile *file;
    gboolean select = FALSE;
  
@@ -38,11 +29,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilecho
  
    files = NULL;
    files_with_info = NULL;
-   infos = NULL;
-   for (l = hits; l; l = l->next)
-@@ -7495,11 +7493,11 @@
-   GtkFileChooserWidget *impl = load_data->impl;
-   GtkFileChooserWidgetPrivate *priv = impl->priv;
+@@ -7664,7 +7662,7 @@ recent_idle_cleanup (gpointer data)
  
    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->browse_files_tree_view),
                             GTK_TREE_MODEL (priv->recent_model));
@@ -51,11 +38,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilecho
  
    gtk_tree_view_column_set_sort_column_id (priv->list_name_column, -1);
    gtk_tree_view_column_set_sort_column_id (priv->list_time_column, -1);
-   gtk_tree_view_column_set_sort_column_id (priv->list_size_column, -1);
-   gtk_tree_view_column_set_sort_column_id (priv->list_location_column, -1);
-@@ -8421,14 +8419,10 @@
-   gtk_binding_entry_add_signal (binding_set,
-                                 GDK_KEY_s, GDK_MOD1_MASK,
+@@ -8617,10 +8615,6 @@ gtk_file_chooser_widget_class_init (GtkF
                                  "search-shortcut",
                                  0);
    gtk_binding_entry_add_signal (binding_set,
@@ -66,11 +49,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilecho
                                  GDK_KEY_r, GDK_MOD1_MASK,
                                  "recent-shortcut",
                                  0);
-   gtk_binding_entry_add_signal (binding_set,
-                                 GDK_KEY_p, GDK_MOD1_MASK,
-@@ -8542,10 +8536,11 @@
-   /* Some qdata, qdata can't be set with GtkBuilder */
-   g_object_set_data (G_OBJECT (impl->priv->browse_files_tree_view), "fmq-name", "file_list");
+@@ -8741,6 +8735,7 @@ post_process_ui (GtkFileChooserWidget *i
    g_object_set_data (G_OBJECT (impl->priv->browse_files_tree_view), I_("GtkFileChooserWidget"), impl);
  
    /* Setup file list treeview */
@@ -78,5 +57,3 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkfilechooserwidget.c ./mod/gtk/gtkfilecho
    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (impl->priv->browse_files_tree_view));
    gtk_tree_selection_set_select_function (selection,
                                            list_select_func,
-                                           impl, NULL);
-   gtk_tree_view_enable_model_drag_source (GTK_TREE_VIEW (impl->priv->browse_files_tree_view),

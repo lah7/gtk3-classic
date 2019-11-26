@@ -1,59 +1,62 @@
-# Maintainer: krumelmonster <krumelmonster@zoho.com>
+# Maintainer: Jonathon Fernyhough <jonathon_at manjaro+dot_org>
+# Upstream maintainer: krumelmonster <krumelmonster@zoho.com>
 # Contributor: Tomasz Gąsior <tomaszgasior.pl>
 
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
-__arch_pkg_commit="89cd85e778e9d797f97c66749e5f1d59889b7036"
+__arch_pkg_commit="70ed1d42b78a46147731604341db44186798780f"
 
-pkgname=gtk3-mushrooms
-pkgver=3.24.11
+pkgbase=gtk3-classic
+pkgname=($pkgbase lib32-$pkgbase)
+pkgver=3.24.12
 pkgrel=1
 pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. Please see README."
 url="https://github.com/krumelmonster/gtk3-mushrooms"
 conflicts=(gtk3 gtk3-print-backends)
-provides=(gtk3=$pkgver gtk3-classic=$pkgver gtk3-print-backends libgtk-3.so libgdk-3.so libgailutil-3.so)
+provides=(gtk3=$pkgver gtk3-mushrooms=$pkgver gtk3-print-backends)
 arch=(x86_64)
 license=(LGPL)
-depends=(
+makedepends=(
+	gobject-introspection libcanberra gtk-doc sassc libcups meson quilt
+
 	atk cairo libxcursor libxinerama libxrandr libxi libepoxy gdk-pixbuf2 fribidi
 	libxcomposite libxdamage pango shared-mime-info at-spi2-atk wayland libxkbcommon
 	json-glib librsvg wayland-protocols desktop-file-utils mesa gtk-update-icon-cache
+	adwaita-icon-theme cantarell-fonts
+
+	lib32-atk lib32-cairo lib32-libxcursor lib32-libxinerama lib32-libxrandr lib32-libxi
+	lib32-libepoxy lib32-gdk-pixbuf2 lib32-fribidi lib32-libxcomposite lib32-libxdamage 
+	lib32-pango lib32-at-spi2-atk lib32-wayland lib32-libxkbcommon lib32-json-glib
+	lib32-librsvg lib32-mesa lib32-libcups lib32-krb5 lib32-e2fsprogs
 )
-makedepends=(
-	gobject-introspection libcanberra gtk-doc sassc libcups
-)
-optdepends=(
-	'libcups: printers in printing dialog'
-	'dconf: default GSettings backend'
-	'libcanberra: sounds events'
-	'adwaita-icon-theme: default icon theme'
-	'cantarell-fonts: default font'
-)
+install=gtk3.install
 source=(
 	# Patch files.
-	"appearance__buttons-menus-icons.patch"
-	"appearance__disable-backdrop.patch"
-	"appearance__file-chooser.patch"
-	"appearance__message-dialogs.patch"
-	"appearance__print-dialog.patch"
-	"appearance__smaller-statusbar.patch"
-	"csd__clean-headerbar.patch"
-	"csd__disabled-by-default.patch"
-	"csd__server-side-shadow.patch"
-	"file-chooser__places-sidebar.patch"
-	"file-chooser__typeahead.patch"
-	"fixes__atk-bridge-errors.patch"
-	"fixes__labels-wrapping.patch"
-	"other__default-settings.patch"
-	"other__hide-insert-emoji.patch"
-	"other__mnemonics-delay.patch"
-	"popovers__color-chooser.patch"
-	"popovers__file-chooser-list.patch"
-	"popovers__places-sidebar.patch"
+	series
+	appearance__buttons-menus-icons.patch
+	appearance__disable-backdrop.patch
+	appearance__file-chooser.patch
+	appearance__message-dialogs.patch
+	appearance__print-dialog.patch
+	appearance__smaller-statusbar.patch
+	csd__clean-headerbar.patch
+	csd__disabled-by-default.patch
+	csd__server-side-shadow.patch
+	file-chooser__places-sidebar.patch
+	file-chooser__typeahead.patch
+	fixes__atk-bridge-errors.patch
+	fixes__labels-wrapping.patch
+	fixes__too-large-menu-covers-bar.disabled-patch
+	other__default-settings.patch
+	other__hide-insert-emoji.patch
+	other__mnemonics-delay.patch
+	popovers__color-chooser.patch
+	popovers__file-chooser-list.patch
+	popovers__places-sidebar.patch
 
 	# Theme CSS stylesheet.
-	"smaller-adwaita.css"
+	smaller-adwaita.css
 
 	# GTK source code.
 	"https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-$pkgver.tar.xz"
@@ -61,103 +64,117 @@ source=(
 	# Arch Linux package files.
 	"settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=$__arch_pkg_commit"
 	"gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=$__arch_pkg_commit"
+
+	README.md
 )
-sha256sums=('68b26360764a2ea7e057a2aaa29c6fdfe164b9987866e038d8d0188a025477fb'
-            'eade303471a5929ccf6cf14ff434deccb0da017d5c4fdce3f5a3ffa117c1c954'
-            '86f48054a2df6319d97db14fd17ea15d50b32ea6ba594d83e8faa1596ec657ab'
-            '54020144ac0472ae170297b4158da719b49860b17234bf54351ba30f793a7fe7'
-            'be4ddf03a5cce8270e8118eb331b3056972c0bd490faa6e4a4ebe332ec4c2e91'
-            '81138fbaff82e37a83da1c4aa074a6c708e6c50340e0ddeff3fb70e2a0b52e1f'
-            '515ff6df72934aa4294cdb1befd6c542a187fe3b4326cda68a8541dabbe657fd'
-            '63bf214d836f688e628b30d1743ff9e47deb64d0f4bde9f0eb9c352fc00ca8d4'
-            '1508ddc7e682cdaace327ffe2955abe90f903cf7ec923892b85673a37f76a32f'
-            '8271342e6a0394f70b6e5a21afb21e2e0b645edf39a0d149d5e8b4d6b062846d'
-            '7b987cc9bd7ca9722bfb881b30b082c0d7409e3cd68592f5e7a1f401d73e7672'
-            '99b12d7af7efc6a014e6afcab1ee82ea0feb0b5a4e9bbd663d1c45354cd34f2b'
-            '7a604d453beb9c425b8ed4a60b5e9435c3f4ee10438490641c0ade448401306a'
-            '64379ca813321b5e8b603dc1557cbc72777031ecbcc1ad9dcc042768f51ae253'
-            'acd3babd22add981690728e84a89fb8bb332b7ac746e9db7cdb27c47f1ac0042'
-            'c213812e1fafeb5565f7e329c4501195f04adcfe377b88439a6d51d478edc071'
-            '7f3e5da1622e243243ea9b1e487460f608dc375e79d800d2f0d826fd30be68ed'
-            'ef4fed3a364db8eb9c15c9ce0e733035722f168dc88b385df2178fc1168ada54'
-            '2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac'
+sha256sums=('4935ec23cbd0150bd479fc457861d3a665354509c3ff933997827c7141c8657c'
+            '728075255a559f0ec2cbde78c0fdcb9bdaa6859f21cdd8e0070595233822029e'
+            '795f745545a7d0c899c27d0832e15a1376f6e34fa1ef9c2ceada5f7f575cbb79'
+            '8ead5c4a6fbad9b1fbf81bf67ed2e1b8a8ce8d25d459c0fff9372937963b4f95'
+            '78f4086512d3bac999b62651b952412aa5270d7822c88e9c14900f53a93b42f4'
+            '768e6b45dd1c21f035c714d49e4d41ac082833054ac83060b601dbdae6a890dc'
+            'b1922fc4e99691ebaa4c0becc1f6fd6bcfe286f4451c946c4bec51c352b04e61'
+            '4803ff9b5a279516db5c099b1ffb18860906ce5bbcace16a8021e8cce7859c81'
+            '554772d3f8bf7232d1bbbf724d83a0e1e21c2e404721e6c9dfd4a4e4c3372a42'
+            '14e98ac6b7a54653ee550a855b928f6f47645710ca5ebc7593d27953a28b115a'
+            'fcf825d83ef4ff58440e6f0f6ba0fcd75069777ca8c82c7f6c427dc911e44374'
+            '150fa6b5e95a65ff22f80b58dadc683b6e69abe6dad4f1d8389451329df35a1e'
+            '85854e99c0c52ebccc7ee9a8e70cbbe04ea892c85290195a11a551bb1a096b2f'
+            '2b1d2f8791ca9b0e46f8a33e8ef5e266995f9914fd43792471a34073565650bc'
+            '701b57eb831345fa89ce88105d1b43d61de144bfc613f33dbb027c526a101985'
+            '98b0815e5f5610adaa0c192e2860efb77678d37ae095a88869c17397f8ce9b60'
+            '2a6541d70fe85fc0044e754423c6813c307a80ec5aa5a58df77acb8181f1ff81'
+            'e930370d96697981cbf13af18f36f2146c3e2279ae3d59b8a5837410c99c8ef8'
+            '73e832b83e51aed6f662d7b7ee60ae471b3d28796250cbd40ec3a32c49b89831'
+            'ddd05293726f3c87db96662c1ffa2ac5a33e00f7dc198be4cd483ed559e94be8'
+            '22a092521ea7e156d4532e6c6aaddba5fe51b6ca91345665e7369cef56ac2e1c'
             'ba93f62e249f2713dbfe6c82de1be4ac655264d6407ed3dc5e05323027520f31'
-            'dba7658d0a2e1bfad8260f5210ca02988f233d1d86edacb95eceed7eca982895'
+            '1384eba5614fed160044ae0d32369e3df7b4f517b03f4b1f24d383e528f4be83'
             '01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202'
-            'de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845')
-
-__patch_makefiles()
-{
-	__replace_string_in_file()
-	{
-		sed -i".bak" "s/$1/$2/" "$3"
-		rm "$3.bak"
-	}
-
-	__replace_string_in_file \
-		"SRC_SUBDIRS = gdk gtk libgail-util modules demos tests testsuite examples" \
-		"SRC_SUBDIRS = gdk gtk libgail-util modules demos" \
-		"Makefile.am"
-
-	__replace_string_in_file \
-		"SUBDIRS = po po-properties \$(SRC_SUBDIRS) docs m4macros build" \
-		"SUBDIRS = po \$(SRC_SUBDIRS) m4macros build" \
-		"Makefile.am"
-
-	__replace_string_in_file \
-		"SUBDIRS = gtk-demo widget-factory icon-browser" \
-		"SUBDIRS = widget-factory" \
-		"demos/Makefile.am"
-
-	__replace_string_in_file \
-		"gtk-update-icon-cache" \
-		"" \
-		"gtk/Makefile.am"
-}
-
-__patch_gtk_code()
-{
-	for patch_file in $srcdir/*.patch; do
-		patch -p 2 -i "$patch_file"
-	done
-
-	cat "$srcdir/smaller-adwaita.css" | tee -a gtk/theme/Adwaita/gtk-contained{,-dark}.css > /dev/null
-}
+            'de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845'
+            '1d2e3c41c7de03a31d717b09e053c88cbaca2ae74eefd982549c49de81c21ada')
 
 prepare()
 {
-	cd "$srcdir/gtk+-$pkgver"
+	QUILT_PATCHES=. quilt push -av
 
-	# Make building faster by skipping tests, code examples and unused elements.
-	__patch_makefiles
-
-	# Apply patches to GTK code.
-	__patch_gtk_code
-
-	NOCONFIGURE=1 ./autogen.sh
+	cat "$srcdir/smaller-adwaita.css" | tee -a "$srcdir"/gtk+-"$pkgver"/gtk/theme/Adwaita/gtk-contained{,-dark}.css > /dev/null
 }
 
 build()
 {
-	cd "$srcdir/gtk+-$pkgver"
+	CFLAGS+=" -DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS"
 
-	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
-		--enable-x11-backend --enable-wayland-backend --enable-broadway-backend \
-		--disable-cloudprint --enable-colord=no \
-		--disable-schemas-compile --disable-gtk-doc-html
+	# 64-bit
+	arch-meson gtk+-$pkgver build \
+		-D broadway_backend=true \
+		-D colord=no \
+		-D demos=true \
+		-D examples=false \
+		-D tests=false \
+		-D installed_tests=false
+	ninja -C build
 
-	# https://bugzilla.gnome.org/show_bug.cgi?id=655517
-	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+	# 32-bit
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+	export PKG_CONFIG_PATH="/usr/share/pkgconfig"
 
-	make
+	CFLAGS+=" -m32"
+	CXXFLAGS+=" -m32"
+	LDFLAGS+=" -m32"
+
+	linux32 arch-meson gtk+-$pkgver build32 \
+		-D broadway_backend=true \
+		-D colord=no \
+		-D demos=false \
+		-D examples=false \
+		-D tests=false \
+		-D installed_tests=false \
+		-D libdir=/usr/lib32
+	linux32 ninja -C build32
 }
 
-package()
+package_gtk3-classic()
 {
-	cd "$srcdir"
+	depends=(
+		atk cairo libxcursor libxinerama libxrandr libxi libepoxy gdk-pixbuf2 fribidi
+		libxcomposite libxdamage pango shared-mime-info at-spi2-atk wayland libxkbcommon
+		json-glib librsvg wayland-protocols desktop-file-utils mesa gtk-update-icon-cache
+	)
+	optdepends=(
+		'libcups: printers in printing dialog'
+		'dconf: default GSettings backend'
+		'libcanberra: sounds events'
+		'adwaita-icon-theme: default icon theme'
+		'cantarell-fonts: default font'
+	)
 
-	DESTDIR="$pkgdir" make -C "gtk+-$pkgver" install
+	DESTDIR="$pkgdir" meson install -C build
 
 	install -Dt "$pkgdir/usr/share/gtk-3.0" -m644 settings.ini
 	install -Dt "$pkgdir/usr/share/libalpm/hooks" -m644 gtk-query-immodules-3.0.hook
+
+	rm "$pkgdir/usr/bin/gtk-update-icon-cache"
+
+	install -Dm644 "$srcdir"/README.md "$pkgdir/usr/share/gtk-3.0/README.md"
+	sed -i 's/mushrooms/classic/g' "$pkgdir/usr/share/gtk-3.0/README.md"
+}
+
+package_lib32-gtk3-classic()
+{
+	pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. (32-bit)"
+	depends=(
+		lib32-atk lib32-cairo lib32-libxcursor lib32-libxinerama lib32-libxrandr lib32-libxi
+		lib32-libepoxy lib32-gdk-pixbuf2 lib32-fribidi lib32-libxcomposite lib32-libxdamage 
+		lib32-pango lib32-at-spi2-atk lib32-wayland lib32-libxkbcommon lib32-json-glib
+		lib32-librsvg lib32-mesa lib32-libcups lib32-krb5 lib32-e2fsprogs
+		"gtk3-classic>=$pkgver"
+	)
+	conflicts=("lib32-gtk3")
+	provides=("lib32-gtk3=$pkgver")
+
+	DESTDIR="$pkgdir" linux32 meson install -C build32
+
+	rm -fr "$pkgdir"/etc
+	rm -fr "$pkgdir"/usr/{bin,share,include}
 }

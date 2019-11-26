@@ -1,9 +1,8 @@
-diff --color -U 5 -r -Z -B ./org/gtk/gtkbutton.c ./mod/gtk/gtkbutton.c
---- ./org/gtk/gtkbutton.c	2017-10-02 18:00:58.000000000 +0200
-+++ ./mod/gtk/gtkbutton.c	2017-10-30 20:27:13.840160899 +0100
-@@ -2160,10 +2160,31 @@
-   gchar *new_label;
- 
+Index: src/gtk+-3.24.12/gtk/gtkbutton.c
+===================================================================
+--- src.orig/gtk+-3.24.12/gtk/gtkbutton.c
++++ src/gtk+-3.24.12/gtk/gtkbutton.c
+@@ -2164,6 +2164,27 @@ gtk_button_set_label (GtkButton   *butto
    g_return_if_fail (GTK_IS_BUTTON (button));
  
    priv = button->priv;
@@ -31,14 +30,11 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkbutton.c ./mod/gtk/gtkbutton.c
  
    new_label = g_strdup (label);
    g_free (priv->label_text);
-   priv->label_text = new_label;
- 
-diff --color -U 5 -r -Z -B ./org/gtk/gtkmenuitem.c ./mod/gtk/gtkmenuitem.c
---- ./org/gtk/gtkmenuitem.c	2017-10-02 18:00:49.000000000 +0200
-+++ ./mod/gtk/gtkmenuitem.c	2017-10-30 20:30:02.683502598 +0100
-@@ -1006,10 +1006,24 @@
-  * Returns: a new #GtkMenuItem
-  */
+Index: src/gtk+-3.24.12/gtk/gtkmenuitem.c
+===================================================================
+--- src.orig/gtk+-3.24.12/gtk/gtkmenuitem.c
++++ src/gtk+-3.24.12/gtk/gtkmenuitem.c
+@@ -1010,6 +1010,20 @@ gtk_menu_item_new_with_label (const gcha
  GtkWidget*
  gtk_menu_item_new_with_mnemonic (const gchar *label)
  {
@@ -59,5 +55,3 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkmenuitem.c ./mod/gtk/gtkmenuitem.c
    return g_object_new (GTK_TYPE_MENU_ITEM,
                         "use-underline", TRUE,
                         "label", label,
-                        NULL);
- }

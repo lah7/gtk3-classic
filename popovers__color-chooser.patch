@@ -1,9 +1,8 @@
-diff --color -U 5 -r -Z -B ./org/gtk/gtkcolorswatch.c ./mod/gtk/gtkcolorswatch.c
---- ./org/gtk/gtkcolorswatch.c	2017-10-02 18:00:49.000000000 +0200
-+++ ./mod/gtk/gtkcolorswatch.c	2017-10-30 21:46:59.750398031 +0100
-@@ -347,10 +347,21 @@
- static void
- do_popup (GtkColorSwatch *swatch)
+Index: src/gtk+-3.24.12/gtk/gtkcolorswatch.c
+===================================================================
+--- src.orig/gtk+-3.24.12/gtk/gtkcolorswatch.c
++++ src/gtk+-3.24.12/gtk/gtkcolorswatch.c
+@@ -349,6 +349,17 @@ do_popup (GtkColorSwatch *swatch)
  {
    if (swatch->priv->popover == NULL)
      {
@@ -21,5 +20,3 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkcolorswatch.c ./mod/gtk/gtkcolorswatch.c
        GtkWidget *box;
        GtkWidget *item;
  
-       swatch->priv->popover = gtk_popover_new (GTK_WIDGET (swatch));
-       box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);

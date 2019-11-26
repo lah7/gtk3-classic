@@ -1,9 +1,8 @@
-diff --color -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessidebar.c
---- ./org/gtk/gtkplacessidebar.c	2017-10-02 18:00:58.000000000 +0200
-+++ ./mod/gtk/gtkplacessidebar.c	2017-10-30 22:05:04.543785114 +0100
-@@ -61,10 +61,11 @@
- #include "gtkseparator.h"
- #include "gtkentry.h"
+Index: src/gtk+-3.24.12/gtk/gtkplacessidebar.c
+===================================================================
+--- src.orig/gtk+-3.24.12/gtk/gtkplacessidebar.c
++++ src/gtk+-3.24.12/gtk/gtkplacessidebar.c
+@@ -64,6 +64,7 @@
  #include "gtkgesturelongpress.h"
  #include "gtkbox.h"
  #include "gtkmodelbutton.h"
@@ -11,11 +10,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessideb
  
  /**
   * SECTION:gtkplacessidebar
-  * @Short_description: Sidebar that displays frequently-used places in the file system
-  * @Title: GtkPlacesSidebar
-@@ -2278,36 +2279,36 @@
-   gtk_widget_set_visible (data->rescan_item, show_rescan);
-   gtk_widget_set_visible (data->start_item, show_start);
+@@ -2341,32 +2342,32 @@ check_popover_sensitivity (GtkSidebarRow
    gtk_widget_set_visible (data->stop_item, show_stop);
  
    /* Adjust start/stop items to reflect the type of the drive */
@@ -58,11 +53,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessideb
            break;
  
          default:
-         case G_DRIVE_START_STOP_TYPE_UNKNOWN:
-           /* uses defaults set above */
-@@ -3471,10 +3472,17 @@
- static GtkWidget *
- append_separator (GtkWidget *box)
+@@ -3559,6 +3560,13 @@ append_separator (GtkWidget *box)
  {
    GtkWidget *separator;
  
@@ -76,11 +67,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessideb
    separator = g_object_new (GTK_TYPE_SEPARATOR,
                              "orientation", GTK_ORIENTATION_HORIZONTAL,
                              "visible", TRUE,
-                             "margin-top", 6,
-                             "margin-bottom", 6,
-@@ -3489,10 +3497,18 @@
-             const gchar *label,
-             const gchar *action)
+@@ -3577,6 +3585,14 @@ add_button (GtkWidget   *box,
  {
    GtkWidget *item;
  
@@ -95,11 +82,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessideb
    item = g_object_new (GTK_TYPE_MODEL_BUTTON,
                         "visible", TRUE,
                         "action-name", action,
-                        "text", label,
-                        NULL);
-@@ -3506,10 +3522,21 @@
-                  const gchar        *label,
-                  GtkPlacesOpenFlags  flags)
+@@ -3594,6 +3610,17 @@ add_open_button (GtkWidget          *box
  {
    GtkWidget *item;
  
@@ -117,11 +100,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessideb
    item = g_object_new (GTK_TYPE_MODEL_BUTTON,
                         "visible", TRUE,
                         "action-name", flags == GTK_PLACES_OPEN_NORMAL ? "row.open" : "row.open-other",
-                        "action-target", g_variant_new_int32 (flags),
-                        "text", label,
-@@ -3600,10 +3627,17 @@
-   setup_popover_shadowing (sidebar->popover);
-   box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+@@ -3699,6 +3726,13 @@ create_row_popover (GtkPlacesSidebar *si
    g_object_set (box, "margin", 10, NULL);
    gtk_widget_show (box);
    gtk_container_add (GTK_CONTAINER (sidebar->popover), box);
@@ -135,11 +114,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessideb
  
    add_open_button (box, _("_Open"), GTK_PLACES_OPEN_NORMAL);
  
-   if (sidebar->open_flags & GTK_PLACES_OPEN_NEW_TAB)
-     add_open_button (box, _("Open in New _Tab"), GTK_PLACES_OPEN_NEW_TAB);
-@@ -3623,10 +3657,19 @@
-   data.unmount_item = add_button (box, _("_Unmount"), "row.unmount");
-   data.eject_item = add_button (box, _("_Eject"), "row.eject");
+@@ -3722,6 +3756,15 @@ create_row_popover (GtkPlacesSidebar *si
    data.rescan_item = add_button (box, _("_Detect Media"), "row.rescan");
    data.start_item = add_button (box, _("_Start"), "row.start");
    data.stop_item = add_button (box, _("_Stop"), "row.stop");
@@ -155,11 +130,7 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessideb
  
    /* Update everything! */
    check_popover_sensitivity (row, &data);
- 
-   if (sidebar->populate_all)
-@@ -3666,10 +3709,17 @@
- 
-   if (sidebar->popover)
+@@ -3765,6 +3808,13 @@ show_row_popover (GtkSidebarRow *row)
      gtk_widget_destroy (sidebar->popover);
  
    create_row_popover (sidebar, row);
@@ -173,5 +144,3 @@ diff --color -U 5 -r -Z -B ./org/gtk/gtkplacessidebar.c ./mod/gtk/gtkplacessideb
  
    gtk_popover_set_relative_to (GTK_POPOVER (sidebar->popover), GTK_WIDGET (row));
  
-   sidebar->context_row = row;
-   gtk_popover_popup (GTK_POPOVER (sidebar->popover));
