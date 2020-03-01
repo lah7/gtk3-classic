@@ -1,12 +1,12 @@
-# Maintainer: Jonathon Fernyhough <jonathon_at manjaro+dot_org>
-# Upstream maintainer: krumelmonster <krumelmonster@zoho.com>
+# Maintainer: Jonathon Fernyhough <jonathon+m2x.dev>
+# Upstream maintainer: Luke Horwell
 # Contributor: Tomasz Gąsior <tomaszgasior.pl>
 
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
 __arch_pkg_commit="dd59624b448ca6f6e48d4f1268fd3c871a20ae76"
-_gtkver=3.24.20
+_gtkver=3.24.21
 
 pkgbase=gtk3-classic
 pkgname=($pkgbase lib32-$pkgbase)
@@ -15,7 +15,8 @@ pkgrel=1
 pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. Please see README."
 url="https://github.com/lah7/gtk3-mushrooms"
 conflicts=(gtk3 gtk3-typeahead gtk3-print-backends)
-provides=(gtk3=$pkgver gtk3-typeahead=$pkgver gtk3-classic=$pkgver gtk3-print-backends libgtk-3.so libgdk-3.so libgailutil-3.so)
+provides=(gtk3=$_gtkver gtk3-typeahead=$_gtkver gtk3-mushrooms=$_gtkver gtk3-print-backends
+          libgtk-3.so libgdk-3.so libgailutil-3.so)
 arch=(x86_64)
 license=(LGPL)
 makedepends=(
@@ -68,35 +69,37 @@ source=(
 
 	README.md
 )
-
-sha256sums=('68b26360764a2ea7e057a2aaa29c6fdfe164b9987866e038d8d0188a025477fb'
-            'eade303471a5929ccf6cf14ff434deccb0da017d5c4fdce3f5a3ffa117c1c954'
-            '86f48054a2df6319d97db14fd17ea15d50b32ea6ba594d83e8faa1596ec657ab'
-            '54020144ac0472ae170297b4158da719b49860b17234bf54351ba30f793a7fe7'
-            'be4ddf03a5cce8270e8118eb331b3056972c0bd490faa6e4a4ebe332ec4c2e91'
-            '81138fbaff82e37a83da1c4aa074a6c708e6c50340e0ddeff3fb70e2a0b52e1f'
-            '515ff6df72934aa4294cdb1befd6c542a187fe3b4326cda68a8541dabbe657fd'
-            '63bf214d836f688e628b30d1743ff9e47deb64d0f4bde9f0eb9c352fc00ca8d4'
-            '1508ddc7e682cdaace327ffe2955abe90f903cf7ec923892b85673a37f76a32f'
-            '8271342e6a0394f70b6e5a21afb21e2e0b645edf39a0d149d5e8b4d6b062846d'
-            '7b987cc9bd7ca9722bfb881b30b082c0d7409e3cd68592f5e7a1f401d73e7672'
-            '99b12d7af7efc6a014e6afcab1ee82ea0feb0b5a4e9bbd663d1c45354cd34f2b'
-            '7a604d453beb9c425b8ed4a60b5e9435c3f4ee10438490641c0ade448401306a'
-            '79b26a1f38e0629f344c88bc6a6d76e3b24162d5a5340e4647256229ae4e9c35'
-            'acd3babd22add981690728e84a89fb8bb332b7ac746e9db7cdb27c47f1ac0042'
-            'c213812e1fafeb5565f7e329c4501195f04adcfe377b88439a6d51d478edc071'
-            '7f3e5da1622e243243ea9b1e487460f608dc375e79d800d2f0d826fd30be68ed'
-            'd05b6727293f7735c8d06ccee4adf19bd765c50ac94b729a2660103ffd357700'
-            '2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac'
+sha256sums=('4935ec23cbd0150bd479fc457861d3a665354509c3ff933997827c7141c8657c'
+            '6de32e1bee6bf4307aaec072fc8431b044e73299720a490298b8c1b7c502e039'
+            'c8f6be1df687bf2ccaaeff63fffdc13e2c1d41f89ad1dfa391120c509dba7f33'
+            '760bd3d65b3c5c0be19311d3b9d2be1f33c3bec198bc470de5afe23f5d488b8f'
+            '00927690718c65f6b3c025e2e919028f41cd522c573964dd7fdc31b3022b983f'
+            'db82bc4647eda7cc102590d5cfffd8524cf126a704358096e0e66f5c068fe46f'
+            'f29097aaa6fb8b99ce1a4659856dbc290d299befb1b09fd6158cbb3f539d890c'
+            '110d2a2d8fc8f3f4ad1b40abd319f18fbb571b1f1bc121de1a8e0037eb3d9df8'
+            'caa4da5e786a38e788617d6c9a844dfc604038d2a5d57033273859cad46d14cd'
+            'cf26ab623fec6fc4f24628bdbe4b81ba5f56e8e0c61de78474d5c2411901931a'
+            '57b7b7725b9afe24dc29c6315e3162f297632525b32e329e18b32aba1112eed2'
+            'c6fd146e7ab332dd9a394b666b19e6ba7d6ac0932f33fb396f66630134257309'
+            '54fb3a39475644abaded2ac2db32c72ce8c36ee7b98ced0ee52a3f89dcac8d83'
+            '7157b665e2ae724bb6abe8fc382d7178dc4d8d00f29bc63ed2942307ff41914b'
+            '2b10b436ebcf8c124fac6e7867f0bf0573ecfb70130893fea37724c5f6719caf'
+            'eba56921250bbf6767dab9de219bf81763ed7891014d76c3a1fe6c82c32b7359'
+            '570b2d6ada08c007ba3771a86863ea438cbc03e78997773782c742cacbe7fd8b'
+            '9761a289cf93558ec67bb498b765ccb757027b10071da938ff14fca695a0103d'
+            'bf0e188ba6cfb24b506e4eab7e62a020348cce307d4eecde571227a058c441ad'
+            '17aa98262b96817396c74c303c83eee2a0c9c94b10e31d8de48a44cb17b08dc1'
+            'af2d2d4a0d876f9abc350a1cdb09ffc016a8894ee3c46030c3d90c6e99b27c5a'
             'ba93f62e249f2713dbfe6c82de1be4ac655264d6407ed3dc5e05323027520f31'
-            '2dac69f716e8d04ba7a95091589e2baaec95dcace932cb15839163db479b1df3'
+            'aeea6ae7cd35e83dfc7699be716519faefca346c62e784dd1a37d9df94c08f52'
             '01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202'
             'de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845'
             '1d2e3c41c7de03a31d717b09e053c88cbaca2ae74eefd982549c49de81c21ada')
 
 prepare()
 {
-	QUILT_PATCHES=. quilt push -av
+	cd gtk+-$_gtkver
+	QUILT_PATCHES=.. quilt push -av
 
 	rm -f "$srcdir"/gtk+-"$_gtkver"/gtk/theme/Adwaita/gtk-contained{,-dark}.css
 	cat "$srcdir/smaller-adwaita.css" | tee -a "$srcdir"/gtk+-"$_gtkver"/gtk/theme/Adwaita/gtk-contained{,-dark}.css > /dev/null
@@ -129,6 +132,7 @@ build()
 		-D colord=no \
 		-D demos=false \
 		-D examples=false \
+		-D introspection=false \
 		-D tests=false \
 		-D installed_tests=false \
 		-D libdir=/usr/lib32
