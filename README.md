@@ -1,3 +1,5 @@
+**This Project is abandoned, if you would like to maintain it, create a fork and I will pass over the AUR package**
+
 gtk3-mushrooms
 ===
 
