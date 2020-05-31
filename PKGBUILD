@@ -6,17 +6,16 @@
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
 __arch_pkg_commit="dd59624b448ca6f6e48d4f1268fd3c871a20ae76"
-_gtkver=3.24.14
+_gtkver=3.24.20
 
 pkgbase=gtk3-classic
 pkgname=($pkgbase lib32-$pkgbase)
 pkgver=${_gtkver}
 pkgrel=1
 pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. Please see README."
-url="https://github.com/krumelmonster/gtk3-mushrooms"
-conflicts=(gtk3 gtk3-print-backends)
-provides=(gtk3=$_gtkver gtk3-mushrooms=$_gtkver gtk3-print-backends
-          libgtk-3.so libgdk-3.so libgailutil-3.so)
+url="https://github.com/lah7/gtk3-mushrooms"
+conflicts=(gtk3 gtk3-typeahead gtk3-print-backends)
+provides=(gtk3=$pkgver gtk3-typeahead=$pkgver gtk3-classic=$pkgver gtk3-print-backends libgtk-3.so libgdk-3.so libgailutil-3.so)
 arch=(x86_64)
 license=(LGPL)
 makedepends=(
@@ -69,29 +68,28 @@ source=(
 
 	README.md
 )
-sha256sums=('4935ec23cbd0150bd479fc457861d3a665354509c3ff933997827c7141c8657c'
-            '963d8ac098b4be573897d231acfbb53185bbffae0ecf94861a60271ee664ed0e'
-            '3ccdaf68ed3c557987b984d7ad18a3af1e870e8488cd0fb010568281bcbca092'
-            '16edf7014239d5ae956d5742167f9facbb6b04588be1c9c4644bb745b7eb7e2b'
-            '441e15fdcf3a909628506decdfdaf941e4f812863f2e3e0820e39c61bf93be88'
-            '568cd11b34cbfb593bb0aa4c2ae2d2af13e539a5b3d1aca1d370daf791bb9896'
-            '3c9c57338bb6ae44a772d189dbaccf1a58f6e64704842ade847ff1bbe11e3ccd'
-            '66876362683d2f166842be053c1d324e47df475c1535ff6913ea8245d5a907d9'
-            'a1a0d1a7365e7691c4434628e592a853b8593a417962fa01f7ad4792bb1522e8'
-            '99d899d53565a74c78f139f57cf726c292b77f2b467ab03ef557ac7e575f86ad'
-            '07b3959d1603e5f21f254d01335ff56a5fe5edfec998fd248f12ad925700831d'
-            '102479f46d9c40c553824b5f470fc19b9261e7c45ab0333859c04e2e0447c470'
-            '384f448b71980f32bd298e491434aa0817f5193c07553f1bbdb937e90c990b61'
-            '4386617c929c835c9a94f17a28aa03a4f63f90767cee24c874af77f94efe166d'
-            '03e9c02971f9221df1d28421f76263044d1e1a73e00051fea0a8323c7577f247'
-            'd868f79b37e8c5d032b5f0fd1ea51a8c50996cb5fa2bf693de082215e9f892db'
-            'b4c2dccfb6a1332512c705012be9ffb6bcf07794becda2592c686e9a37054375'
-            '009973688864b30287da1768ee56d92bb26974aa097501aef467f0749801ef7a'
-            'e6517444d9ec7fb76a2d644a55658dae6f94aba67aba5c230f11afefa9271b51'
-            '41080e3632254e50a703dd69f5761784d1545471f8bf3cab1db9eee123957f2f'
-            '07faab98d9ff20f7323846840afe860a7fa4a35e67f949e5c26f73fd997d42d5'
+
+sha256sums=('68b26360764a2ea7e057a2aaa29c6fdfe164b9987866e038d8d0188a025477fb'
+            'eade303471a5929ccf6cf14ff434deccb0da017d5c4fdce3f5a3ffa117c1c954'
+            '86f48054a2df6319d97db14fd17ea15d50b32ea6ba594d83e8faa1596ec657ab'
+            '54020144ac0472ae170297b4158da719b49860b17234bf54351ba30f793a7fe7'
+            'be4ddf03a5cce8270e8118eb331b3056972c0bd490faa6e4a4ebe332ec4c2e91'
+            '81138fbaff82e37a83da1c4aa074a6c708e6c50340e0ddeff3fb70e2a0b52e1f'
+            '515ff6df72934aa4294cdb1befd6c542a187fe3b4326cda68a8541dabbe657fd'
+            '63bf214d836f688e628b30d1743ff9e47deb64d0f4bde9f0eb9c352fc00ca8d4'
+            '1508ddc7e682cdaace327ffe2955abe90f903cf7ec923892b85673a37f76a32f'
+            '8271342e6a0394f70b6e5a21afb21e2e0b645edf39a0d149d5e8b4d6b062846d'
+            '7b987cc9bd7ca9722bfb881b30b082c0d7409e3cd68592f5e7a1f401d73e7672'
+            '99b12d7af7efc6a014e6afcab1ee82ea0feb0b5a4e9bbd663d1c45354cd34f2b'
+            '7a604d453beb9c425b8ed4a60b5e9435c3f4ee10438490641c0ade448401306a'
+            '79b26a1f38e0629f344c88bc6a6d76e3b24162d5a5340e4647256229ae4e9c35'
+            'acd3babd22add981690728e84a89fb8bb332b7ac746e9db7cdb27c47f1ac0042'
+            'c213812e1fafeb5565f7e329c4501195f04adcfe377b88439a6d51d478edc071'
+            '7f3e5da1622e243243ea9b1e487460f608dc375e79d800d2f0d826fd30be68ed'
+            'd05b6727293f7735c8d06ccee4adf19bd765c50ac94b729a2660103ffd357700'
+            '2de68b575494d0d034accd7cd0ce881f366d5201a48496d8748c43f297836eac'
             'ba93f62e249f2713dbfe6c82de1be4ac655264d6407ed3dc5e05323027520f31'
-            '1c4d69f93ab884fd80c6b95115bfbc12d51ecd029178b6dad3672fdc5ff91e88'
+            '2dac69f716e8d04ba7a95091589e2baaec95dcace932cb15839163db479b1df3'
             '01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202'
             'de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845'
             '1d2e3c41c7de03a31d717b09e053c88cbaca2ae74eefd982549c49de81c21ada')
