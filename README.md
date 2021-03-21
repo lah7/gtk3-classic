@@ -24,8 +24,11 @@ on GNOME desktops is not recommended!
 Currently, these are packaged in the AUR as
 [`gtk3-classic`](https://aur.archlinux.org/packages/gtk3-classic/), which is
 based on the official [`gtk3`](https://archlinux.org/packages/extra/x86_64/gtk3/) package.
+Use an AUR helper (such as `yay`) to install the package(s):
 
-This package is compiled without examples or tests.
+    yay -S gtk3-classic lib32-gtk3-classic
+
+This package does not include examples or tests.
 
 If you've previously installed `gtk3-mushrooms`, switch to this new package.
 
@@ -96,6 +99,13 @@ help in fixing bugs caused by patches or any new contributions.
 
 Patches should not break GTK3 or any applications, and should offer "classic"
 functionality as seen in GTK2 or early versions of GTK3.
+
+
+## Building from Source
+
+Under Arch, clone this repository and run `makepkg`. You may need to
+install the build dependencies by passing `-s`. If the package is successfully
+built, install with `sudo pacman -U *.tar.zst`.
 
 
 ## License
