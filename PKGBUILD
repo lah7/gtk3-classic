@@ -1,5 +1,5 @@
 # Maintainer: Jonathon Fernyhough <jonathon+m2x.dev>
-# Contributor: Luke Horwell
+# Contributor: Luke Horwell <code@horwell.me>
 # Contributor: Tomasz Gąsior <tomaszgasior.pl>
 
 # This file is based on original PKGBUILD of GTK3 package.
@@ -12,8 +12,8 @@ pkgbase=gtk3-classic
 pkgname=($pkgbase lib32-$pkgbase)
 pkgver=${_gtkver}
 pkgrel=1
-pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. Please see README."
-url="https://github.com/lah7/gtk3-mushrooms"
+pkgdesc="GTK3 patched to provide a more classic experience"
+url="https://github.com/lah7/gtk3-classic"
 conflicts=(gtk3 gtk3-typeahead gtk3-print-backends)
 provides=(gtk3=$_gtkver gtk3-typeahead=$_gtkver gtk3-mushrooms=$_gtkver gtk3-print-backends
           libgtk-3.so libgdk-3.so libgailutil-3.so)
@@ -167,7 +167,7 @@ package_gtk3-classic()
 
 package_lib32-gtk3-classic()
 {
-	pkgdesc="GTK3 patched for classic desktops like XFCE or MATE. (32-bit)"
+	pkgdesc="GTK3 patched to provide a more classic experience (32-bit)"
 	depends=(
 		lib32-atk lib32-cairo lib32-libxcursor lib32-libxinerama lib32-libxrandr lib32-libxi
 		lib32-libepoxy lib32-gdk-pixbuf2 lib32-fribidi lib32-libxcomposite lib32-libxdamage 
