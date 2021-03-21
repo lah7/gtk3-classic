@@ -17,6 +17,7 @@ on GNOME desktops is not recommended!
 
 [View Screenshots](https://github.com/lah7/gtk3-classic/wiki/Screenshots)
 
+
 ## Packages
 
 ### Arch
@@ -91,6 +92,18 @@ If you've previously installed `gtk3-mushrooms`, switch to this new package.
   * See https://unix.stackexchange.com/questions/230238.
 
 
+## Problems?
+
+These patches are unofficial and are **not supported by GTK developers** nor
+your distribution. If you are having trouble with an application or theme,
+try installing `gtk3` and confirm it's **definitely** a problem with these builds.
+
+Ideally, it would be most helpful to isolate the problematic patch by
+excluding it in your PKGBUILD and reinstalling.
+
+[View Issues](https://github.com/lah7/gtk3-classic/issues/)
+
+
 ## Contributing
 
 We aim to keep the patches rolling across new upstream GTK3 versions
@@ -99,6 +112,8 @@ help in fixing bugs caused by patches or any new contributions.
 
 Patches should not break GTK3 or any applications, and should offer "classic"
 functionality as seen in GTK2 or early versions of GTK3.
+
+[View Tasks](https://github.com/lah7/gtk3-classic/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 
 
 ## Building from Source
