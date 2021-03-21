@@ -15,6 +15,7 @@ These are designed to work on non-GNOME desktops (such as XFCE and MATE)
 as well as any other environment where GTK applications are used. Running
 on GNOME desktops is not recommended!
 
+[View Screenshots](https://github.com/lah7/gtk3-classic/wiki/Screenshots)
 
 ## Packages
 
