@@ -59,3 +59,12 @@ Index: b/gtk/gtkfilechooserwidget.c
  }
  
  /* Updates the popover for the file list, creating it if necessary */
+@@ -2401,6 +2401,8 @@ file_list_show_popover (GtkFileChooserWi
+ 
+ 
+   file_list_update_popover (impl);
++  gtk_menu_popup_at_pointer (GTK_MENU (priv->browse_files_popover), NULL);
++  return;
+ 
+   selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->browse_files_tree_view));
+   list = gtk_tree_selection_get_selected_rows (selection, &model);
