@@ -6,6 +6,7 @@ _(Previously known as gtk3-mushrooms)_
 
 [![Patched Release](https://img.shields.io/github/tag/lah7/gtk3-classic.svg?label=Patched%20GTK3)](https://github.com/lah7/gtk3-classic/releases)
 [![Upstream GTK3](https://img.shields.io/archlinux/v/extra/x86_64/gtk3?label=Upstream%20GTK3)](https://gitlab.gnome.org/GNOME/gtk)
+[![CI Status](https://github.com/lah7/gtk3-classic/actions/workflows/main.yml/badge.svg?branch=master&event=push)](https://github.com/lah7/gtk3-classic/actions/workflows/main.yml)
 
 This repository contains patches to restore GTK3's look & feel reminiscent to
 earlier versions. With many enhancements such as disabled CSD headers,
