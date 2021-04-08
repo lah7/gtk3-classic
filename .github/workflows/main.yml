@@ -1,0 +1,46 @@
+name: Test Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    - name: Install Dependencies
+      run: |
+        echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ focal main" | sudo tee -a /etc/apt/sources.list
+        sudo apt-get update
+        sudo apt-get build-dep gtk+3.0
+        sudo apt-get install quilt sassc meson ninja-build cmake
+        sudo apt-get install libgif-dev libelf-dev
+
+    - name: Download GTK Source
+      run: |
+        source PKGBUILD
+        wget https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-${_gtkver}.tar.xz
+        tar -xJf gtk+-${_gtkver}.tar.xz
+
+    # Uses PKGBUILD prepare() directly
+    - name: Apply Patches
+      run: |
+        source PKGBUILD
+        srcdir="$(pwd)"
+        prepare
+
+    # Based on PKGBUILD build()
+    # Build system may connect to GNOME's GitLab to retrieve glib dependency
+    - name: Build
+      run: |
+        source PKGBUILD
+        CFLAGS+=" -DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS"
+        meson gtk+-${_gtkver} build \
+            -D broadway_backend=true \
+            -D colord=no \
+            -D demos=true \
+            -D examples=false \
+            -D tests=false \
+            -D installed_tests=false
+        ninja -C build
