@@ -114,6 +114,9 @@ help in fixing bugs caused by patches or any new contributions.
 Patches should not break GTK3 or any applications, and should offer "classic"
 functionality as seen in GTK2 or early versions of GTK3.
 
+Patches are managed using `quilt`. [See the man page](https://linux.die.net/man/1/quilt)
+for usage or [Debian's Using Quilt wiki](https://wiki.debian.org/UsingQuilt) for hints.
+
 [View Tasks](https://github.com/lah7/gtk3-classic/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 
 
