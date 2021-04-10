@@ -1,0 +1,81 @@
+Index: gtk/gtknotebook.c
+===================================================================
+--- a/gtk/gtknotebook.c
++++ b/gtk/gtknotebook.c
+@@ -383,6 +383,8 @@ static gboolean gtk_notebook_draw
+                                               cairo_t          *cr);
+ static gboolean gtk_notebook_button_press    (GtkWidget        *widget,
+                                               GdkEventButton   *event);
++static gboolean gtk_notebook_scroll          (GtkWidget        *widget,
++                                              GdkEventScroll   *event);
+ static gboolean gtk_notebook_button_release  (GtkWidget        *widget,
+                                               GdkEventButton   *event);
+ static gboolean gtk_notebook_popup_menu      (GtkWidget        *widget);
+@@ -741,6 +743,7 @@ gtk_notebook_class_init (GtkNotebookClas
+   widget_class->drag_failed = gtk_notebook_drag_failed;
+   widget_class->compute_expand = gtk_notebook_compute_expand;
+   widget_class->direction_changed = gtk_notebook_direction_changed;
++  widget_class->scroll_event = gtk_notebook_scroll;
+ 
+   container_class->add = gtk_notebook_add;
+   container_class->remove = gtk_notebook_remove;
+@@ -1985,7 +1988,8 @@ gtk_notebook_realize (GtkWidget *widget)
+   attributes.event_mask = gtk_widget_get_events (widget);
+   attributes.event_mask |= (GDK_BUTTON_PRESS_MASK |
+                             GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK |
+-                            GDK_POINTER_MOTION_MASK | GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK);
++                            GDK_POINTER_MOTION_MASK | GDK_ENTER_NOTIFY_MASK |
++                            GDK_LEAVE_NOTIFY_MASK | GDK_SCROLL_MASK);
+   attributes_mask = GDK_WA_X | GDK_WA_Y;
+ 
+   priv->event_window = gdk_window_new (gtk_widget_get_parent_window (widget),
+@@ -2340,6 +2344,49 @@ gtk_notebook_get_preferred_tabs_size (Gt
+     }
+ }
+ 
++static gboolean
++gtk_notebook_scroll (GtkWidget      *widget,
++                     GdkEventScroll *event)
++{
++  GtkNotebook *notebook = GTK_NOTEBOOK (widget);
++  GtkNotebookPrivate *priv = notebook->priv;
++  GtkWidget *child, *event_widget;
++  gint i;
++
++  if (!priv->cur_page)
++    return FALSE;
++
++  child = priv->cur_page->child;
++  event_widget = gtk_get_event_widget ((GdkEvent *)event);
++
++  /* ignore scroll events from the content of the page */
++  if (!event_widget || gtk_widget_is_ancestor (event_widget, child) || event_widget == child)
++    return FALSE;
++
++  /* nor from the action area */
++  for (i = 0; i < 2; i++)
++    {
++      if (event_widget == priv->action_widget[i] ||
++          (priv->action_widget[i] &&
++           gtk_widget_is_ancestor (event_widget, priv->action_widget[i])))
++        return FALSE;
++    }
++
++  switch (event->direction)
++    {
++    case GDK_SCROLL_RIGHT:
++    case GDK_SCROLL_DOWN:
++      gtk_notebook_next_page (notebook);
++      break;
++    case GDK_SCROLL_LEFT:
++    case GDK_SCROLL_UP:
++      gtk_notebook_prev_page (notebook);
++      break;
++    }
++
++  return TRUE;
++}
++
+ static void
+ gtk_notebook_measure_tabs (GtkCssGadget   *gadget,
+                            GtkOrientation  orientation,

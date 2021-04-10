@@ -56,6 +56,7 @@ source=(
 	popovers__color-chooser.patch
 	popovers__file-chooser-list.patch
 	popovers__places-sidebar.patch
+	notebook_wheel_scroll.patch
 
 	# Theme CSS stylesheet.
 	smaller-adwaita.css
@@ -90,6 +91,7 @@ sha256sums=('4935ec23cbd0150bd479fc457861d3a665354509c3ff933997827c7141c8657c'
             'bf0e188ba6cfb24b506e4eab7e62a020348cce307d4eecde571227a058c441ad'
             'a7913149050eb3ffdbafa536f10547e8c122a7391971952b6e3bb705b57825f3'
             'af2d2d4a0d876f9abc350a1cdb09ffc016a8894ee3c46030c3d90c6e99b27c5a'
+            '0dee47c1e4185aef0b436ccd3f383d2e97ab0e6f0095caccded4ec0d2ac3402d'
             'ba93f62e249f2713dbfe6c82de1be4ac655264d6407ed3dc5e05323027520f31'
             'b04e09763367f1ce932cd2ee3a359d4de150e1c38e7bef7d29aa72557a6b47c6'
             '01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202'
