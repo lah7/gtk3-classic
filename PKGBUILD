@@ -39,6 +39,7 @@ source=(
 	appearance__buttons-menus-icons.patch
 	appearance__disable-backdrop.patch
 	appearance__file-chooser.patch
+	appearance__fix_black_border.patch
 	appearance__message-dialogs.patch
 	appearance__print-dialog.patch
 	appearance__smaller-statusbar.patch
@@ -70,10 +71,11 @@ source=(
 
 	README.md
 )
-sha256sums=('4326ee4d451f3f188e93a1cec1ef3b4a3509cde27b4977873473658143c35984'
+sha256sums=('d7cc957ee4f54cad6e88e9d718be712077c507ae7d86194f63e1b8f9e2ef98b5'
             '6de32e1bee6bf4307aaec072fc8431b044e73299720a490298b8c1b7c502e039'
             'c8f6be1df687bf2ccaaeff63fffdc13e2c1d41f89ad1dfa391120c509dba7f33'
             '760bd3d65b3c5c0be19311d3b9d2be1f33c3bec198bc470de5afe23f5d488b8f'
+            '736821182ac014617006e9d00fafa807a19611f3a9032133dee91b4656b7980a'
             '00927690718c65f6b3c025e2e919028f41cd522c573964dd7fdc31b3022b983f'
             'db82bc4647eda7cc102590d5cfffd8524cf126a704358096e0e66f5c068fe46f'
             'f29097aaa6fb8b99ce1a4659856dbc290d299befb1b09fd6158cbb3f539d890c'

@@ -1,0 +1,15 @@
+Index: b/gtk/gtkbutton.c
+===================================================================
+--- a/gtk/gtkwindow.c
++++ b/gtk/gtkwindow.c
+@@ -4351,9 +4351,7 @@
+ gboolean
+ gtk_window_get_decorated (GtkWindow *window)
+ {
+-  g_return_val_if_fail (GTK_IS_WINDOW (window), TRUE);
+-
+-  return window->priv->decorated;
++  return FALSE;
+ }
+
+ /**
