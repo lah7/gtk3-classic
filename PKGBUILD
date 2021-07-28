@@ -5,8 +5,8 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
-__arch_pkg_commit="408873e9af613dc26f6d434fe489735fb8c5de75"
-_gtkver=3.24.29
+__arch_pkg_commit="2e881c9916dd4babb5f9922fb07dce2345b3cb4b"
+_gtkver=3.24.30
 
 pkgbase=gtk3-classic
 pkgname=($pkgbase lib32-$pkgbase)
@@ -20,7 +20,7 @@ provides=(gtk3=$_gtkver gtk3-typeahead=$_gtkver gtk3-mushrooms=$_gtkver gtk3-pri
 arch=(x86_64)
 license=(LGPL)
 makedepends=(
-	gobject-introspection libcanberra gtk-doc sassc libcups meson quilt
+	git gobject-introspection libcanberra gtk-doc sassc libcups meson quilt
 
 	atk cairo libxcursor libxinerama libxrandr libxi libepoxy gdk-pixbuf2 fribidi
 	libxcomposite libxdamage pango shared-mime-info at-spi2-atk wayland libxkbcommon
@@ -65,8 +65,8 @@ source=(
 	"https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-$_gtkver.tar.xz"
 
 	# Arch Linux package files.
-	"settings.ini::https://git.archlinux.org/svntogit/packages.git/plain/trunk/settings.ini?h=packages/gtk3&id=$__arch_pkg_commit"
-	"gtk-query-immodules-3.0.hook::https://git.archlinux.org/svntogit/packages.git/plain/trunk/gtk-query-immodules-3.0.hook?h=packages/gtk3&id=$__arch_pkg_commit"
+	settings.ini
+	"gtk-query-immodules-3.0.hook::https://raw.githubusercontent.com/archlinux/svntogit-packages/$__arch_pkg_commit/trunk/gtk-query-immodules-3.0.hook"
 
 	README.md
 )
@@ -80,7 +80,7 @@ sha256sums=('4326ee4d451f3f188e93a1cec1ef3b4a3509cde27b4977873473658143c35984'
             '110d2a2d8fc8f3f4ad1b40abd319f18fbb571b1f1bc121de1a8e0037eb3d9df8'
             'caa4da5e786a38e788617d6c9a844dfc604038d2a5d57033273859cad46d14cd'
             'cf26ab623fec6fc4f24628bdbe4b81ba5f56e8e0c61de78474d5c2411901931a'
-            '57b7b7725b9afe24dc29c6315e3162f297632525b32e329e18b32aba1112eed2'
+            'd05840cbf27ff582504c7da0ca0a173df2fe98a0b802c8e5e5a8b0dc05b0b358'
             'c6fd146e7ab332dd9a394b666b19e6ba7d6ac0932f33fb396f66630134257309'
             '54fb3a39475644abaded2ac2db32c72ce8c36ee7b98ced0ee52a3f89dcac8d83'
             '7157b665e2ae724bb6abe8fc382d7178dc4d8d00f29bc63ed2942307ff41914b'
@@ -93,7 +93,7 @@ sha256sums=('4326ee4d451f3f188e93a1cec1ef3b4a3509cde27b4977873473658143c35984'
             'af2d2d4a0d876f9abc350a1cdb09ffc016a8894ee3c46030c3d90c6e99b27c5a'
             '0dee47c1e4185aef0b436ccd3f383d2e97ab0e6f0095caccded4ec0d2ac3402d'
             'ba93f62e249f2713dbfe6c82de1be4ac655264d6407ed3dc5e05323027520f31'
-            'f57ec4ade8f15cab0c23a80dcaee85b876e70a8823d9105f067ce335a8268caa'
+            'ba75bfff320ad1f4cfbee92ba813ec336322cc3c660d406aad014b07087a3ba9'
             '01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202'
             'a0319b6795410f06d38de1e8695a9bf9636ff2169f40701671580e60a108e229'
             '23acc98c2cda50cd03250ff28d70416f23eba5aefa3f6998252b4b3a85231ce0')
