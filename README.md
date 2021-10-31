@@ -128,6 +128,19 @@ install the build dependencies by passing `-s`. If the package is successfully
 built, install with `sudo pacman -U *.tar.zst`.
 
 
+## Tip: GTK Debugger
+
+The debugger is useful for analysing classes, objects and CSS. To use, set this
+environment variable before running the GTK application:
+
+    export GTK_DEBUG=interactive
+
+If the debugger does not show up, you may need to install development packages for your
+distribution. For example, in Debian/Ubuntu, this would be:
+
+    sudo apt install libgtk-3-dev
+
+
 ## License
 
 Patches follow the same license as GTK3, which is LGPL.
