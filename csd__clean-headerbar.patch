@@ -10,19 +10,19 @@ Index: b/gtk/gtkheaderbar.c
 +                                    !gtk_style_context_has_class (gtk_widget_get_style_context (toplevel), "solid-csd"));
 +  if (csd_cleaned_headerbar)
 +    {
-+      if (priv->label_box != NULL)
++      /* if (priv->label_box != NULL)
 +        {
 +          priv->label_box = NULL;
 +          priv->title_label = NULL;
 +          priv->subtitle_label = NULL;
-+        }
++        } */
 +      static gboolean style_added = FALSE;
 +      if (!style_added)
 +        {
 +          style_added = TRUE;
 +          GtkCssProvider *provider = gtk_css_provider_new ();
 +          gtk_css_provider_load_from_data (provider,
-+            "headerbar, .titlebar { border-radius: 0; border-top: 0; box-shadow: none; }", -1, NULL);
++            "headerbar, .titlebar { border-radius: 0; border-top: 0; box-shadow: none; } headerbar .title { color: transparent; }", -1, NULL);
 +          gtk_style_context_add_provider_for_screen (gtk_widget_get_screen (widget),
 +            GTK_STYLE_PROVIDER (provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 +        }
