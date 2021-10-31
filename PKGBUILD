@@ -68,8 +68,6 @@ source=(
 	# Arch Linux package files.
 	settings.ini
 	"gtk-query-immodules-3.0.hook::https://raw.githubusercontent.com/archlinux/svntogit-packages/$__arch_pkg_commit/trunk/gtk-query-immodules-3.0.hook"
-
-	README.md
 )
 sha256sums=('d7cc957ee4f54cad6e88e9d718be712077c507ae7d86194f63e1b8f9e2ef98b5'
             '6de32e1bee6bf4307aaec072fc8431b044e73299720a490298b8c1b7c502e039'
@@ -97,8 +95,7 @@ sha256sums=('d7cc957ee4f54cad6e88e9d718be712077c507ae7d86194f63e1b8f9e2ef98b5'
             'ba93f62e249f2713dbfe6c82de1be4ac655264d6407ed3dc5e05323027520f31'
             'ba75bfff320ad1f4cfbee92ba813ec336322cc3c660d406aad014b07087a3ba9'
             '01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202'
-            'a0319b6795410f06d38de1e8695a9bf9636ff2169f40701671580e60a108e229'
-            '23acc98c2cda50cd03250ff28d70416f23eba5aefa3f6998252b4b3a85231ce0')
+            'a0319b6795410f06d38de1e8695a9bf9636ff2169f40701671580e60a108e229')
 
 prepare()
 {
@@ -164,9 +161,6 @@ package_gtk3-classic()
 	install -Dt "$pkgdir/usr/share/libalpm/hooks" -m644 gtk-query-immodules-3.0.hook
 
 	rm "$pkgdir/usr/bin/gtk-update-icon-cache"
-
-	install -Dm644 "$srcdir"/README.md "$pkgdir/usr/share/gtk-3.0/README.md"
-	sed -i 's/mushrooms/classic/g' "$pkgdir/usr/share/gtk-3.0/README.md"
 }
 
 package_lib32-gtk3-classic()
