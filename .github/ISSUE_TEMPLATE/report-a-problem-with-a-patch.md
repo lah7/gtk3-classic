@@ -8,15 +8,19 @@ assignees: ''
 ---
 
 ### Bug Description
-A clear and concise description of what the bug is, and steps to reproduce it.
+
+<!-- A clear and concise description of what the bug is, and steps to reproduce it -->
 
 ### Expected Behaviour
-A clear and concise description of what you expected to happen.
+
+<!-- A clear and concise description of what is expected to happen -->
 
 ### Screenshots
-If applicable, add screenshots to help visualize the problem.
+
+<!-- If applicable, add screenshots to help visualize the problem -->
 
 ### Environment
+
  - OS: 
  - Desktop Environment: 
  - gtk3-classic Version:
