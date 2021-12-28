@@ -20,3 +20,4 @@ popovers__color-chooser.patch
 popovers__file-chooser-list.patch
 popovers__places-sidebar.patch
 notebook_wheel_scroll.patch
+treeview__alternating_row_colours.patch
