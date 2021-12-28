@@ -70,7 +70,7 @@ source=(
 	settings.ini
 	"gtk-query-immodules-3.0.hook::https://raw.githubusercontent.com/archlinux/svntogit-packages/$__arch_pkg_commit/trunk/gtk-query-immodules-3.0.hook"
 )
-sha256sums=('d7cc957ee4f54cad6e88e9d718be712077c507ae7d86194f63e1b8f9e2ef98b5'
+sha256sums=('6eecb2630d342327c79e7657e1707f7116c5300e862b716e4f4e0e943be3b966'
             '6de32e1bee6bf4307aaec072fc8431b044e73299720a490298b8c1b7c502e039'
             'c8f6be1df687bf2ccaaeff63fffdc13e2c1d41f89ad1dfa391120c509dba7f33'
             '760bd3d65b3c5c0be19311d3b9d2be1f33c3bec198bc470de5afe23f5d488b8f'
