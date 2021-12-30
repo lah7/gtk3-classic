@@ -60,6 +60,7 @@ If you've previously installed `gtk3-mushrooms`, switch to this new package.
 
 #### Appearance
 
+* [Alternating row colours in treeviews are restored.](https://github.com/lah7/gtk3-classic/wiki/Treeview:-Alternating-Colours-CSS) (requires additional step)
 * Message dialogs have traditional appearance with left-aligned texts and right-aligned buttons.
 * Some GTK stock icons on buttons and context menus are restored.
 * Regular colorized icons instead of symbolic icons are used in file chooser dialog.
