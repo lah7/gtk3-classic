@@ -1,0 +1,51 @@
+# GtkTreeView:  Add style classes to assist zebra striping
+#
+# A lot of users like the alternating row colors that many GTK+ 2 theme
+# engines could and did draw; the alternating row colors enabled users
+# to quickly find their way across a long list without getting lost or
+# confused.  These alternating color patterns are known as "zebra stripes".
+#
+# Due to slow but steady code rot in the GtkTreeView source code, the
+# mechanism to implement zebra striping was eventually removed, whether
+# accidentally or intentionally.  This patch adds style classes to each
+# tree view cell to indicate whether the cell is on an odd or even row,
+# and whether the column that contains the cell is the column that is
+# used to sort the tree view.  These style classes allow themes to choose
+# appropriate background colors for each cell based on its position, rather
+# than forcing the theme designer to color all cells the same.
+#
+# An example of zebra striping in action:
+#
+#   .caja-notebook treeview.even:not(:selected)
+#   {
+#     background-color: shade(@theme_base_color, .9);
+#   }
+#
+#   .caja-notebook treeview.sorted.odd:not(:selected)
+#   {
+#     background-color: shade(@theme_base_color, .9);
+#   }
+#
+#   .caja-notebook treeview.sorted.even:not(:selected)
+#   {
+#     background-color: shade(@theme_base_color, .81);
+#   }
+
+diff -uprN gtk+-3.24.30-original/gtk/gtktreeview.c gtk+-3.24.30-patched/gtk/gtktreeview.c
+--- gtk+-3.24.30-original/gtk/gtktreeview.c	2021-06-15 16:58:25.000000000 -0400
++++ gtk+-3.24.30-patched/gtk/gtktreeview.c	2021-12-24 02:06:17.136272294 -0500
+@@ -5302,6 +5302,14 @@ gtk_tree_view_bin_draw (GtkWidget      *
+ 
+           gtk_style_context_add_class (context, GTK_STYLE_CLASS_CELL);
+ 
++    if (_gtk_rbtree_node_get_index (tree, node) % 2 == 0)
++      gtk_style_context_add_class (context, "odd");
++    else
++      gtk_style_context_add_class (context, "even");
++
++    if (flags & GTK_CELL_RENDERER_SORTED)
++      gtk_style_context_add_class (context, "sorted");
++
+ 	  if (node == tree_view->priv->cursor_node && has_can_focus_cell
+               && ((column == tree_view->priv->focus_column
+                    && tree_view->priv->draw_keyfocus &&
