@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+
+clean:
+	dh_testdir
+	dh_auto_clean
+	dh_clean
+
+build:
+	export CFLAGS=" -Wno-error=array-bounds -DG_DISABLE_CAST_CHECKS"
+	meson gtk+-3.24.30 debian/build \
+		-D broadway_backend=true \
+		-D colord=no \
+		-D demos=true \
+		-D examples=true \
+		-D tests=false \
+		-D installed_tests=false \
+		-D gtk_doc=false
+
+binary:
+	DESTDIR=${CURDIR}/debian/build \
+	ninja -C debian/build install
+#
+# override_dh_auto_build:
+# 	ninja -C debian/build

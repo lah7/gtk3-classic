@@ -1,0 +1,5 @@
+gtk3-classic (3.24.20-1) impish; urgency=low
+
+  * Initial release for Ubuntu 21.04.
+
+ -- Luke Horwell <code@horwell.me>  Fri, 31 Dec 2021 13:26:30 +0100
