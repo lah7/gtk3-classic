@@ -2,11 +2,11 @@
 
 _(Previously known as gtk3-mushrooms)_
 
-![Screenshot of some of the tweaks](.github/readme/preview.png)
-
-[![Patched Release](https://img.shields.io/github/tag/lah7/gtk3-classic.svg?label=Patched%20GTK3)](https://github.com/lah7/gtk3-classic/releases)
-[![Upstream GTK3](https://img.shields.io/archlinux/v/extra/x86_64/gtk3?label=Upstream%20GTK3)](https://gitlab.gnome.org/GNOME/gtk)
+[![Patched](https://img.shields.io/github/tag/lah7/gtk3-classic.svg?label=Patched)](https://github.com/lah7/gtk3-classic/releases)
+[![Upstream](https://img.shields.io/archlinux/v/extra/x86_64/gtk3?label=Upstream)](https://gitlab.gnome.org/GNOME/gtk)
 [![CI Status](https://github.com/lah7/gtk3-classic/actions/workflows/main.yml/badge.svg?branch=master&event=push)](https://github.com/lah7/gtk3-classic/actions/workflows/main.yml)
+
+![Screenshot of some of the tweaks](.github/readme/preview.png)
 
 This repository contains patches to restore GTK3's look & feel reminiscent to
 earlier versions. With many enhancements such as disabled CSD headers,
@@ -20,6 +20,9 @@ on GNOME desktops is not recommended!
 
 
 ## Installation
+
+[![Arch Linux](https://img.shields.io/aur/version/gtk3-classic?label=Arch&logo=archlinux&logoColor=white)](https://aur.archlinux.org/packages/gtk3-classic/)
+[![Ubuntu](https://img.shields.io/badge/Ubuntu%2019.10-ppa%3Alah7%2Fgtk3--classic-e95420?logo=ubuntu&logoColor=white)](https://launchpad.net/~lah7/+archive/ubuntu/gtk3-classic)
 
 ### Arch Linux
 
