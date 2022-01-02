@@ -19,12 +19,11 @@ on GNOME desktops is not recommended!
 [View Screenshots](https://github.com/lah7/gtk3-classic/wiki/Screenshots)
 
 
-## Packages
+## Installation
 
-### Arch
+### Arch Linux
 
-Currently, these are packaged in the AUR as
-[`gtk3-classic`](https://aur.archlinux.org/packages/gtk3-classic/), which is
+Available from the AUR under [`gtk3-classic`](https://aur.archlinux.org/packages/gtk3-classic/),
 based on the official [`gtk3`](https://archlinux.org/packages/extra/x86_64/gtk3/) package.
 Use an AUR helper (such as `yay`) to install the package(s):
 
@@ -33,6 +32,21 @@ Use an AUR helper (such as `yay`) to install the package(s):
 This package does not include examples or tests.
 
 If you've previously installed `gtk3-mushrooms`, switch to this new package.
+
+### Ubuntu 19.10
+
+These packages override the original gtk+3.0 packages of the same name,
+with the version suffixed with `~classic`.
+
+To install, [add the repository](https://launchpad.net/~lah7/+archive/ubuntu/gtk3-classic) and upgrade your packages:
+
+    sudo add-apt-repository ppa:lah7/gtk3-classic
+    sudo apt dist-upgrade
+
+To restore the original gtk+3.0 packages from Ubuntu's repository:
+
+    sudo apt-get install ppa-purge
+    sudo ppa-purge ppa:lah7/gtk3-classic
 
 
 ## Patches
