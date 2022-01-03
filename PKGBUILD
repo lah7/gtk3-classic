@@ -59,6 +59,7 @@ source=(
 	popovers__places-sidebar.patch
 	notebook_wheel_scroll.patch
 	treeview__alternating_row_colours.patch
+	window__rgba-visual.patch
 
 	# Theme CSS stylesheet.
 	smaller-adwaita.css
