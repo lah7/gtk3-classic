@@ -2,8 +2,7 @@
 # *********************************
 # Intended for maintainer use only!
 # *********************************
-# Creates a source package of gtk3-classic for the currently running
-# version of Ubuntu.
+# Creates a source package of gtk3-classic for packaging purposes.
 #
 # This works by taking a copy of the original gtk+3.0 package and modifies
 # it with our patches. This is then submitted to Launchpad for building.
@@ -24,6 +23,25 @@ fi
 # Work from the root of this repository
 cd "$(dirname "$0")/../"
 
+# If source was already unpacked, delete existing folder
+gtkdir=$(ls -d gtk+3.0*/ 2>/dev/null)
+if [ $? == 0 ]; then
+    echo "Deleting unpacked source..."
+    rm -rv gtk+3.0*/
+    echo "Existing unpacked source deleted."
+fi
+
+# Prompt for any alternates
+read -p "Codename to package for: [$CODENAME] | " NEWCODENAME
+if [ ! -z "$NEWCODENAME" ]; then
+    CODENAME="$NEWCODENAME"
+fi
+
+read -p "PPA to build for: [$PPA] | " NEWPPA
+if [ ! -z "$NEWPPA" ]; then
+    PPA="$NEWPPA"
+fi
+
 set -x
 
 # Ensure the necessary tools are installed
@@ -38,9 +56,12 @@ GTKVERSION=${GTKVERSION/gtk+3.0-/}
 cd gtk+3.0-$GTKVERSION
 quilt pop -a
 
-# Append our patches
+# Copy our patches and make our series priority
 cp -v ../*.patch debian/patches
-cat ../series >> debian/patches/series
+mv debian/patches/series debian/patches/series.old
+cp ../series debian/patches/series
+cat debian/patches/series.old >> debian/patches/series
+rm debian/patches/series.old
 
 # Remove incompatible patches introduced by original package
 function skip_patch() {
@@ -71,22 +92,16 @@ if [ -z "$DEBFULLNAME" ]; then
     export DEBFULLNAME="$name"
 fi
 
-if [ -z "$DEBEMAIL" ] || [ -z "$EMAIL" ]; then
-    echo "DEBEMAIL and EMAIL enviroment variable missing."
+if [ -z "$DEBEMAIL" ] && [ -z "$EMAIL" ]; then
+    echo "DEBEMAIL or EMAIL enviroment variable missing."
     read -p "Enter e-mail address to sign package: " email
     export DEBEMAIL="$email"
 fi
 
-echo "Enter the message for the changelog."
-echo " -- Type \n for a new line."
-echo " -- Press ENTER when done."
-echo "------------------------------"
-read -p "" changelog
-echo "------------------------------"
-
 read -p "Enter revision number for package: " revision
 set -x
-dch -D $CODENAME -v $GTKVERSION-1ubuntu2ppa${revision}~classic "$changelog"
+dch -D $CODENAME -v $GTKVERSION-1ubuntu2ppa${revision}~classic "Rebuild"
+nano debian/changelog
 
 # Build source package
 debuild -S -sd -nc
