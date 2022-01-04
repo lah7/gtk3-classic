@@ -100,7 +100,15 @@ fi
 
 read -p "Enter revision number for package: " revision
 set -x
+set +e
 dch -D $CODENAME -v $GTKVERSION-1ubuntu2ppa${revision}~classic "Rebuild"
+
+if [ ! $? == 0 ]; then
+    read -p "Type new version string: " NEWVERSION
+    dch -D $CODENAME -v $NEWVERSION "Rebuild"
+fi
+
+set -x
 nano debian/changelog
 
 # Build source package
