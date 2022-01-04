@@ -36,7 +36,7 @@ This package does not include examples or tests.
 
 If you've previously installed `gtk3-mushrooms`, switch to this new package.
 
-### Ubuntu 19.10
+### Ubuntu 21.10
 
 These packages override the original gtk+3.0 packages of the same name,
 with the version suffixed with `~classic`.
