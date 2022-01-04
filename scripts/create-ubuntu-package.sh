@@ -23,11 +23,11 @@ fi
 # Work from the root of this repository
 cd "$(dirname "$0")/../"
 
-# If source was already unpacked, delete existing folder
+# If source was already unpacked/uploaded, clean folder
 gtkdir=$(ls -d gtk+3.0*/ 2>/dev/null)
 if [ $? == 0 ]; then
     echo "Deleting unpacked source..."
-    rm -rv gtk+3.0*/
+    rm -rv gtk+3.0*/ *.changes *.build* *.upload
     echo "Existing unpacked source deleted."
 fi
 
