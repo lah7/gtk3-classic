@@ -2,7 +2,7 @@ Index: b/gtk/gtkwindow.c
 ===================================================================
 --- a/gtk/gtkwindow.c
 +++ b/gtk/gtkwindow.c
-@@ -4113,6 +4113,8 @@ gtk_window_supports_client_shadow (GtkWi
+@@ -4107,6 +4107,8 @@ gtk_window_supports_client_shadow (GtkWi
  #ifdef GDK_WINDOWING_X11
    if (GDK_IS_X11_DISPLAY (display))
      {

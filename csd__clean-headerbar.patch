@@ -10,19 +10,19 @@ Index: b/gtk/gtkheaderbar.c
 +                                    !gtk_style_context_has_class (gtk_widget_get_style_context (toplevel), "solid-csd"));
 +  if (csd_cleaned_headerbar)
 +    {
-+      /* if (priv->label_box != NULL)
++      if (priv->label_box != NULL)
 +        {
 +          priv->label_box = NULL;
 +          priv->title_label = NULL;
 +          priv->subtitle_label = NULL;
-+        } */
++        }
 +      static gboolean style_added = FALSE;
 +      if (!style_added)
 +        {
 +          style_added = TRUE;
 +          GtkCssProvider *provider = gtk_css_provider_new ();
 +          gtk_css_provider_load_from_data (provider,
-+            "headerbar, .titlebar { border-radius: 0; border-top: 0; box-shadow: none; } headerbar .title { color: transparent; } headerbar button .title { color: initial; }", -1, NULL);
++            "headerbar, .titlebar { border-radius: 0; border-top: 0; box-shadow: none; }", -1, NULL);
 +          gtk_style_context_add_provider_for_screen (gtk_widget_get_screen (widget),
 +            GTK_STYLE_PROVIDER (provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 +        }
@@ -63,7 +63,7 @@ Index: b/gtk/gtkwindow.c
 ===================================================================
 --- a/gtk/gtkwindow.c
 +++ b/gtk/gtkwindow.c
-@@ -4174,6 +4174,8 @@ on_titlebar_title_notify (GtkHeaderBar *
+@@ -4168,6 +4168,8 @@ on_titlebar_title_notify (GtkHeaderBar *
    const gchar *title;
  
    title = gtk_header_bar_get_title (titlebar);
@@ -72,7 +72,7 @@ Index: b/gtk/gtkwindow.c
    gtk_window_set_title_internal (self, title, FALSE);
  }
  
-@@ -9366,6 +9368,7 @@ static void
+@@ -9353,6 +9355,7 @@ static void
  gtk_window_do_popup (GtkWindow      *window,
                       GdkEventButton *event)
  {

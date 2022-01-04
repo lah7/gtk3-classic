@@ -1,21 +1,10 @@
-Index: b/gtk/gtkscrolledwindow.c
-===================================================================
---- a/gtk/gtkscrolledwindow.c
-+++ b/gtk/gtkscrolledwindow.c
-@@ -4548,7 +4548,7 @@ gtk_scrolled_window_update_use_indicator
+diff --color -U 5 -r -Z -B a/gtk/gtksettings.c b/gtk/gtksettings.c
+--- a/gtk/gtksettings.c	2017-10-26 06:32:02.000000000 +0200
++++ b/gtk/gtksettings.c	2017-10-30 21:18:17.206979350 +0100
+@@ -59,11 +59,11 @@
+ #include "deprecated/gtkrc.h"
  
-   use_indicators = overlay_scrolling && priv->overlay_scrolling;
  
--  if (g_strcmp0 (g_getenv ("GTK_OVERLAY_SCROLLING"), "0") == 0)
-+  if (g_strcmp0 (g_getenv ("GTK_OVERLAY_SCROLLING"), "1") != 0)
-     use_indicators = FALSE;
- 
-   if (priv->use_indicators != use_indicators)
-Index: b/gtk/gtksettings.c
-===================================================================
---- a/gtk/gtksettings.c
-+++ b/gtk/gtksettings.c
-@@ -61,7 +61,7 @@
  #ifdef GDK_WINDOWING_QUARTZ
  #define PRINT_PREVIEW_COMMAND "open -b com.apple.Preview %f"
  #else
@@ -24,11 +13,14 @@ Index: b/gtk/gtksettings.c
  #endif
  
  /**
-Index: b/gtk/org.gtk.Settings.FileChooser.gschema.xml
-===================================================================
---- a/gtk/org.gtk.Settings.FileChooser.gschema.xml
-+++ b/gtk/org.gtk.Settings.FileChooser.gschema.xml
-@@ -133,7 +133,7 @@
+  * SECTION:gtksettings
+  * @Short_description: Sharing settings between applications
+diff --color -U 5 -r -Z -B a/gtk/org.gtk.Settings.FileChooser.gschema.xml b/gtk/org.gtk.Settings.FileChooser.gschema.xml
+--- a/gtk/org.gtk.Settings.FileChooser.gschema.xml	2016-10-22 06:17:51.000000000 +0200
++++ b/gtk/org.gtk.Settings.FileChooser.gschema.xml	2017-10-30 21:18:17.206979350 +0100
+@@ -117,11 +117,11 @@
+       <description>
+ 	The size (width, height) of the GtkFileChooserDialog's window, in pixels.
        </description>
      </key>
      <key name='startup-mode' enum='org.gtk.Settings.FileChooser.StartupMode'>
@@ -37,3 +29,5 @@ Index: b/gtk/org.gtk.Settings.FileChooser.gschema.xml
        <summary>Startup mode</summary>
        <description>
  	Either "recent" or "cwd"; controls whether the file chooser
+ 	starts up showing the list of recently-used files, or the
+ 	contents of the current working directory.

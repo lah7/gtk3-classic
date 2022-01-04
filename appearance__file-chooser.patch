@@ -2,7 +2,7 @@ Index: b/gtk/gtkfilechooserwidget.c
 ===================================================================
 --- a/gtk/gtkfilechooserwidget.c
 +++ b/gtk/gtkfilechooserwidget.c
-@@ -79,6 +79,7 @@
+@@ -78,6 +78,7 @@
  #include "gtkseparator.h"
  #include "gtkmodelbutton.h"
  #include "gtkgesturelongpress.h"
@@ -10,7 +10,7 @@ Index: b/gtk/gtkfilechooserwidget.c
  
  #include <cairo-gobject.h>
  
-@@ -8826,6 +8827,16 @@ post_process_ui (GtkFileChooserWidget *i
+@@ -8797,6 +8798,16 @@ post_process_ui (GtkFileChooserWidget *i
    gtk_popover_set_relative_to (GTK_POPOVER (impl->priv->rename_file_popover), impl->priv->browse_files_tree_view);
  
    add_actions (impl);
