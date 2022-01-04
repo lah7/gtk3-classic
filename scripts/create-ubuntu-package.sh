@@ -70,6 +70,9 @@ function skip_patch() {
 
 skip_patch "message-dialog-restore-traditional-look-on-unity.patch"
 skip_patch "unity-border-radius.patch"
+if [ ! "$CODENAME" == "focal" ]; then
+    skip_patch "build-Don-t-export-GResource-related-symbols-with-newer-G.patch"
+fi
 
 # Refresh each patch in sequence to avoid "fuzzy" diffs that would fail later
 export QUILT_PATCHES="debian/patches"
