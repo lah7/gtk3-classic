@@ -110,7 +110,8 @@ To restore the original gtk+3.0 packages from Ubuntu's repository:
 * Labels are wrapped similarly to GTK2. This patch fixes too wide windows in applications improperly ported from GTK2.
 * Errors in console output caused by integration with Accessibility Toolkit are hidden.
   * See https://unix.stackexchange.com/questions/230238.
-
+* Allows windows to be transparent whenever a compositor is enabled.
+  * See https://gitlab.gnome.org/GNOME/gtk/-/issues/3105
 
 ## Problems?
 
