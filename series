@@ -22,3 +22,4 @@ popovers__places-sidebar.patch
 notebook_wheel_scroll.patch
 treeview__alternating_row_colours.patch
 build-Don-t-export-GResource-related-symbols-with-newer-G.patch
+window__rgba-visual.patch
