@@ -13,6 +13,7 @@ PPA="lah7/gtk3-classic"
 
 DISTRO=$(lsb_release -d | awk '{print $2}')
 CODENAME=$(lsb_release -c | awk '{print $2}')
+RELEASE=$(lsb_release -r | awk '{print $2}')
 
 # Is this running on Ubuntu?
 if [ ! "$DISTRO" == "Ubuntu" ]; then
@@ -101,7 +102,7 @@ fi
 read -p "Enter revision number for package: " revision
 set -x
 set +e
-dch -D $CODENAME -v $GTKVERSION-1ubuntu2ppa${revision}~classic "Rebuild"
+dch -D $CODENAME -v $GTKVERSION-${revision}~classic~$RELEASE "Initial Release"
 
 if [ ! $? == 0 ]; then
     read -p "Type new version string: " NEWVERSION
