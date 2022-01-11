@@ -13,7 +13,7 @@ earlier versions. With many enhancements such as disabled CSD headers,
 traditional dialog boxes and file browser improvements.
 
 These are designed to work on non-GNOME desktops (such as XFCE and MATE)
-as well as any other environment where GTK applications are used. Running
+and any other environment where GTK applications are used. Running
 on GNOME desktops is not recommended!
 
 [View Screenshots](https://github.com/lah7/gtk3-classic/wiki/Screenshots)
@@ -21,32 +21,37 @@ on GNOME desktops is not recommended!
 
 ## Installation
 
-[![Arch Linux](https://img.shields.io/aur/version/gtk3-classic?label=Arch&logo=archlinux&logoColor=white)](https://aur.archlinux.org/packages/gtk3-classic/)
-[![Ubuntu](https://img.shields.io/badge/Ubuntu%2019.10-ppa%3Alah7%2Fgtk3--classic-e95420?logo=ubuntu&logoColor=white)](https://launchpad.net/~lah7/+archive/ubuntu/gtk3-classic)
+[![AUR](https://img.shields.io/aur/version/gtk3-classic?label=AUR&logo=archlinux&logoColor=white)](https://aur.archlinux.org/packages/gtk3-classic/)
+[![Ubuntu](https://img.shields.io/badge/Ubuntu-ppa%3Alah7%2Fgtk3--classic-e95420?logo=ubuntu&logoColor=white)](https://launchpad.net/~lah7/+archive/ubuntu/gtk3-classic)
+
 
 ### Arch Linux
 
 Available from the AUR under [`gtk3-classic`](https://aur.archlinux.org/packages/gtk3-classic/),
-based on the official [`gtk3`](https://archlinux.org/packages/extra/x86_64/gtk3/) package.
+which is based on the official [`gtk3`](https://archlinux.org/packages/extra/x86_64/gtk3/) package.
+
+Any other variant of this package is not supported.
+
 Use an AUR helper (such as `yay`) to install the package(s):
 
     yay -S gtk3-classic lib32-gtk3-classic
 
-This package does not include examples or tests.
-
+This package excludes examples and tests.
 If you've previously installed `gtk3-mushrooms`, switch to this new package.
 
-### Ubuntu 19.10
+### Ubuntu 20.04, 21.10, 22.04
 
-These packages override the original gtk+3.0 packages of the same name,
-with the version suffixed with `~classic`.
+These packages are based on the original [`gtk+3.0`](https://packages.ubuntu.com/search?section=all&arch=any&keywords=gtk%2B3.0&searchon=sourcenames)
+package, with the version suffixed with `~classic`.
 
 To install, [add the repository](https://launchpad.net/~lah7/+archive/ubuntu/gtk3-classic) and upgrade your packages:
 
     sudo add-apt-repository ppa:lah7/gtk3-classic
     sudo apt dist-upgrade
 
-To restore the original gtk+3.0 packages from Ubuntu's repository:
+Available for these architectures: amd64, arm64, armhf, i386, powerpc and ppc64el.
+
+To restore the original GTK3, use `ppa-purge` to restore the packages from Ubuntu's repository:
 
     sudo apt-get install ppa-purge
     sudo ppa-purge ppa:lah7/gtk3-classic
@@ -113,51 +118,48 @@ To restore the original gtk+3.0 packages from Ubuntu's repository:
 * Allows windows to be transparent whenever a compositor is enabled.
   * See https://gitlab.gnome.org/GNOME/gtk/-/issues/3105
 
+
 ## Problems?
 
-These patches are unofficial and are **not supported by GTK developers** nor
-your distribution. If you are having trouble with an application or theme,
-try installing `gtk3` and confirm it's **definitely** a problem with these builds.
+These patches are unofficial and are **not supported by GTK developers,
+your distribution or any applications.** If you are having trouble with an
+application or theme, try reverting to the original `gtk3` to confirm
+it's **definitely** a problem with these patches.
 
-Ideally, it would be most helpful to isolate the problematic patch by
-excluding it in your PKGBUILD and reinstalling.
+**Use Arch?** Try isolating the problematic patch by excluding them in your PKGBUILD and rebuilding.
 
+[See Support Discussions](https://github.com/lah7/gtk3-classic/discussions/categories/help-support)
+|
 [View Issues](https://github.com/lah7/gtk3-classic/issues/)
 
 
 ## Contributing
 
-We aim to keep the patches rolling across new upstream GTK3 versions
-where possible. Due to our limited knowledge with C, we'd appreciate any
+Due to our limited knowledge with C, we'd appreciate any
 help in fixing bugs caused by patches or any new contributions.
 
 Patches should not break GTK3 or any applications, and should offer "classic"
 functionality as seen in GTK2 or early versions of GTK3.
 
-Patches are managed using `quilt`. [See the man page](https://linux.die.net/man/1/quilt)
-for usage or [Debian's Using Quilt wiki](https://wiki.debian.org/UsingQuilt) for hints.
+Patches are managed using `quilt`.
 
+[How to use `quilt`](https://github.com/lah7/gtk3-classic/wiki/Creating-and-Managing-Patches)
+|
 [View Tasks](https://github.com/lah7/gtk3-classic/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
+
+
+## Community
+
+Drop by our [Discussions](https://github.com/lah7/gtk3-classic/discussions) tab, where
+you can find curated tips, chat and introductions from other classic users. There is
+also a category for help & support, if you need help getting GTK related stuff working.
 
 
 ## Building from Source
 
-Under Arch, clone this repository and run `makepkg`. You may need to
+Arch users can clone this repository and run `makepkg`. You may need to
 install the build dependencies by passing `-s`. If the package is successfully
 built, install with `sudo pacman -U *.tar.zst`.
-
-
-## Tip: GTK Debugger
-
-The debugger is useful for analysing classes, objects and CSS. To use, set this
-environment variable before running the GTK application:
-
-    export GTK_DEBUG=interactive
-
-If the debugger does not show up, you may need to install development packages for your
-distribution. For example, in Debian/Ubuntu, this would be:
-
-    sudo apt install libgtk-3-dev
 
 
 ## License
