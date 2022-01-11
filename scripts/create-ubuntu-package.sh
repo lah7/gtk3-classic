@@ -38,6 +38,11 @@ if [ ! -z "$NEWCODENAME" ]; then
     CODENAME="$NEWCODENAME"
 fi
 
+read -p "Release version to package for: [$RELEASE] | " NEWRELEASE
+if [ ! -z "$NEWRELEASE" ]; then
+    $RELEASE="$NEWRELEASE"
+fi
+
 read -p "PPA to build for: [$PPA] | " NEWPPA
 if [ ! -z "$NEWPPA" ]; then
     PPA="$NEWPPA"
