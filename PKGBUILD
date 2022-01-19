@@ -28,7 +28,7 @@ makedepends=(
 	adwaita-icon-theme cantarell-fonts
 
 	lib32-atk lib32-cairo lib32-libxcursor lib32-libxinerama lib32-libxrandr lib32-libxi
-	lib32-libepoxy lib32-gdk-pixbuf2 lib32-fribidi lib32-libxcomposite lib32-libxdamage 
+	lib32-libepoxy lib32-gdk-pixbuf2 lib32-fribidi lib32-libxcomposite lib32-libxdamage
 	lib32-pango lib32-at-spi2-atk lib32-wayland lib32-libxkbcommon lib32-json-glib
 	lib32-librsvg lib32-mesa lib32-libcups lib32-krb5 lib32-e2fsprogs
 )
@@ -172,7 +172,7 @@ package_lib32-gtk3-classic()
 	pkgdesc="GTK3 patched to provide a more classic experience (32-bit)"
 	depends=(
 		lib32-atk lib32-cairo lib32-libxcursor lib32-libxinerama lib32-libxrandr lib32-libxi
-		lib32-libepoxy lib32-gdk-pixbuf2 lib32-fribidi lib32-libxcomposite lib32-libxdamage 
+		lib32-libepoxy lib32-gdk-pixbuf2 lib32-fribidi lib32-libxcomposite lib32-libxdamage
 		lib32-pango lib32-at-spi2-atk lib32-wayland lib32-libxkbcommon lib32-json-glib
 		lib32-librsvg lib32-mesa lib32-libcups lib32-krb5 lib32-e2fsprogs
 		"gtk3-classic>=$pkgver"
