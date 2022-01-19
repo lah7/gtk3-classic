@@ -39,9 +39,9 @@ diff -uprN gtk+-3.24.30-original/gtk/gtktreeview.c gtk+-3.24.30-patched/gtk/gtkt
            gtk_style_context_add_class (context, GTK_STYLE_CLASS_CELL);
 
 +    if (list == first_column)
-+      gtk_style_context_add_class (context, "first");
++      gtk_style_context_add_class (context, rtl ? "last" : "first");
 +    if (list == last_column)
-+      gtk_style_context_add_class (context, "last"); 
++      gtk_style_context_add_class (context, rtl ? "first" : "last"); 
 +    if (_gtk_rbtree_node_get_index (tree, node) % 2 == 0)
 +      gtk_style_context_add_class (context, "odd");
 +    else
