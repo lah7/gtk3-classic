@@ -147,6 +147,14 @@ Patches are managed using `quilt`.
 |
 [View Tasks](https://github.com/lah7/gtk3-classic/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 
+Our primary packaging and testing happens on Arch. Checksums in `PKGBUILD`
+need to be updated to pass the automated checks. On an Arch system, these can be
+regenerated automatically:
+
+    updpkgsums
+
+(Provided in `pacman-contrib`)
+
 
 ## Community
 
