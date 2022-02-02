@@ -105,6 +105,7 @@ To restore the original gtk+3.0 packages from Ubuntu's repository:
 #### Fixes
 
 * Reinstate the ability to switch between standard tabs by scrolling over them, similar to GTK2.
+  * This can be disabled by setting `GTK_NO_TAB_SCROLL` environment variable.
 * ~~Menu bars are no longer covered by too high popup menus.~~ **(patch broken)**
   * See https://gitlab.gnome.org/GNOME/gtk/issues/1016.
 * Labels are wrapped similarly to GTK2. This patch fixes too wide windows in applications improperly ported from GTK2.

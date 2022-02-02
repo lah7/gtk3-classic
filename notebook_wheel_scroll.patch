@@ -29,7 +29,7 @@ Index: gtk/gtknotebook.c
    attributes_mask = GDK_WA_X | GDK_WA_Y;
  
    priv->event_window = gdk_window_new (gtk_widget_get_parent_window (widget),
-@@ -2340,6 +2344,49 @@ gtk_notebook_get_preferred_tabs_size (Gt
+@@ -2340,6 +2344,52 @@ gtk_notebook_get_preferred_tabs_size (Gt
      }
  }
  
@@ -43,6 +43,9 @@ Index: gtk/gtknotebook.c
 +  gint i;
 +
 +  if (!priv->cur_page)
++    return FALSE;
++
++  if (g_getenv ("GTK_NO_TAB_SCROLL") != FALSE)
 +    return FALSE;
 +
 +  child = priv->cur_page->child;
