@@ -40,7 +40,7 @@ fi
 
 read -p "Release version to package for: [$RELEASE] | " NEWRELEASE
 if [ ! -z "$NEWRELEASE" ]; then
-    $RELEASE="$NEWRELEASE"
+    RELEASE="$NEWRELEASE"
 fi
 
 read -p "PPA to build for: [$PPA] | " NEWPPA
