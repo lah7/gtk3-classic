@@ -1,0 +1,15 @@
+Index: b/gtk/gtkwindow.c
+===================================================================
+--- a/gtk/gtkwindow.c	2020-06-11 04:45:39.000000000 +0200
++++ b/gtk/gtkwindow.c	2022-02-01 18:48:41.921469296 +0100
+@@ -6357,7 +6357,9 @@
+   /* inherit from transient parent, so that a dialog that is
+    * opened via keynav shows focus initially
+    */
+-  if (priv->transient_parent)
++  if (g_strcmp0 (g_getenv ("GTK_FOCUS_VISIBLE"), "1") == 0)
++    gtk_window_set_focus_visible (window, TRUE);
++  else if (priv->transient_parent)
+     gtk_window_set_focus_visible (window, gtk_window_get_focus_visible (priv->transient_parent));
+   else
+     gtk_window_set_focus_visible (window, FALSE);

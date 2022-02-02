@@ -2,6 +2,7 @@ appearance__buttons-menus-icons.patch
 appearance__disable-backdrop.patch
 appearance__file-chooser.patch
 appearance__fix_black_border.patch
+appearance__focus-visible.patch
 appearance__message-dialogs.patch
 appearance__print-dialog.patch
 appearance__smaller-statusbar.patch

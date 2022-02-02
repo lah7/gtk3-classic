@@ -40,6 +40,7 @@ source=(
 	appearance__disable-backdrop.patch
 	appearance__file-chooser.patch
 	appearance__fix_black_border.patch
+	appearance__focus-visible.patch
 	appearance__message-dialogs.patch
 	appearance__print-dialog.patch
 	appearance__smaller-statusbar.patch
@@ -71,11 +72,12 @@ source=(
 	settings.ini
 	"gtk-query-immodules-3.0.hook::https://raw.githubusercontent.com/archlinux/svntogit-packages/$__arch_pkg_commit/trunk/gtk-query-immodules-3.0.hook"
 )
-sha256sums=('b8985a8fa59ba77ee348dca6a79b9198859ddce8193fbde209b95c2ba8553ee1'
+sha256sums=('a1b8556a4972212aeb3c0bd02750c783ecb578a30fd623eba6e575605838be67'
             '6de32e1bee6bf4307aaec072fc8431b044e73299720a490298b8c1b7c502e039'
             '9785368d56b851e52de00eec852fc56f636dbc66d53c74d9b102e7c060f69533'
             '760bd3d65b3c5c0be19311d3b9d2be1f33c3bec198bc470de5afe23f5d488b8f'
             '736821182ac014617006e9d00fafa807a19611f3a9032133dee91b4656b7980a'
+            '35443c1e136af06592aefcfad7e6d69e80f2cd49986b0bb66660558b6190de07'
             '00927690718c65f6b3c025e2e919028f41cd522c573964dd7fdc31b3022b983f'
             'db82bc4647eda7cc102590d5cfffd8524cf126a704358096e0e66f5c068fe46f'
             '24217b43a7ca5bd46ff205b8f2a7c5a5192cafc36f5093255ed9053e5496afed'

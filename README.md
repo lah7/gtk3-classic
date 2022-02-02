@@ -92,6 +92,7 @@ To restore the original GTK3, use `ppa-purge` to restore the packages from Ubunt
   * You can restore backdrop state by setting `GTK_CSD=1` or `GTK_BACKDROP=1` environment variable.
 * Status bars are smaller regardless of used theme.
 * File chooser dialog, places sidebar and color chooser dialog use a traditional context menu instead of popover.
+* Outline for focused buttons can be enabled on application start by setting `GTK_FOCUS_VISIBLE=1` environment variable.
 
 #### Default Settings
 
