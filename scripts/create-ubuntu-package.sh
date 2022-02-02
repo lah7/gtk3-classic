@@ -107,7 +107,8 @@ fi
 read -p "Enter revision number for package: " revision
 set -x
 set +e
-dch -D $CODENAME -v $GTKVERSION-${revision}~classic~$RELEASE "Initial Release"
+LATEST_GIT_COMMIT=$(git log -n 1 --pretty=format:"%h")
+dch -D $CODENAME -v $GTKVERSION-${revision}~classic~$RELEASE "Rebuild with latest patches for gtk3-classic ($LATEST_GIT_COMMIT)"
 
 if [ ! $? == 0 ]; then
     read -p "Type new version string: " NEWVERSION
