@@ -112,6 +112,7 @@ To restore the original gtk+3.0 packages from Ubuntu's repository:
 * Errors in console output caused by integration with Accessibility Toolkit are hidden.
   * See https://unix.stackexchange.com/questions/230238.
 * Allows windows to be transparent whenever a compositor is enabled.
+  * To enable, set the `GTK_RELAX_RGBA` environment variable.
   * See https://gitlab.gnome.org/GNOME/gtk/-/issues/3105
 
 ## Problems?
