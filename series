@@ -16,6 +16,7 @@ fixes__labels-wrapping.patch
 other__default-settings.patch
 other__hide-insert-emoji.patch
 other__mnemonics-delay.patch
+other__remove_dead_keys_underline.patch
 popovers__color-chooser.patch
 popovers__file-chooser-list.patch
 popovers__places-sidebar.patch

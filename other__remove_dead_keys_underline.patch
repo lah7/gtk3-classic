@@ -1,0 +1,13 @@
+Index: gtk+-3.24.31/gtk/gtkimcontextsimple.c
+===================================================================
+--- gtk+-3.24.31.orig/gtk/gtkimcontextsimple.c
++++ gtk+-3.24.31/gtk/gtkimcontextsimple.c
+@@ -1115,7 +1115,7 @@ gtk_im_context_simple_get_preedit_string
+                   gunichar ch;
+                   gboolean need_space;
+ 
+-                  if (is_dead_key (priv->compose_buffer[i]))
++                  if (FALSE && is_dead_key (priv->compose_buffer[i]))
+                     {
+                       ch = dead_key_to_unicode (priv->compose_buffer[i], &need_space);
+                       if (ch)

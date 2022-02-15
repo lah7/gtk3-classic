@@ -54,6 +54,7 @@ source=(
 	other__default-settings.patch
 	other__hide-insert-emoji.patch
 	other__mnemonics-delay.patch
+	other__remove_dead_keys_underline.patch
 	popovers__color-chooser.patch
 	popovers__file-chooser-list.patch
 	popovers__places-sidebar.patch
@@ -71,7 +72,7 @@ source=(
 	settings.ini
 	"gtk-query-immodules-3.0.hook::https://raw.githubusercontent.com/archlinux/svntogit-packages/$__arch_pkg_commit/trunk/gtk-query-immodules-3.0.hook"
 )
-sha256sums=('b8985a8fa59ba77ee348dca6a79b9198859ddce8193fbde209b95c2ba8553ee1'
+sha256sums=('8dc1a547b8c54cc70aed0d88a1a89c6cc5cc59bb2c755c7192bd9613a206d5b0'
             '6de32e1bee6bf4307aaec072fc8431b044e73299720a490298b8c1b7c502e039'
             '9785368d56b851e52de00eec852fc56f636dbc66d53c74d9b102e7c060f69533'
             '760bd3d65b3c5c0be19311d3b9d2be1f33c3bec198bc470de5afe23f5d488b8f'
@@ -90,6 +91,7 @@ sha256sums=('b8985a8fa59ba77ee348dca6a79b9198859ddce8193fbde209b95c2ba8553ee1'
             '64c36c636c73b58afa219737a1f567c37f36df5971edf4352bf0639d907f4567'
             '974374f2799aaa48b9ded985c47d2dda45d2fcdcd63f1749e74b243279467d49'
             '9761a289cf93558ec67bb498b765ccb757027b10071da938ff14fca695a0103d'
+            'b92a82568a0f5c1c897561efafb55deb2331450d53377ab230def71012d8ccfc'
             'bf0e188ba6cfb24b506e4eab7e62a020348cce307d4eecde571227a058c441ad'
             '69754da0ccb0776003f2464a7d4cd433a5d02ad99801848c7b16f1de24c6988b'
             'af2d2d4a0d876f9abc350a1cdb09ffc016a8894ee3c46030c3d90c6e99b27c5a'

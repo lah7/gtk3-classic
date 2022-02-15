@@ -102,6 +102,7 @@ To restore the original GTK3, use `ppa-purge` to restore the packages from Ubunt
 
 #### Other
 
+* The underline while typing dead keys is [removed](https://blog.gtk.org/2021/03/24/input-revisited/).
 * Delay before showing mnemonics is removed. You don't have to wait when you press <kbd>Alt</kbd>.
 * "Insert emoji" context menu item of entry fields is hidden.
   * You can restore it by setting `GTKM_INSERT_EMOJI` environment variable.
