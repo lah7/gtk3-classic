@@ -80,14 +80,6 @@ jobs:
         source PKGBUILD
         echo "GTK_VERSION=${_gtkver}" >> $GITHUB_ENV
 
-    - name: Cache Pacman Packages
-      uses: actions/cache@v2
-      env:
-        cache-name: pacman-cache
-      with:
-        path: ~/pacman-cache
-        key: pacman-cache
-
     - name: Cache GTK Source
       uses: actions/cache@v2
       id: gtksrc
@@ -95,21 +87,33 @@ jobs:
         path: 'gtk+*.tar.xz'
         key: gtk-${{ env.GTK_VERSION }}
 
-    - name: Build Arch Package
+    - name: Generate Checksum
       run: |
-        mkdir -p ~/pacman-cache
+        cp PKGBUILD PKGBUILD.before
+        md5sum PKGBUILD >> PKGBUILD.md5
+
+    - name: Validate Package
+      run: |
         # makepkg cannot run as root
         sudo chown -R nobody .
 
-        docker run -d -t -v ~/pacman-cache/pkg:/var/cache/pacman/pkg -v $GITHUB_WORKSPACE:/workspace --name archlinux archlinux:base-devel
-        docker exec archlinux /bin/bash -c "echo 'nobody ALL=(ALL:ALL) NOPASSWD:ALL' >> /etc/sudoers"
-        docker exec archlinux /bin/bash -c "echo -e '\n[multilib]\nInclude = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf"
-        docker exec archlinux pacman -Syu --noconfirm
+        # Start Arch using Docker
+        docker run -d -t -v $GITHUB_WORKSPACE:/workspace --name archlinux archlinux:base-devel
+        docker exec archlinux pacman -Sy --noconfirm namcap
 
-        docker exec --workdir=/workspace --user nobody archlinux makepkg -s --noconfirm
+        # Validate the PKGBUILD is the same and free from errors
+        docker exec --workdir=/workspace --user nobody archlinux makepkg --geninteg
+        docker exec --workdir=/workspace --user nobody archlinux namcap -i PKGBUILD
 
+        # Stop containers
         docker stop archlinux -t 1
         docker rm archlinux
+
+    - name: Verify Checksum
+      run: |
+        echo "If this fails, the PKGBUILD needs updating"
+        diff PKGBUILD.before PKGBUILD
+        md5sum -c PKGBUILD.md5
 
     - name: 'Upload Artifact: gtk3-classic'
       uses: actions/upload-artifact@v2
