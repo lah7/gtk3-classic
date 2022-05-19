@@ -58,7 +58,7 @@ jobs:
         CFLAGS+=" -DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS"
         meson gtk+-${_gtkver} build \
             -D broadway_backend=true \
-            -D colord=no \
+            -D colord=auto \
             -D demos=true \
             -D examples=false \
             -D tests=false \
