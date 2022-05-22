@@ -6,7 +6,7 @@ jobs:
   build:
     # Perform a generic build in case of any critical errors
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     # Checks out under $GITHUB_WORKSPACE
     - name: Checkout
