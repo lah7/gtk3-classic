@@ -115,8 +115,6 @@ To restore the original GTK3, use `ppa-purge` to restore the packages from Ubunt
 * ~~Menu bars are no longer covered by too high popup menus.~~ **(patch broken)**
   * See https://gitlab.gnome.org/GNOME/gtk/issues/1016.
 * Labels are wrapped similarly to GTK2. This patch fixes too wide windows in applications improperly ported from GTK2.
-* Errors in console output caused by integration with Accessibility Toolkit are hidden.
-  * See https://unix.stackexchange.com/questions/230238.
 * Allows windows to be transparent whenever a compositor is enabled.
   * To enable, set the `GTK_RELAX_RGBA` environment variable.
   * See https://gitlab.gnome.org/GNOME/gtk/-/issues/3105
