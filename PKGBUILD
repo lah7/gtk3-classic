@@ -149,14 +149,14 @@ package_gtk3-classic()
 	depends=(
 		atk cairo libxcursor libxinerama libxrandr libxi libepoxy gdk-pixbuf2 fribidi
 		libxcomposite libxdamage pango shared-mime-info at-spi2-atk wayland libxkbcommon
-		json-glib librsvg wayland-protocols desktop-file-utils mesa gtk-update-icon-cache
+		json-glib librsvg desktop-file-utils mesa gtk-update-icon-cache
 	)
 	optdepends=(
-		'libcups: printers in printing dialog'
-		'dconf: default GSettings backend'
-		'libcanberra: sounds events'
 		'adwaita-icon-theme: default icon theme'
 		'cantarell-fonts: default font'
+		'colord: color management support'
+		'dconf: default GSettings backend'
+		'libcups: printer support in print dialog'
 	)
 
 	DESTDIR="$pkgdir" meson install -C build
