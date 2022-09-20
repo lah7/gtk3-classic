@@ -1,5 +1,3 @@
-Index: b/gtk/gtkplacessidebar.c
-===================================================================
 --- a/gtk/gtkplacessidebar.c
 +++ b/gtk/gtkplacessidebar.c
 @@ -633,6 +633,7 @@ open_home (GtkPlacesSidebar *sidebar)
@@ -10,7 +8,7 @@ Index: b/gtk/gtkplacessidebar.c
    GList *dirs;
    gint index;
  
-@@ -1427,8 +1428,6 @@ update_places (GtkPlacesSidebar *sidebar
+@@ -1430,8 +1431,6 @@ update_places (GtkPlacesSidebar *sidebar
        root = sl->data;
        is_native = g_file_is_native (root);
  
@@ -19,7 +17,7 @@ Index: b/gtk/gtkplacessidebar.c
  
        if (sidebar->local_only && !is_native)
          continue;
-@@ -1536,6 +1535,17 @@ update_places (GtkPlacesSidebar *sidebar
+@@ -1539,6 +1538,17 @@ update_places (GtkPlacesSidebar *sidebar
  
        g_object_unref (start_icon);
      }
@@ -37,7 +35,7 @@ Index: b/gtk/gtkplacessidebar.c
  
    gtk_widget_show_all (GTK_WIDGET (sidebar));
    /* We want this hidden by default, but need to do it after the show_all call */
-@@ -4155,7 +4165,7 @@ gtk_places_sidebar_init (GtkPlacesSideba
+@@ -4158,7 +4168,7 @@ gtk_places_sidebar_init (GtkPlacesSideba
  
    gtk_container_add (GTK_CONTAINER (sidebar), sidebar->list_box);
  
@@ -46,8 +44,6 @@ Index: b/gtk/gtkplacessidebar.c
    sidebar->hostnamed_cancellable = g_cancellable_new ();
    g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                              G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES,
-Index: b/gtk/ui/gtkfilechooserwidget.ui
-===================================================================
 --- a/gtk/ui/gtkfilechooserwidget.ui
 +++ b/gtk/ui/gtkfilechooserwidget.ui
 @@ -16,7 +16,8 @@
@@ -59,4 +55,4 @@ Index: b/gtk/ui/gtkfilechooserwidget.ui
 +                <property name="show-trash">0</property>
                  <child internal-child="accessible">
                    <object class="AtkObject">
-                  <style>
+                     <property name="AtkObject::accessible-name" translatable="yes">Places</property>
