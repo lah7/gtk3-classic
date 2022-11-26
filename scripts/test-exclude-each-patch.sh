@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 #
 # For testing purposes, create multiple builds that exclude each patch
 # on its own, to find out which patch is problematic.
@@ -36,12 +36,15 @@ do
 
     # Build and move to output directory
     makepkg --clean --cleanbuild --skipint
-
-    if [ -f lib32*.tar.zst ]
-    then
-        rm *lib32-*.tar.zst
+    if [ $? == 0 ]; then
+        if [ -f lib32*.tar.zst ]
+        then
+            rm *lib32-*.tar.zst
+        fi
+        mv *.tar.zst "$OUTPUT_DIR/$patch.tar.zst"
+    else
+        echo "Failed to build when patch not present: $patch"
     fi
-    mv *.tar.zst "$OUTPUT_DIR/$patch.tar.zst"
 
     # Restore in PKGBUILD
     sed -i "s/\#${patch}/${patch}/g" PKGBUILD
