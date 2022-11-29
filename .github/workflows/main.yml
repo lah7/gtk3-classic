@@ -61,6 +61,7 @@ jobs:
             -D colord=auto \
             -D demos=true \
             -D examples=false \
+            -D introspection=true \
             -D tests=false \
             -D installed_tests=false
         ninja -C build
