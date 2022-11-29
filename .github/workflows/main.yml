@@ -55,7 +55,7 @@ jobs:
     - name: Build
       run: |
         source PKGBUILD
-        CFLAGS+=" -DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS"
+        CFLAGS+=" -DG_DISABLE_CAST_CHECKS"
         meson gtk+-${_gtkver} build \
             -D broadway_backend=true \
             -D colord=auto \
