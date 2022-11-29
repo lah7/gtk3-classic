@@ -33,7 +33,7 @@ jobs:
         key: gtk-${{ env.GTK_VERSION }}
 
     - name: Download GTK Source
-      if: steps.gtksrc.outputs.cache-hit != 'true'
+      #if: steps.gtksrc.outputs.cache-hit != 'true'
       run: |
         source PKGBUILD
         #wget https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-${_gtkver}.tar.xz
