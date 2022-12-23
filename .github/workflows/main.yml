@@ -36,18 +36,12 @@ jobs:
       #if: steps.gtksrc.outputs.cache-hit != 'true'
       run: |
         source PKGBUILD
-        #wget https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-${_gtkver}.tar.xz
-
-        # 3.24.35 only: Due to missing source file (#87)
-        wget https://gitlab.gnome.org/GNOME/gtk/-/archive/b2ad8d2abafbd94c7e58e5e1b98c92e6b6fa6d9a/gtk-b2ad8d2abafbd94c7e58e5e1b98c92e6b6fa6d9a.tar.bz2
+        wget https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-${_gtkver}.tar.xz
 
     - name: Extract GTK Source
       run: |
         source PKGBUILD
-        #tar -xJf gtk+*.tar.xz
-
-        # 3.24.35 only: Due to missing source file (#87)
-        tar -xjf gtk-*.tar.bz2
+        tar -xJf gtk+*.tar.xz
 
     # Uses PKGBUILD prepare() directly
     - name: Apply Patches

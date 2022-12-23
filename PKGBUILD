@@ -6,10 +6,7 @@
 # https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gtk3
 
 __arch_pkg_commit="ec12847fb811add133b399aaf0916c96eb03862e"
-
-# NOTE: 3.24.35 is missing a source file required for building (#87),a commit
-#       tarball will be downloaded instead for this release.
-_gtkver=3.24.35
+_gtkver=3.24.36
 
 pkgbase=gtk3-classic
 pkgname=($pkgbase lib32-$pkgbase)
@@ -68,10 +65,7 @@ source=(
 	smaller-adwaita.css
 
 	# GTK source code.
-	#"https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-$_gtkver.tar.xz"
-
-	# WORKAROUND: 3.24.35 is missing a source file (#87)
-	https://gitlab.gnome.org/GNOME/gtk/-/archive/b2ad8d2abafbd94c7e58e5e1b98c92e6b6fa6d9a/gtk-b2ad8d2abafbd94c7e58e5e1b98c92e6b6fa6d9a.tar.bz2
+	"https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-$_gtkver.tar.xz"
 
 	# Arch Linux package files.
 	settings.ini
@@ -103,14 +97,12 @@ sha256sums=('859b18399619d3767333198d519baabfa254e70a6d016bd0a2cfe06928fce9fe'
             '288978a65fbd0524e9194940b9b15774b010cb7193ef5bf5a4a5df3358ef9df6'
             '96ddecb48e5734159f91261c3a4b7f71a757d6aab69d22f11df600fb91511b11'
             'ba93f62e249f2713dbfe6c82de1be4ac655264d6407ed3dc5e05323027520f31'
-            'a11a387bbe8401cf461d6621eb60680155bd168365d4f5d5a9002ab5084f7043'
+            '27a6ef157743350c807ffea59baa1d70226dbede82a5e953ffd58ea6059fe691'
             '01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202'
             'a0319b6795410f06d38de1e8695a9bf9636ff2169f40701671580e60a108e229')
 
 prepare()
 {
-	# WORKAROUND: 3.24.35 needs to use commit tarball because of missing file (#87)
-	mv gtk-b2ad8d2abafbd94c7e58e5e1b98c92e6b6fa6d9a gtk+-$_gtkver
 	cd gtk+-$_gtkver
 
 	QUILT_PATCHES=.. quilt push -av
