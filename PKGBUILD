@@ -19,13 +19,64 @@ provides=(gtk3=$_gtkver gtk3-typeahead=$_gtkver gtk3-mushrooms=$_gtkver gtk3-pri
           libgtk-3.so libgdk-3.so libgailutil-3.so)
 arch=(x86_64)
 license=(LGPL)
-makedepends=(
-	git gobject-introspection libcanberra gtk-doc sassc libcups meson quilt
+depends=(
+	at-spi2-atk
+	atk
+	cairo
+	desktop-file-utils
+	fribidi
+	gdk-pixbuf2
+	gtk-update-icon-cache
+	libepoxy
+	librsvg
+	libxcomposite
+	libxcursor
+	libxdamage
+	libxi
+	libxinerama
+	libxkbcommon
+	libxrandr
+	pango
+	shared-mime-info
+	wayland
+)
+optdepends=(
+	'adwaita-icon-theme: default icon theme'
+	'cantarell-fonts: default font'
+	'colord: color management support'
+	'dconf: default GSettings backend'
+	'libcups: printer support in print dialog'
+)
 
-	atk cairo libxcursor libxinerama libxrandr libxi libepoxy gdk-pixbuf2 fribidi
-	libxcomposite libxdamage pango shared-mime-info at-spi2-atk wayland libxkbcommon
-	json-glib librsvg wayland-protocols desktop-file-utils mesa gtk-update-icon-cache
-	adwaita-icon-theme cantarell-fonts
+makedepends=(
+	adwaita-icon-theme
+	at-spi2-atk
+	atk
+	cairo
+	cantarell-fonts
+	desktop-file-utils
+	fribidi
+	gdk-pixbuf2
+	git
+	gobject-introspection
+	gtk-update-icon-cache
+	libcups
+	libepoxy
+	librsvg
+	libxcomposite
+	libxcursor
+	libxdamage
+	libxi
+	libxinerama
+	libxkbcommon
+	libxrandr
+	meson
+	pango
+	quilt
+	sassc
+	shared-mime-info
+	wayland
+	wayland-protocols
 )
 install=gtk3.install
 source=(
@@ -124,19 +175,6 @@ build()
 
 package_gtk3-classic()
 {
-	depends=(
-		atk cairo libxcursor libxinerama libxrandr libxi libepoxy gdk-pixbuf2 fribidi
-		libxcomposite libxdamage pango shared-mime-info at-spi2-atk wayland libxkbcommon
-		json-glib librsvg desktop-file-utils mesa gtk-update-icon-cache
-	)
-	optdepends=(
-		'adwaita-icon-theme: default icon theme'
-		'cantarell-fonts: default font'
-		'colord: color management support'
-		'dconf: default GSettings backend'
-		'libcups: printer support in print dialog'
-	)
-
 	DESTDIR="$pkgdir" meson install -C build
 
 	install -Dt "$pkgdir/usr/share/gtk-3.0" -m644 settings.ini
