@@ -46,7 +46,7 @@ built autonomously by [GitHub Actions](https://github.com/lah7/gtk3-classic/acti
 
 * Use an [AUR helper](https://wiki.archlinux.org/title/AUR_helpers), such as `yay`:
 
-      yay -S gtk3-classic lib32-gtk3-classic
+      yay -S gtk3-classic
 
 * Build from source, like so:
 

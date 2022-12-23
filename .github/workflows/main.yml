@@ -112,10 +112,6 @@ jobs:
         docker exec archlinux /bin/bash -c "echo 'builder ALL=(ALL:ALL) NOPASSWD:ALL' >> /etc/sudoers"
         docker exec archlinux chown -R builder /workspace
 
-        # Enable 32-bit lib support
-        docker exec archlinux /bin/bash -c "echo -e '\n[multilib]\nInclude = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf"
-        docker exec archlinux pacman -Syu --noconfirm
-
     - name: Validate Package
       run: |
         # Validate the PKGBUILD is the same and free from errors
@@ -142,9 +138,3 @@ jobs:
       with:
         name: gtk3-classic-run${{github.run_number}}-pkg
         path: gtk3-classic-*.pkg*
-
-    - name: 'Upload Artifact: lib32-gtk3-classic'
-      uses: actions/upload-artifact@v2
-      with:
-        name: lib32-gtk3-classic-run${{github.run_number}}-pkg
-        path: lib32-gtk3-classic-*.pkg*

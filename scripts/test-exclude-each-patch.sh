@@ -5,8 +5,7 @@
 #
 # Designed for Arch Linux. Assumes build tools (makepkg) installed.
 #
-# This may take quite some time to build. To speed things up, delete the lib32*
-# and 32-bit build from PKGBUILD before running this.
+# This may take quite some time to build.
 #
 
 # Start in the root of the repository
@@ -37,10 +36,6 @@ do
     # Build and move to output directory
     makepkg --clean --cleanbuild --skipint
     if [ $? == 0 ]; then
-        if [ -f lib32*.tar.zst ]
-        then
-            rm *lib32-*.tar.zst
-        fi
         mv *.tar.zst "$OUTPUT_DIR/$patch.tar.zst"
     else
         echo "Failed to build when patch not present: $patch"

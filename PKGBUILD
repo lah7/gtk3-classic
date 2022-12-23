@@ -9,7 +9,7 @@ __arch_pkg_commit="ec12847fb811add133b399aaf0916c96eb03862e"
 _gtkver=3.24.36
 
 pkgbase=gtk3-classic
-pkgname=($pkgbase lib32-$pkgbase)
+pkgname=($pkgbase)
 pkgver=${_gtkver}
 pkgrel=1
 pkgdesc="GTK3 patched to provide a more classic experience"
@@ -26,11 +26,6 @@ makedepends=(
 	libxcomposite libxdamage pango shared-mime-info at-spi2-atk wayland libxkbcommon
 	json-glib librsvg wayland-protocols desktop-file-utils mesa gtk-update-icon-cache
 	adwaita-icon-theme cantarell-fonts
-
-	lib32-atk lib32-cairo lib32-libxcursor lib32-libxinerama lib32-libxrandr lib32-libxi
-	lib32-libepoxy lib32-gdk-pixbuf2 lib32-fribidi lib32-libxcomposite lib32-libxdamage
-	lib32-pango lib32-at-spi2-atk lib32-wayland lib32-libxkbcommon lib32-json-glib
-	lib32-librsvg lib32-mesa lib32-libcups lib32-krb5 lib32-e2fsprogs
 )
 install=gtk3.install
 source=(
@@ -125,25 +120,6 @@ build()
 		-D tests=false \
 		-D installed_tests=false
 	ninja -C build
-
-	# 32-bit
-	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
-	export PKG_CONFIG_PATH="/usr/share/pkgconfig"
-
-	CFLAGS+=" -m32"
-	CXXFLAGS+=" -m32"
-	LDFLAGS+=" -m32"
-
-	linux32 arch-meson gtk+-$_gtkver build32 \
-		-D broadway_backend=true \
-		-D colord=auto \
-		-D demos=false \
-		-D examples=false \
-		-D introspection=false \
-		-D tests=false \
-		-D installed_tests=false \
-		-D libdir=/usr/lib32
-	linux32 ninja -C build32
 }
 
 package_gtk3-classic()
@@ -167,23 +143,4 @@ package_gtk3-classic()
 	install -Dt "$pkgdir/usr/share/libalpm/hooks" -m644 gtk-query-immodules-3.0.hook
 
 	rm "$pkgdir/usr/bin/gtk-update-icon-cache"
-}
-
-package_lib32-gtk3-classic()
-{
-	pkgdesc="GTK3 patched to provide a more classic experience (32-bit)"
-	depends=(
-		lib32-atk lib32-cairo lib32-libxcursor lib32-libxinerama lib32-libxrandr lib32-libxi
-		lib32-libepoxy lib32-gdk-pixbuf2 lib32-fribidi lib32-libxcomposite lib32-libxdamage
-		lib32-pango lib32-at-spi2-atk lib32-wayland lib32-libxkbcommon lib32-json-glib
-		lib32-librsvg lib32-mesa lib32-libcups lib32-krb5 lib32-e2fsprogs
-		"gtk3-classic>=$pkgver"
-	)
-	conflicts=(lib32-gtk3 lib32-libgtk3-nocsd-git)
-	provides=("lib32-gtk3=$pkgver")
-
-	DESTDIR="$pkgdir" linux32 meson install -C build32
-
-	rm -fr "$pkgdir"/etc
-	rm -fr "$pkgdir"/usr/{bin,share,include}
 }
