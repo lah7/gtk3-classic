@@ -47,7 +47,6 @@ optdepends=(
 	'dconf: default GSettings backend'
 	'libcups: printer support in print dialog'
 )
-
 makedepends=(
 	adwaita-icon-theme
 	at-spi2-atk
@@ -61,7 +60,9 @@ makedepends=(
 	gobject-introspection
 	gtk-update-icon-cache
 	libcups
+	libegl
 	libepoxy
+	libgl
 	librsvg
 	libxcomposite
 	libxcursor
