@@ -1,0 +1,12 @@
+Index: b/gdk/x11/gdkdevicemanager-xi2.c
+===================================================================
+--- a/gdk/x11/gdkdevicemanager-xi2.c
++++ b/gdk/x11/gdkdevicemanager-xi2.c
+@@ -493,6 +493,7 @@ create_device (GdkX11DeviceManagerXI2 *device_manager,
+         input_source = GDK_SOURCE_TABLET_PAD;
+       else if (strstr (tmp_name, "wacom") ||
+                strstr (tmp_name, "pen") ||
++               strstr (tmp_name, "stylus") ||
+                strstr (tmp_name, "eraser"))
+         input_source = GDK_SOURCE_PEN;
+       else if (!strstr (tmp_name, "mouse") &&

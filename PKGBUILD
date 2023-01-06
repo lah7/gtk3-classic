@@ -96,6 +96,7 @@ source=(
 	file-chooser__places-sidebar.patch
 	file-chooser__typeahead.patch
 	fixes__labels-wrapping.patch
+	fixes__stylus-input-devices-are-pens.patch
 	fixes__too-large-menu-covers-bar.disabled-patch
 	other__default-settings.patch
 	other__hide-insert-emoji.patch
