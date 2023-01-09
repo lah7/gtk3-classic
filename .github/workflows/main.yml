@@ -12,6 +12,16 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Check series file
+      run: |
+        for patch in $(ls *.patch); do
+            grep "$patch" series
+            if [ $? != 0 ]; then
+                echo "::error title=$patch::Patch is missing from series file"
+                exit 1
+            fi
+        done
+
     - name: Get GTK Version
       run: |
         source PKGBUILD
