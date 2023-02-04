@@ -61,7 +61,7 @@ If you've previously installed `gtk3-mushrooms`, switch to this new package.
 
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-ppa%3Alah7%2Fgtk3--classic-e95420?logo=ubuntu&logoColor=white)](https://launchpad.net/~lah7/+archive/ubuntu/gtk3-classic)
 
-> Available for these releases: 20.04, 21.10, 22.04
+> **Only available for LTS releases** (starting from 20.04)
 
 These packages are based on the original [`gtk+3.0`](https://packages.ubuntu.com/search?section=all&arch=any&keywords=gtk%2B3.0&searchon=sourcenames)
 package, with the version suffixed with `~classic`.
