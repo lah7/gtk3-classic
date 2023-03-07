@@ -12,6 +12,7 @@ file-chooser__places-sidebar.patch
 file-chooser__typeahead.patch
 fixes__labels-wrapping.patch
 #fixes__too-large-menu-covers-bar.patch
+fixes__wayland_dialogs_header_setting.patch
 other__default-settings.patch
 other__hide-insert-emoji.patch
 other__mnemonics-delay.patch

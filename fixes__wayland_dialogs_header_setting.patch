@@ -1,0 +1,17 @@
+Index: gtk3/gdk/wayland/gdkscreen-wayland.c
+===================================================================
+--- gtk3.orig/gdk/wayland/gdkscreen-wayland.c
++++ gtk3/gdk/wayland/gdkscreen-wayland.c
+@@ -1087,12 +1087,6 @@ gdk_wayland_screen_get_setting (GdkScree
+     return set_capability_setting (screen, value,
+                                    GTK_SHELL1_CAPABILITY_DESKTOP_ICONS);
+ 
+-  if (strcmp (name, "gtk-dialogs-use-header") == 0)
+-    {
+-      g_value_set_boolean (value, TRUE);
+-      return TRUE;
+-    }
+-
+   if (strcmp (name, "gtk-fontconfig-timestamp") == 0)
+     {
+       g_value_set_uint (value, wayland_screen->dbus_settings.fontconfig_timestamp);
