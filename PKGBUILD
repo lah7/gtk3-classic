@@ -11,7 +11,7 @@ _gtkver=3.24.37
 pkgbase=gtk3-classic
 pkgname=($pkgbase)
 pkgver=${_gtkver}
-pkgrel=1
+pkgrel=2
 pkgdesc="GTK3 patched to provide a more classic experience"
 url="https://github.com/lah7/gtk3-classic"
 conflicts=(gtk3 gtk3-typeahead gtk3-print-backends gtk3-nocsd gtk3-nocsd-git gtk3-nocsd-legacy-git)
@@ -118,7 +118,7 @@ source=(
 	settings.ini
 	"gtk-query-immodules-3.0.hook::https://raw.githubusercontent.com/archlinux/svntogit-packages/$__arch_pkg_commit/trunk/gtk-query-immodules-3.0.hook"
 )
-sha256sums=('859b18399619d3767333198d519baabfa254e70a6d016bd0a2cfe06928fce9fe'
+sha256sums=('81ce7c0fa7c1daa22ab377c995759f8a011b167c41442b4edd966ebecbc00701'
             '6de32e1bee6bf4307aaec072fc8431b044e73299720a490298b8c1b7c502e039'
             '9785368d56b851e52de00eec852fc56f636dbc66d53c74d9b102e7c060f69533'
             '760bd3d65b3c5c0be19311d3b9d2be1f33c3bec198bc470de5afe23f5d488b8f'
