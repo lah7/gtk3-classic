@@ -163,6 +163,7 @@ To revert to standard GTK3, remove the patches and rebuild GTK3:
 * Allows windows to be transparent whenever a compositor is enabled.
   * To enable, set the `GTK_RELAX_RGBA` environment variable.
   * See https://gitlab.gnome.org/GNOME/gtk/-/issues/3105
+* Remove hardcoded "gtk-dialogs-use-header" setting under Wayland [(#93)](https://github.com/lah7/gtk3-classic/pull/93)
 
 
 ## Problems?
