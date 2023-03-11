@@ -1,7 +1,6 @@
 appearance__buttons-menus-icons.patch
 appearance__disable-backdrop.patch
 appearance__file-chooser.patch
-appearance__file-chooser_eject_button.patch
 appearance__fix_black_border.patch
 appearance__message-dialogs.patch
 appearance__print-dialog.patch
@@ -9,6 +8,7 @@ appearance__smaller-statusbar.patch
 csd__clean-headerbar.patch
 csd__disabled-by-default.patch
 csd__server-side-shadow.patch
+file-chooser__eject-button.patch
 file-chooser__places-sidebar.patch
 file-chooser__typeahead.patch
 fixes__labels-wrapping.patch
