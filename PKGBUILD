@@ -98,6 +98,7 @@ source=(
 	file-chooser__typeahead.patch
 	fixes__labels-wrapping.patch
 	fixes__too-large-menu-covers-bar.disabled-patch
+	fixes__wayland_dialogs_header_setting.patch
 	other__default-settings.patch
 	other__hide-insert-emoji.patch
 	other__mnemonics-delay.patch
@@ -135,6 +136,7 @@ sha256sums=('1b78c47b807593836b954fd0e4bfd009475a4bec12e070e7daf49ea5294ca1ca'
             'c6fd146e7ab332dd9a394b666b19e6ba7d6ac0932f33fb396f66630134257309'
             '7157b665e2ae724bb6abe8fc382d7178dc4d8d00f29bc63ed2942307ff41914b'
             '2b10b436ebcf8c124fac6e7867f0bf0573ecfb70130893fea37724c5f6719caf'
+            '3f18f2389cf6b26be71db2edaa04969ecd4df4b1fe62e25dc6da83ff374c9d13'
             '64c36c636c73b58afa219737a1f567c37f36df5971edf4352bf0639d907f4567'
             '974374f2799aaa48b9ded985c47d2dda45d2fcdcd63f1749e74b243279467d49'
             '9761a289cf93558ec67bb498b765ccb757027b10071da938ff14fca695a0103d'
