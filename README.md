@@ -183,17 +183,18 @@ The included `scripts/test-exclude-each-patch.sh` script can help with this.
 
 ## Contributing
 
-Due to our limited knowledge with C, we'd appreciate any
-help in fixing bugs caused by patches or any new contributions.
+Our knowledge in C is limited, so we'd appreciate any help in fixing open bugs.
 
-Patches should not break GTK3 or any applications, and should offer "classic"
-functionality as seen in GTK2 or early versions of GTK3.
+Patches should:
+
+* Not break GTK3 or any GTK applications.
+* Offer "classic" functionality remensiant of GTK2 or early versions of GTK3.
 
 Patches are managed using `quilt`.
 
 [How to use `quilt`](https://github.com/lah7/gtk3-classic/wiki/Creating-and-Managing-Patches)
 |
-[View Tasks](https://github.com/lah7/gtk3-classic/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
+[View Open Issues](https://github.com/lah7/gtk3-classic/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 
 Our primary packaging and testing happens on Arch. Checksums in `PKGBUILD`
 need to be updated to pass the automated checks. On an Arch system, these can be
