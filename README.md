@@ -124,6 +124,7 @@ To revert to standard GTK3, remove the patches and rebuild GTK3:
 * Trash and XDG user directories (like Pictures, Downloads, Documents) are removed from Places sidebar.
   * These can be added as bookmarks.
 * File System button in Places sidebar is labeled as "File System" instead of "Computer".
+* The eject button in the Places sidebar can be hidden by setting `gtk-file-chooser-eject-button=false` in `settings.ini`.
 
 #### Appearance
 

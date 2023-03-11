@@ -1,0 +1,192 @@
+Index: gtk3/gtk/gtkfilechooserwidget.c
+===================================================================
+--- gtk3.orig/gtk/gtkfilechooserwidget.c
++++ gtk3/gtk/gtkfilechooserwidget.c
+@@ -3319,6 +3319,12 @@ static void
+ update_appearance (GtkFileChooserWidget *impl)
+ {
+   GtkFileChooserWidgetPrivate *priv = impl->priv;
++  gboolean eject_button = TRUE;
++
++  g_object_get (gtk_widget_get_settings (GTK_WIDGET (impl)),
++                "gtk-file-chooser-eject-button", &eject_button,
++                NULL);
++  gtk_places_sidebar_set_show_mount_eject(GTK_PLACES_SIDEBAR (priv->places_sidebar), eject_button);
+ 
+   if (priv->action == GTK_FILE_CHOOSER_ACTION_SAVE ||
+       priv->action == GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER)
+Index: gtk3/gtk/gtkplacessidebar.c
+===================================================================
+--- gtk3.orig/gtk/gtkplacessidebar.c
++++ gtk3/gtk/gtkplacessidebar.c
+@@ -192,6 +192,7 @@ struct _GtkPlacesSidebar {
+   guint show_starred_location  : 1;
+   guint local_only             : 1;
+   guint populate_all           : 1;
++  guint show_eject             : 1;
+ };
+ 
+ struct _GtkPlacesSidebarClass {
+@@ -262,6 +263,7 @@ enum {
+   PROP_LOCAL_ONLY,
+   PROP_SHOW_OTHER_LOCATIONS,
+   PROP_POPULATE_ALL,
++  PROP_SHOW_MOUNT_EJECT,
+   NUM_PROPERTIES
+ };
+ 
+@@ -520,7 +522,7 @@ add_place (GtkPlacesSidebar            *
+   if (show_unmount || show_eject)
+     g_assert (place_type != PLACES_BOOKMARK);
+ 
+-  show_eject_button = (show_unmount || show_eject);
++  show_eject_button = (sidebar->show_eject && (show_unmount || show_eject));
+ 
+   row = g_object_new (GTK_TYPE_SIDEBAR_ROW,
+                       "sidebar", sidebar,
+@@ -4172,6 +4174,7 @@ gtk_places_sidebar_init (GtkPlacesSideba
+   sidebar->cancellable = g_cancellable_new ();
+ 
+   sidebar->show_trash = TRUE;
++  sidebar->show_eject = TRUE;
+ 
+   create_volume_monitor (sidebar);
+ 
+@@ -4345,6 +4348,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
+         }
+       break;
+ 
++    case PROP_SHOW_MOUNT_EJECT:
++      gtk_places_sidebar_set_show_mount_eject(sidebar, g_value_get_boolean (value));
++      break;
++
+     default:
+       G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, property_id, pspec);
+       break;
+@@ -4407,6 +4414,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
+       g_value_set_boolean (value, sidebar->populate_all);
+       break;
+ 
++    case PROP_SHOW_MOUNT_EJECT:
++      g_value_set_boolean(value, gtk_places_sidebar_get_show_mount_eject(sidebar));
++      break;
++
+     default:
+       G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, property_id, pspec);
+       break;
+@@ -4949,6 +4960,12 @@ gtk_places_sidebar_class_init (GtkPlaces
+                                 P_("Whether the sidebar includes an item to show starred files"),
+                                 FALSE,
+                                 G_PARAM_READWRITE);
++  properties[PROP_SHOW_MOUNT_EJECT] =
++          g_param_spec_boolean ("show-mount-eject",
++                                P_("Show mount eject button"),
++                                P_("Whether the sidebar includes mount eject buttons"),
++                                TRUE,
++                                G_PARAM_READWRITE);
+ 
+ 
+   /**
+@@ -5750,3 +5767,45 @@ gtk_places_sidebar_get_show_starred_loca
+ 
+   return sidebar->show_starred_location;
+ }
++
++/**
++ * gtk_places_sidebar_set_show_mount_eject:
++ * @sidebar: a places sidebar
++ * @show_eject: whether to show mount eject buttons
++ *
++ * Sets whether the @sidebar should show mount eject buttons.
++ *
++ * Since: 3.22.37
++ */
++void
++gtk_places_sidebar_set_show_mount_eject (GtkPlacesSidebar *sidebar,
++                                         gboolean         show_eject)
++{
++  g_return_if_fail (GTK_IS_PLACES_SIDEBAR (sidebar));
++
++  show_eject = !!show_eject;
++  if (sidebar->show_eject != show_eject)
++    {
++      sidebar->show_eject = show_eject;
++      update_places (sidebar);
++      g_object_notify_by_pspec (G_OBJECT (sidebar), properties[PROP_SHOW_MOUNT_EJECT]);
++    }
++}
++
++/**
++ * gtk_places_sidebar_get_show_mount_eject:
++ * @sidebar: a places sidebar
++ *
++ * Returns the value previously set with gtk_places_sidebar_set_show_mount_eject()
++ *
++ * Returns: %TRUE if the sidebar will display a mount eject buttons.
++ *
++ * Since: 3.22.37
++ */
++gboolean
++gtk_places_sidebar_get_show_mount_eject (GtkPlacesSidebar *sidebar)
++{
++  g_return_val_if_fail (GTK_IS_PLACES_SIDEBAR (sidebar), TRUE);
++
++  return sidebar->show_eject;
++}
+\ No newline at end of file
+Index: gtk3/gtk/gtkplacessidebar.h
+===================================================================
+--- gtk3.orig/gtk/gtkplacessidebar.h
++++ gtk3/gtk/gtkplacessidebar.h
+@@ -155,6 +155,12 @@ void                 gtk_places_sidebar_
+                                                                    gboolean            show_starred_location);
+ GDK_AVAILABLE_IN_3_22
+ gboolean             gtk_places_sidebar_get_show_starred_location (GtkPlacesSidebar   *sidebar);
++
++GDK_AVAILABLE_IN_3_24
++gboolean           gtk_places_sidebar_get_show_mount_eject        (GtkPlacesSidebar   *sidebar);
++GDK_AVAILABLE_IN_3_24
++void               gtk_places_sidebar_set_show_mount_eject        (GtkPlacesSidebar   *sidebar,
++                                                                   gboolean           show_eject);
+ G_END_DECLS
+ 
+ #endif /* __GTK_PLACES_SIDEBAR_H__ */
+Index: gtk3/gtk/gtksettings.c
+===================================================================
+--- gtk3.orig/gtk/gtksettings.c
++++ gtk3/gtk/gtksettings.c
+@@ -226,7 +226,8 @@ enum {
+   PROP_RECENT_FILES_ENABLED,
+   PROP_LONG_PRESS_TIME,
+   PROP_KEYNAV_USE_CARET,
+-  PROP_OVERLAY_SCROLLING
++  PROP_OVERLAY_SCROLLING,
++  PROP_FILE_CHOOSER_EJECT_BUTTON
+ };
+ 
+ /* --- prototypes --- */
+@@ -1796,6 +1797,24 @@ gtk_settings_class_init (GtkSettingsClas
+                                                                    GTK_PARAM_READWRITE),
+                                              NULL);
+   g_assert (result == PROP_OVERLAY_SCROLLING);
++
++  /**
++   * GtkSettings:gtk-file-chooser-eject-button:
++   *
++   * Whether a mount/eject button is visible for mount entries within the
++   * file-chooser places sidebar widget. If this is set to %FALSE, a mount/eject
++   * button will not be visible for mount entries.
++   *
++   * Since: 3.24.37
++   */
++  result = settings_install_property_parser (class,
++                                             g_param_spec_boolean ("gtk-file-chooser-eject-button",
++                                                                   P_("Whether file-chooser mounts include a mount/eject button"),
++                                                                   P_("Whether file-chooser mounts include a mount/eject button"),
++                                                                   TRUE,
++                                                                   GTK_PARAM_READWRITE),
++                                             NULL);
++  g_assert (result == PROP_FILE_CHOOSER_EJECT_BUTTON);
+ }
+ 
+ static void
