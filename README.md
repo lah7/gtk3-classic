@@ -212,6 +212,10 @@ Drop by our [Discussions](https://github.com/lah7/gtk3-classic/discussions) tab,
 you can find curated tips, chat and introductions from other classic users. There is
 also a category for help & support, if you need help getting GTK related stuff working.
 
+XFCE users might be interested in these additional patches:
+
+* https://github.com/simplejack-src/gtk3-classic-xfce
+
 
 ## License
 
