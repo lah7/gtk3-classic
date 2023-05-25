@@ -89,7 +89,7 @@ To install, first add the overlay and accept the package's testing status:
 
     sudo eselect repository enable khoverlay
     sudo emerge --sync khoverlay
-    echo 'x11-libs/gtk3-classic-patches::khoverlay' | sudo tee /etc/portage/package.accept_keywords
+    echo 'x11-libs/gtk3-classic-patches::khoverlay' | sudo tee -a /etc/portage/package.accept_keywords
 
 Then install the patches and rebuild GTK3:
 
