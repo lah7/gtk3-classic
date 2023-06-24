@@ -1,8 +1,8 @@
-Index: gtk3/gdk/wayland/gdkscreen-wayland.c
+Index: b/gdk/wayland/gdkscreen-wayland.c
 ===================================================================
---- gtk3.orig/gdk/wayland/gdkscreen-wayland.c
-+++ gtk3/gdk/wayland/gdkscreen-wayland.c
-@@ -1087,12 +1087,6 @@ gdk_wayland_screen_get_setting (GdkScree
+--- a/gdk/wayland/gdkscreen-wayland.c 2023-05-21 23:22:08.000000000 -0300
++++ b/gdk/wayland/gdkscreen-wayland.c 2023-06-22 04:50:25.890352858 -0300
+@@ -1087,12 +1087,6 @@
      return set_capability_setting (screen, value,
                                     GTK_SHELL1_CAPABILITY_DESKTOP_ICONS);
  
