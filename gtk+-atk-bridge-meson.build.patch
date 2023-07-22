@@ -1,0 +1,31 @@
+Martin V\"ath <martin at mvath.de>
+
+Honor atk_bridge option
+
+--- 1/meson.build
++++ 2/meson.build
+@@ -564,7 +564,12 @@
+   xfixes_dep     = dependency('xfixes', required: false)
+   xcomposite_dep = dependency('xcomposite', required: false)
+   fontconfig_dep = dependency('fontconfig', fallback: ['fontconfig', 'fontconfig_dep'])
+-  atkbridge_dep  = dependency('atk-bridge-2.0', version: at_spi2_atk_req)
++
++  atk_bridge_enabled = get_option('atk_bridge')
++  if atk_bridge_enabled
++    atkbridge_dep  = dependency('atk-bridge-2.0', version: at_spi2_atk_req)
++    cdata.set('HAVE_ATK_BRIDGE', 1)
++  endif
+ 
+   backend_immodules += ['xim']
+ 
+@@ -583,7 +588,9 @@
+     x11_pkgs += ['xdamage']
+   endif
+ 
+-  atk_pkgs += ['atk-bridge-2.0']
++  if atk_bridge_enabled
++    atk_pkgs += ['atk-bridge-2.0']
++  endif
+ 
+   cdata.set('HAVE_XDAMAGE', xdamage_dep.found() ? 1 : false)
+   cdata.set('HAVE_XCURSOR', xcursor_dep.found() ? 1 : false)
