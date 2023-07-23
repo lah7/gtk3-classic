@@ -10,5 +10,5 @@ Add atk_bridge option
         value: '', description: 'Build specified immodules into GTK so/DLL (comma-separated list), "all", "none" or "backend"')
 +
 +# Recommended dependencies
-+option('atk_bridge', type: 'boolean', value: false,
++option('atk_bridge', type: 'boolean', value: true,
 +  description : 'Enable atk-bridge support')
