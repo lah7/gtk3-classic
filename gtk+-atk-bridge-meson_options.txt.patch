@@ -1,0 +1,14 @@
+Martin V\"ath <martin at mvath.de>
+
+Add atk_bridge option
+
+--- 1/meson_options.txt
++++ 2/meson_options.txt
+@@ -47,3 +47,7 @@
+ # input modules
+ option('builtin_immodules', type: 'string',
+        value: '', description: 'Build specified immodules into GTK so/DLL (comma-separated list), "all", "none" or "backend"')
++
++# Recommended dependencies
++option('atk_bridge', type: 'boolean', value: true,
++  description : 'Enable atk-bridge support')

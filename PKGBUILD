@@ -99,6 +99,9 @@ source=(
 	fixes__labels-wrapping.patch
 	fixes__too-large-menu-covers-bar.disabled-patch
 	fixes__wayland_dialogs_header_setting.patch
+	gtk+-atk-bridge-gtkaccessibility.patch
+	gtk+-atk-bridge-meson.build.patch
+	gtk+-atk-bridge-meson_options.txt.patch
 	other__default-settings.patch
 	other__hide-insert-emoji.patch
 	other__mnemonics-delay.patch
@@ -120,7 +123,7 @@ source=(
 	settings.ini
 	"gtk-query-immodules-3.0.hook::https://gitlab.archlinux.org/archlinux/packaging/packages/gtk3/-/raw/$__arch_pkg_commit/gtk-query-immodules-3.0.hook"
 )
-sha256sums=('1b78c47b807593836b954fd0e4bfd009475a4bec12e070e7daf49ea5294ca1ca'
+sha256sums=('d2221ddf74d85a8ae64f017d9887f82e17b7423e8096f19e10d09396e4b7aeac'
             '6de32e1bee6bf4307aaec072fc8431b044e73299720a490298b8c1b7c502e039'
             '9785368d56b851e52de00eec852fc56f636dbc66d53c74d9b102e7c060f69533'
             '760bd3d65b3c5c0be19311d3b9d2be1f33c3bec198bc470de5afe23f5d488b8f'
@@ -137,6 +140,9 @@ sha256sums=('1b78c47b807593836b954fd0e4bfd009475a4bec12e070e7daf49ea5294ca1ca'
             '7157b665e2ae724bb6abe8fc382d7178dc4d8d00f29bc63ed2942307ff41914b'
             '2b10b436ebcf8c124fac6e7867f0bf0573ecfb70130893fea37724c5f6719caf'
             '0e62c79e03b761e632a1178173439ffe86b99f759fc85f9f15f2c928b305e95d'
+            '96c5dc456821ab4d1e40be3fdcfcaa2dab62fa0e058a622a379cc40fcad56091'
+            '364e1434fc99aef3c59180982af769c9e96ec0bec4e0cf272b7d1b0a2b566fb7'
+            '9423d26ff2791c7a4f3c1f0d7eeda9132ebaa69266f5e7e8770588233a674bbb'
             '64c36c636c73b58afa219737a1f567c37f36df5971edf4352bf0639d907f4567'
             '974374f2799aaa48b9ded985c47d2dda45d2fcdcd63f1749e74b243279467d49'
             '9761a289cf93558ec67bb498b765ccb757027b10071da938ff14fca695a0103d'
