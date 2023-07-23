@@ -166,6 +166,14 @@ To revert to standard GTK3, remove the patches and rebuild GTK3:
   * See https://gitlab.gnome.org/GNOME/gtk/-/issues/3105
 * Remove hardcoded "gtk-dialogs-use-header" setting under Wayland [(#93)](https://github.com/lah7/gtk3-classic/pull/93)
 
+#### Build time
+
+* `atk-bridge` can be optionally disabled. [(#101)](https://github.com/lah7/gtk3-classic/pull/101)
+  * Similar to how you could build with `--without-atk-bridge` over a decade ago.
+  * This would remove support for accessibility features; some apps could break.
+  * Allows for D-Bus to be an optional dependency. [(#40)](https://github.com/lah7/gtk3-classic/issues/40)
+  * To build without this feature, set meson option `atk_bridge` to `false` (default: `true`) and remove the dependencies from your package accordingly.
+
 
 ## Problems?
 
