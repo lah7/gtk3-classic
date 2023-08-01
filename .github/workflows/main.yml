@@ -69,7 +69,7 @@ jobs:
         meson gtk+-${_gtkver} build \
             -D broadway_backend=true \
             -D colord=auto \
-            -D demos=true \
+            -D demos=false \
             -D examples=false \
             -D introspection=true \
             -D tests=false \

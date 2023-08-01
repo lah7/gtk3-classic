@@ -11,7 +11,7 @@ _gtkver=3.24.38
 pkgbase=gtk3-classic
 pkgname=($pkgbase)
 pkgver=${_gtkver}
-pkgrel=1
+pkgrel=2
 pkgdesc="Patched GTK+3 that provides a more classic experience"
 url="https://github.com/lah7/gtk3-classic"
 conflicts=(gtk3 gtk3-typeahead gtk3-print-backends gtk3-nocsd gtk3-nocsd-git gtk3-nocsd-legacy-git)
@@ -176,7 +176,7 @@ build()
 	arch-meson gtk+-$_gtkver build \
 		-D broadway_backend=true \
 		-D colord=auto \
-		-D demos=true \
+		-D demos=false \
 		-D examples=false \
 		-D introspection=true \
 		-D tests=false \
