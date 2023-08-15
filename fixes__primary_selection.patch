@@ -1,0 +1,337 @@
+Index: b/gtk/gtkentry.c
+===================================================================
+--- a/gtk/gtkentry.c
++++ b/gtk/gtkentry.c
+@@ -251,6 +251,9 @@ struct _GtkEntryPrivate
+ 
+   gint64        handle_place_time;
+ 
++  gint          last_selection_start;
++  gint          last_selection_end;
++
+   guint         shadow_type             : 4;
+   guint         editable                : 1;
+   guint         show_emoji_icon         : 1;
+@@ -7404,11 +7407,12 @@ primary_get_cb (GtkClipboard     *clipbo
+ 		gpointer          data)
+ {
+   GtkEntry *entry = GTK_ENTRY (data);
+-  gint start, end;
+-  
+-  if (gtk_editable_get_selection_bounds (GTK_EDITABLE (entry), &start, &end))
++  GtkEntryPrivate *priv = entry->priv;
++  if (priv->last_selection_start != priv->last_selection_end)
+     {
+-      gchar *str = _gtk_entry_get_display_text (entry, start, end);
++      gchar *str = _gtk_entry_get_display_text (entry,
++                                                priv->last_selection_start,
++                                                priv->last_selection_end);
+       gtk_selection_data_set_text (selection_data, str, -1);
+       g_free (str);
+     }
+@@ -7421,12 +7425,16 @@ primary_clear_cb (GtkClipboard *clipboar
+   GtkEntry *entry = GTK_ENTRY (data);
+   GtkEntryPrivate *priv = entry->priv;
+ 
++  priv->last_selection_start = 0;
++  priv->last_selection_end = 0;
++
+   gtk_editable_select_region (GTK_EDITABLE (entry), priv->current_pos, priv->current_pos);
+ }
+ 
+ static void
+ gtk_entry_update_primary_selection (GtkEntry *entry)
+ {
++  GtkEntryPrivate *priv = entry->priv;
+   GtkTargetList *list;
+   GtkTargetEntry *targets;
+   GtkClipboard *clipboard;
+@@ -7445,14 +7453,12 @@ gtk_entry_update_primary_selection (GtkE
+   
+   if (gtk_editable_get_selection_bounds (GTK_EDITABLE (entry), &start, &end))
+     {
++      priv->last_selection_start = start;
++      priv->last_selection_end = end;
++
+       gtk_clipboard_set_with_owner (clipboard, targets, n_targets,
+                                     primary_get_cb, primary_clear_cb, G_OBJECT (entry));
+     }
+-  else
+-    {
+-      if (gtk_clipboard_get_owner (clipboard) == G_OBJECT (entry))
+-	gtk_clipboard_clear (clipboard);
+-    }
+ 
+   gtk_target_table_free (targets, n_targets);
+   gtk_target_list_unref (list);
+Index: b/gtk/gtklabel.c
+===================================================================
+--- a/gtk/gtklabel.c
++++ b/gtk/gtklabel.c
+@@ -267,6 +267,9 @@ struct _GtkLabelPrivate
+   gfloat   xalign;
+   gfloat   yalign;
+ 
++  gint     last_selection_anchor;
++  gint     last_selection_end;
++
+   guint    mnemonics_visible  : 1;
+   guint    jtype              : 2;
+   guint    wrap               : 1;
+@@ -5680,9 +5683,13 @@ gtk_label_get_angle  (GtkLabel *label)
+ }
+ 
+ static void
+-gtk_label_set_selection_text (GtkLabel         *label,
+-			      GtkSelectionData *selection_data)
++gtk_label_drag_data_get (GtkWidget        *widget,
++			 GdkDragContext   *context,
++			 GtkSelectionData *selection_data,
++			 guint             info,
++			 guint             time)
+ {
++  GtkLabel *label = GTK_LABEL (widget);
+   GtkLabelPrivate *priv = label->priv;
+ 
+   if (priv->select_info &&
+@@ -5713,22 +5720,40 @@ gtk_label_set_selection_text (GtkLabel
+ }
+ 
+ static void
+-gtk_label_drag_data_get (GtkWidget        *widget,
+-			 GdkDragContext   *context,
+-			 GtkSelectionData *selection_data,
+-			 guint             info,
+-			 guint             time)
+-{
+-  gtk_label_set_selection_text (GTK_LABEL (widget), selection_data);
+-}
+-
+-static void
+ get_text_callback (GtkClipboard     *clipboard,
+                    GtkSelectionData *selection_data,
+                    guint             info,
+                    gpointer          user_data_or_owner)
+ {
+-  gtk_label_set_selection_text (GTK_LABEL (user_data_or_owner), selection_data);
++  GtkLabel *label;
++  GtkLabelPrivate *priv;
++
++  label = GTK_LABEL (user_data_or_owner);
++  priv = label->priv;
++
++  if ((priv->last_selection_anchor != priv->last_selection_end) &&
++      priv->text)
++    {
++      gint start, end;
++      gint len;
++
++      start = MIN (priv->last_selection_anchor,
++                   priv->last_selection_end);
++      end = MAX (priv->last_selection_anchor,
++                 priv->last_selection_end);
++
++      len = strlen (priv->text);
++
++      if (end > len)
++        end = len;
++
++      if (start > len)
++        start = len;
++
++      gtk_selection_data_set_text (selection_data,
++				   priv->text + start,
++				   end - start);
++    }
+ }
+ 
+ static void
+@@ -5741,6 +5766,9 @@ clear_text_callback (GtkClipboard     *c
+   label = GTK_LABEL (user_data_or_owner);
+   priv = label->priv;
+ 
++  priv->last_selection_anchor = 0;
++  priv->last_selection_end = 0;
++
+   if (priv->select_info)
+     {
+       priv->select_info->selection_anchor = priv->select_info->selection_end;
+@@ -5844,6 +5872,9 @@ gtk_label_select_region_index (GtkLabel
+           GtkTargetEntry *targets;
+           gint n_targets;
+ 
++          priv->last_selection_anchor = anchor_index;
++          priv->last_selection_end = end_index;
++
+           list = gtk_target_list_new (NULL, 0);
+           gtk_target_list_add_text_targets (list, 0);
+           targets = gtk_target_table_new_from_list (list, &n_targets);
+@@ -5872,10 +5903,6 @@ gtk_label_select_region_index (GtkLabel
+         }
+       else
+         {
+-          if (clipboard &&
+-              gtk_clipboard_get_owner (clipboard) == G_OBJECT (label))
+-            gtk_clipboard_clear (clipboard);
+-
+           if (priv->select_info->selection_node)
+             {
+               gtk_css_node_set_parent (priv->select_info->selection_node, NULL);
+Index: b/gtk/gtktextbuffer.c
+===================================================================
+--- a/gtk/gtktextbuffer.c
++++ b/gtk/gtktextbuffer.c
+@@ -72,6 +72,9 @@ struct _GtkTextBufferPrivate
+   GSList *clipboard_contents_buffers;
+   GSList *selection_clipboards;
+ 
++  GtkTextMark *last_selection_start;
++  GtkTextMark *last_selection_end;
++
+   GtkTextLogAttrCache *log_attr_cache;
+ 
+   guint user_action_count;
+@@ -804,6 +807,18 @@ gtk_text_buffer_finalize (GObject *objec
+   buffer = GTK_TEXT_BUFFER (object);
+   priv = buffer->priv;
+ 
++  if (priv->last_selection_start != NULL)
++    {
++      gtk_text_buffer_delete_mark (buffer, priv->last_selection_start);
++      priv->last_selection_start = NULL;
++    }
++
++  if (priv->last_selection_end != NULL)
++    {
++      gtk_text_buffer_delete_mark (buffer, priv->last_selection_end);
++      priv->last_selection_end = NULL;
++    }
++
+   remove_all_selection_clipboards (buffer);
+ 
+   if (priv->tag_table)
+@@ -3189,11 +3204,24 @@ static void
+ clipboard_clear_selection_cb (GtkClipboard *clipboard,
+                               gpointer      data)
+ {
+-  /* Move selection_bound to the insertion point */
+   GtkTextIter insert;
+   GtkTextIter selection_bound;
+   GtkTextBuffer *buffer = GTK_TEXT_BUFFER (data);
++  GtkTextBufferPrivate *priv = buffer->priv;
+ 
++  if (priv->last_selection_start != NULL)
++    {
++      gtk_text_buffer_delete_mark (buffer, priv->last_selection_start);
++      priv->last_selection_start = NULL;
++    }
++
++  if (priv->last_selection_end != NULL)
++    {
++      gtk_text_buffer_delete_mark (buffer, priv->last_selection_end);
++      priv->last_selection_end = NULL;
++    }
++
++  /* Move selection_bound to the insertion point */
+   gtk_text_buffer_get_iter_at_mark (buffer, &insert,
+                                     gtk_text_buffer_get_insert (buffer));
+   gtk_text_buffer_get_iter_at_mark (buffer, &selection_bound,
+@@ -3215,9 +3243,16 @@ clipboard_get_selection_cb (GtkClipboard
+                             gpointer          data)
+ {
+   GtkTextBuffer *buffer = GTK_TEXT_BUFFER (data);
++  GtkTextBufferPrivate *priv = buffer->priv;
+   GtkTextIter start, end;
+ 
+-  if (gtk_text_buffer_get_selection_bounds (buffer, &start, &end))
++  if (priv->last_selection_start == NULL || priv->last_selection_end == NULL)
++    return;
++
++  gtk_text_buffer_get_iter_at_mark (buffer, &start, priv->last_selection_start);
++  gtk_text_buffer_get_iter_at_mark (buffer, &end, priv->last_selection_end);
++
++  if (!gtk_text_iter_equal (&start, &end))
+     {
+       if (info == GTK_TEXT_BUFFER_TARGET_INFO_BUFFER_CONTENTS)
+         {
+@@ -3648,7 +3683,15 @@ clipboard_clipboard_buffer_received (Gtk
+ 	}
+       else
+ 	{
+-	  if (gtk_text_buffer_get_selection_bounds (src_buffer, &start, &end))
++          GtkTextBufferPrivate *priv = src_buffer->priv;
++
++          if (priv->last_selection_start == NULL || priv->last_selection_end == NULL)
++            return;
++
++          gtk_text_buffer_get_iter_at_mark (src_buffer, &start, priv->last_selection_start);
++          gtk_text_buffer_get_iter_at_mark (src_buffer, &end, priv->last_selection_end);
++
++          if (!gtk_text_iter_equal (&start, &end))
+ 	    paste_from_buffer (clipboard, request_data, src_buffer,
+ 			       &start, &end);
+ 	}
+@@ -3683,39 +3726,41 @@ typedef struct
+ static void
+ update_selection_clipboards (GtkTextBuffer *buffer)
+ {
+-  GtkTextBufferPrivate *priv;
+   gboolean has_selection;
+   GtkTextIter start;
+   GtkTextIter end;
+-  GSList *tmp_list;
++  GtkTextBufferPrivate *priv = buffer->priv;
++  GSList *l;
+ 
+-  priv = buffer->priv;
++  if (!gtk_text_buffer_get_selection_bounds (buffer, &start, &end))
++    return;
++
++  if (priv->last_selection_start != NULL)
++    gtk_text_buffer_move_mark (buffer, priv->last_selection_start, &start);
++  else
++    priv->last_selection_start = gtk_text_buffer_create_mark (buffer, NULL, &start, FALSE);
++
++  if (priv->last_selection_end != NULL)
++    gtk_text_buffer_move_mark (buffer, priv->last_selection_end, &end);
++  else
++    priv->last_selection_end = gtk_text_buffer_create_mark (buffer, NULL, &end, TRUE);
+ 
+   gtk_text_buffer_get_copy_target_list (buffer);
+   has_selection = gtk_text_buffer_get_selection_bounds (buffer, &start, &end);
+-  tmp_list = buffer->priv->selection_clipboards;
+ 
+-  while (tmp_list)
++  for (l = priv->selection_clipboards; l != NULL; l = l->next)
+     {
+-      SelectionClipboard *selection_clipboard = tmp_list->data;
++      SelectionClipboard *selection_clipboard = l->data;
+       GtkClipboard *clipboard = selection_clipboard->clipboard;
+ 
+-      if (has_selection)
+-        {
+-          /* Even if we already have the selection, we need to update our
+-           * timestamp.
+-           */
+-          gtk_clipboard_set_with_owner (clipboard,
+-                                        priv->copy_target_entries,
+-                                        priv->n_copy_target_entries,
+-                                        clipboard_get_selection_cb,
+-                                        clipboard_clear_selection_cb,
+-                                        G_OBJECT (buffer));
+-        }
+-      else if (gtk_clipboard_get_owner (clipboard) == G_OBJECT (buffer))
+-        gtk_clipboard_clear (clipboard);
+-
+-      tmp_list = tmp_list->next;
++      /* Even if we already have the selection, we need to update our timestamp. */
++      if (!gtk_clipboard_set_with_owner (clipboard,
++                                         priv->copy_target_entries,
++                                         priv->n_copy_target_entries,
++                                         clipboard_get_selection_cb,
++                                         clipboard_clear_selection_cb,
++                                         G_OBJECT (buffer)))
++        clipboard_clear_selection_cb (clipboard, buffer);
+     }
+ }
+ 
