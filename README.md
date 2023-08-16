@@ -167,6 +167,10 @@ To revert to standard GTK3, remove the patches and rebuild GTK3:
   * To enable, set the `GTK_RELAX_RGBA` environment variable.
   * See https://gitlab.gnome.org/GNOME/gtk/-/issues/3105
 * Remove hardcoded "gtk-dialogs-use-header" setting under Wayland [(#93)](https://github.com/lah7/gtk3-classic/pull/93)
+* The _primary selection_ is no longer cleared when deselecting text.
+  * This refers to an X.org feature that lets you middle click to paste the last highlighted text at the mouse pointer's position. This is separate from your main clipboard (CTRL+C, CTRL+V).
+  * This makes GTK consistent with other toolkits.
+  * See https://gitlab.gnome.org/GNOME/gtk/-/issues/317
 
 #### Build time
 
