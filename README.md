@@ -23,19 +23,18 @@ on GNOME desktops is not recommended!
 
 [![AUR](https://img.shields.io/aur/version/gtk3-classic?label=AUR&logo=archlinux&logoColor=white)](https://aur.archlinux.org/packages/gtk3-classic/)
 
-Available from the AUR under [`gtk3-classic`](https://aur.archlinux.org/packages/gtk3-classic/),
-which is based on the official [`gtk3`](https://archlinux.org/packages/extra/x86_64/gtk3/) package
-with some slight changes:
+Available from the AUR under [`gtk3-classic`](https://aur.archlinux.org/packages/gtk3-classic/) (previously `gtk3-mushrooms`)
 
-* These dependencies are now optional:
+Based on the official [`gtk3`](https://archlinux.org/packages/extra/x86_64/gtk3/) package
+with some changes to make the package more lightweight:
+
+* Demos, examples and tests excluded.
+* Some dependencies made optional:
     * `adwaita-icon-theme` - default icon theme
     * `cantarell-fonts` - default font
     * `dconf` - default GSettings backend
     * `colord` - color management support
     * `libcups` - enable printers in print dialog
-* Excludes demos, examples and tests.
-
-Any variant of this package found in the wild is not supported.
 
 There's a few ways to install:
 
@@ -48,13 +47,15 @@ built autonomously by [GitHub Actions](https://github.com/lah7/gtk3-classic/acti
 
       yay -S gtk3-classic
 
-* Build from source, like so:
+    > The [AUR's PKGBUILD](https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=gtk3-classic) follows this repository's [latest release](https://github.com/lah7/gtk3-classic/releases) as its source.
+
+* Build from source:
 
       git clone https://github.com/lah7/gtk3-classic
       cd gtk3-classic
       makepkg -s
 
-If you've previously installed `gtk3-mushrooms`, switch to this new package.
+    > This [repository's PKGBUILD](https://github.com/lah7/gtk3-classic/blob/master/PKGBUILD) allows for selectively choosing patches.
 
 
 ## Ubuntu
@@ -189,7 +190,8 @@ your distribution or any applications.** If you are having trouble with an
 application or theme, try reverting to the original `gtk3` to confirm
 it's **definitely** a problem with these patches.
 
-**Use Arch?** Try isolating the problematic patch by excluding them in your PKGBUILD and rebuilding.
+**Use Arch?** Try isolating the problematic patch by excluding them and rebuilding
+using the `PKGBUILD` in this repository.
 The included `scripts/test-exclude-each-patch.sh` script can help with this.
 
 [See Support Discussions](https://github.com/lah7/gtk3-classic/discussions/categories/help-support)
