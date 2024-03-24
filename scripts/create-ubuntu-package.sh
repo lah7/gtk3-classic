@@ -87,8 +87,13 @@ done
 quilt pop -a
 unset QUILT_PATCHES
 
-# Prevent checks from being run
+# Prevent checks/tests from being run
 grep "export DEB_BUILD_OPTIONS = nocheck" debian/rules || sed -i "s/^export VERBOSE=1/export VERBOSE=1\nexport DEB_BUILD_OPTIONS = nocheck/" debian/rules
+echo -e "#!/bin/sh\nexit 0" > debian/run-tests.sh
+
+# Make amendments to packaging
+sed -i '/^Uploaders:/d' debian/control
+sed -i 's/(>= 1.22.5)//g' debian/control # Launchpad builders don't have dpkg-dev >= 1.22.5
 
 # Create a new release
 set +x
@@ -110,12 +115,13 @@ set +e
 LATEST_GIT_COMMIT=$(git log -n 1 --pretty=format:"%h")
 dch -D $CODENAME -v $GTKVERSION-${revision}~classic~$RELEASE "Rebuild with latest patches for gtk3-classic ($LATEST_GIT_COMMIT)"
 
+set -x
 if [ ! $? == 0 ]; then
-    read -p "Type new version string: " NEWVERSION
+    echo -e "There was an error running the 'dch' command."
+    read -p "Manually enter package version: " NEWVERSION
     dch -D $CODENAME -v $NEWVERSION "Rebuild"
 fi
 
-set -x
 nano debian/changelog
 
 # Build source package
