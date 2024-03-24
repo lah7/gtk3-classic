@@ -115,7 +115,7 @@ jobs:
       run: |
         # Start and update Arch Linux within a Docker container
         docker run --privileged -d -t -v ~/pacman-cache/pkg:/var/cache/pacman/pkg -v $GITHUB_WORKSPACE:/workspace --name archlinux archlinux:base-devel
-        docker exec archlinux pacman -Sy --noconfirm namcap
+        docker exec archlinux pacman -Syu --noconfirm namcap
 
         # Add user
         docker exec archlinux useradd builder
