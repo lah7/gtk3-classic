@@ -257,4 +257,4 @@ XFCE users might be interested in these additional patches too:
 
 ## License
 
-Patches follow the same license as GTK 3, which is LGPL.
+Patches follow the same license as [GTK 3](https://gitlab.gnome.org/GNOME/gtk/-/commits/gtk-3-24), which is [LGPL](https://gitlab.gnome.org/GNOME/gtk/-/blob/main/COPYING?ref_type=heads).
