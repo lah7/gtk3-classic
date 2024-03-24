@@ -6,7 +6,7 @@
 
 ![Screenshot of some of the tweaks](.github/readme/preview.png)
 
-This repository contains patches to restore GTK3's look & feel reminiscent to
+This repository contains patches to restore GTK 3's look & feel reminiscent to
 earlier versions. With many enhancements such as disabled CSD headers,
 traditional dialog boxes and file browser improvements.
 
@@ -20,11 +20,11 @@ on GNOME desktops is not recommended!
 ## About
 
 Once known as `gtk3-mushrooms`, this repository is a collection of patches
-that apply on top of the GTK+3 source code. It's not a fork of GTK+3.
+that apply on top of the GTK 3 source code. It's not a fork of GTK 3.
 
 This repository acts as a central hub for these patches and will keep rolling
-if there's a new GTK+3 release. The patches aim to bring a bit of reminiscence
-to GTK+2 and GTK+3's early days (hence, "classic")
+if there's a new GTK 3 release. The patches aim to bring a bit of reminiscence
+to GTK 2 and GTK 3's early days (hence, "classic")
 
 **This repository is provided as-is, with no warranty or guaranteed support.**
 While the patched installation should just work, you are entering unsupported tertiary.
@@ -92,7 +92,7 @@ To install, [add the repository](https://launchpad.net/~lah7/+archive/ubuntu/gtk
     sudo add-apt-repository ppa:lah7/gtk3-classic
     sudo apt dist-upgrade
 
-To restore the original GTK3, use `ppa-purge` to restore the packages from Ubuntu's repository:
+To restore the original GTK 3, use `ppa-purge` to restore the packages from Ubuntu's repository:
 
     sudo apt-get install ppa-purge
     sudo ppa-purge ppa:lah7/gtk3-classic
@@ -103,7 +103,7 @@ To restore the original GTK3, use `ppa-purge` to restore the packages from Ubunt
 A Gentoo ebuild is available as `x11-libs/gtk3-classic-patches` in
 the `khoverlay` overlay.  Rather than providing a patched `x11-libs/gtk+:3`
 ebuild directly, this ebuild installs user patches which will be applied on
-subsequent builds of GTK3.  This way, the latest official Gentoo GTK3 ebuild can
+subsequent builds of GTK 3.  This way, the latest official Gentoo GTK 3 ebuild can
 always be used.
 
 To install, first add the overlay and accept the package's testing status:
@@ -112,12 +112,12 @@ To install, first add the overlay and accept the package's testing status:
     sudo emerge --sync khoverlay
     echo 'x11-libs/gtk3-classic-patches::khoverlay' | sudo tee -a /etc/portage/package.accept_keywords
 
-Then install the patches and rebuild GTK3:
+Then install the patches and rebuild GTK 3:
 
     sudo emerge -av gtk3-classic-patches
     sudo emerge -av1 gtk+:3
 
-To revert to standard GTK3, remove the patches and rebuild GTK3:
+To revert to standard GTK 3, remove the patches and rebuild GTK 3:
 
     sudo emerge -cav gtk3-classic-patches
     sudo emerge -av1 gtk+:3
@@ -179,11 +179,11 @@ To revert to standard GTK3, remove the patches and rebuild GTK3:
 
 #### Fixes
 
-* Reinstate the ability to switch between standard tabs by scrolling over them, similar to GTK2.
+* Reinstate the ability to switch between standard tabs by scrolling over them, similar to GTK 2.
   * This can be disabled by setting `GTK_NO_TAB_SCROLL` environment variable.
 * ~~Menu bars are no longer covered by too high popup menus.~~ **(patch broken)**
   * See https://gitlab.gnome.org/GNOME/gtk/issues/1016.
-* Labels are wrapped similarly to GTK2. This patch fixes too wide windows in applications improperly ported from GTK2.
+* Labels are wrapped similarly to GTK 2. This patch fixes too wide windows in applications improperly ported from GTK 2.
 * Allows windows to be transparent whenever a compositor is enabled.
   * To enable, set the `GTK_RELAX_RGBA` environment variable.
   * See https://gitlab.gnome.org/GNOME/gtk/-/issues/3105
@@ -206,7 +206,7 @@ To revert to standard GTK3, remove the patches and rebuild GTK3:
 
 These patches are for your own pleasure. They are **not supported by GTK developers,
 your distribution or application developers**. Please don't send bug reports to
-them because of this patched GTK+3 installation.
+them because of this patched GTK 3 installation.
 
 If you are having trouble with an application or theme, try:
 
@@ -257,4 +257,4 @@ XFCE users might be interested in these additional patches too:
 
 ## License
 
-Patches follow the same license as GTK3, which is LGPL.
+Patches follow the same license as GTK 3, which is LGPL.
