@@ -1,7 +1,5 @@
 # gtk3-classic
 
-_(Previously known as gtk3-mushrooms)_
-
 [![Patched](https://img.shields.io/github/tag/lah7/gtk3-classic.svg?label=Patched)](https://github.com/lah7/gtk3-classic/releases)
 [![Upstream](https://img.shields.io/archlinux/v/extra/x86_64/gtk3?label=Upstream)](https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/NEWS)
 [![CI Status](https://github.com/lah7/gtk3-classic/actions/workflows/main.yml/badge.svg?branch=master&event=push)](https://github.com/lah7/gtk3-classic/actions/workflows/main.yml)
@@ -19,7 +17,28 @@ on GNOME desktops is not recommended!
 [View Screenshots](https://github.com/lah7/gtk3-classic/wiki/Screenshots)
 
 
-## Arch Linux
+## About
+
+Once known as `gtk3-mushrooms`, this repository is a collection of patches
+that apply on top of the GTK+3 source code. It's not a fork of GTK+3.
+
+This repository acts as a central hub for these patches and will keep rolling
+if there's a new GTK+3 release. The patches aim to bring a bit of reminiscence
+to GTK+2 and GTK+3's early days (hence, "classic")
+
+**This repository is provided as-is, with no warranty or guaranteed support.**
+While the patched installation should just work, you are entering unsupported tertiary.
+
+[View Patches](#patches)
+
+
+## Download
+
+* [Arch Linux](#arch-linux)
+* [Gentoo](#gentoo)
+* [Ubuntu (LTS)](#ubuntu)
+
+### Arch Linux
 
 [![AUR](https://img.shields.io/aur/version/gtk3-classic?label=AUR&logo=archlinux&logoColor=white)](https://aur.archlinux.org/packages/gtk3-classic/)
 
@@ -58,7 +77,7 @@ built autonomously by [GitHub Actions](https://github.com/lah7/gtk3-classic/acti
     > This [repository's PKGBUILD](https://github.com/lah7/gtk3-classic/blob/master/PKGBUILD) allows for selectively choosing patches.
 
 
-## Ubuntu
+### Ubuntu
 
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-ppa%3Alah7%2Fgtk3--classic-e95420?logo=ubuntu&logoColor=white)](https://launchpad.net/~lah7/+archive/ubuntu/gtk3-classic)
 
@@ -81,7 +100,7 @@ To restore the original GTK3, use `ppa-purge` to restore the packages from Ubunt
 
 ## Gentoo
 
-An unofficial Gentoo ebuild is available as `x11-libs/gtk3-classic-patches` in
+A Gentoo ebuild is available as `x11-libs/gtk3-classic-patches` in
 the `khoverlay` overlay.  Rather than providing a patched `x11-libs/gtk+:3`
 ebuild directly, this ebuild installs user patches which will be applied on
 subsequent builds of GTK3.  This way, the latest official Gentoo GTK3 ebuild can
@@ -185,34 +204,35 @@ To revert to standard GTK3, remove the patches and rebuild GTK3:
 
 ## Problems?
 
-These patches are unofficial and are **not supported by GTK developers,
-your distribution or any applications.** If you are having trouble with an
-application or theme, try reverting to the original `gtk3` to confirm
-it's **definitely** a problem with these patches.
+These patches are for your own pleasure. They are **not supported by GTK developers,
+your distribution or application developers**. Please don't send bug reports to
+them because of this patched GTK+3 installation.
 
-**Use Arch?** Try isolating the problematic patch by excluding them and rebuilding
-using the `PKGBUILD` in this repository.
-The included `scripts/test-exclude-each-patch.sh` script can help with this.
+If you are having trouble with an application or theme, try:
 
-[See Support Discussions](https://github.com/lah7/gtk3-classic/discussions/categories/help-support)
-|
-[View Issues](https://github.com/lah7/gtk3-classic/issues/)
+* Setting `GTK_CSD=0` environment variable, then run the application.
+* Revert to the original `gtk3` to confirm these patches caused the problem.
+
+If a patch is at fault, Arch and Gentoo users for instance can comment out (`#`)
+patches in `series` until they find the one causing it.
+
+Arch users can use the included `scripts/test-exclude-each-patch.sh` script.
+It'll exclude one patch at a time and create builds using the `PKGBUILD` in this repository.
 
 
 ## Contributing
 
-Our knowledge in C is limited, so we'd appreciate any help in fixing open bugs.
+We're not writing new patches — only maintaining what we've got.
 
-Patches should:
+You are welcome to open a pull request with a new patch [or fix](https://github.com/lah7/gtk3-classic/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) if:
 
-* Not break GTK3 or any GTK applications.
-* Offer "classic" functionality remensiant of GTK2 or early versions of GTK3.
+* It does not break GTK 3 or any GTK applications.
+* Offers "classic" functionality remensiant of GTK 2 or early versions of GTK 3.
+* Optional behind an environment variable if it introduces a significant change.
 
-Patches are managed using `quilt`.
+Patches should be added using the `quilt` system.
 
 [How to use `quilt`](https://github.com/lah7/gtk3-classic/wiki/Creating-and-Managing-Patches)
-|
-[View Open Issues](https://github.com/lah7/gtk3-classic/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 
 Our primary packaging and testing happens on Arch. Checksums in `PKGBUILD`
 need to be updated to pass the automated checks. On an Arch system, these can be
@@ -222,14 +242,15 @@ regenerated automatically:
 
 (Provided in `pacman-contrib`)
 
+For other distributions, it's just a SHA256 checksum of the files used in the package.
+
 
 ## Community
 
-Drop by our [Discussions](https://github.com/lah7/gtk3-classic/discussions) tab, where
-you can find curated tips, chat and introductions from other classic users. There is
-also a category for help & support, if you need help getting GTK related stuff working.
+The [Discussions](https://github.com/lah7/gtk3-classic/discussions) tab
+is where you can find curated tips, chat, support and introductions from other users.
 
-XFCE users might be interested in these additional patches:
+XFCE users might be interested in these additional patches too:
 
 * https://github.com/simplejack-src/gtk3-classic-xfce
 
