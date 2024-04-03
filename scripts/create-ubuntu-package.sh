@@ -91,9 +91,11 @@ unset QUILT_PATCHES
 grep "export DEB_BUILD_OPTIONS = nocheck" debian/rules || sed -i "s/^export VERBOSE=1/export VERBOSE=1\nexport DEB_BUILD_OPTIONS = nocheck/" debian/rules
 echo -e "#!/bin/sh\nexit 0" > debian/run-tests.sh
 
-# Make amendments to packaging
+# Amend packaging metadata
 sed -i '/^Uploaders:/d' debian/control
-sed -i 's/(>= 1.22.5)//g' debian/control # Launchpad builders don't have dpkg-dev >= 1.22.5
+
+# Remove symbols as dpkg-gensymbols detects they're different
+rm debian/*.symbols
 
 # Create a new release
 set +x
