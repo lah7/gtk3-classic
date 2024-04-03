@@ -73,6 +73,7 @@ makedepends=(
 	libxrandr
 	meson
 	pango
+	python-packaging
 	quilt
 	sassc
 	shared-mime-info
