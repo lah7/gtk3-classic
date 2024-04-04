@@ -10,7 +10,7 @@ jobs:
     steps:
     # Checks out under $GITHUB_WORKSPACE
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Check series file
       run: |
@@ -36,7 +36,7 @@ jobs:
         sudo apt-get install libgif-dev libelf-dev
 
     - name: Cache GTK Source
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: gtksrc
       with:
         path: 'gtk+*.tar.xz'
@@ -84,7 +84,7 @@ jobs:
     steps:
     # Checks out under $GITHUB_WORKSPACE
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Get GTK Version
       run: |
@@ -92,7 +92,7 @@ jobs:
         echo "GTK_VERSION=${_gtkver}" >> $GITHUB_ENV
 
     - name: Cache Pacman Packages
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       env:
         cache-name: pacman-cache
       with:
@@ -100,7 +100,7 @@ jobs:
         key: pacman-cache
 
     - name: Cache GTK Source
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: gtksrc
       with:
         path: 'gtk+*.tar.xz'
@@ -142,7 +142,7 @@ jobs:
         docker rm archlinux
 
     - name: Upload Package
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: gtk3-classic-run${{github.run_number}}-pkg
         path: gtk3-classic-*.pkg*
