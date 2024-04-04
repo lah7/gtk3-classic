@@ -242,7 +242,8 @@ regenerated automatically:
 
 (Provided in `pacman-contrib`)
 
-For other distributions, it's just a SHA256 checksum of the files used in the package.
+If you're not using Arch Linux, don't worry! When you create the pull request
+and automated checks run, it'll fail ❌ and present a patch of required changes.
 
 
 ## Community
