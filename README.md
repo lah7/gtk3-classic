@@ -200,6 +200,7 @@ To revert to standard GTK 3, remove the patches and rebuild GTK 3:
   * This would remove support for accessibility features; some apps could break.
   * Allows for D-Bus to be an optional dependency. [(#40)](https://github.com/lah7/gtk3-classic/issues/40)
   * To build without this feature, set meson option `atk_bridge` to `false` (default: `true`) and remove the dependencies from your package accordingly.
+    * For Arch, here's a reference of [PKGBUILD changes to make](https://github.com/lah7/gtk3-classic/issues/110#issuecomment-2098950276). The ATK packages are only used as build dependencies, but can be uninstalled afterwards.
 
 
 ## Problems?
