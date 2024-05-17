@@ -252,9 +252,10 @@ and automated checks run, it'll fail ❌ and present a patch of required changes
 The [Discussions](https://github.com/lah7/gtk3-classic/discussions) tab
 is where you can find curated tips, chat, support and introductions from other users.
 
-XFCE users might be interested in these additional patches too:
+XFCE users might be interested in this additional patch for the file chooser:
 
-* https://github.com/simplejack-src/gtk3-classic-xfce
+* https://github.com/lah7/gtk3-classic/pull/94/files
+* https://aur.archlinux.org/packages/gtk3-classic-xfce (for Arch Linux users)
 
 
 ## License
