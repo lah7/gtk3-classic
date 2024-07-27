@@ -60,22 +60,22 @@ Index: b/gtk/gtkmessagedialog.c
      {
      case GTK_MESSAGE_INFO:
        name = _("Information");
-+      icon = "gtk-dialog-info";
++      icon = "dialog-information";
        break;
  
      case GTK_MESSAGE_QUESTION:
        name = _("Question");
-+      icon = "gtk-dialog-question";
++      icon = "dialog-question";
        break;
  
      case GTK_MESSAGE_WARNING:
        name = _("Warning");
-+      icon = "gtk-dialog-warning";
++      icon = "dialog-warning";
        break;
  
      case GTK_MESSAGE_ERROR:
        name = _("Error");
-+      icon = "gtk-dialog-error";
++      icon = "dialog-error";
        break;
  
      case GTK_MESSAGE_OTHER:

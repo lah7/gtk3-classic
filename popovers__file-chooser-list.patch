@@ -50,12 +50,12 @@ Index: b/gtk/gtkfilechooserwidget.c
    priv->type_column_item = add_button (box, _("Show T_ype Column"), "item.toggle-show-type");
    priv->show_time_item = add_button (box, _("Show _Time"), "item.toggle-show-time");
    priv->sort_directories_item = add_button (box, _("Sort _Folders before Files"), "item.toggle-sort-dirs-first");
-+  g_object_set (priv->visit_file_item,         "image", gtk_image_new_from_icon_name ("gtk-jump-to",    GTK_ICON_SIZE_MENU), NULL);
-+  g_object_set (priv->open_folder_item,        "image", gtk_image_new_from_icon_name ("gtk-open",       GTK_ICON_SIZE_MENU), NULL);
-+  g_object_set (priv->copy_file_location_item, "image", gtk_image_new_from_icon_name ("gtk-copy",       GTK_ICON_SIZE_MENU), NULL);
++  g_object_set (priv->visit_file_item,         "image", gtk_image_new_from_icon_name ("go-jump",    GTK_ICON_SIZE_MENU), NULL);
++  g_object_set (priv->open_folder_item,        "image", gtk_image_new_from_icon_name ("folder-open",       GTK_ICON_SIZE_MENU), NULL);
++  g_object_set (priv->copy_file_location_item, "image", gtk_image_new_from_icon_name ("edit-copy",       GTK_ICON_SIZE_MENU), NULL);
 +  g_object_set (priv->add_shortcut_item,       "image", gtk_image_new_from_icon_name ("gtk-add",        GTK_ICON_SIZE_MENU), NULL);
-+  g_object_set (priv->delete_file_item,        "image", gtk_image_new_from_icon_name ("gtk-delete",     GTK_ICON_SIZE_MENU), NULL);
-+  g_object_set (priv->trash_file_item,         "image", gtk_image_new_from_icon_name ("user-trash-full",GTK_ICON_SIZE_MENU), NULL);
++  g_object_set (priv->delete_file_item,        "image", gtk_image_new_from_icon_name ("edit-delete",     GTK_ICON_SIZE_MENU), NULL);
++  g_object_set (priv->trash_file_item,         "image", gtk_image_new_from_icon_name ("user-trash",GTK_ICON_SIZE_MENU), NULL);
  }
  
  /* Updates the popover for the file list, creating it if necessary */

@@ -122,10 +122,10 @@ Index: b/gtk/gtkplacessidebar.c
 +    {
 +      g_object_set (
 +        g_list_first (gtk_container_get_children (GTK_CONTAINER (box)))->data,
-+        "image", gtk_image_new_from_icon_name ("gtk-open", GTK_ICON_SIZE_MENU), NULL
++        "image", gtk_image_new_from_icon_name ("folder-open", GTK_ICON_SIZE_MENU), NULL
 +      );
-+      g_object_set (data.remove_item,       "image", gtk_image_new_from_icon_name("gtk-remove",GTK_ICON_SIZE_MENU), NULL);
-+      g_object_set (data.add_shortcut_item, "image", gtk_image_new_from_icon_name("gtk-add",   GTK_ICON_SIZE_MENU), NULL);
++      g_object_set (data.remove_item,       "image", gtk_image_new_from_icon_name("list-remove",GTK_ICON_SIZE_MENU), NULL);
++      g_object_set (data.add_shortcut_item, "image", gtk_image_new_from_icon_name("list-add",   GTK_ICON_SIZE_MENU), NULL);
 +    }
  
    /* Update everything! */
