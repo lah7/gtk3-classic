@@ -1,0 +1,28 @@
+name: Suggest a new patch
+description: A nice to have, but this requires a knowledgeable C programmer to implement them.
+labels: ["patch feature request", "help wanted"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "What should be patched?"
+      description: Describe the functionality or style that should be changed. Was this a behaviour observed in an older GTK version?
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Screenshots"
+      description: If applicable, how does it look under GTK3 today?
+      placeholder: Drag and drop to upload
+    validations:
+      required: false
+
+  - type: textarea
+    id: commits
+    attributes:
+      label: "Commits"
+      description: Are there any commits to use as a reference? https://gitlab.gnome.org/GNOME/gtk
+    validations:
+      required: true

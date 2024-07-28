@@ -1,0 +1,55 @@
+name: Report a problem with a patch
+description: Something is wrong with a patch that doesn't affect regular GTK3
+labels: ["patch bug", "help wanted"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Bug Description"
+      description: A clear and concise description of what the bug is, and only affects this patched version of GTK 3.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Expected Behaviour"
+      description: What should be happening?
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Screenshots"
+      description: If applicable, any visual aids showing the problem.
+      placeholder: Drag and drop to upload
+    validations:
+      required: false
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      description:
+      placeholder: 'Arch Linux'
+    validations:
+      required: true
+
+  - type: input
+    id: desktop
+    attributes:
+      label: Desktop Environment
+      description:
+      placeholder: 'KDE'
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: gtk3-classic Version
+      description:
+      placeholder: '3.24.40'
+    validations:
+      required: true
