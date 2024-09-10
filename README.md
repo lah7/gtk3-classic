@@ -261,4 +261,4 @@ XFCE users might be interested in this additional patch for the file chooser:
 
 ## License
 
-Patches follow the same license as [GTK 3](https://gitlab.gnome.org/GNOME/gtk/-/commits/gtk-3-24), which is [LGPL](https://gitlab.gnome.org/GNOME/gtk/-/blob/main/COPYING?ref_type=heads).
+Patches follow the same license as [GTK 3](https://gitlab.gnome.org/GNOME/gtk/-/commits/gtk-3-24), which is [LGPLv2](https://gitlab.gnome.org/GNOME/gtk/-/blob/main/COPYING?ref_type=heads).
