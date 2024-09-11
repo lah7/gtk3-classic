@@ -115,7 +115,7 @@ read -p "Enter revision number for package: " revision
 set -x
 set +e
 LATEST_GIT_COMMIT=$(git log -n 1 --pretty=format:"%h")
-dch -D $CODENAME -v $GTKVERSION-${revision}~classic~$RELEASE "Rebuild with latest patches for gtk3-classic ($LATEST_GIT_COMMIT)"
+dch -D $CODENAME -v $GTKVERSION-${revision}~classic~$RELEASE "Add gtk3-classic patches ($LATEST_GIT_COMMIT)"
 
 set -x
 if [ ! $? == 0 ]; then
