@@ -98,6 +98,9 @@ To restore the original GTK 3, use `ppa-purge` to restore the packages from Ubun
     sudo apt-get install ppa-purge
     sudo ppa-purge ppa:lah7/gtk3-classic
 
+This works for stock Ubuntu. If you're using an Ubuntu derivative (like Linux Mint), you may need to
+[manually downgrade packages](https://github.com/lah7/gtk3-classic/issues/116#issuecomment-2439990293) instead.
+
 
 ## Gentoo
 
