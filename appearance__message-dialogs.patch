@@ -29,7 +29,7 @@ Index: b/gtk/gtkmessagedialog.c
  
  /**
   * SECTION:gtkmessagedialog
-@@ -327,7 +328,17 @@ gtk_message_dialog_init (GtkMessageDialo
+@@ -327,7 +328,17 @@
  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
    action_area = gtk_dialog_get_action_area (GTK_DIALOG (dialog));
  G_GNUC_END_IGNORE_DEPRECATIONS
@@ -48,40 +48,48 @@ Index: b/gtk/gtkmessagedialog.c
  
    settings = gtk_widget_get_settings (GTK_WIDGET (dialog));
    g_object_get (settings, "gtk-keynav-use-caret", &use_caret, NULL);
-@@ -372,6 +383,7 @@ setup_type (GtkMessageDialog *dialog,
+@@ -374,6 +385,7 @@
+     return;
+ 
+   const char *name = gtk_window_get_title (GTK_WINDOW (dialog));
++  const gchar *icon = NULL;
+   if (name && name[0])
+   {
+     atk_object_set_name (atk_obj, name);
+@@ -384,18 +396,22 @@
+   {
+   case GTK_MESSAGE_INFO:
+     name = _("Information");
++      icon = "gtk-dialog-info";
+     break;
+ 
+   case GTK_MESSAGE_QUESTION:
+     name = _("Question");
++      icon = "gtk-dialog-question";
+     break;
+ 
+   case GTK_MESSAGE_WARNING:
+     name = _("Warning");
++      icon = "gtk-dialog-warning";
+     break;
+ 
+   case GTK_MESSAGE_ERROR:
+     name = _("Error");
++      icon = "gtk-dialog-error";
+     break;
+ 
+   case GTK_MESSAGE_OTHER:
+@@ -415,6 +431,7 @@
+ 	    GtkMessageType    type)
  {
    GtkMessageDialogPrivate *priv = dialog->priv;
-   const gchar *name = NULL;
 +  const gchar *icon = NULL;
    AtkObject *atk_obj;
  
    if (priv->message_type == type)
-@@ -383,18 +395,22 @@ setup_type (GtkMessageDialog *dialog,
-     {
-     case GTK_MESSAGE_INFO:
-       name = _("Information");
-+      icon = "dialog-information";
-       break;
+@@ -423,6 +440,12 @@
+   priv->message_type = type;
  
-     case GTK_MESSAGE_QUESTION:
-       name = _("Question");
-+      icon = "dialog-question";
-       break;
- 
-     case GTK_MESSAGE_WARNING:
-       name = _("Warning");
-+      icon = "dialog-warning";
-       break;
- 
-     case GTK_MESSAGE_ERROR:
-       name = _("Error");
-+      icon = "dialog-error";
-       break;
- 
-     case GTK_MESSAGE_OTHER:
-@@ -405,6 +421,12 @@ setup_type (GtkMessageDialog *dialog,
-       break;
-     }
  
 +  if (icon)
 +    {
@@ -92,6 +100,7 @@ Index: b/gtk/gtkmessagedialog.c
    atk_obj = gtk_widget_get_accessible (GTK_WIDGET (dialog));
    if (GTK_IS_ACCESSIBLE (atk_obj))
      {
+
 Index: b/gtk/ui/gtkmessagedialog.ui
 ===================================================================
 --- a/gtk/ui/gtkmessagedialog.ui
