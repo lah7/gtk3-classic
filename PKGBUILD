@@ -5,13 +5,13 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://gitlab.archlinux.org/archlinux/packaging/packages/gtk3/-/commits/main
 
-__arch_pkg_commit="c2ecfe23993aeff132fbd58d6b1174c98444cbd4"
-_gtkver=3.24.43
+__arch_pkg_commit="8546d3057e3037ffdd3526a329742951b35892b3"
+_gtkver=3.24.48
 
 pkgbase=gtk3-classic
 pkgname=($pkgbase)
 pkgver=${_gtkver}
-pkgrel=2
+pkgrel=1
 pkgdesc="Patched GTK+3 that provides a more classic experience"
 url="https://github.com/lah7/gtk3-classic"
 conflicts=(
@@ -131,7 +131,7 @@ source=(
 	smaller-adwaita.css
 
 	# GTK source code.
-	"https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-$_gtkver.tar.xz"
+	"https://gitlab.gnome.org/GNOME/gtk/-/archive/$_gtkver/gtk-$_gtkver.tar.gz"
 
 	# Arch Linux package files.
 	settings.ini
@@ -175,12 +175,12 @@ sha256sums=('ecbf69e66a073cbcf23454ae1ab366beedae6e96582975ae55964b0cc7bab685'
 
 prepare()
 {
-	cd gtk+-$_gtkver
+	cd gtk-$_gtkver
 
 	QUILT_PATCHES=.. quilt push -av
 
-	rm -f "$srcdir"/gtk+-"$_gtkver"/gtk/theme/Adwaita/gtk-contained{,-dark}.css
-	cat "$srcdir/smaller-adwaita.css" | tee -a "$srcdir"/gtk+-"$_gtkver"/gtk/theme/Adwaita/gtk-contained{,-dark}.css > /dev/null
+	rm -f "$srcdir"/gtk-"$_gtkver"/gtk/theme/Adwaita/gtk-contained{,-dark}.css
+	cat "$srcdir/smaller-adwaita.css" | tee -a "$srcdir"/gtk-"$_gtkver"/gtk/theme/Adwaita/gtk-contained{,-dark}.css > /dev/null
 }
 
 build()
@@ -188,7 +188,7 @@ build()
 	CFLAGS+=" -DG_DISABLE_CAST_CHECKS"
 
 	# 64-bit
-	arch-meson gtk+-$_gtkver build \
+	arch-meson gtk-$_gtkver build \
 		-D broadway_backend=true \
 		-D colord=auto \
 		-D demos=false \

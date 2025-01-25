@@ -46,12 +46,12 @@ jobs:
       #if: steps.gtksrc.outputs.cache-hit != 'true'
       run: |
         source PKGBUILD
-        wget https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-${_gtkver}.tar.xz
+        wget "https://gitlab.gnome.org/GNOME/gtk/-/archive/${_gtkver}/gtk-${_gtkver}.tar.gz"
 
     - name: Extract GTK Source
       run: |
         source PKGBUILD
-        tar -xJf gtk+*.tar.xz
+        tar -xzf gtk*.tar.gz
 
     # Uses PKGBUILD prepare() directly
     - name: Apply Patches
@@ -66,7 +66,7 @@ jobs:
       run: |
         source PKGBUILD
         CFLAGS+=" -DG_DISABLE_CAST_CHECKS"
-        meson gtk+-${_gtkver} build \
+        meson gtk-${_gtkver} build \
             -D broadway_backend=true \
             -D colord=auto \
             -D demos=false \
