@@ -39,7 +39,7 @@ jobs:
       uses: actions/cache@v4
       id: gtksrc
       with:
-        path: 'gtk+*.tar.xz'
+        path: 'gtk*.tar.gz'
         key: gtk-${{ env.GTK_VERSION }}
 
     - name: Download GTK Source
@@ -103,7 +103,7 @@ jobs:
       uses: actions/cache@v4
       id: gtksrc
       with:
-        path: 'gtk+*.tar.xz'
+        path: 'gtk*.tar.gz'
         key: gtk-${{ env.GTK_VERSION }}
 
     - name: Start Arch Linux
