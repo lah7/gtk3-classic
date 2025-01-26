@@ -1,6 +1,7 @@
 # makepkg (Arch Linux)
 pkg
 src
+*.pkg.tar.*
 
 # Quilt
 *~
