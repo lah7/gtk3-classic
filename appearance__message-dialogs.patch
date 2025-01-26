@@ -56,30 +56,7 @@ Index: b/gtk/gtkmessagedialog.c
    if (name && name[0])
    {
      atk_object_set_name (atk_obj, name);
-@@ -384,18 +396,22 @@
-   {
-   case GTK_MESSAGE_INFO:
-     name = _("Information");
-+    icon = "dialog-info";
-     break;
- 
-   case GTK_MESSAGE_QUESTION:
-     name = _("Question");
-+    icon = "dialog-question";
-     break;
- 
-   case GTK_MESSAGE_WARNING:
-     name = _("Warning");
-+    icon = "dialog-warning";
-     break;
- 
-   case GTK_MESSAGE_ERROR:
-     name = _("Error");
-+    icon = "dialog-error";
-     break;
- 
-   case GTK_MESSAGE_OTHER:
-@@ -415,6 +431,7 @@
+@@ -415,6 +427,7 @@ setup_type (GtkMessageDialog *dialog,
  	    GtkMessageType    type)
  {
    GtkMessageDialogPrivate *priv = dialog->priv;
@@ -87,10 +64,32 @@ Index: b/gtk/gtkmessagedialog.c
    AtkObject *atk_obj;
  
    if (priv->message_type == type)
-@@ -423,6 +440,12 @@
+@@ -423,6 +436,34 @@ setup_type (GtkMessageDialog *dialog,
    priv->message_type = type;
  
  
++  switch (dialog->priv->message_type)
++  {
++  case GTK_MESSAGE_INFO:
++    icon = "dialog-info";
++    break;
++
++  case GTK_MESSAGE_QUESTION:
++    icon = "dialog-question";
++    break;
++
++  case GTK_MESSAGE_WARNING:
++    icon = "dialog-warning";
++    break;
++
++  case GTK_MESSAGE_ERROR:
++    icon = "dialog-error";
++    break;
++
++  case GTK_MESSAGE_OTHER:
++    break;
++  }
++
 +  if (icon)
 +    {
 +      GtkWidget *image = gtk_image_new_from_icon_name (icon, GTK_ICON_SIZE_DIALOG);
