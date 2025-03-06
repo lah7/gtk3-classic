@@ -5,13 +5,13 @@
 # This file is based on original PKGBUILD of GTK3 package.
 # https://gitlab.archlinux.org/archlinux/packaging/packages/gtk3/-/commits/main
 
-__arch_pkg_commit="8546d3057e3037ffdd3526a329742951b35892b3"
-_gtkver=3.24.48
+__arch_pkg_commit="e0434db23575c4c87b7232cbf6b2b42cfb6437d7"
+_gtkver=3.24.49
 
 pkgbase=gtk3-classic
 pkgname=($pkgbase)
 pkgver=${_gtkver}
-pkgrel=2
+pkgrel=1
 pkgdesc="Patched GTK+3 that provides a more classic experience"
 url="https://github.com/lah7/gtk3-classic"
 conflicts=(
@@ -169,7 +169,7 @@ sha256sums=('ecbf69e66a073cbcf23454ae1ab366beedae6e96582975ae55964b0cc7bab685'
             '288978a65fbd0524e9194940b9b15774b010cb7193ef5bf5a4a5df3358ef9df6'
             '96ddecb48e5734159f91261c3a4b7f71a757d6aab69d22f11df600fb91511b11'
             'ba93f62e249f2713dbfe6c82de1be4ac655264d6407ed3dc5e05323027520f31'
-            'fa02692d8cc717bdadbba15f5b5ba0849f2135ee7ed71edd1da27013152500da'
+            'a2958d82986c81794e953a3762335fa7c78948706d23cced421f7245ca544cbc'
             '01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202'
             'a0319b6795410f06d38de1e8695a9bf9636ff2169f40701671580e60a108e229')
 
