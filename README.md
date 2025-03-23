@@ -25,10 +25,11 @@ that apply on top of the GTK 3 source code. It's not a fork of GTK 3.
 
 This repository acts as a central hub for these patches and will keep rolling
 if there's a new GTK 3 release. The patches aim to bring a bit of reminiscence
-to GTK 2 and GTK 3's early days (hence, "classic")
+to GTK 2 and GTK 3's early days (hence, "classic").
+[See below on contributing.](#contributing)
 
 **This repository is provided as-is, with no warranty or guaranteed support.**
-While the patched installation should just work, you are entering unsupported tertiary.
+While the patched installation should just work, you are entering unsupported territory.
 
 [View Patches](#patches)
 
@@ -39,11 +40,15 @@ While the patched installation should just work, you are entering unsupported te
 * [Gentoo](#gentoo)
 * [Ubuntu (LTS)](#ubuntu) (discontinued)
 
+See [#111](https://github.com/lah7/gtk3-classic/issues/111) for details about
+Debian builds based on these patches.
+
+
 ### Arch Linux
 
 [![AUR](https://img.shields.io/aur/version/gtk3-classic?label=AUR&logo=archlinux&logoColor=white)](https://aur.archlinux.org/packages/gtk3-classic/)
 
-Available from the AUR under [`gtk3-classic`](https://aur.archlinux.org/packages/gtk3-classic/) (previously `gtk3-mushrooms`)
+Available from the AUR under [`gtk3-classic`](https://aur.archlinux.org/packages/gtk3-classic/) (previously `gtk3-mushrooms`).
 
 Based on the official [`gtk3`](https://archlinux.org/packages/extra/x86_64/gtk3/) package
 with some changes to make the package more lightweight:
@@ -146,11 +151,12 @@ To revert to standard GTK 3, remove the patches and rebuild GTK 3:
   * You can enable shadows by setting `GTK_CSD=1` environment variable.
 * Minimize, maximize and close buttons, window title and subtitle are removed from headerbar.
 
-#### File chooser
+#### File Chooser
 
 * **Typeahead feature is restored.**
   * Recursive file search will not be ran automatically when you start typing.
   * You can still search recursively by Left <kbd>Alt</kbd> + <kbd>S</kbd> shortcut. See https://gitlab.gnome.org/GNOME/gtk/issues/839.
+* Current working directory is opened by default instead recently used files.
 * "Other locations" button is removed from Places sidebar.
   * All mounted devices and drives are accessible directly.
   * "Networks" button is added for browsing network shares.
@@ -176,7 +182,6 @@ To revert to standard GTK 3, remove the patches and rebuild GTK 3:
 
 * Scrollbars are always visible.
   * You can enable invisible scrollbars by `GTK_OVERLAY_SCROLLING=1` environment variable.
-* Current working directory is opened by default in file chooser dialog instead recently used files.
 * Atril instead of Evince is set as default previewer in printing dialog.
 
 #### Other
@@ -227,8 +232,10 @@ If you are having trouble with an application or theme, try:
 If a patch is at fault, Arch and Gentoo users for instance can comment out (`#`)
 patches in `series` until they find the one causing it.
 
-Arch users can use the included `scripts/test-exclude-each-patch.sh` script.
+Arch users can use the included [`scripts/test-exclude-each-patch.sh`] script.
 It'll exclude one patch at a time and create builds using the `PKGBUILD` in this repository.
+
+[`scripts/test-exclude-each-patch.sh`]: https://github.com/lah7/gtk3-classic/blob/master/scripts/test-exclude-each-patch.sh
 
 
 ## Contributing
@@ -241,9 +248,7 @@ You are welcome to open a pull request with a new patch [or fix](https://github.
 * Offers "classic" functionality remensiant of GTK 2 or early versions of GTK 3.
 * Optional behind an environment variable if it introduces a significant change.
 
-Patches should be added using the `quilt` system.
-
-[How to use `quilt`](https://github.com/lah7/gtk3-classic/wiki/Creating-and-Managing-Patches)
+Patches should be added [using the `quilt` system.](https://github.com/lah7/gtk3-classic/wiki/Creating-and-Managing-Patches)
 
 Our primary packaging and testing happens on Arch. Checksums in `PKGBUILD`
 need to be updated to pass the automated checks. On an Arch system, these can be
