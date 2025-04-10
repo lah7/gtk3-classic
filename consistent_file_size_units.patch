@@ -1,0 +1,21 @@
+# GtkFileChooserWidget3: allow to use IEC units when Caja use them (GTK_USE_IEC_UNITS=1)
+# when GTK_USE_IEC_UNITS=1 and when IEC units is checked in Display tab of caja-file-management-properties
+# https://github.com/GNOME/gtk/blob/3.24.41/gtk/gtkfilechooserwidget.c
+Index: b/gtk/gtkfilechooserwidget.c
+===================================================================
+--- a/gtk/gtkfilechooserwidget.c
++++ b/gtk/gtkfilechooserwidget.c
+@@ -5223,6 +5223,13 @@ file_system_model_set
+     case MODEL_COL_SIZE_TEXT:
+       if (info == NULL || _gtk_file_info_consider_as_directory (info))
+         g_value_set_string (value, NULL);
++      else if (g_strcmp0 (g_getenv ("GTK_USE_IEC_UNITS"), "1") == 0) {
++        GSettings *caja_preferences = g_settings_new("org.mate.caja.preferences");
++        if (g_settings_get_boolean (caja_preferences, "use-iec-units")) // CAJA_PREFERENCES_USE_IEC_UNITS
++          g_value_take_string (value, g_format_size_full (g_file_info_get_size (info), G_FORMAT_SIZE_IEC_UNITS));
++        else
++          g_value_take_string (value, g_format_size (g_file_info_get_size (info)));
++      }
+       else
+         g_value_take_string (value, g_format_size (g_file_info_get_size (info)));
+       break;
