@@ -15,8 +15,7 @@ jobs:
     - name: Check series file
       run: |
         for patch in $(ls *.patch); do
-            grep "$patch" series
-            if [ $? != 0 ]; then
+            if ! grep "$patch" series; then
                 echo "::error title=$patch::Patch is missing from series file"
                 exit 1
             fi
