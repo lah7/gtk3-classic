@@ -1,0 +1,272 @@
+# GtkProgressBar3: restore the double color of the progress text with automatic min-width/min-height from text
+#  default way
+#   progressbar trough[.empty][.full]
+#   progressbar text OR progressbar > text
+#  updated way
+#   progressbar[.empty][.full] trough[.empty][.full]
+#   progressbar[.empty][.full] text OR progressbar[.empty][.full] > text
+#  and when GTK_PROGRESS_TEXT_INSIDE=1 (text is the last child node of progressbar)
+#   (start_clip) progressbar.classic text.progress
+#     (end_clip) progressbar.classic text.trough
+# https://github.com/lah7/gtk3-classic/issues/58
+# https://github.com/GNOME/gtk/blob/3.24.37/gtk/gtkprogressbar.c
+Index: b/gtk/gtkprogressbar.c
+===================================================================
+--- a/gtk/gtkprogressbar.c
++++ b/gtk/gtkprogressbar.c
+@@ -449,15 +449,21 @@ update_fraction_classes
+         full = TRUE;
+     }
+ 
+-  if (empty)
+-    gtk_css_gadget_add_class (priv->trough_gadget, "empty");
+-  else
+-    gtk_css_gadget_remove_class (priv->trough_gadget, "empty");
+-
+-  if (full)
+-    gtk_css_gadget_add_class (priv->trough_gadget, "full");
+-  else
+-    gtk_css_gadget_remove_class (priv->trough_gadget, "full");
++  if (empty) {
++    gtk_css_gadget_add_class (priv->trough_gadget, "empty");
++    gtk_css_gadget_add_class (priv->gadget, "empty");
++  } else {
++    gtk_css_gadget_remove_class (priv->trough_gadget, "empty");
++    gtk_css_gadget_remove_class (priv->gadget, "empty");
++  }
++
++  if (full) {
++    gtk_css_gadget_add_class (priv->trough_gadget, "full");
++    gtk_css_gadget_add_class (priv->gadget, "full");
++  } else {
++    gtk_css_gadget_remove_class (priv->trough_gadget, "full");
++    gtk_css_gadget_remove_class (priv->gadget, "full");
++  }
+ }
+ 
+ static void
+@@ -766,7 +772,7 @@ gtk_progress_bar_measure / chatGPTpro
+ 
+   if (orientation == GTK_ORIENTATION_HORIZONTAL)
+     {
+-      if (priv->orientation == GTK_ORIENTATION_HORIZONTAL)
++      if ((priv->orientation == GTK_ORIENTATION_HORIZONTAL) || (g_strcmp0 (g_getenv ("GTK_PROGRESS_TEXT_INSIDE"), "1") == 0))
+         {
+           *minimum = MAX (text_minimum, trough_minimum);
+           *natural = MAX (text_natural, trough_natural);
+@@ -779,7 +779,7 @@ gtk_progress_bar_measure / chatGPTpro
+     }
+   else
+     {
+-      if (priv->orientation == GTK_ORIENTATION_HORIZONTAL)
++      if ((priv->orientation == GTK_ORIENTATION_HORIZONTAL) && (g_strcmp0 (g_getenv ("GTK_PROGRESS_TEXT_INSIDE"), "1") != 0))
+         {
+           *minimum = text_minimum + trough_minimum;
+           *natural = text_natural + trough_natural;
+@@ -1028,7 +1034,17 @@ gtk_progress_bar_allocate / chatGPTpro
+   widget = gtk_css_gadget_get_owner (gadget);
+   priv = GTK_PROGRESS_BAR (widget)->priv;
+ 
+-  if (priv->orientation == GTK_ORIENTATION_HORIZONTAL)
++  if (g_strcmp0 (g_getenv ("GTK_PROGRESS_TEXT_INSIDE"), "1") == 0)
++    {
++      if (priv->orientation == GTK_ORIENTATION_HORIZONTAL) {
++        bar_height = allocation->height;
++        bar_width  = allocation->width;
++      } else {
++        bar_width  = allocation->width;
++        bar_height = allocation->height;
++      }
++    }
++  else if (priv->orientation == GTK_ORIENTATION_HORIZONTAL)
+     {
+       gtk_css_gadget_get_preferred_size (priv->trough_gadget,
+                                          GTK_ORIENTATION_VERTICAL,
+@@ -1125,6 +1131,26 @@ gtk_progress_bar_allocate_trough
+                                      &width, NULL,
+                                      NULL, NULL);
+ 
++  if (priv->show_text && (g_strcmp0 (g_getenv ("GTK_PROGRESS_TEXT_INSIDE"), "1") == 0))
++    {
++      gint text_width, text_height, text_min, text_nat;
++      gtk_css_gadget_get_preferred_size (priv->text_gadget,
++                                         GTK_ORIENTATION_HORIZONTAL,
++                                         -1,
++                                         &text_min, &text_nat,
++                                         NULL, NULL);
++      gtk_css_gadget_get_preferred_size (priv->text_gadget,
++                                         GTK_ORIENTATION_VERTICAL,
++                                         -1,
++                                         &text_height, NULL,
++                                         NULL, NULL);
++      text_width = CLAMP (text_nat, text_min, allocation->width);
++      if ((priv->orientation == GTK_ORIENTATION_HORIZONTAL) && (height < text_height))
++        height = text_height;
++      else if ((priv->orientation == GTK_ORIENTATION_VERTICAL) && (width < text_width))
++        width  = text_width;
++    }
++
+   if (priv->activity_mode)
+     {
+       if (priv->orientation == GTK_ORIENTATION_HORIZONTAL)
+@@ -1336,11 +1372,105 @@ gtk_progress_bar_render_text
+   if (priv->ellipsize)
+     pango_layout_set_width (layout, width * PANGO_SCALE);
+ 
+-  gtk_render_layout (context, cr, x, y, layout);
+-
+-  g_object_unref (layout);
+-
+-  gtk_style_context_restore (context);
++  if (g_strcmp0 (g_getenv ("GTK_PROGRESS_TEXT_INSIDE"), "1") == 0)
++    {
++      GdkRectangle start_clip, end_clip;
++      GtkAllocation allocation_total, allocation_progress;
++      gboolean ltr = gtk_widget_get_direction (widget) == GTK_TEXT_DIR_LTR, rtl = !ltr;
++
++      int *baseline_total, *baseline_progress;
++      gtk_css_gadget_get_border_allocation (priv->gadget, &allocation_total, baseline_total);
++      gtk_css_gadget_get_border_allocation (priv->progress_gadget, &allocation_progress, baseline_progress);
++
++      if (priv->orientation == GTK_ORIENTATION_HORIZONTAL)
++        {
++          if (ltr && !priv->inverted || rtl && priv->inverted)
++            {
++              start_clip.x = 0;
++              start_clip.y = 0;
++              start_clip.width  = allocation_progress.width;
++              start_clip.height = allocation_progress.height;
++              end_clip.x = allocation_progress.width;
++              end_clip.y = 0;
++              end_clip.width  = allocation_total.width - allocation_progress.width;
++              end_clip.height = allocation_total.height;
++            }
++          else
++            {
++              start_clip.x = allocation_total.width - allocation_progress.width; // here
++              start_clip.y = 0;
++              start_clip.width  = allocation_progress.width;
++              start_clip.height = allocation_progress.height;
++              end_clip.x = 0; // here
++              end_clip.y = 0;
++              end_clip.width  = allocation_total.width - allocation_progress.width;
++              end_clip.height = allocation_total.height;
++            }
++        }
++      else
++        {
++          if (ltr && !priv->inverted || rtl && !priv->inverted)
++            {
++              start_clip.x = 0;
++              start_clip.y = 0;
++              start_clip.width  = allocation_progress.width;
++              start_clip.height = allocation_progress.height;
++              end_clip.x = 0;
++              end_clip.y = allocation_progress.height;
++              end_clip.width  = allocation_total.width;
++              end_clip.height = allocation_total.height - allocation_progress.height;
++            }
++          else
++            {
++              start_clip.x = 0;
++              start_clip.y = allocation_total.height - allocation_progress.height; // here
++              start_clip.width  = allocation_progress.width;
++              start_clip.height = allocation_progress.height;
++              end_clip.x = 0;
++              end_clip.y = 0; // here
++              end_clip.width  = allocation_total.width;
++              end_clip.height = allocation_total.height - allocation_progress.height;
++            }
++        }
++
++      // center text
++      gint text_width, text_min, text_nat;
++      gtk_css_gadget_get_preferred_size (priv->text_gadget,
++                                         GTK_ORIENTATION_HORIZONTAL,
++                                         -1,
++                                         &text_min, &text_nat,
++                                         NULL, NULL);
++      text_width = CLAMP (text_nat, text_min, allocation_total.width);
++      x = (allocation_total.width - text_width) / 2;
++
++      if (start_clip.width > 0 && start_clip.height > 0)
++        {
++          cairo_save (cr);
++          gdk_cairo_rectangle (cr, &start_clip);
++          cairo_clip (cr);
++          gtk_style_context_add_class (context, "progress");
++          gtk_render_layout (context, cr, x, y, layout);
++          gtk_style_context_remove_class (context, "progress");
++          cairo_restore (cr);
++        }
++      if (end_clip.width > 0 && end_clip.height > 0)
++        {
++          cairo_save (cr);
++          gdk_cairo_rectangle (cr, &end_clip);
++          cairo_clip (cr);
++          gtk_style_context_add_class (context, "trough");
++          gtk_render_layout (context, cr, x, y, layout);
++          gtk_style_context_remove_class (context, "trough");
++          cairo_restore (cr);
++        }
++    }
++  else
++    {
++      gtk_render_layout (context, cr, x, y, layout);
++    }
++
++  g_object_unref (layout);
++  gtk_style_context_restore (context);
+ 
+   return FALSE;
+ }
+@@ -1565,22 +1651,40 @@ gtk_progress_bar_set_show_text
+ 
+   if (show_text)
+     {
+-      priv->text_gadget = gtk_css_custom_gadget_new ("text",
+-                                                     GTK_WIDGET (pbar),
+-                                                     priv->gadget,
+-                                                     priv->trough_gadget,
+-                                                     gtk_progress_bar_measure_text,
+-                                                     NULL,
+-                                                     gtk_progress_bar_render_text,
+-                                                     NULL,
+-                                                     NULL);
++      if (g_strcmp0 (g_getenv ("GTK_PROGRESS_TEXT_INSIDE"), "1") == 0)
++        {
++          gtk_css_gadget_add_class (priv->gadget, "classic");
++          priv->text_gadget = gtk_css_custom_gadget_new ("text",
++                                                         GTK_WIDGET (pbar),
++                                                         priv->gadget,
++                                                         NULL,
++                                                         gtk_progress_bar_measure_text,
++                                                         NULL,
++                                                         gtk_progress_bar_render_text,
++                                                         NULL,
++                                                         NULL);
++        }
++      else
++        {
++          priv->text_gadget = gtk_css_custom_gadget_new ("text",
++                                                         GTK_WIDGET (pbar),
++                                                         priv->gadget,
++                                                         priv->trough_gadget,
++                                                         gtk_progress_bar_measure_text,
++                                                         NULL,
++                                                         gtk_progress_bar_render_text,
++                                                         NULL,
++                                                         NULL);
++        }
+       g_signal_connect (gtk_css_gadget_get_node (priv->text_gadget), "style-changed",
+                         G_CALLBACK (gtk_progress_bar_text_style_changed), pbar);
+ 
+       update_node_state (pbar);
+     }
+   else
+     {
++      if (g_strcmp0 (g_getenv ("GTK_PROGRESS_TEXT_INSIDE"), "1") == 0)
++        gtk_css_gadget_remove_class (priv->gadget, "classic");
+       if (priv->text_gadget)
+         gtk_css_node_set_parent (gtk_css_gadget_get_node (priv->text_gadget), NULL);
+       g_clear_object (&priv->text_gadget);
