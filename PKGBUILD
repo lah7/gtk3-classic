@@ -138,7 +138,7 @@ source=(
 	settings.ini
 	"gtk-query-immodules-3.0.hook::https://gitlab.archlinux.org/archlinux/packaging/packages/gtk3/-/raw/$__arch_pkg_commit/gtk-query-immodules-3.0.hook"
 )
-sha256sums=('59120d0e79e5173da86d6d22a0c2c924511e44fd69157d13f775dec4dd76ef44'
+sha256sums=('6f4c259dcc7f987b41d87578040ddb99dae8de2295adecf9d350be8fb2a18850'
             '5723d1d2c0e69ce2e7f36973560a2297f6288e1fdfa4f6946104347080c7fc8c'
             '9785368d56b851e52de00eec852fc56f636dbc66d53c74d9b102e7c060f69533'
             '760bd3d65b3c5c0be19311d3b9d2be1f33c3bec198bc470de5afe23f5d488b8f'
