@@ -108,6 +108,7 @@ source=(
 	csd__server-side-shadow.patch
 	file-chooser__eject-button.patch
 	file-chooser__places-sidebar.patch
+	file-chooser__remember-location-mode.patch
 	file-chooser__typeahead.patch
 	fixes__labels-wrapping.patch
 	fixes__primary_selection.patch
@@ -137,7 +138,7 @@ source=(
 	settings.ini
 	"gtk-query-immodules-3.0.hook::https://gitlab.archlinux.org/archlinux/packaging/packages/gtk3/-/raw/$__arch_pkg_commit/gtk-query-immodules-3.0.hook"
 )
-sha256sums=('ecbf69e66a073cbcf23454ae1ab366beedae6e96582975ae55964b0cc7bab685'
+sha256sums=('2d0a07b6ecb8fc1a80094792e3c868f93336a8a16face97eca81809a99409d1a'
             '5723d1d2c0e69ce2e7f36973560a2297f6288e1fdfa4f6946104347080c7fc8c'
             '9785368d56b851e52de00eec852fc56f636dbc66d53c74d9b102e7c060f69533'
             '760bd3d65b3c5c0be19311d3b9d2be1f33c3bec198bc470de5afe23f5d488b8f'
@@ -150,6 +151,7 @@ sha256sums=('ecbf69e66a073cbcf23454ae1ab366beedae6e96582975ae55964b0cc7bab685'
             'cf26ab623fec6fc4f24628bdbe4b81ba5f56e8e0c61de78474d5c2411901931a'
             'ffd9112691b890e263e3eafec71c9838e215c41e6dfd4750e1a498332afbf8f4'
             '6f5cfa1f3d0b1bd426e2be738b371f1910674dba8c67f4cb3de20bd55e15879e'
+            'a23dfeb7ee3de606af88383ef9a36e0053edf9193086e73860ae7bbcafbb9f42'
             'c6fd146e7ab332dd9a394b666b19e6ba7d6ac0932f33fb396f66630134257309'
             '7157b665e2ae724bb6abe8fc382d7178dc4d8d00f29bc63ed2942307ff41914b'
             '135defcbaa4832ae09c79d39231f327c1399159c1a7520c2ebfd2ca5d7fc9a7b'

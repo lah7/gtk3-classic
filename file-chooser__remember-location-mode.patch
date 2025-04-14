@@ -1,0 +1,13 @@
+Index: gtk-3.24.49/gtk/gtkfilechooserwidget.c
+===================================================================
+--- gtk-3.24.49.orig/gtk/gtkfilechooserwidget.c
++++ gtk-3.24.49/gtk/gtkfilechooserwidget.c
+@@ -3934,6 +3934,8 @@ settings_load (GtkFileChooserWidget *imp
+   sort_directories_first = g_settings_get_boolean (settings, SETTINGS_KEY_SORT_DIRECTORIES_FIRST);
+   date_format = g_settings_get_enum (settings, SETTINGS_KEY_DATE_FORMAT);
+   type_format = g_settings_get_enum (settings, SETTINGS_KEY_TYPE_FORMAT);
++  priv->location_mode = g_settings_get_enum (settings, SETTINGS_KEY_LOCATION_MODE);
++  location_mode_set (impl, priv->location_mode);
+ 
+   if (!priv->show_hidden_set)
+     set_show_hidden (impl, show_hidden);

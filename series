@@ -10,6 +10,7 @@ csd__disabled-by-default.patch
 csd__server-side-shadow.patch
 file-chooser__eject-button.patch
 file-chooser__places-sidebar.patch
+file-chooser__remember-location-mode.patch
 file-chooser__typeahead.patch
 fixes__labels-wrapping.patch
 #fixes__too-large-menu-covers-bar.patch

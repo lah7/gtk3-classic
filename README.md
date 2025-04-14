@@ -164,6 +164,7 @@ To revert to standard GTK 3, remove the patches and rebuild GTK 3:
   * These can be added as bookmarks.
 * File System button in Places sidebar is labeled as "File System" instead of "Computer".
 * The eject button in the Places sidebar can be hidden by setting `gtk-file-chooser-eject-button=false` in `settings.ini`.
+* Remembers location field setting (text entry or path bar). See https://gitlab.gnome.org/GNOME/gtk/issues/6471.
 
 #### Appearance
 
