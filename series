@@ -4,6 +4,7 @@ appearance__file-chooser.patch
 appearance__fix_black_border.patch
 appearance__message-dialogs.patch
 appearance__print-dialog.patch
+appearance__progress_text.patch
 appearance__smaller-statusbar.patch
 csd__clean-headerbar.patch
 csd__disabled-by-default.patch

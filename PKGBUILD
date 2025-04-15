@@ -102,6 +102,7 @@ source=(
 	appearance__fix_black_border.patch
 	appearance__message-dialogs.patch
 	appearance__print-dialog.patch
+	appearance__progress_text.patch
 	appearance__smaller-statusbar.patch
 	csd__clean-headerbar.patch
 	csd__disabled-by-default.patch
@@ -137,13 +138,14 @@ source=(
 	settings.ini
 	"gtk-query-immodules-3.0.hook::https://gitlab.archlinux.org/archlinux/packaging/packages/gtk3/-/raw/$__arch_pkg_commit/gtk-query-immodules-3.0.hook"
 )
-sha256sums=('ecbf69e66a073cbcf23454ae1ab366beedae6e96582975ae55964b0cc7bab685'
+sha256sums=('d0d57e45321fdd91bd2a9c5500239a6333da60015336c9216a716b4834911c42'
             '5723d1d2c0e69ce2e7f36973560a2297f6288e1fdfa4f6946104347080c7fc8c'
             '9785368d56b851e52de00eec852fc56f636dbc66d53c74d9b102e7c060f69533'
             '760bd3d65b3c5c0be19311d3b9d2be1f33c3bec198bc470de5afe23f5d488b8f'
             '736821182ac014617006e9d00fafa807a19611f3a9032133dee91b4656b7980a'
             '0da7fabf10ba9419ce50c81341fc9c4e92c4beab73d511575507bdc0c40d033f'
             'db82bc4647eda7cc102590d5cfffd8524cf126a704358096e0e66f5c068fe46f'
+            '25c7872a92dac3c77e7f64eacecddf89c5c8272cf046ff053616585f7e626655'
             '24217b43a7ca5bd46ff205b8f2a7c5a5192cafc36f5093255ed9053e5496afed'
             '940638221f69f89e758044c37d40e2c39a14eb479afe6046c0e7e78c061e8ca2'
             'caa4da5e786a38e788617d6c9a844dfc604038d2a5d57033273859cad46d14cd'
