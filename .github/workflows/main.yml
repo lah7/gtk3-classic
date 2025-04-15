@@ -59,21 +59,13 @@ jobs:
         srcdir="$(pwd)"
         prepare
 
-    # Based on PKGBUILD build()
+    # Uses PKGBUILD build() directly
     # Build system may connect to GNOME's GitLab to retrieve glib dependency
     - name: Build
       run: |
         source PKGBUILD
-        CFLAGS+=" -DG_DISABLE_CAST_CHECKS"
-        meson gtk-${_gtkver} build \
-            -D broadway_backend=true \
-            -D colord=auto \
-            -D demos=false \
-            -D examples=false \
-            -D introspection=true \
-            -D tests=false \
-            -D installed_tests=false
-        ninja -C build
+        arch-meson() { meson "$@"; }
+        build
 
   makepkg:
     # Create artifacts for the Arch packages for convenient testing, and to
