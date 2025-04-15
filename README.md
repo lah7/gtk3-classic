@@ -174,7 +174,7 @@ To revert to standard GTK 3, remove the patches and rebuild GTK 3:
 * Appearance of print dialog is less "gnomish", natural margins are restored.
 * Backdrop CSS state is disabled.
   * Inactive windows don't look differently.
-  * You can restore backdrop state by setting `GTK_CSD=1` or `GTK_BACKDROP=1` environment variable.
+  * You can restore backdrop state by setting `GTK_BACKDROP=1` environment variable.
 * Status bars are smaller regardless of used theme.
 * File chooser dialog, places sidebar and color chooser dialog use a traditional context menu instead of popover.
 
