@@ -28,7 +28,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Get GTK Version
+    - name: Get GTK version
       run: |
         source PKGBUILD
         echo "GTK_VERSION=${_gtkver}" >> $GITHUB_ENV
@@ -51,7 +51,7 @@ jobs:
         source PKGBUILD
         tar -xzf gtk*.tar.gz
 
-    - name: Install Dependencies
+    - name: Install build dependencies
       run: |
         echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ focal main" | sudo tee -a /etc/apt/sources.list
         sudo apt-get update
@@ -60,7 +60,7 @@ jobs:
         sudo apt-get install libgif-dev libelf-dev
 
     # Uses PKGBUILD prepare() directly
-    - name: Apply Patches
+    - name: Apply patches
       run: |
         source PKGBUILD
         srcdir="$(pwd)"
@@ -68,7 +68,7 @@ jobs:
 
     # Uses PKGBUILD build() directly
     # Build system may connect to GNOME's GitLab to retrieve glib dependency
-    - name: Build
+    - name: Build GTK
       run: |
         source PKGBUILD
         arch-meson() { meson "$@"; }
@@ -84,19 +84,19 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Get GTK Version
+    - name: Get GTK version
       run: |
         source PKGBUILD
         echo "GTK_VERSION=${_gtkver}" >> $GITHUB_ENV
 
-    - name: Cache GTK Source
+    - name: Cache GTK source
       uses: actions/cache@v4
       id: gtksrc
       with:
         path: 'gtk*.tar.gz'
         key: gtk-${{ env.GTK_VERSION }}
 
-    - name: Cache Pacman Packages
+    - name: Cache packages for pacman
       uses: actions/cache@v4
       env:
         cache-name: pacman-cache
@@ -125,12 +125,15 @@ jobs:
       run: |
         # Validate the PKGBUILD - these commands modify the file
         docker exec --workdir=/workspace --user builder archlinux makepkg --geninteg
-        docker exec --workdir=/workspace --user builder archlinux namcap -i PKGBUILD
 
         # Inform the user if changes need to be made
         md5sum -c PKGBUILD.md5 || (echo -e "\nTo fix, please push a commit with the following changes to the PKGBUILD file.\nHere's the patch:\n" && diff -u PKGBUILD.before PKGBUILD)
 
-    - name: Make Package
+    - name: Lint package
+      run: |
+        docker exec --workdir=/workspace --user builder archlinux namcap -i PKGBUILD
+
+    - name: Make package
       run: |
         docker exec --workdir=/workspace --user builder archlinux makepkg -s --noconfirm
 
@@ -139,7 +142,7 @@ jobs:
         docker stop archlinux -t 1
         docker rm archlinux
 
-    - name: Upload Package
+    - name: Upload package
       uses: actions/upload-artifact@v4
       with:
         name: gtk3-classic-run${{github.run_number}}-pkg
