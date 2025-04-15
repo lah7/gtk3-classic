@@ -80,7 +80,7 @@ built autonomously by [GitHub Actions](https://github.com/lah7/gtk3-classic/acti
       cd gtk3-classic
       makepkg -s
 
-    > This [repository's PKGBUILD](https://github.com/lah7/gtk3-classic/blob/master/PKGBUILD) allows for selectively choosing patches.
+    To exclude patches, comment (`#`) them out in the `series` file.
 
 
 ### Ubuntu
