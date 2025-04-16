@@ -19,6 +19,24 @@ jobs:
             fi
         done
 
+  check_sha256sums:
+    name: 'Check / PKGBUILD'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install Arch Linux packaging tools
+      run: |
+        # Run Arch Linux tools on Ubuntu
+        # 'makepkg' throws an unknown error unless 'pacman' is installed.
+        # In Ubuntu, that package is for a PACMAN game! Obviously a bug.
+        sudo apt-get update
+        sudo apt-get install makepkg pacman
+
+    - name: Check SHA256 checksums
+      run: python3 scripts/ci-check-checksums.py
+
   build:
     # Perform a generic build in case of any critical errors
     name: Build
@@ -114,10 +132,6 @@ jobs:
         docker exec archlinux useradd builder
         docker exec archlinux /bin/bash -c "echo 'builder ALL=(ALL:ALL) NOPASSWD:ALL' >> /etc/sudoers"
 
-        # Use as a reference when validating PKGBUILD
-        cp PKGBUILD PKGBUILD.before
-        md5sum PKGBUILD >> PKGBUILD.md5
-
         # This 'builder' user will take directory ownership
         docker exec archlinux chown -R builder /workspace
 
@@ -126,16 +140,13 @@ jobs:
         # Validate the PKGBUILD - these commands modify the file
         docker exec --workdir=/workspace --user builder archlinux makepkg --geninteg
 
-        # Inform the user if changes need to be made
-        md5sum -c PKGBUILD.md5 || (echo -e "\nTo fix, please push a commit with the following changes to the PKGBUILD file.\nHere's the patch:\n" && diff -u PKGBUILD.before PKGBUILD)
-
     - name: Lint package
       run: |
         docker exec --workdir=/workspace --user builder archlinux namcap -i PKGBUILD
 
     - name: Make package
       run: |
-        docker exec --workdir=/workspace --user builder archlinux makepkg -s --noconfirm
+        docker exec --workdir=/workspace --user builder archlinux makepkg -s --noconfirm ${{ github.event_name == 'pull_request' && '--skipinteg' || '' }}
 
     - name: Stop Arch Linux
       run: |
