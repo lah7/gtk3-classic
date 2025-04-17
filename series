@@ -5,6 +5,7 @@ appearance__fix_black_border.patch
 appearance__message-dialogs.patch
 appearance__print-dialog.patch
 appearance__smaller-statusbar.patch
+consistent_file_size_units.patch
 csd__clean-headerbar.patch
 csd__disabled-by-default.patch
 csd__server-side-shadow.patch
