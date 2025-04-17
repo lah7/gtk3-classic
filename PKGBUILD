@@ -61,35 +61,18 @@ optdepends=(
 	'libcups: printer support in print dialog'
 )
 makedepends=(
-	cairo
 	cantarell-fonts
-	desktop-file-utils
-	fribidi
-	gdk-pixbuf2
 	git
 	glib2-devel
 	gobject-introspection
-	gtk-update-icon-cache
 	hicolor-icon-theme
 	libcups
 	libegl
-	libepoxy
 	libgl
-	librsvg
-	libxcomposite
-	libxcursor
-	libxdamage
-	libxi
-	libxinerama
-	libxkbcommon
-	libxrandr
 	meson
-	pango
 	python-packaging
 	quilt
 	sassc
-	shared-mime-info
-	wayland
 	wayland-protocols
 )
 install=gtk3.install
