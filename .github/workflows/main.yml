@@ -3,31 +3,73 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build:
-    # Perform a generic build in case of any critical errors
-    name: Build
-    runs-on: ubuntu-22.04
+  check_series:
+    name: 'Check / Series'
+    runs-on: ubuntu-latest
     steps:
-    # Checks out under $GITHUB_WORKSPACE
     - name: Checkout
       uses: actions/checkout@v4
 
     - name: Check series file
       run: |
         for patch in $(ls *.patch); do
-            grep "$patch" series
-            if [ $? != 0 ]; then
+            if ! grep "$patch" series; then
                 echo "::error title=$patch::Patch is missing from series file"
                 exit 1
             fi
         done
 
-    - name: Get GTK Version
+  check_sha256sums:
+    name: 'Check / PKGBUILD'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install Arch Linux packaging tools
+      run: |
+        # Run Arch Linux tools on Ubuntu
+        # 'makepkg' throws an unknown error unless 'pacman' is installed.
+        # In Ubuntu, that package is for a PACMAN game! Obviously a bug.
+        sudo apt-get update
+        sudo apt-get install makepkg pacman
+
+    - name: Check SHA256 checksums
+      run: python3 scripts/ci-check-checksums.py
+
+  build:
+    # Perform a generic build in case of any critical errors
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [check_series]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Get GTK version
       run: |
         source PKGBUILD
         echo "GTK_VERSION=${_gtkver}" >> $GITHUB_ENV
 
-    - name: Install Dependencies
+    - name: Cache GTK source
+      uses: actions/cache@v4
+      id: gtksrc
+      with:
+        path: 'gtk*.tar.gz'
+        key: gtk-${{ env.GTK_VERSION }}
+
+    - name: Download GTK source
+      if: steps.gtksrc.outputs.cache-hit != 'true'
+      run: |
+        source PKGBUILD
+        wget "https://gitlab.gnome.org/GNOME/gtk/-/archive/${_gtkver}/gtk-${_gtkver}.tar.gz"
+
+    - name: Extract GTK source
+      run: |
+        source PKGBUILD
+        tar -xzf gtk*.tar.gz
+
+    - name: Install build dependencies
       run: |
         echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ focal main" | sudo tee -a /etc/apt/sources.list
         sudo apt-get update
@@ -35,76 +77,50 @@ jobs:
         sudo apt-get install quilt sassc meson ninja-build cmake
         sudo apt-get install libgif-dev libelf-dev
 
-    - name: Cache GTK Source
+    # Uses PKGBUILD prepare() directly
+    - name: Apply patches
+      run: |
+        source PKGBUILD
+        srcdir="$(pwd)"
+        prepare
+
+    # Uses PKGBUILD build() directly
+    # Build system may connect to GNOME's GitLab to retrieve glib dependency
+    - name: Build GTK
+      run: |
+        source PKGBUILD
+        arch-meson() { meson "$@"; }
+        build
+
+  makepkg:
+    # Create artifacts for the Arch packages for convenient testing
+    name: 'Package / Arch'
+    runs-on: ubuntu-latest
+    needs: [check_series]
+    steps:
+    # Checks out under $GITHUB_WORKSPACE
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Get GTK version
+      run: |
+        source PKGBUILD
+        echo "GTK_VERSION=${_gtkver}" >> $GITHUB_ENV
+
+    - name: Cache GTK source
       uses: actions/cache@v4
       id: gtksrc
       with:
         path: 'gtk*.tar.gz'
         key: gtk-${{ env.GTK_VERSION }}
 
-    - name: Download GTK Source
-      #if: steps.gtksrc.outputs.cache-hit != 'true'
-      run: |
-        source PKGBUILD
-        wget "https://gitlab.gnome.org/GNOME/gtk/-/archive/${_gtkver}/gtk-${_gtkver}.tar.gz"
-
-    - name: Extract GTK Source
-      run: |
-        source PKGBUILD
-        tar -xzf gtk*.tar.gz
-
-    # Uses PKGBUILD prepare() directly
-    - name: Apply Patches
-      run: |
-        source PKGBUILD
-        srcdir="$(pwd)"
-        prepare
-
-    # Based on PKGBUILD build()
-    # Build system may connect to GNOME's GitLab to retrieve glib dependency
-    - name: Build
-      run: |
-        source PKGBUILD
-        CFLAGS+=" -DG_DISABLE_CAST_CHECKS"
-        meson gtk-${_gtkver} build \
-            -D broadway_backend=true \
-            -D colord=auto \
-            -D demos=false \
-            -D examples=false \
-            -D introspection=true \
-            -D tests=false \
-            -D installed_tests=false
-        ninja -C build
-
-  makepkg:
-    # Create artifacts for the Arch packages for convenient testing, and to
-    # validate the package integrity with changes.
-    name: 'Package / Arch'
-    runs-on: ubuntu-latest
-    steps:
-    # Checks out under $GITHUB_WORKSPACE
-    - name: Checkout
-      uses: actions/checkout@v4
-
-    - name: Get GTK Version
-      run: |
-        source PKGBUILD
-        echo "GTK_VERSION=${_gtkver}" >> $GITHUB_ENV
-
-    - name: Cache Pacman Packages
+    - name: Cache packages for pacman
       uses: actions/cache@v4
       env:
         cache-name: pacman-cache
       with:
         path: ~/pacman-cache
         key: pacman-cache
-
-    - name: Cache GTK Source
-      uses: actions/cache@v4
-      id: gtksrc
-      with:
-        path: 'gtk*.tar.gz'
-        key: gtk-${{ env.GTK_VERSION }}
 
     - name: Start Arch Linux
       run: |
@@ -116,10 +132,6 @@ jobs:
         docker exec archlinux useradd builder
         docker exec archlinux /bin/bash -c "echo 'builder ALL=(ALL:ALL) NOPASSWD:ALL' >> /etc/sudoers"
 
-        # Use as a reference when validating PKGBUILD
-        cp PKGBUILD PKGBUILD.before
-        md5sum PKGBUILD >> PKGBUILD.md5
-
         # This 'builder' user will take directory ownership
         docker exec archlinux chown -R builder /workspace
 
@@ -127,21 +139,21 @@ jobs:
       run: |
         # Validate the PKGBUILD - these commands modify the file
         docker exec --workdir=/workspace --user builder archlinux makepkg --geninteg
+
+    - name: Lint package
+      run: |
         docker exec --workdir=/workspace --user builder archlinux namcap -i PKGBUILD
 
-        # Inform the user if changes need to be made
-        md5sum -c PKGBUILD.md5 || (echo -e "\nTo fix, please push a commit with the following changes to the PKGBUILD file.\nHere's the patch:\n" && diff -u PKGBUILD.before PKGBUILD)
-
-    - name: Make Package
+    - name: Make package
       run: |
-        docker exec --workdir=/workspace --user builder archlinux makepkg -s --noconfirm
+        docker exec --workdir=/workspace --user builder archlinux makepkg -s --noconfirm ${{ github.event_name == 'pull_request' && '--skipinteg' || '' }}
 
     - name: Stop Arch Linux
       run: |
         docker stop archlinux -t 1
         docker rm archlinux
 
-    - name: Upload Package
+    - name: Upload package
       uses: actions/upload-artifact@v4
       with:
         name: gtk3-classic-run${{github.run_number}}-pkg

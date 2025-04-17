@@ -80,7 +80,7 @@ built autonomously by [GitHub Actions](https://github.com/lah7/gtk3-classic/acti
       cd gtk3-classic
       makepkg -s
 
-    > This [repository's PKGBUILD](https://github.com/lah7/gtk3-classic/blob/master/PKGBUILD) allows for selectively choosing patches.
+    To exclude patches, comment (`#`) them out in the `series` file.
 
 
 ### Ubuntu
@@ -175,7 +175,7 @@ To revert to standard GTK 3, remove the patches and rebuild GTK 3:
 * Appearance of print dialog is less "gnomish", natural margins are restored.
 * Backdrop CSS state is disabled.
   * Inactive windows don't look differently.
-  * You can restore backdrop state by setting `GTK_CSD=1` or `GTK_BACKDROP=1` environment variable.
+  * You can restore backdrop state by setting `GTK_BACKDROP=1` environment variable.
 * Status bars are smaller regardless of used theme.
 * File chooser dialog, places sidebar and color chooser dialog use a traditional context menu instead of popover.
 

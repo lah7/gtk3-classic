@@ -96,37 +96,7 @@ install=gtk3.install
 source=(
 	# Patch files.
 	series
-	appearance__buttons-menus-icons.patch
-	appearance__disable-backdrop.patch
-	appearance__file-chooser.patch
-	appearance__fix_black_border.patch
-	appearance__message-dialogs.patch
-	appearance__print-dialog.patch
-	appearance__smaller-statusbar.patch
-	consistent_file_size_units.patch
-	csd__clean-headerbar.patch
-	csd__disabled-by-default.patch
-	csd__server-side-shadow.patch
-	file-chooser__eject-button.patch
-	file-chooser__places-sidebar.patch
-	file-chooser__typeahead.patch
-	fixes__labels-wrapping.patch
-	fixes__primary_selection.patch
-	fixes__too-large-menu-covers-bar.disabled-patch
-	fixes__wayland_dialogs_header_setting.patch
-	gtk+-atk-bridge-gtkaccessibility.patch
-	gtk+-atk-bridge-meson.build.patch
-	gtk+-atk-bridge-meson_options.txt.patch
-	other__default-settings.patch
-	other__hide-insert-emoji.patch
-	other__mnemonics-delay.patch
-	other__remove_dead_keys_underline.patch
-	popovers__color-chooser.patch
-	popovers__file-chooser-list.patch
-	popovers__places-sidebar.patch
-	notebook_wheel_scroll.patch
-	treeview__alternating_row_colours.patch
-	window__rgba-visual.patch
+	*.patch
 
 	# Theme CSS stylesheet.
 	smaller-adwaita.css
@@ -155,11 +125,11 @@ sha256sums=('6f4c259dcc7f987b41d87578040ddb99dae8de2295adecf9d350be8fb2a18850'
             'c6fd146e7ab332dd9a394b666b19e6ba7d6ac0932f33fb396f66630134257309'
             '7157b665e2ae724bb6abe8fc382d7178dc4d8d00f29bc63ed2942307ff41914b'
             '135defcbaa4832ae09c79d39231f327c1399159c1a7520c2ebfd2ca5d7fc9a7b'
-            '2b10b436ebcf8c124fac6e7867f0bf0573ecfb70130893fea37724c5f6719caf'
             '0e62c79e03b761e632a1178173439ffe86b99f759fc85f9f15f2c928b305e95d'
             '96c5dc456821ab4d1e40be3fdcfcaa2dab62fa0e058a622a379cc40fcad56091'
             '364e1434fc99aef3c59180982af769c9e96ec0bec4e0cf272b7d1b0a2b566fb7'
             '9423d26ff2791c7a4f3c1f0d7eeda9132ebaa69266f5e7e8770588233a674bbb'
+            '904a819f3c484736384964b77591cae6dca17e849949f7a80d13f134a159ab32'
             '64c36c636c73b58afa219737a1f567c37f36df5971edf4352bf0639d907f4567'
             '974374f2799aaa48b9ded985c47d2dda45d2fcdcd63f1749e74b243279467d49'
             '9761a289cf93558ec67bb498b765ccb757027b10071da938ff14fca695a0103d'
@@ -167,7 +137,6 @@ sha256sums=('6f4c259dcc7f987b41d87578040ddb99dae8de2295adecf9d350be8fb2a18850'
             'bf0e188ba6cfb24b506e4eab7e62a020348cce307d4eecde571227a058c441ad'
             'ba31709dad005ac06a86222ee6ead41175d88f8f61fd4d541770f957383431a7'
             '7c52a25019d52e02254cc7b578d32aeea87c2fd5f708ef71dbeb6b7edd0aa08e'
-            '904a819f3c484736384964b77591cae6dca17e849949f7a80d13f134a159ab32'
             '288978a65fbd0524e9194940b9b15774b010cb7193ef5bf5a4a5df3358ef9df6'
             '96ddecb48e5734159f91261c3a4b7f71a757d6aab69d22f11df600fb91511b11'
             'ba93f62e249f2713dbfe6c82de1be4ac655264d6407ed3dc5e05323027520f31'
