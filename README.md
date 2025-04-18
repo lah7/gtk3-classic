@@ -15,6 +15,7 @@ and any other environment where GTK applications are used. Running
 on GNOME desktops is not recommended!
 
 [Patch List](README.Patches.md) |
+[Environment Variables](README.Variables.md) |
 [Screenshots](https://github.com/lah7/gtk3-classic/wiki/Screenshots) |
 [Wiki](https://github.com/lah7/gtk3-classic/wiki)
 
@@ -39,6 +40,8 @@ Some patches are optional behind environment variables or an additional step
 [(like enabling alternating colour rows)](https://github.com/lah7/gtk3-classic/wiki/Treeview:-Alternating-Colours-CSS)
 
 Read [README.Patches.md](README.Patches.md) for a complete list of patches
+and their descriptions. Check out [README.Variables.md](README.Variables.md) for a summary
+of the environment variables to apply.
 
 For best results, [try downgrading](https://github.com/lah7/gtk3-classic/wiki/Downgraded-GNOME-GTK-applications)
 and pinning older versions of GTK 3 applications.
