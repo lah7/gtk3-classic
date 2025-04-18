@@ -5,11 +5,11 @@ appearance__fix_black_border.patch
 appearance__message-dialogs.patch
 appearance__print-dialog.patch
 appearance__smaller-statusbar.patch
-consistent_file_size_units.patch
 csd__clean-headerbar.patch
 csd__disabled-by-default.patch
 csd__server-side-shadow.patch
 file-chooser__eject-button.patch
+file-chooser__file_units.patch
 file-chooser__places-sidebar.patch
 file-chooser__typeahead.patch
 fixes__labels-wrapping.patch
