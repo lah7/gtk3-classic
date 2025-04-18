@@ -1,17 +1,19 @@
-## Patches
+# Patches
 
-#### Client Side Decorations (only on Xorg)
+## Client Side Decorations
 
-* **CSDs are disabled by default**
+CSDs refers to the application controlling the window decoration. The opposite is Server Side Decorations (SSD) where the window manager is responsible.
+
+* **CSDs are disabled by default** (X11 only)
   * Allows the window manager to decorate windows instead of the application.
-  * This **does not work** for all (usually, newer) GTK applications [(#32)](https://github.com/lah7/gtk3-classic/issues/32)
+  * This **does not work** for all GTK applications if they're using the `libhandy` library [(#32)](https://github.com/lah7/gtk3-classic/issues/32)
   * If the app looks broken, set the environment variable `GTK_CSD=0` per app (or in your desktop environment) to restore CSDs.
-  * It is possible to set `GTK_CSD=1` to force CSDs on each GTK 3 window.
 * Client side shadows of windows, menus and tooltips are disabled by default.
-  * You can enable shadows by setting `GTK_CSD=1` environment variable.
-* Minimize, maximize and close buttons, window title and subtitle are removed from headerbar.
+  * You can re-enable client shadows by setting `GTK_CSD=1` environment variable. Technically, this forces CSD on the window, so use wisely.
+* Minimize, maximize and close buttons, window title and subtitle are removed from headerbar (unless the program version uses the `libhandy` library)
 
-#### File Chooser
+
+## File Chooser
 
 * **Typeahead feature is restored.**
   * Recursive file search will not be ran automatically when you start typing.
@@ -26,34 +28,35 @@
 * The eject button in the Places sidebar can be hidden by setting `gtk-file-chooser-eject-button=false` in `settings.ini`.
 * IEC units (1024 bytes) can be forced using `GTK_USE_IEC_UNITS=1`. The default is SI units (1000 bytes) as GNOME HIG [previously recommended](https://bugzilla.gnome.org/show_bug.cgi?id=309850#c2).
 
-#### Appearance
 
-* [Alternating row colours in treeviews are restored.](https://github.com/lah7/gtk3-classic/wiki/Treeview:-Alternating-Colours-CSS) (requires additional step)
+## Appearance
+
+* Alternating row colours in treeviews are restored.
+  * [**Requires additional step**](https://github.com/lah7/gtk3-classic/wiki/Treeview:-Alternating-Colours-CSS) to add CSS. (Some classic themes may already support it!)
 * Message dialogs have traditional appearance with left-aligned texts and right-aligned buttons.
 * Some GTK stock icons on buttons and context menus are restored.
 * Regular colorized icons instead of symbolic icons are used in file chooser dialog.
 * Appearance of print dialog is less "gnomish", natural margins are restored.
-* Backdrop CSS state is disabled.
-  * Inactive windows don't look differently.
-  * You can restore backdrop state by setting `GTK_BACKDROP=1` environment variable.
+* Controls on windows no longer change their backdrop when the window is not focused.
+  * This default is familar to GTK 2 and Qt.
+  * If you prefer GTK 3's backdrop state, you can restore it by setting the `GTK_BACKDROP=1` environment variable.
 * Status bars are smaller regardless of used theme.
 * File chooser dialog, places sidebar and color chooser dialog use a traditional context menu instead of popover.
-
-#### Default Settings
-
 * Scrollbars are always visible.
   * You can enable invisible scrollbars by `GTK_OVERLAY_SCROLLING=1` environment variable.
+
+
+## Other
+
 * Atril instead of Evince is set as default previewer in printing dialog.
-
-#### Other
-
 * The underline while typing dead keys is [removed](https://blog.gtk.org/2021/03/24/input-revisited/).
 * Delay before showing mnemonics is removed. You don't have to wait when you press <kbd>Alt</kbd>.
 * "Insert emoji" context menu item of entry fields is hidden.
   * You can restore it by setting `GTKM_INSERT_EMOJI` environment variable.
 * Default Adwaita theme has smaller controls (buttons, fields, tabs, etc.).
 
-#### Fixes
+
+## Fixes
 
 * Reinstate the ability to switch between standard tabs by scrolling over them, similar to GTK 2.
   * This can be disabled by setting `GTK_NO_TAB_SCROLL` environment variable.
@@ -69,7 +72,8 @@
   * This makes GTK consistent with other toolkits.
   * See https://gitlab.gnome.org/GNOME/gtk/-/issues/317
 
-#### Build time
+
+## Build time
 
 * `atk-bridge` can be optionally disabled. [(#101)](https://github.com/lah7/gtk3-classic/pull/101)
   * Similar to how you could build with `--without-atk-bridge` over a decade ago.

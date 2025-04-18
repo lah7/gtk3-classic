@@ -7,15 +7,16 @@
 ![Screenshot of some of the tweaks](.github/readme/preview.png)
 
 This repository contains patches to restore GTK 3's look & feel reminiscent to
-earlier versions. With many enhancements such as disabled CSD headers,
+earlier versions. With many enhancements such as disabled CSD headers (on X11),
 traditional dialog boxes and file browser improvements.
 
 These are designed to work on non-GNOME desktops (such as XFCE and MATE)
 and any other environment where GTK applications are used. Running
 on GNOME desktops is not recommended!
 
-[View Screenshots](https://github.com/lah7/gtk3-classic/wiki/Screenshots) |
-[View Wiki](https://github.com/lah7/gtk3-classic/wiki)
+[Patch List](README.Patches.md) |
+[Screenshots](https://github.com/lah7/gtk3-classic/wiki/Screenshots) |
+[Wiki](https://github.com/lah7/gtk3-classic/wiki)
 
 
 ## About
@@ -26,12 +27,21 @@ that apply on top of the GTK 3 source code. It's not a fork of GTK 3.
 This repository acts as a central hub for these patches and will keep rolling
 if there's a new GTK 3 release. The patches aim to bring a bit of reminiscence
 to GTK 2 and GTK 3's early days (hence, "classic").
-[See below on contributing.](#contributing)
+[See below on contributing patches.](#contributing)
 
 **This repository is provided as-is, with no warranty or guaranteed support.**
 While the patched installation should just work, you are entering unsupported territory.
 
-[View Patches](#patches)
+
+## Patches
+
+Some patches are optional behind environment variables or an additional step
+[(like enabling alternating colour rows)](https://github.com/lah7/gtk3-classic/wiki/Treeview:-Alternating-Colours-CSS)
+
+Read [README.Patches.md](README.Patches.md) for a complete list of patches
+
+For best results, [try downgrading](https://github.com/lah7/gtk3-classic/wiki/Downgraded-GNOME-GTK-applications)
+and pinning older versions of GTK 3 applications.
 
 
 ## Download
@@ -64,7 +74,7 @@ with some changes to make the package more lightweight:
 There's a few ways to install:
 
 * The [release notes](https://github.com/lah7/gtk3-classic/releases/latest) contains a package
-built autonomously by [GitHub Actions](https://github.com/lah7/gtk3-classic/actions) for your convenience.
+built autonomously by [GitHub Actions](https://github.com/lah7/gtk3-classic/actions?query=branch%3Amaster) for your convenience.
 
       sudo pacman -U ./*.tar.zst
 
@@ -138,8 +148,6 @@ To revert to standard GTK 3, remove the patches and rebuild GTK 3:
     sudo emerge -av1 gtk+:3
 
 
-
-
 ## Problems?
 
 These patches are for your own pleasure. They are **not supported by GTK developers,
@@ -148,7 +156,7 @@ them because of this patched GTK 3 installation.
 
 If you are having trouble with an application or theme, try:
 
-* Setting `GTK_CSD=0` environment variable, then run the application.
+* Run the application from the terminal with `GTK_CSD=0` before the command.
 * Revert to the original `gtk3` to confirm these patches caused the problem.
 
 If a patch is at fault, Arch and Gentoo users for instance can comment out (`#`)
@@ -170,7 +178,7 @@ You are welcome to open a pull request with a new patch [or fix](https://github.
 * Offers "classic" functionality remensiant of GTK 2 or early versions of GTK 3.
 * Optional behind an environment variable if it introduces a significant change.
 
-Patches should be added [using the `quilt` system.](https://github.com/lah7/gtk3-classic/wiki/Creating-and-Managing-Patches)
+Patches are added [using the `quilt` system.](https://github.com/lah7/gtk3-classic/wiki/Creating-and-Managing-Patches)
 
 Our primary packaging and testing happens on Arch. Checksums in `PKGBUILD`
 need to be updated to pass the automated checks. On an Arch system, these can be
