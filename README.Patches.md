@@ -12,6 +12,11 @@ CSDs refers to the application controlling the window decoration. The opposite i
   * You can re-enable client shadows by setting `GTK_CSD=1` environment variable. Technically, this forces CSD on the window, so use wisely.
 * Minimize, maximize and close buttons, window title and subtitle are removed from headerbar (unless the program version uses the `libhandy` library)
 
+Our patches don't currently support disabling CSDs under Wayland. [(#28)](https://github.com/lah7/gtk3-classic/issues/28)
+For now, a workaround could be to use the X11 backend.
+
+    GDK_BACKEND=x11
+
 
 ## File Chooser
 
