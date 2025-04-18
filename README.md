@@ -268,10 +268,16 @@ and automated checks run, it'll fail ❌ and present a patch of required changes
 The [Discussions](https://github.com/lah7/gtk3-classic/discussions) tab
 is where you can find curated tips, chat, support and introductions from other users.
 
-XFCE users might be interested in this additional patch for the file chooser:
+Here are some complementary projects and themes for your classic experience:
 
-* https://github.com/lah7/gtk3-classic/pull/94/files
-* https://aur.archlinux.org/packages/gtk3-classic-xfce (for Arch Linux users)
+- [Human theme](https://github.com/luigifab/human-theme)
+  - Plus, [@luigifab's gist with additional GTK 3 and GTK 4 patches](https://gist.github.com/luigifab/0fce786cdb93b5687069a82f490ea95e)
+- [Raleigh theme & icons](https://github.com/thesquash/gtk-theme-raleigh)
+- [Bluecurve theme & icons](https://www.gnome-look.org/p/2191581)
+- [Ambiant-MATE theme & icons](https://github.com/lah7/Ambiant-MATE)
+- [@thesquash's gtk3-classic-module](https://github.com/thesquash/gtk3-classic-module) _(featuring many of these patches without needing to recompile GTK 3)_
+- XFCE users might be interested in [this additional patch for the file chooser.](https://patch-diff.githubusercontent.com/raw/lah7/gtk3-classic/pull/94.patch)
+  - Avaliable from the AUR as [`gtk3-classic-xfce`](https://aur.archlinux.org/packages/gtk3-classic-xfce)
 
 
 ## License
