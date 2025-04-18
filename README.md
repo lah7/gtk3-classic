@@ -36,12 +36,14 @@ While the patched installation should just work, you are entering unsupported te
 
 ## Patches
 
+See these files:
+
+* [README.Patches.md](README.Patches.md) — a complete list of what patches do.
+* [README.Variables.md](README.Variables.md) — a summary
+of the available environment variables.
+
 Some patches are optional behind environment variables or an additional step
 [(like enabling alternating colour rows)](https://github.com/lah7/gtk3-classic/wiki/Treeview:-Alternating-Colours-CSS)
-
-Read [README.Patches.md](README.Patches.md) for a complete list of patches
-and their descriptions. Check out [README.Variables.md](README.Variables.md) for a summary
-of the environment variables to apply.
 
 For best results, [try downgrading](https://github.com/lah7/gtk3-classic/wiki/Downgraded-GNOME-GTK-applications)
 and pinning older versions of GTK 3 applications.
