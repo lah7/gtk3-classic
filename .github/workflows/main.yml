@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Check series file
       run: |
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Install Arch Linux packaging tools
       run: |
@@ -44,7 +44,7 @@ jobs:
     needs: [check_series]
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Get GTK version
       run: |
@@ -100,7 +100,7 @@ jobs:
     steps:
     # Checks out under $GITHUB_WORKSPACE
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Get GTK version
       run: |
