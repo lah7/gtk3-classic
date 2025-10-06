@@ -8,7 +8,49 @@
  static void     recent_start_loading         (GtkFileChooserWidget *impl);
  static void     recent_stop_loading          (GtkFileChooserWidget *impl);
  static void     recent_clear_model           (GtkFileChooserWidget *impl,
-@@ -3300,7 +3299,6 @@
+@@ -3068,20 +3067,6 @@
+   priv->file_system = NULL;
+ }
+ 
+-/* Takes the folder stored in a row in the recent_model, and puts it in the pathbar */
+-static void
+-put_recent_folder_in_pathbar (GtkFileChooserWidget *impl, GtkTreeIter *iter)
+-{
+-  GtkFileChooserWidgetPrivate *priv = impl->priv;
+-  GFile *file;
+-
+-  gtk_tree_model_get (GTK_TREE_MODEL (priv->recent_model), iter,
+-                      MODEL_COL_FILE, &file,
+-                      -1);
+-  _gtk_path_bar_set_file (GTK_PATH_BAR (priv->browse_path_bar), file, FALSE);
+-  g_object_unref (file);
+-}
+-
+ /* Sets the location bar in the appropriate mode according to the
+  * current operation mode and action.  This is the central function
+  * for dealing with the pathbar’s widgets; as long as impl->action and
+@@ -3107,20 +3092,6 @@
+       break;
+ 
+     case OPERATION_MODE_RECENT:
+-      if (priv->action == GTK_FILE_CHOOSER_ACTION_SAVE)
+-        {
+-          GtkTreeSelection *selection;
+-          gboolean have_selected;
+-          GtkTreeIter iter;
+-
+-          selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->browse_files_tree_view));
+-
+-          /* Save mode means single-selection mode, so the following is valid */
+-          have_selected = gtk_tree_selection_get_selected (selection, NULL, &iter);
+-
+-          if (have_selected)
+-            put_recent_folder_in_pathbar (impl, &iter);
+-        }
+       visible = FALSE;
+       break;
+ 
+@@ -3300,7 +3271,6 @@
        priv->action == GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER)
      {
        save_widgets_create (impl);
@@ -16,7 +58,7 @@
        gtk_places_sidebar_set_show_trash (GTK_PLACES_SIDEBAR (priv->places_sidebar), FALSE);
  
        if (priv->select_multiple)
-@@ -3315,7 +3313,6 @@
+@@ -3315,7 +3285,6 @@
             priv->action == GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER)
      {
        save_widgets_destroy (impl);
@@ -24,7 +66,7 @@
        location_mode_set (impl, priv->location_mode);
      }
  
-@@ -4013,7 +4010,7 @@
+@@ -4013,7 +3982,7 @@
    switch (priv->startup_mode)
      {
      case STARTUP_MODE_RECENT:
