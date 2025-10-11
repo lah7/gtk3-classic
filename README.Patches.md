@@ -30,7 +30,8 @@ For now, a workaround could be to use the X11 backend.
 * Trash and XDG user directories (like Pictures, Downloads, Documents) are removed from Places sidebar.
   * These can be added as bookmarks.
 * File System button in Places sidebar is labeled as "File System" instead of "Computer".
-* Show recent in save mode
+* Show "Recents" in save mode.
+  * Reverts https://bugzilla.gnome.org/show_bug.cgi?id=751653.
 * The eject button in the Places sidebar can be hidden by setting `gtk-file-chooser-eject-button=false` in `settings.ini`.
 * IEC units (1024 bytes) can be forced using `GTK_USE_IEC_UNITS=1`. The default is SI units (1000 bytes) as GNOME HIG [previously recommended](https://bugzilla.gnome.org/show_bug.cgi?id=309850#c2).
 
