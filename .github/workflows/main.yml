@@ -156,5 +156,11 @@ jobs:
     - name: Upload package
       uses: actions/upload-artifact@v7
       with:
-        name: gtk3-classic-run${{github.run_number}}-pkg
-        path: gtk3-classic-*.pkg*
+        archive: false
+        path: gtk3-classic-3*.pkg.tar.zst
+
+    - name: Upload package (debug symbols)
+      uses: actions/upload-artifact@v7
+      with:
+        archive: false
+        path: gtk3-classic-debug-3*.pkg.tar.zst
