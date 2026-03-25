@@ -52,7 +52,7 @@ jobs:
         echo "GTK_VERSION=${_gtkver}" >> $GITHUB_ENV
 
     - name: Cache GTK source
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       id: gtksrc
       with:
         path: 'gtk*.tar.gz'
@@ -108,14 +108,14 @@ jobs:
         echo "GTK_VERSION=${_gtkver}" >> $GITHUB_ENV
 
     - name: Cache GTK source
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       id: gtksrc
       with:
         path: 'gtk*.tar.gz'
         key: gtk-${{ env.GTK_VERSION }}
 
     - name: Cache packages for pacman
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       env:
         cache-name: pacman-cache
       with:
@@ -154,7 +154,7 @@ jobs:
         docker rm archlinux
 
     - name: Upload package
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: gtk3-classic-run${{github.run_number}}-pkg
         path: gtk3-classic-*.pkg*
