@@ -17,6 +17,8 @@ For now, a workaround could be to use the X11 backend.
 
     GDK_BACKEND=x11
 
+For applications based on libhandy, libadwaita and GTK 3/4, including those in sandboxed environments (like Flatpak) and under Wayland, try [GTK-NoCSD](https://codeberg.org/MorsMortium/gtk-nocsd), a LD_PRELOAD library.
+
 
 ## File Chooser
 
