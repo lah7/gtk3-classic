@@ -11,4 +11,3 @@ src
 /gtk-*
 *.tar.xz
 *.tar.gz
-gtk-query-immodules-3.0.hook
