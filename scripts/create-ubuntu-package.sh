@@ -1,13 +1,12 @@
 #!/bin/bash
-# *********************************
-# Intended for maintainer use only!
-# *********************************
-# Creates a source package of gtk3-classic for packaging purposes.
+#
+# Creates a local package of gtk3-classic.
 #
 # This works by taking a copy of the original gtk+3.0 package and modifies
-# it with our patches. This is then locally build.
+# it with our patches, then builds & installs locally.
 #
 # Thanks to N0rbert (from Ubuntu MATE team) for the help!
+# Thanks to Robert (#137) for the improvements for local building.
 #
 
 DISTRO=$(lsb_release -d | awk '{print $2}')
@@ -45,12 +44,29 @@ fi
 set -x
 
 # Ensure the necessary tools and dependencies are installed
-sudo apt-get install ubuntu-dev-tools devscripts dh-sequence-gir \
-        dh-sequence-gnome docbook-xsl gobject-introspection \
-        libgirepository1.0-dev libcloudproviders-dev libcolord-dev \
-        libcups2-dev libjson-glib-dev:native libxkbfile-dev meson \
-        ninja-build sassc xsltproc xvfb gtk-doc-tools libatk1.0-doc \
-        libcairo2-doc libglib2.0-doc libpango1.0-doc
+sudo apt-get install \
+    ubuntu-dev-tools \
+    devscripts \
+    dh-sequence-gir \
+    dh-sequence-gnome \
+    docbook-xsl \
+    gobject-introspection \
+    gtk-doc-tools \
+    libatk1.0-doc \
+    libcairo2-doc \
+    libcloudproviders-dev \
+    libcolord-dev \
+    libcups2-dev \
+    libgirepository1.0-dev \
+    libglib2.0-doc \
+    libjson-glib-dev:native \
+    libpango1.0-doc \
+    libxkbfile-dev \
+    meson \
+    ninja-build \
+    sassc \
+    xsltproc \
+    xvfb
 
 # Download source files
 set -e
