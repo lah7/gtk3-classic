@@ -71,9 +71,65 @@ jobs:
 
     - name: Install build dependencies
       run: |
-        echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ focal main" | sudo tee -a /etc/apt/sources.list
+        # Doesn't work in 26.04 due to "build-essential" dependency
+        #echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ focal main" | sudo tee -a /etc/apt/sources.list
+        #sudo apt-get build-dep gtk+3.0
+
         sudo apt-get update
-        sudo apt-get build-dep gtk+3.0
+
+        # Manually install the build dependencies instead
+        sudo apt-get install \
+          adwaita-icon-theme \
+          at-spi2-core \
+          devscripts \
+          dh-sequence-gir \
+          dh-sequence-gnome \
+          docbook-xsl \
+          gir1.2-gdkpixbuf-2.0-dev \
+          gir1.2-pango-1.0-dev \
+          gobject-introspection \
+          gsettings-desktop-schemas \
+          gtk-doc-tools \
+          libatk-bridge2.0-dev \
+          libatk1.0-dev \
+          libatk1.0-doc \
+          libcairo2-dev \
+          libcairo2-doc \
+          libcloudproviders-dev \
+          libcolord-dev \
+          libcups2-dev \
+          libegl1-mesa-dev \
+          libepoxy-dev \
+          libfontconfig-dev \
+          libfreetype-dev \
+          libfribidi-dev \
+          libgdk-pixbuf-2.0-dev \
+          libgirepository1.0-dev \
+          libglib2.0-doc \
+          libharfbuzz-dev \
+          libjson-glib-dev:native \
+          libpango1.0-dev \
+          libpango1.0-doc \
+          libwayland-dev \
+          libxcomposite-dev \
+          libxcursor-dev \
+          libxdamage-dev \
+          libxext-dev \
+          libxfixes-dev \
+          libxi-dev \
+          libxinerama-dev \
+          libxkbcommon-dev \
+          libxkbfile-dev \
+          libxml2-utils \
+          libxrandr-dev \
+          meson \
+          ninja-build \
+          sassc \
+          ubuntu-dev-tools \
+          wayland-protocols \
+          xsltproc \
+          xvfb
+
         sudo apt-get install quilt sassc meson ninja-build cmake
         sudo apt-get install libgif-dev libelf-dev
 
