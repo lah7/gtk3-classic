@@ -135,10 +135,11 @@ rm debian/*.symbols
 sed -i '/^Uploaders:/d' debian/control
 
 set +xe
-DEBFULLNAME="$(whoami)"
-DEBEMAIL="$(whoami)@$(hostname)"
+export DEBFULLNAME="$(whoami)"
+export DEBEMAIL="$(whoami)@$(hostname)"
 LATEST_GIT_COMMIT=$(git log -n 1 --pretty=format:"%h")
-dch -D $VERSION_CODENAME -v $GTKVERSION~classic~$VERSION_CODENAME "Add gtk3-classic patches ($LATEST_GIT_COMMIT)"
+PKGVERSION="$(dpkg-parsechangelog -SVersion)"
+dch -D $VERSION_CODENAME -v ${PKGVERSION}+classic2~$VERSION_CODENAME "Add gtk3-classic patches ($LATEST_GIT_COMMIT)"
 
 # Build package
 dpkg-buildpackage -us -uc
