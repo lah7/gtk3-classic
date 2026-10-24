@@ -53,7 +53,7 @@ and pinning older versions of GTK 3 applications.
 
 * [Arch Linux](#arch-linux)
 * [Gentoo](#gentoo)
-* [Ubuntu (LTS)](#ubuntu) (discontinued)
+* [Ubuntu](#ubuntu)
 
 See [#111](https://github.com/lah7/gtk3-classic/issues/111) for details about
 Debian builds based on these patches.
@@ -100,21 +100,18 @@ built autonomously by [GitHub Actions](https://github.com/lah7/gtk3-classic/acti
 
 ### Ubuntu
 
-> [!WARNING]
-> Ubuntu packages for gtk3-classic has been discontinued.
-> The existing PPA will continue to work, but no new packages will be created.
-> **Use at your own risk.**
->
-> [You may build them yourself](https://github.com/lah7/gtk3-classic/wiki/Ubuntu-Packaging) or contribute improvements to reliably build locally via our [create-ubuntu-package.sh](scripts/create-ubuntu-package.sh) script.
+We don't maintain builds for Ubuntu, but you are free to build and install the
+packages locally yourself.
 
-> [!NOTE]
-> **Only available for LTS releases:** 20.04, 22.04, 24.04
+To get started, clone the repository and run the script:
 
-These packages are based on the original [`gtk+3.0`](https://packages.ubuntu.com/search?section=all&arch=any&keywords=gtk%2B3.0&searchon=sourcenames)
-package, with the version suffixed with `~classic`. These packages are rarely
-updated, as they are patched against the GTK 3 version originally used for that release.
+    git clone https://github.com/lah7/gtk3-classic.git
+    cd gtk3-classic
+    ./scripts/create-ubuntu-package.sh
 
-To install, [add the repository](https://launchpad.net/~lah7/+archive/ubuntu/gtk3-classic) and upgrade your packages:
+⚠️ **Use at your own risk!**
+
+Previously, there was a PPA for 20.04, 22.04, 24.04. **These are no longer updated.**
 
     sudo add-apt-repository ppa:lah7/gtk3-classic
     sudo apt dist-upgrade

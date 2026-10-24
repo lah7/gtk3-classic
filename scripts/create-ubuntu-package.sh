@@ -5,18 +5,23 @@
 # This works by taking a copy of the original gtk+3.0 package and modifies
 # it with our patches, then builds & installs locally.
 #
-# Thanks to N0rbert (from Ubuntu MATE team) for the help!
+# Thanks to N0rbert (from Ubuntu MATE team) for the original script to build for a PPA.
 # Thanks to Robert (#137) for the improvements for local building.
 #
 
-DISTRO=$(lsb_release -d | awk '{print $2}')
-CODENAME=$(lsb_release -c | awk '{print $2}')
-RELEASE=$(lsb_release -r | awk '{print $2}')
-
-# Is this running on Ubuntu?
-if [ ! "$DISTRO" == "Ubuntu" ]; then
-    echo "Wrong distro! This script only works on Ubuntu."
+# Version checks
+. /etc/os-release
+if [[ ! "$ID" == "ubuntu" ]]; then
+    echo "This script only runs on Ubuntu."
     exit 1
+fi
+
+if [[ ! "$VERSION_ID" == "26.04" ]]; then
+    echo "This script is designed to run on Ubuntu 26.04. It may not work for $VERSION_ID. Continue anyway? [y/N]"
+    read answer
+    if [[ ! "$answer" =~ ^[Yy]$ ]]; then
+        exit 1
+    fi
 fi
 
 # Work from the root of this repository
@@ -24,53 +29,70 @@ cd "$(dirname "$0")/../"
 
 # If source was already unpacked/uploaded, clean folder
 gtkdir=$(ls -d gtk+3.0*/ 2>/dev/null)
-if [ $? == 0 ]; then
+if [[ $? == 0 ]]; then
     echo "Deleting unpacked source..."
-    rm -rv gtk+3.0*/ *.changes *.build* *.upload
+    rm -rv gtk+3.0*/ *.deb *.ddeb
     echo "Existing unpacked source deleted."
 fi
 
-# Prompt for any alternates
-read -p "Codename to package for: [$CODENAME] | " NEWCODENAME
-if [ ! -z "$NEWCODENAME" ]; then
-    CODENAME="$NEWCODENAME"
-fi
-
-read -p "Release version to package for: [$RELEASE] | " NEWRELEASE
-if [ ! -z "$NEWRELEASE" ]; then
-    RELEASE="$NEWRELEASE"
-fi
-
+# Ensure the necessary build tools and dependencies are installed
+echo "Installing build dependencies..."
 set -x
-
-# Ensure the necessary tools and dependencies are installed
 sudo apt-get install \
-    ubuntu-dev-tools \
+    adwaita-icon-theme \
+    at-spi2-core \
     devscripts \
     dh-sequence-gir \
     dh-sequence-gnome \
     docbook-xsl \
+    gir1.2-gdkpixbuf-2.0-dev \
+    gir1.2-pango-1.0-dev \
     gobject-introspection \
+    gsettings-desktop-schemas \
     gtk-doc-tools \
+    libatk-bridge2.0-dev \
+    libatk1.0-dev \
     libatk1.0-doc \
+    libcairo2-dev \
     libcairo2-doc \
     libcloudproviders-dev \
     libcolord-dev \
     libcups2-dev \
+    libegl1-mesa-dev \
+    libepoxy-dev \
+    libfontconfig-dev \
+    libfreetype-dev \
+    libfribidi-dev \
+    libgdk-pixbuf-2.0-dev \
     libgirepository1.0-dev \
     libglib2.0-doc \
+    libharfbuzz-dev \
     libjson-glib-dev:native \
+    libpango1.0-dev \
     libpango1.0-doc \
+    libwayland-dev \
+    libxcomposite-dev \
+    libxcursor-dev \
+    libxdamage-dev \
+    libxext-dev \
+    libxfixes-dev \
+    libxi-dev \
+    libxinerama-dev \
+    libxkbcommon-dev \
     libxkbfile-dev \
+    libxml2-utils \
+    libxrandr-dev \
     meson \
     ninja-build \
     sassc \
+    ubuntu-dev-tools \
+    wayland-protocols \
     xsltproc \
     xvfb
 
 # Download source files
 set -e
-pull-lp-source gtk+3.0 $CODENAME
+pull-lp-source gtk+3.0 $VERSION_CODENAME
 GTKVERSION="$(ls -d gtk*/)"
 GTKVERSION=${GTKVERSION/\//}
 GTKVERSION=${GTKVERSION/gtk+3.0-/}
@@ -106,40 +128,22 @@ unset QUILT_PATCHES
 grep "export DEB_BUILD_OPTIONS = nocheck" debian/rules || sed -i "s/^export VERBOSE=1/export VERBOSE=1\nexport DEB_BUILD_OPTIONS = nocheck/" debian/rules
 echo -e "#!/bin/sh\nexit 0" > debian/run-tests.sh
 
-# Amend packaging metadata
-sed -i '/^Uploaders:/d' debian/control
-
 # Remove symbols as dpkg-gensymbols detects they're different
 rm debian/*.symbols
 
-# Create a new release
-set +x
-if [ -z "$DEBFULLNAME" ]; then
-    echo "DEBFULLNAME enviroment variable missing."
-    read -p "Enter name to sign package: " name
-    export DEBFULLNAME="$name"
-fi
+# Amend packaging metadata
+sed -i '/^Uploaders:/d' debian/control
 
-if [ -z "$DEBEMAIL" ] && [ -z "$EMAIL" ]; then
-    echo "DEBEMAIL or EMAIL enviroment variable missing."
-    read -p "Enter e-mail address to sign package: " email
-    export DEBEMAIL="$email"
-fi
-
-read -p "Enter revision number for package: " revision
-set -x
-set +e
+set +xe
+DEBFULLNAME="$(whoami)"
+DEBEMAIL="$(whoami)@$(hostname)"
 LATEST_GIT_COMMIT=$(git log -n 1 --pretty=format:"%h")
-dch -D $CODENAME -v $GTKVERSION-${revision}~classic~$RELEASE "Add gtk3-classic patches ($LATEST_GIT_COMMIT)"
-
-set -x
-if [ ! $? == 0 ]; then
-    echo -e "There was an error running the 'dch' command."
-    read -p "Manually enter package version: " NEWVERSION
-    dch -D $CODENAME -v $NEWVERSION "Rebuild"
-fi
-
-nano debian/changelog
+dch -D $VERSION_CODENAME -v $GTKVERSION~classic~$VERSION_CODENAME "Add gtk3-classic patches ($LATEST_GIT_COMMIT)"
 
 # Build package
 dpkg-buildpackage -us -uc
+
+echo " "
+echo "Done! You can install all the classic GTK 3 packages using:"
+echo "    sudo apt install ./*.deb"
+echo " "
