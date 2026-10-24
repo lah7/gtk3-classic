@@ -5,11 +5,10 @@
 # Creates a source package of gtk3-classic for packaging purposes.
 #
 # This works by taking a copy of the original gtk+3.0 package and modifies
-# it with our patches. This is then submitted to Launchpad for building.
+# it with our patches. This is then locally build.
 #
 # Thanks to N0rbert (from Ubuntu MATE team) for the help!
 #
-PPA="lah7/gtk3-classic"
 
 DISTRO=$(lsb_release -d | awk '{print $2}')
 CODENAME=$(lsb_release -c | awk '{print $2}')
@@ -43,15 +42,15 @@ if [ ! -z "$NEWRELEASE" ]; then
     RELEASE="$NEWRELEASE"
 fi
 
-read -p "PPA to build for: [$PPA] | " NEWPPA
-if [ ! -z "$NEWPPA" ]; then
-    PPA="$NEWPPA"
-fi
-
 set -x
 
-# Ensure the necessary tools are installed
-sudo apt-get install ubuntu-dev-tools devscripts
+# Ensure the necessary tools and dependencies are installed
+sudo apt-get install ubuntu-dev-tools devscripts dh-sequence-gir \
+        dh-sequence-gnome docbook-xsl gobject-introspection \
+        libgirepository1.0-dev libcloudproviders-dev libcolord-dev \
+        libcups2-dev libjson-glib-dev:native libxkbfile-dev meson \
+        ninja-build sassc xsltproc xvfb gtk-doc-tools libatk1.0-doc \
+        libcairo2-doc libglib2.0-doc libpango1.0-doc
 
 # Download source files
 set -e
@@ -126,8 +125,5 @@ fi
 
 nano debian/changelog
 
-# Build source package
-debuild -S -sd -nc
-
-# Upload to Launchpad
-dput ppa:$PPA ../*.changes
+# Build package
+dpkg-buildpackage -us -uc
