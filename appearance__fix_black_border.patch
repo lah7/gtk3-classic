@@ -1,15 +1,18 @@
-Index: b/gtk/gtkbutton.c
+Index: b/gtk/gtkwindow.c
 ===================================================================
 --- a/gtk/gtkwindow.c
 +++ b/gtk/gtkwindow.c
-@@ -4351,9 +4351,7 @@
- gboolean
- gtk_window_get_decorated (GtkWindow *window)
+@@ -4382,6 +4382,13 @@ gtk_window_get_decorated (GtkWindow *win
  {
--  g_return_val_if_fail (GTK_IS_WINDOW (window), TRUE);
--
--  return window->priv->decorated;
-+  return FALSE;
+   g_return_val_if_fail (GTK_IS_WINDOW (window), TRUE);
+ 
++  /* A custom titlebar without client-side decorations sits in a frame
++   * from the window manager. Report such windows as undecorated, so that
++   * libraries drawing their own frame (libhandy) add no black border.
++   */
++  if (window->priv->title_box && !window->priv->client_decorated)
++    return FALSE;
++
+   return window->priv->decorated;
  }
-
- /**
+ 
