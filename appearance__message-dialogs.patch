@@ -2,7 +2,7 @@ Index: b/gtk/gtkdialog.c
 ===================================================================
 --- a/gtk/gtkdialog.c
 +++ b/gtk/gtkdialog.c
-@@ -700,12 +700,12 @@ update_spacings (GtkDialog *dialog)
+@@ -701,12 +701,12 @@ update_spacings (GtkDialog *dialog)
  
    /* don't set spacing when buttons are linked */
    if (gtk_button_box_get_layout (GTK_BUTTON_BOX (priv->action_area)) != GTK_BUTTONBOX_EXPAND)
@@ -29,7 +29,7 @@ Index: b/gtk/gtkmessagedialog.c
  
  /**
   * SECTION:gtkmessagedialog
-@@ -327,7 +328,17 @@
+@@ -327,7 +328,17 @@ gtk_message_dialog_init (GtkMessageDialo
  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
    action_area = gtk_dialog_get_action_area (GTK_DIALOG (dialog));
  G_GNUC_END_IGNORE_DEPRECATIONS
@@ -48,7 +48,7 @@ Index: b/gtk/gtkmessagedialog.c
  
    settings = gtk_widget_get_settings (GTK_WIDGET (dialog));
    g_object_get (settings, "gtk-keynav-use-caret", &use_caret, NULL);
-@@ -374,6 +385,7 @@
+@@ -374,6 +385,7 @@ update_accessible_name (GtkMessageDialog
      return;
  
    const char *name = gtk_window_get_title (GTK_WINDOW (dialog));
@@ -64,7 +64,7 @@ Index: b/gtk/gtkmessagedialog.c
    AtkObject *atk_obj;
  
    if (priv->message_type == type)
-@@ -423,6 +436,34 @@ setup_type (GtkMessageDialog *dialog,
+@@ -423,6 +436,36 @@ setup_type (GtkMessageDialog *dialog,
    priv->message_type = type;
  
  
@@ -95,11 +95,12 @@ Index: b/gtk/gtkmessagedialog.c
 +      GtkWidget *image = gtk_image_new_from_icon_name (icon, GTK_ICON_SIZE_DIALOG);
 +      g_object_set (image, "visible", TRUE, NULL);
 +      g_object_set (dialog, "image", image, NULL);
++      /* setting the image resets the type to GTK_MESSAGE_OTHER */
++      priv->message_type = type;
 +    }
    atk_obj = gtk_widget_get_accessible (GTK_WIDGET (dialog));
    if (GTK_IS_ACCESSIBLE (atk_obj))
      {
-
 Index: b/gtk/ui/gtkmessagedialog.ui
 ===================================================================
 --- a/gtk/ui/gtkmessagedialog.ui
